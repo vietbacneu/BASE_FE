@@ -1,0 +1,123 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+    <div class="modal-header" #handle>
+        <h5 *ngIf="type === 'add'" class="modal-title mt-0" jhiTranslate="organizationCategories.modal.title.add">
+            Thêm mới danh mục đơn vị</h5>
+        <h5 *ngIf="type === 'update'" class="modal-title mt-0" jhiTranslate="organizationCategories.modal.title.update">
+            Cập nhật danh mục đơn vị</h5>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group " [ngClass]="displayFieldHasError('code')">
+                    <label class="form-control-label required" jhiTranslate="organizationCategories.codeOrganization">Mã
+                        đơn vị</label>
+                  <input type="text" class="form-control" (blur)="trimSpace('code')" formControlName="code" maxlength="20" jhiAutoFocusField>
+                </div>
+                <jhi-error-messages *ngIf="formControl['code'].hasError('pattern')"
+                                    [displayError]="isFieldValid('code')"
+                                    errorMsg="{{'organizationCategories.validation.code.specialCharacters' | translate}}">
+                </jhi-error-messages>
+                <jhi-error-messages *ngIf="formControl['code'].hasError('required')"
+                                    [displayError]="isFieldValid('code')"
+                                    errorMsg="{{ 'organizationCategories.validation.code.codeRequire' | translate }}">
+                </jhi-error-messages>
+                <jhi-error-messages *ngIf="checkCode" [displayError]="checkCode"
+                                    errorMsg="{{ 'organizationCategories.validation.code.duplicate' | translate }}">
+                </jhi-error-messages>
+                <jhi-error-messages *ngIf="formControl['code'].hasError('maxlength')" [displayError]="isFieldValid('code')"
+                                    errorMsg="{{ 'organizationCategories.validation.code.maxlength' | translate }}">
+                </jhi-error-messages>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row " [ngClass]="displayFieldHasError('name')">
+                    <label class="form-control-label required" jhiTranslate="organizationCategories.nameOrganization">Tên
+                        đơn vị</label>
+                    <input type="text" class="form-control" formControlName="name" maxlength="250">
+                </div>
+                <jhi-error-messages *ngIf="formControl['name'].hasError('required')"
+                                    [displayError]="isFieldValid('name')"
+                                    errorMsg="{{'organizationCategories.validation.name.nameRequire' | translate}}">
+                </jhi-error-messages>
+                <jhi-error-messages *ngIf="formControl['name'].hasError('maxlength')" [displayError]="isFieldValid('name')"
+                                    errorMsg="{{ 'organizationCategories.validation.name.maxlength' | translate }}">
+                </jhi-error-messages>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group  dropdown form-custom-select" [ngClass]="displayFieldHasError('parentId')">
+                    <label class="form-control-label required" jhiTranslate="organizationCategories.parentOrganization">Đơn vị cha</label>
+
+                    <ng-select [items]="listUnit1$ | async"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               placeholder="{{ 'common.select.option.default' | translate }}"
+                               notFoundText="{{( unitSearch1 ? notFoundText :  'common.select.required') | translate }}"
+                               bindLabel="parentName" bindValue="parentId" formControlName="parentId"
+                               (search)="onSearchUnit1($event)"
+                               (clear)="onClearUnit1()"
+                               (close)="onSearchUnitClose1()"></ng-select>
+                        <ng-template ng-option-tmp let-item="item">
+                            {{item.parentName}} <br/>
+                        </ng-template>
+                        <jhi-error-messages *ngIf="formControl['parentId'].hasError('required')" [displayError]="isFieldValid('parentId')"
+                                            errorMsg="{{ 'organizationCategories.validation.parent.parentRequire' | translate }}">
+                        </jhi-error-messages>
+<!--                    <span class="span-after-select"><i class="fa fa-angle-down" aria-hidden="true"></i></span>-->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group  dropdown form-custom-select" [ngClass]="displayFieldHasError('dataCategoryId')">
+                    <label class="form-control-label required" jhiTranslate="organizationCategories.groupOrganization">Nhóm
+                        đơn vị</label>
+                    <ng-select bindLabel="groupName" bindValue="dataCategoryId" formControlName="dataCategoryId"
+                               notFoundText="{{ 'common.select.notFoundText' | translate }}"
+                               placeholder="{{ 'common.select.option.default' | translate }}"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               [items]="groupOrganizationList"
+                               [multiple]="false"
+                               [searchFn]="customSearchFn"
+                               (clear)="onClearPosition()">
+                    </ng-select>
+                    <jhi-error-messages *ngIf="formControl['dataCategoryId'].hasError('required')" [displayError]="isFieldValid('dataCategoryId')"
+                                        errorMsg="{{ 'organizationCategories.validation.group.groupRequire' | translate }}">
+                    </jhi-error-messages>
+<!--                    <span class="span-after-select"><i class="fa fa-angle-down" aria-hidden="true"></i></span>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group ">
+                    <label class="form-control-label">Mô tả</label>
+                    <textarea type="text" class="form-control" formControlName="description" maxlength="255"></textarea>
+                    <jhi-error-messages *ngIf="formControl['name'].hasError('maxlength')" [displayError]="isFieldValid('description')"
+                                        errorMsg="{{ 'organizationCategories.validation.description.maxlength' | translate }}">
+                    </jhi-error-messages>
+                </div>
+                <div class="form-group ">
+                    <label class="form-control-label">Ghi chú</label>
+                    <textarea type="text" class="form-control" formControlName="note" maxlength="255"></textarea>
+                    <jhi-error-messages *ngIf="formControl['name'].hasError('maxlength')" [displayError]="isFieldValid('note')"
+                                        errorMsg="{{ 'organizationCategories.validation.description.maxlength' | translate }}">
+                    </jhi-error-messages>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button #cancelBtn type="button" class="btn btn-light" (click)="onCloseAddModal()">
+        <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+        jhiTranslate="{{(type !== 'detail'? 'common.button.confirm.cancel' :  'common.button.close') }}"> Hủy
+      bỏ</span>
+    </button>
+    <button *ngIf="type !== 'detail'" type="submit" class="btn btn-primary" (click)="onSubmitData()">
+        <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+        jhiTranslate="common.button.confirm.save">Ghi lại</span>
+    </button>
+</div>

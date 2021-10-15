@@ -1,0 +1,82 @@
+
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+    <div class="modal-header" #handle>
+        <h5 *ngIf="type === 'add'" class="modal-title mt-0" jhiTranslate="userGroup.modal.title.add">
+            Thêm thông tin nhóm người dùng</h5>
+        <h5 *ngIf="type === 'update'" class="modal-title mt-0" jhiTranslate="userGroup.modal.title.update">
+            Sửa thông tin nhóm người dùng</h5>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<div class="modal-body">
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" [ngClass]="displayFieldHasError('code')">
+                    <label class="form-control-label required" jhiTranslate="userGroup.userGroupCode">Mã nhóm</label>
+                    <input #inputElement class="form-control" type="text" (blur)="checkCharSpecial('code'); checkGroupUserCodeExist()"
+                           formControlName="code" maxlength="20" jhiAutoFocusField />
+                    <jhi-error-messages
+                        *ngIf="formControl['code'].hasError('required')"
+                        [displayError]="isFieldValid('code')"
+                        errorMsg="{{ 'userGroup.modal.validate.required.code' | translate }}">
+                    </jhi-error-messages>
+                    <jhi-error-messages *ngIf="formControl['code'].hasError('exist')" [displayError]="isFieldValid('code')"
+                         errorMsg="{{'userGroup.modal.validate.required.existCode'| translate }}">
+                    </jhi-error-messages>
+                  <jhi-error-messages
+                    *ngIf="formControl['code'].hasError('pattern')"
+                    [displayError]="isFieldValid('code')"
+                    errorMsg="{{ 'userGroup.modal.validate.charSpecial' | translate }}">
+                  </jhi-error-messages>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" [ngClass]="displayFieldHasError('name')">
+                    <label class="form-control-label required"
+                           jhiTranslate="userGroup.userGroupName">Tên nhóm</label>
+                    <input #inputElement class="form-control" type="text"
+                           formControlName="name" maxlength="50" (blur)="trimSpace('name')"/>
+                    <jhi-error-messages
+                        *ngIf="formControl['name'].hasError('required')"
+                        [displayError]="isFieldValid('name')"
+                        errorMsg="{{ 'userGroup.modal.validate.required.name' | translate }}">
+                    </jhi-error-messages>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" [ngClass]="displayFieldHasError('description')">
+                    <label class="form-control-label"
+                           jhiTranslate="userGroup.description">Mô tả</label>
+                    <textarea class="form-control" type="text" rows="2"
+                              formControlName="description" maxlength="255" (blur)="trimSpace('description')"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" [ngClass]="displayFieldHasError('note')">
+                    <label class="form-control-label "
+                           jhiTranslate="userGroup.note">Ghi chú</label>
+                    <textarea class="form-control" type="text" rows="3"
+                              formControlName="note" maxlength="255" (blur)="trimSpace('note')"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button #cancelBtn type="button" class="btn btn-light" (click)="onCloseAddModal()">
+        <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+        jhiTranslate="{{(type !== 'detail'? 'common.button.confirm.cancel' :  'common.button.close') }}"> Hủy bỏ</span>
+    </button>
+    <button *ngIf="type !== 'detail'" type="submit" class="btn btn-primary" (click)="onSubmitData()">
+        <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+        jhiTranslate="common.button.confirm.save">Ghi lại</span>
+    </button>
+</div>

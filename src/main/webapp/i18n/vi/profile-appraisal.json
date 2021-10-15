@@ -1,0 +1,101 @@
+{
+  "profileAppraisal": {
+    "idPartner": "Mã đối tác",
+    "titleParent": "Danh mục hệ thống",
+    "title": "Quản lý thẩm định",
+    "titleAdd": "Thêm mới thẩm định",
+    "titleHistory": "Lịch sử thẩm định",
+    "titleUpdate": "Cập nhật thẩm định",
+    "titleDetail": "Xem chi tiết thẩm định",
+    "userRequest": "Người tạo yêu cầu",
+    "createDate1": "Thời gian tạo",
+    "createUser": "Người tạo",
+    "handler": "Người xử lý",
+    "profileAppraisalCode": "Mã thẩm định",
+    "organizationRequest": "Đơn vị yêu cầu",
+    "status": "Trạng thái",
+    "action": "Hành động",
+    "profileTitle": "Tiêu đề",
+    "srCode": "Mã SR",
+    "appName": "Tên ứng dụng",
+    "appCode": "Mã ứng dụng",
+    "createDate": "Ngày bắt đầu Từ",
+    "endDate": "Ngày bắt đầu Đến",
+    "startDate": "Ngày bắt đầu",
+    "endDate1": "Ngày kết thúc",
+    "attachFile": "File thẩm định",
+    "file": "File đính kèm",
+    "searchResult": "Kết quả tìm kiếm",
+    "orderNumber": "STT",
+    "totalError": "Tổng số dòng lỗi",
+    "existsData": "Ước lượng nỗ lực đối tác đã được đánh giá, không được phép xóa",
+    "profileAppraisal": "thẩm định",
+    "filePath": "File import",
+    "filePathResult": "File kết quả",
+    "toastr": {
+      "messages": {
+        "fileNotFound": "Không tồn tại file trên hệ thống",
+        "success": {
+          "add": "Thêm mới thẩm định thành công!",
+          "update": "Cập nhật thẩm định thành công!",
+          "delete": "Xóa chức thẩm định công!",
+          "title": "Thành công"
+        },
+        "warning": "Warning",
+        "error": {
+          "add": "Đã có lỗi xảy ra, hệ thống không thể lưu bản ghi",
+          "sendMail": "Đã có lỗi xảy ra, không thể thực hiện gửi mail",
+          "delete": "Đã có lỗi xảy ra, hệ thống không thể xóa biểu mẫu email"
+        }
+      }
+    },
+    "validate": {
+      "userRequest": {
+        "required": "Bạn phải nhập người tạo yêu cầu",
+        "pattern": "Tên tài khoản chỉ có thể chứa các ký tự in thường và số."
+      },
+      "handler": {
+        "required": "Bạn phải nhập người xử lý"
+      },
+      "status": {
+        "required": "Bạn phải nhập trạng thái"
+      },
+      "profileAppraisalCode": {
+        "required": "Bạn phải nhập mã thẩm định"
+      },
+      "organizationRequest": {
+        "required": "Bạn phải nhập đơn vị yêu cầu"
+      },
+      "profileTitle": {
+        "maxlength": "Tiêu đề không được vượt quá 2000 ký tự.",
+        "required": "Bạn phải nhập tiêu đề"
+      },
+      "srCode": {
+        "maxlength": "Mã SR không được vượt quá 255 ký tự.",
+        "required": "Bạn phải nhập mã SR"
+      },
+      "appName": {
+        "maxlength": "Tên ứng dụng không được vượt quá 255 ký tự.",
+        "required": "Bạn phải nhập tên ứng dụng"
+      },
+      "appCode": {
+        "required": "Bạn phải nhập mã ứng dụng",
+        "maxlength": "Mã ứng dụng không được vượt quá 255 ký tự."
+      },
+      "startDate": {
+        "required": "Bạn phải nhập ngày bắt đầu",
+        "error": "Ngày bắt đầu phải bé hơn hoặc bằng ngày kết thúc"
+      },
+      "endDate1": {
+        "required": "Bạn phải nhập ngày kết thúc",
+        "error": "Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu"
+      },
+      "login": {
+        "required": "Bạn phải nhập tên tài khoản.",
+        "minlength": "Tên tài khoản phải có ít nhất 1 ký tự.",
+        "maxlength": "Tên tài khoản không được vượt quá 50 ký tự.",
+        "pattern": "Tên tài khoản chỉ có thể chứa các ký tự in thường và số."
+      }
+    }
+  }
+}

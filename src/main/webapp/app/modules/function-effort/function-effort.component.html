@@ -1,0 +1,210 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+      <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li class="breadcrumb-item"><a jhiTranslate="functionEffort.parent">Tiện ích</a></li>
+  <li class="breadcrumb-item active" jhiTranslate="functionEffort.title">ULNL phê duyệt</li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div id="organizationCategories" class="page-content">
+    <div class="card mb-1">
+      <div class="card-header">
+        <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+          jhiTranslate="common.card.title.search"></span></a>
+      </div>
+      <div id="search" class="collapse show">
+        <div class="card-body">
+          <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.functionName">Tên chức năng</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="functionName" (blur)="trimSpace('functionName')" jhiAutoFocusField>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.appCode">Mã ứng dụng</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="appCode" (blur)="trimSpace('appCode')">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.appName">Tên ứng dụng</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="appName" (blur)="trimSpace('appName')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.profileAppraisaCode">Mã thẩm định</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="profileAppraisaCode" (blur)="trimSpace('profileAppraisaCode')">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.startDate">Thời gian tạo từ ngày</label>
+                  <div class="col-sm-9">
+                    <jhi-date-picker-popup name="startDate"
+                            formControlName="startDate"
+                            [touched]="false">
+                    </jhi-date-picker-popup>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.endDate">Đến ngày</label>
+                  <div class="col-sm-9">
+                    <jhi-date-picker-popup name="endDate"
+                                                formControlName="endDate"
+                                                [touched]="false">
+                                        </jhi-date-picker-popup>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.organizationRequest">Đơn vị yêu cầu</label>
+                  <div class="col-sm-9">
+                                        <ng-select 
+                                                placeholder="{{'common.select.option.selection' | translate }}"
+                                                [items]="listOrganization"
+                                                clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                bindLabel="name" bindValue="id" formControlName="organizationRequest"
+                                                (search)="searchOrganization($event)"
+                                                (clear)="onClearOrganization(1)"
+                                                [maxlength]="20">
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.name}} <br/>
+                                        </ng-template>
+                                        </ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="functionEffort.srCode">Mã SR</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="srCode" (blur)="trimSpace('profileAppraisaCode')">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-primary" (click)="onSearchData()">
+                <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                jhiTranslate="common.button.search">Tìm kiếm</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+          jhiTranslate="userGroup.titleTable"></span></a>
+      </div>
+      <div id="dataTable" class="collapse show">
+        <div class="card-body pt-2 pb-0 px-2">
+
+          <div class="row d-flex justify-content-end pr-1">
+            <!-- <button type="button" class="btn btn-primary" *jhiHasPermission="['resource.qldt_dmnd_add']"
+                    (click)="openModalAddUser('add', null)">
+              <i class="fa fa-plus mr-2" aria-hidden="true"></i><span jhiTranslate="common.button.add">Thêm mới</span>
+            </button> -->
+          </div>
+          <div class="row">
+            <table class="table table-bordered table-hover table-striped" id="tableCustoms">
+              <thead>
+              <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                <th scope="col" class="small-width-table" jhiTranslate="userGroup.orderNumber">STT</th>            
+                <th scope="col" class="medium-width-table"><span jhiTranslate="functionEffort.functionName">Tên chức năng</span>
+                </th>
+                <th scope="col" class="medium-width-table"><span jhiTranslate="functionEffort.description">Mô tả chức năng</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.effortTotal">Tổng nỗ lực thực hiện (manhours)</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.functionCode">Loại chức năng</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.srCode">Mã SR</span>
+                </th>
+                <th class="small-width-table"><span jhiTranslate="functionEffort.appCode">Mã ứng dụng</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.appName">Tên ứng dụng</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.organizationRequest">Đơn vị yêu cầu</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.profileAppraisaCode">Mã thẩm định</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.filePath">File import</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.viewProfileAppraisal">Xem chi tiết</span>
+                </th>
+                <th scope="col" class="small-width-table"><span jhiTranslate="functionEffort.createDate">Thời gian tạo</span>
+                </th>
+              </tr>
+              </thead>
+              <tbody *ngFor="let item of userList; index as i">
+              <tr>
+                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                <td>{{item.functionName}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.effortTotal}}</td>
+                <td>{{item.functionCode}}</td>
+                <td>{{item.srCode}}</td>
+                <td>{{item.appCode}}</td>
+                <td>{{item.appName}}</td>
+                <td>{{item.organizationRequestName}}</td>
+                <td>{{item.profileAppraisalCode}}</td>
+                <td>
+                  <button type="button" class="btn btn-link pt-0 col-form-label l-h-0"
+                      (click)="downloadFileResult(item.filePath)">download file</button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-link pt-0 col-form-label l-h-0"
+                      (click)="viewProfileAppraisal(item.profileAppraisalId)">Xem chi tiết</button>
+                </td>
+                <td>{{item.createDate | date:"hh:mm dd/MM/yyyy"}}</td>   
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+               *ngIf="!totalItems || totalItems === 0">
+            <p class="item-count" jhiTranslate="common.table.noData"></p>
+          </div>
+          <div class="d-flex justify-content-end table-footer" [hidden]="totalItems === 0">
+            <div class="row justify-content-center">
+              <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+              <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                              [pageSize]="itemsPerPage"
+                              [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                              (pageChange)="loadPage(page)">
+              </ngb-pagination>
+              <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>

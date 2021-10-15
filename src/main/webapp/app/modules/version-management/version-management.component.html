@@ -1,0 +1,147 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+      <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li class="breadcrumb-item"><a jhiTranslate="versionManagement.title">Quản lý phiên bản</a></li>
+  <!-- <li class="breadcrumb-item active" jhiTranslate="user.title">Danh mục người dùng</li> -->
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div id="organizationCategories" class="page-content">
+    <div class="card mb-1">
+      <div class="card-header">
+        <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+          jhiTranslate="common.card.title.search"></span></a>
+      </div>
+      <div id="search" class="collapse show">
+        <div class="card-body">
+          <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="versionManagement.versionCode">Mã phiên bản</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="versionCode" (blur)="trimSpace('versionCode')" jhiAutoFocusField>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="versionManagement.versionName">Tên phiên bản</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="versionName" (blur)="trimSpace('versionName')">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="versionManagement.status">Trạng thái</label>
+                  <div class="col-sm-9 form-group row dropdown form-custom-select">
+                    <select #selectElement class="form-control custom-select-arrow"
+                        formControlName="status">
+                        <option value="">{{'common.select.option.all' | translate}}</option>
+                        <option *ngFor="let s of listStatus" value="{{s.id}}"> {{s.name}}</option>
+                    </select>
+                    <span class="span-after-select"><i class="fa fa-angle-down"
+                            aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-primary" (click)="onSearchData()">
+                <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                jhiTranslate="common.button.search">Tìm kiếm</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+          jhiTranslate="userGroup.titleTable"></span></a>
+      </div>
+      <div id="dataTable" class="collapse show">
+        <div class="card-body pt-2 pb-0 px-2">
+
+          <div class="row d-flex justify-content-end pr-1">
+            <button type="button" class="btn btn-primary" *jhiHasPermission="['QLPB_ADD']"
+                    (click)="openModalAddUser('add', null)">
+              <i class="fa fa-plus mr-2" aria-hidden="true"></i><span jhiTranslate="common.button.add">Thêm mới</span>
+            </button>
+          </div>
+          <div class="row">
+            <table class="table table-bordered table-hover table-striped" id="tableCustoms">
+              <thead>
+              <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                <th scope="col" class="small-width-table" jhiTranslate="userGroup.orderNumber">STT</th>
+                <th scope="col" class="medium-width-table action-width-four-icon custom-width"
+                    jhiTranslate="userGroup.action">Hành động
+                </th>
+                <th scope="col"><span jhiTranslate="versionManagement.versionCode">Mã phiên bản</span>
+                </th>
+                <th scope="col"><span jhiTranslate="versionManagement.versionName">Tên phiên bản</span>
+                </th>
+                <th scope="col"><span jhiTranslate="versionManagement.startDate">Thời gian bắt đầu hiệu lực</span>
+                </th>
+                <th scope="col"><span jhiTranslate="versionManagement.endDate">Thời gian kết thúc hiệu lực</span>
+                </th>
+                <th scope="col"><span jhiTranslate="versionManagement.status">Trạng thái</span>
+                </th>
+              </tr>
+              </thead>
+              <tbody *ngFor="let item of userList; index as i">
+              <tr>
+                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                <td class="text-center four-icon medium-width-table">
+                  <div class="group-action">
+                    <button class="btn btn-light" placement="top" *jhiHasPermission="['QLPB_VIEW']" (click)="openModalAddUser('preview', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.detail' | translate}}">
+                                                    <i class="fa fa-info icon-info" aria-hidden="true"></i></button>
+                    <button class="btn btn-light" placement="top" *jhiHasPermission="['QLPB_EDIT']"
+                            (click)="openModalAddUser('update', item)"
+                            ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                            onclick="this.blur();">
+                      <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i></button>
+                    <button class="btn btn-light" placement="top" *jhiHasPermission="['QLPB_DELETE']"
+                            ngbTooltip="{{'common.tooltip.action.delete' | translate}}" (click)="onDelete(item.id)"
+                            onclick="this.blur();">
+                      <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </td>
+                <td>{{item.versionCode}}</td>
+                <td>{{item.versionName}}</td>
+                <td>{{item.startDate | date:"dd/MM/yyyy"}}</td>
+                <td>{{item.endDate | date:"dd/MM/yyyy"}}</td>
+                <td>{{item.status == 1 ? 'Hiệu lực':'Không hiệu lực'}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+               *ngIf="!totalItems || totalItems === 0">
+            <p class="item-count" jhiTranslate="common.table.noData"></p>
+          </div>
+          <div class="d-flex justify-content-end table-footer" [hidden]="totalItems === 0">
+            <div class="row justify-content-center">
+              <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+              <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                              [pageSize]="itemsPerPage"
+                              [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                              (pageChange)="loadPage(page)">
+              </ngb-pagination>
+              <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>

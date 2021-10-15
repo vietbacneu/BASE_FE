@@ -1,0 +1,8 @@
+{
+  "dashboard": {
+    "select": {
+      "option": " --Tất cả-- "
+    },
+    "partnerCode": "Mã đối tác"
+  }
+}

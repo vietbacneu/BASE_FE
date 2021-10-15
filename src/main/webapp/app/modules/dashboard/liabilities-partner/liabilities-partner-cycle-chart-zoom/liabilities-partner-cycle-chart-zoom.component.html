@@ -1,0 +1,34 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0">
+      Thống kê công nợ theo đơn vị thuê ngoài</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="d-flex">
+<!--    <span class="flex-grow-1"></span>-->
+<!--    <label class="col-sm-3 col-form-label custom-label-right bold">MM còn nợ (>=)</label>-->
+<!--    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">-->
+<!--      <input #input type="text" class="w-100 form-control" formControlName="MMRemain"-->
+<!--             (blur)="getDataChart(input.value)"-->
+<!--             (keyup.enter)="getDataChart(input.value)"-->
+<!--             (keypress)="onTrimZero($event)"-->
+<!--             [textMask]="{mask: currencyMask}"-->
+<!--             maxlength="18">-->
+<!--    </form>-->
+  </div>
+  <div class="row">
+    <canvas baseChart height="500px"
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"
+            [options]="pieChartOptions"
+            [colors]="pieChartColors"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegends">
+    </canvas>
+  </div>
+</div>

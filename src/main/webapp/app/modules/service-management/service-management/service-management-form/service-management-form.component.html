@@ -1,0 +1,85 @@
+<div class="card mb-1">
+    <div class="card-header">
+        <div class="row justify-content-center">
+            <h5>{{(selectedParam ? 'service_management.update' : 'service_management.add')|translate}}</h5>
+        </div>
+    </div>
+    <div id="search" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="createForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'service_management.serviceCode'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('serviceCode')">
+                                <input type="text" class="form-control" jhiAutoFocusField formControlName="serviceCode">
+                                <app-inline-message [formName]="createForm.get('serviceCode')"
+                                                    [message]="'service_management.serviceCode'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'service_management.serviceName'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('serviceName')">
+                                <input type="text" class="form-control"
+                                       formControlName="serviceName">
+                                <app-inline-message [formName]="createForm.get('serviceName')"
+                                                    [message]="'service_management.serviceName'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.status'| translate}}
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 row form-custom-select" ngbRadioGroup name="status"
+                                 formControlName="serviceStatus">
+                                <div class="col-sm-6 radio-wrapper">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio"
+                                               [value]="1"> {{'service_management.active' | translate}}
+                                    </label>
+                                </div>
+                                <div class="col-sm-6 radio-wrapper">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio"
+                                               [value]="0"> {{'service_management.inactive'| translate}}
+                                    </label>
+                                </div>
+                                <app-inline-message class="radio-message" [formName]="createForm.get('serviceStatus')"
+                                                    [message]="'service_management.serviceStatus'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label custom-label-left">{{ 'service_management.note'| translate}}</label>
+                            <div class="col-md-9 form-custom-select w-100"
+                                 [ngClass]="displayFieldHasError('note')">
+                                <textarea type="text" style="height: 100px" class="form-control"
+                                          formControlName="note"></textarea>
+                                <app-inline-message [formName]="createForm.get('note')"
+                                                    [message]="'service_management.note'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center ml-2">
+                    <button type="button" class="btn btn-primary ml-2" (click)="save()">
+                        <span> {{'app_param.add' | translate}}</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-2" (click)="cancel()">
+                        <span> {{'app_param.cancel'| translate}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

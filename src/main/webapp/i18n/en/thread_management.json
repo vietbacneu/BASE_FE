@@ -1,0 +1,16 @@
+{
+  "thread_management":{
+    "thread-management": "Thread Management",
+    "name": "Thread Name",
+    "action": "Action",
+    "state": "State",
+    "setting": "Setting",
+    "log": "Log",
+    "viewlog": "View Log",
+    "level": "Level",
+    "date": "Date",
+    "message": "Message",
+    "delayTime": "Delay Time",
+    "param": "Parameters"
+  }
+}

@@ -1,0 +1,25 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item active" routerLink="/partner-management"><a>{{'partner.pageTitle' | translate}}</a></li>
+    <li class="breadcrumb-item active"><a>{{'partner.updatePartner' | translate}}</a></li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <jhi-partner-info [isSaving]="isSaving" [currentPartner]="currentPartner"
+                      (doSave)="savePartner($event)"></jhi-partner-info>
+    <jhi-clue-info [isSaving]="isSaving" [disable]="disable"></jhi-clue-info>
+    <jhi-contract-info [isSaving]="isSaving" [disable]="disable"></jhi-contract-info>
+    <jhi-trunks-management [isSaving]="isSaving" [disable]="disable"></jhi-trunks-management>
+    <jhi-price-form [isSaving]="isSaving" [disable]="disable"></jhi-price-form>
+    <jhi-config-email [isSaving]="isSaving" [disable]="disable"></jhi-config-email>
+    <jhi-partner-emails [isSaving]="isSaving" [disable]="disable"></jhi-partner-emails>
+    <jhi-price-out-management [isSaving]="isSaving"
+                              [disable]="disable"></jhi-price-out-management>
+    <jhi-price-in-management [isSaving]="isSaving" [disable]="disable"></jhi-price-in-management>
+    <jhi-price-commitment-management [isSaving]="isSaving"
+                                     [disable]="disable"></jhi-price-commitment-management>
+</perfect-scrollbar>

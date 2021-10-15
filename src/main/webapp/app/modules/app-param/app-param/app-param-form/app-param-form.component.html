@@ -1,0 +1,76 @@
+<div class="card mb-1">
+    <div class="card-header">
+        <div class="row justify-content-center">
+            <h5>{{(selectedParam ? 'app_param.updateParam' : 'app_param.addParam')|translate}}</h5>
+        </div>
+    </div>
+    <div id="search" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="createForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.type'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('parType')">
+                                <input type="text" class="form-control" jhiAutoFocusField formControlName="parType">
+                                <app-inline-message [formName]="createForm.get('parType')"
+                                                    [message]="'app_param.type'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.name'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('parName')">
+                                <input type="text" class="form-control"
+                                       formControlName="parName">
+                                <app-inline-message [formName]="createForm.get('parName')"
+                                                    [message]="'app_param.name'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.code'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('parCode')">
+                                <input type="text" class="form-control" formControlName="parCode">
+                                <app-inline-message [formName]="createForm.get('parCode')"
+                                                    [message]="'app_param.code'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.value'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('parStringValue')">
+                                <input type="text" class="form-control"
+                                       formControlName="parStringValue">
+                                <app-inline-message [formName]="createForm.get('parStringValue')"
+                                                    [message]="'app_param.value'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.description'| translate}}</label>
+                        <div class="col-sm-9 form-custom-select">
+                            <textarea type="text" class="form-control" formControlName="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="row d-flex justify-content-center ml-2">
+                    <button type="button" class="btn btn-primary ml-2" (click)="save()">
+                        <span> {{'app_param.add' | translate}}</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-2" (click)="cancel()">
+                        <span> {{'app_param.cancel'| translate}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

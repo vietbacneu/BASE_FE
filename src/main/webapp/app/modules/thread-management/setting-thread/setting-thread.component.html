@@ -1,0 +1,92 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg"
+                ngbTooltip="Thêm mới tiến trình">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item active"><a>Thêm mới tiến trình</a></li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div class="card">
+        <form [formGroup]="selectForm" autocomplete="off">
+        <div class="card mb-1">
+            <div id="search" class="collapse show">
+                <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-left">Tên tiến trình</label>
+                                    <div class="col-sm-9 form-custom-select">
+                                        <input type="text" class="form-control" jhiAutoFocusField>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-left">Tên Class</label>
+                                    <div class="col-sm-9 form-custom-select">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-left">Loại</label>
+                                    <div class="col-sm-9 form-custom-select">
+                                        <ng-select [items]="lstThread"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   bindLabel="label"
+                                                   bindValue="value"
+                                                   searchable="false"
+                                                   formControlName="selected"
+                                                   appendTo="body"
+                                        >
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-left">Mô tả</label>
+                                    <div class="col-sm-9 form-custom-select">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </form>
+        <ngb-tabset type="pills">
+            <ngb-tab title="Cài đặt">
+                <ng-template ngbTabContent>
+                    <ng-container [ngSwitch]="selectForm.get('selected').value">
+                        <jhi-setting *ngSwitchCase="0"></jhi-setting>
+                        <jhi-setting-email *ngSwitchCase="1"></jhi-setting-email>
+                        <jhi-setting-ftp *ngSwitchCase="2"></jhi-setting-ftp>
+                    </ng-container>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><b>Lập</b> lịch</ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-setting-time [formGroup]="triggerForm"></jhi-setting-time>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+    <div class="row d-flex justify-content-center ml-2">
+        <button type="button" class="btn btn-primary ml-2" (click)="save()">
+            <span> {{'app_param.add' | translate}}</span>
+        </button>
+        <button type="button" class="btn btn-primary ml-2">
+            <span> {{'app_param.cancel'| translate}}</span>
+        </button>
+    </div>
+</perfect-scrollbar>
+

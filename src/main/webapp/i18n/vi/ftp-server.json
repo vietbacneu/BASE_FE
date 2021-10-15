@@ -1,0 +1,12 @@
+{
+  "ftp_server.host": "Host",
+  "ftp_server.port": "Port",
+  "ftp_server.protocol": "Giao thức",
+  "ftp_server.settingName": "Tên cấu hình",
+  "ftp_server.username": "Tài khoản",
+  "ftp_server.password": "Mật khẩu",
+  "ftp_server.ftp_server": "Quản lí cấu hình FTP/SFTP server",
+  "ftp_server.add": "Thêm mới",
+  "ftp_server.update": "Cập nhật",
+  "ftp_server.configuration": "cấu hình"
+}

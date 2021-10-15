@@ -1,0 +1,153 @@
+<div class="card mb-1">
+    <div class="card-header card-header-toggle" (click)="toggle()">
+        <a data-toggle="collapse" aria-expanded="true">
+            <i [ngClass]="'fa fa-sort-'+(isShow ?'desc':'asc')" aria-hidden="true"></i>
+            <span class="ml-1">{{'partner.partnerEmails' | translate}}</span></a>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <ngb-tabset [destroyOnHide]="false">
+            <ngb-tab [disabled]="disable" title="{{'partner.partnerEmails.done'|translate}}">
+                <ng-template ngbTabContent>
+                    <div class="row">
+                        <div style="padding-right: 15px !important;" class="col-md-3 offset-md-9 d-flex">
+                            <div class="input-group">
+                                <input [disabled]="disable" type="text" class="form-control">
+                                <div class="input-group-append">
+                                    <button [disabled]="disable" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-2 pb-0 px-2">
+                        <div class="row">
+                            <perfect-scrollbar id="scrollbarTable" class="ps">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th [ngClass]="column.size+'-width-table'" *ngFor="let column of columns">
+                                            {{column.name | translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                        <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                             *ngIf="!totalItems">
+                            <p class="item-count" jhiTranslate="common.table.noData"></p>
+                        </div>
+
+                        <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                            <div class="row justify-content-center">
+                                <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                                <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                                [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                                [boundaryLinks]="true"
+                                                (pageChange)="loadPage(page)">
+                                </ngb-pagination>
+                                <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="disable">
+                <ng-template ngbTabTitle><span>{{'partner.partnerEmails.unDone'|translate}}</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="row">
+                        <div style="padding-right: 15px !important;" class="col-md-4 offset-md-8 d-flex">
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary ml-1" (click)="save()">
+                                <span> {{'entity.action.save' | translate}}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body pt-2 pb-0 px-2">
+                        <div class="row">
+                            <perfect-scrollbar id="scrollbarTable" class="ps">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th [ngClass]="column.size+'-width-table'" *ngFor="let column of unDoneColumns">
+                                            {{column.name | translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                        <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                             *ngIf="!totalItems">
+                            <p class="item-count" jhiTranslate="common.table.noData"></p>
+                        </div>
+
+                        <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                            <div class="row justify-content-center">
+                                <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                                <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                                [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                                [boundaryLinks]="true"
+                                                (pageChange)="loadPage(page)">
+                                </ngb-pagination>
+                                <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="disable" title="{{'partner.partnerEmails.except'|translate}}">
+                <ng-template ngbTabContent>
+                    <div class="row">
+                        <div style="padding-right: 15px !important;" class="col-md-3 offset-md-9 d-flex">
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-2 pb-0 px-2">
+                        <div class="row">
+                            <perfect-scrollbar id="scrollbarTable" class="ps">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th [ngClass]="column.size+'-width-table'" *ngFor="let column of columns">
+                                            {{column.name | translate}}
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                        <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                             *ngIf="!totalItems">
+                            <p class="item-count" jhiTranslate="common.table.noData"></p>
+                        </div>
+
+                        <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                            <div class="row justify-content-center">
+                                <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                                <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                                [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                                [boundaryLinks]="true"
+                                                (pageChange)="loadPage(page)">
+                                </ngb-pagination>
+                                <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

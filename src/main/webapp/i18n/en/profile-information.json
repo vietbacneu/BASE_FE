@@ -1,0 +1,79 @@
+{
+  "information": {
+    "title": "Thông tin chung",
+    "information": "năng lực đối tác",
+    "codeCompany": "Mã đối tác",
+    "companyName": "Tên công ty",
+    "companyNameShort": "Tên viết tắt",
+    "year": "Năm thành lập",
+    "group": "Nhóm đối tác",
+    "type": "Loại đối tác",
+    "registerBusiness": "Ngành nghề đăng ký kinh doanh",
+    "addressRegisterBusiness": "Địa chỉ đăng ký kinh doanh",
+    "headquarters": "Trụ sở làm việc",
+    "city": "Thành phố",
+    "totalEvaluationScore": "Tổng điểm đánh giá",
+    "note": "Ghi chú",
+    "pointContact": "Đầu mối liên hệ",
+    "pointContactName": "Tên đầu mối liên hệ",
+    "position": "Chức vụ",
+    "phoneNumber": "Số điện thoại",
+    "email": "Email",
+    "personnelNow": "Nhân sự sản xuất hiện tại",
+    "ba": "BA",
+    "dev": "Dev",
+    "tester": "Tester",
+    "partnerCodeError": "Mã đối tác không được để trống",
+    "companyNameError": "Tên đối tác không được để trống",
+    "companyShortNameError": "Tên đối tác viết tắt không được để trống",
+    "foundedYearError": "Năm thành lập không được để trống",
+    "groupPartnerError": "Nhóm đối tác phải chọn",
+    "partnerCategoryError": "Loại đối tác phải chọn",
+    "registeredBusinessLinesError": "Ngành nghề đăng ký kinh doanh chọn ít nhất 1",
+    "registeredBusinessAddressError": "Địa chỉ đăng ký kinh doanh không được để trống",
+    "headQuarterError": "Trụ sở làm việc không được để trống",
+    "partnerDirector": "Giám đốc",
+    "directorName": "Tên giám đốc",
+    "directorPhoneNumber": "Số điện thoại",
+    "directorEmail": "Email",
+    "cooperativeUnit": "Đơn vị hợp tác",
+    "yearsOfCooperation": "Năm hợp tác",
+    "devMobile": "Dev mobile",
+    "validate": {
+      "partnerCode": {
+        "maxLength": "Mã đối tác tối đa chỉ nhập 20 ký tự"
+      },
+      "partnerName": {
+        "maxLength": "Tên đối tác tối đa chỉ nhập 250 ký tự"
+      },
+      "partnerShortName": {
+        "maxLength": "Tên đối tác viết tắt tối đa chỉ nhập 20 ký tự"
+      },
+      "registeredBusinessAddress": {
+        "maxLength": "Địa chỉ đăng ký kinh doanh tối đa chỉ nhập 255 ký tự"
+      },
+      "headQuarter": {
+        "maxLength": "Trụ sở làm việc tối đa chỉ nhập 255 ký tự"
+      },
+      "note": {
+        "maxLength": "Ghi chú tối đa chỉ nhập 1000 ký tự"
+      },
+      "contactPointName": {
+        "maxLength": "Tên đầu mối liên hệ tối đa chỉ nhập 50 ký tự"
+      },
+      "phoneNumber": {
+        "maxLength": "Số điện thoại tối đa chỉ nhập 20 ký tự"
+      },
+      "email": {
+        "maxLength": "Email tối đa chỉ nhập 50 ký tự",
+        "invalid": "Email có định dạng example@yyy.zzz hoặc example@yyy.zzz.ttt"
+      },
+      "directorName": {
+        "maxLength": "Tên giám đốc tối đa chỉ nhập 255 ký tự"
+      },
+      "cooperativeUnit": {
+        "maxLength": "Các đơn vị hợp tác tối đa chỉ nhập 255 ký tự"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "reportPartner": {
+    "title": "Báo cáo danh sách đối tác",
+    "partnerCode": "Mã đối tác",
+    "partnerName": "Tên đối tác",
+    "partnerNameShorter": "Tên đối tác viết tắt",
+    "province": "Tỉnh thành",
+    "contactPoint": "Đầu mối liên hệ",
+    "founderYear": "Năm thành lập",
+    "partnerGroup": "Nhóm đối tác",
+    "partnerType": "Loại đối tác",
+    "NO": "STT",
+    "business": "Ngành nghề kinh doanh",
+    "headquarter": "Trụ sở làm việc",
+    "contactPointName": "Tên đầu mối liên hệ",
+    "position": "Chức vụ",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "currentProductHuman": "Nhân sự sản xuất hiện tại",
+    "sum": "Tổng",
+    "ba": "Ba",
+    "dev": "Dev",
+    "test": "Test",
+    "note": "Ghi chú",
+
+    "validate": {
+      "startDate": {
+        "invalid": "Ngày bắt đầu phải nhỏ lơn hoặc bằng ngày kết thúc!"
+      }
+    }
+  }
+}

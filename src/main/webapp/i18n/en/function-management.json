@@ -1,0 +1,70 @@
+{
+  "functionManagement": {
+    "functionManagement": "Quản lý chức năng",
+    "version-code": "Mã phiên bản",
+    "work-type": "Loại công việc",
+    "title": "Quản lý năng lực đối tác",
+    "function-type": "Loại chức năng",
+    "efforts": "Nỗ lực (MH)",
+    "foundedYear": "Năm thành lập",
+    "groupPartner": "Nhóm đối tác",
+    "action": "Hành động",
+    "partnerCategory": "Loại đối tác",
+    "registeredBusinessLines": "Ngành nghề kinh doanh",
+    "registeredBusinessAddress": "Địa chỉ đăng ký kinh doanh",
+    "headQuarter": "Trụ sở làm việc",
+    "city": "Thành phố",
+    "nameCluesContact": "Tên đầu mối liên hệ",
+    "pointOfContact": "Đầu mối liên hệ",
+    "currentProductionPersonnel": "Nhân sự sản xuất hiện tại",
+    "position": "Chức vụ",
+    "phoneNumber": "Số điện thoại",
+    "email": "Email",
+    "total": "Tổng",
+    "ba": "Ba",
+    "dev": "Dev",
+    "tester": "Tester",
+    "note": "Ghi chú",
+    "searchResult": "Kết quả tìm kiếm",
+    "orderNumber": "STT",
+    "partnerProfile": "hồ sơ đối tác",
+    "existsData": "Hồ sơ năng lực đối tác đã được sử dụng dữ liệu, không được phép xóa",
+    "devMobile": "Dev Mobile",
+    "nameOfDirector": "Tên giám đốc",
+    "devAmount": "Số lượng Dev",
+    "devMobileAmount": "Số lượng Dev Mobile",
+    "testerAmount": "Số lượng Tester",
+    "baAmount": "Số lượng BA",
+    "capacityScore": "Điểm năng lực",
+    "yearOfCooperation": "Năm hợp tác",
+    "cooperativeUnit": "Đơn vị hợp tác",
+    "director": "Giám đốc",
+    "directorPhoneNnumber": "Số điện thoại",
+    "pOCName": "Đầu mối liên hệ/Tên đầu mối liên hệ",
+    "pOCPosition": "Đầu mối liên hệ/Chức vụ",
+    "pOCPhone": "Đầu mối liên hệ/Số điện thoại",
+    "pOCEmail": "Đầu mối liên hệ/Email",
+    "directorName": "Giám đốc/Tên giám đốc",
+    "directorPhone": "Giám đốc/Số điện thoại",
+    "directorEmail": "Giám đốc/Email",
+    "cPPTotal": "Nhân sự sản xuất hiện tại/Tổng",
+    "cPPBA": "Nhân sự sản xuất hiện tại/BA",
+    "cPPDev": "Nhân sự sản xuất hiện tại/Dev",
+    "cPPDevMobile": "Nhân sự sản xuất hiện tại/Dev Mobile",
+    "cPPTester": "Nhân sự sản xuất hiện tại/Tester",
+    "validate": {
+      "partnerName": {
+        "maxLength": "Tên đối tác tối đa chỉ nhập 250 ký tự"
+      },
+      "partnerShortName": {
+        "maxLength": "Tên đối tác viết tắt tối đa chỉ nhập 20 ký tự"
+      },
+      "contactPointName": {
+        "maxLength": "Tên đầu mối liên hệ tối đa chỉ nhập 50 ký tự"
+      },
+      "directorName": {
+        "maxLength": "Tên giám đốc tối đa chỉ nhập 255 ký tự"
+      }
+    }
+  }
+}

@@ -1,0 +1,350 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+      <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li class="breadcrumb-item">
+    <a jhiTranslate="profileAppraisal.title" routerLink="/profile-appraisal"></a>
+  </li>
+  <li class="breadcrumb-item active" *ngIf="type !== 'update' && type !== 'preview'">
+    <a>{{'profileAppraisal.titleAdd' | translate}}</a>
+  </li>
+  <li class="breadcrumb-item active" *ngIf="type == 'update'">
+    <a>{{'profileAppraisal.titleUpdate' | translate}}</a>
+  </li>
+  <li class="breadcrumb-item active" *ngIf="type == 'preview'">
+    <a>{{'profileAppraisal.titleDetail' | translate}}</a>
+  </li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div id="profileManagement">
+    <ngb-tabset class="nav-tabs" #tabset="ngbTabset">
+      <ngb-tab id="tabCommonInfo">
+        <ng-template ngbTabTitle><span class="bold">Thông tin chung</span></ng-template>
+        <ng-template ngbTabContent>
+          <div id="profileAppraisal" class="page-content">
+            <div class="mb-1">
+              <div id="search" class="collapse show">
+                <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+                  <!--                    Row 1-->
+                  <div class="card card-header">
+                    <div class="row mb-3">
+                      <div class="col-md-2 custom-label-right col-form-label">
+                        <label class="col-form-label l-h-0"
+                               jhiTranslate="profileAppraisal.profileAppraisalCode">Mã thẩm định dự án
+                        </label>
+                      </div>
+                      <div class="col-md-4 pt-1" [ngClass]="{'has-error': isFieldValid('code')}">
+                        <input type="text" class="form-control" formControlName="code" [readOnly]="true" >
+                        <jhi-error-messages *ngIf="formControl['code'].hasError('required')"
+                                            [displayError]="isFieldValid('code')"
+                                            errorMsg="{{'profileAppraisal.validate.profileAppraisalCode.required' | translate}}">
+                        </jhi-error-messages>
+                        <jhi-error-messages *ngIf="formControl['code'].hasError('maxlength')"
+                                            [displayError]="isFieldValid('code')"
+                                            errorMsg="{{ 'profileAppraisal.validate.profileAppraisalCode.maxLength' | translate }}">
+                        </jhi-error-messages>
+                        <jhi-error-messages *ngIf="formControl['code'].hasError('exist')"
+                                            [displayError]="isFieldValid('code')"
+                                            errorMsg="{{'profileAppraisal.validate.profileAppraisalCode.exist'| translate}}">
+                        </jhi-error-messages>
+
+                      </div>
+                      <div class="col-md-2 custom-label-right">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.userRequest">Người tạo yêu cầu</label>
+                      </div>
+                      <div class="col-md-4 form-custom-select pt-1" [ngClass]="displayFieldHasError('userRequest')">
+                        <ng-select class="cursor-text" bindLabel="name" bindValue="id"
+                                   formControlName="userRequest"
+                                   placeholder="{{ 'common.select.option.selection' | translate }}"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                   [items]="listUsers"
+                                   [multiple]="false" [readonly]="(type === 'preview')"
+                                   [searchFn]="customSearchFn"
+                                   (search)="searchUserRequest($event.term)"
+                                   (clear)="onClearUserRequest(1)"
+                                   jhiAutoFocusField>
+                        </ng-select>
+                        <jhi-error-messages [displayError]="isFieldValid('userRequest')"
+                                            errorMsg="{{'profileAppraisal.validate.userRequest.required'|translate}}"></jhi-error-messages>
+                      </div>
+                    </div>
+                    <!--Row 2-->
+                    <div class="row mb-3">
+                      <div class="col-md-2 custom-label-right col-form-label">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.organizationRequest"><span
+                            class="text-danger">*</span>
+                        </label>
+                      </div>
+                      <div class="col-md-4 form-custom-select pt-1" [ngClass]="displayFieldHasError('organizationRequest')">
+                        <ng-select class="cursor-text" bindLabel="name" bindValue="id"
+                                   formControlName="organizationRequest"
+                                   placeholder="{{ 'common.select.option.selection' | translate }}"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                   [items]="listOrganization"
+                                   [multiple]="false" [readonly]="(type === 'preview') || (form.value.status != 1)"
+                                   [searchFn]="customSearchFn"
+                                   (search)="searchOrganization($event.term)"
+                                   (clear)="onClearOrganization(1)">
+                        </ng-select>
+                        <jhi-error-messages [displayError]="isFieldValid('organizationRequest')"
+                                            errorMsg="{{'profileAppraisal.validate.organizationRequest.required'|translate}}"></jhi-error-messages>
+                      </div>
+                      <div class="col-md-2 custom-label-right">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.handler"></label>
+                      </div>
+                      <div class="col-md-4 form-custom-select pt-1"
+                           [ngClass]="displayFieldHasError('handler')">
+                           <ng-select class="cursor-text" bindLabel="name" bindValue="id"
+                           formControlName="handler"
+                           placeholder="{{ 'common.select.option.selection' | translate }}"
+                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                           [items]="listUserHandle"
+                           [multiple]="false" [readonly]="(type === 'preview')"
+                           [searchFn]="customSearchFn"
+                           (search)="searchUserHandle($event.term)"
+                           (clear)="onClearUserRequest(1)">
+                          </ng-select>
+                          <jhi-error-messages [displayError]="isFieldValid('handler')"
+                                    errorMsg="{{'profileAppraisal.validate.handler.required'|translate}}"></jhi-error-messages>
+                      </div>
+                      
+                    </div>
+                    <!--Row 3-->
+                    <div class="row mb-3">
+                      <div class="col-md-2 custom-label-right">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.startDate"></label>
+                      </div>
+
+                      <div class="col-md-4 form-custom-select pt-1" [ngClass]="displayFieldHasError('startDate')">
+                        <jhi-date-picker-popup name="startDate"
+                                                formControlName="startDate"
+                                                (onChooseDate)="isShowErrorMessage(formControl['startDate'].value)"
+                                                [isDisabled]="(type === 'preview')"
+                                                [touched]="true">
+                                        </jhi-date-picker-popup>
+                        <jhi-error-messages [displayError]="isFieldValid('startDate')"
+                                            errorMsg="{{'profileAppraisal.validate.startDate.required'|translate}}"></jhi-error-messages>
+                        <jhi-error-messages [displayError]="startDateValidate"
+                                errorMsg="{{'profileAppraisal.validate.startDate.error' | translate}}">
+                      </div>
+                      <div class="col-md-2 custom-label-right col-form-label">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.endDate1"></label>
+                      </div>
+                      <div class="col-md-4 form-custom-select pt-1"
+                           [ngClass]="displayFieldHasError('endDate')">
+                           <jhi-date-picker-popup name="endDate"
+                           formControlName="endDate"
+                           (onChooseDate)="isShowErrorMessage(formControl['endDate'].value)"
+                           [isDisabled]="(type === 'preview')"
+                           [touched]="true">
+                        </jhi-date-picker-popup>
+                        <jhi-error-messages [displayError]="isFieldValid('endDate')"
+                         errorMsg="{{'profileAppraisal.validate.endDate1.required'|translate}}"></jhi-error-messages>
+                         <jhi-error-messages [displayError]="endDateValidate"
+                                errorMsg="{{'profileAppraisal.validate.endDate1.error' | translate}}">
+                      </div>
+                    </div>
+
+                    <!--Row 4-->
+                    <div class="row mb-3">
+                      <div class="col-md-2 custom-label-right col-form-label">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.srCode"></label>
+                      </div>
+                      <div class="col-md-4 form-custom-select pt-1" [ngClass]="displayFieldHasError('srCode')">
+                        <input type="text" class="form-control" [readOnly]="type === 'preview'" maxlength="255"
+                               (blur)="trimSpace('srCode')"
+                               formControlName="srCode">
+                        <jhi-error-messages *ngIf="formControl['srCode'].hasError('required')"
+                                            [displayError]="isFieldValid('srCode')"
+                                            errorMsg="{{'profileAppraisal.validate.srCode.required'|translate}}"></jhi-error-messages>
+                        <jhi-error-messages *ngIf="formControl['srCode'].hasError('maxlength')"
+                                            [displayError]="isFieldValid('srCode')"
+                                            errorMsg="{{ 'profileAppraisal.validate.srCode.maxLength' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                      
+                      <div class="col-md-2 custom-label-right">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.profileTitle"></label>
+                      </div>
+                      <div class="col-md-4 pt-1" [ngClass]="displayFieldHasError('profileTitle')">
+                        <input type="text" class="form-control" [readOnly]="(type === 'preview') || (form.value.status != 1)" maxlength="2000"
+                               (blur)="trimSpace('profileTitle')"
+                               formControlName="profileTitle">
+                        <jhi-error-messages *ngIf="formControl['profileTitle'].hasError('required')"
+                                            [displayError]="isFieldValid('profileTitle')"
+                                            errorMsg="{{'profileAppraisal.validate.profileTitle.required'|translate}}"></jhi-error-messages>
+                        <jhi-error-messages *ngIf="formControl['profileTitle'].hasError('maxlength')"
+                                            [displayError]="isFieldValid('profileTitle')"
+                                            errorMsg="{{ 'profileAppraisal.validate.profileTitle.maxLength' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-2 custom-label-right col-form-label">
+                        <label class="col-form-label l-h-0 " [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.appCode"></label>
+                      </div>
+                      <div class="col-md-4 form-custom-select pt-1" [ngClass]="displayFieldHasError('appCode')">
+                        <input type="text" class="form-control" [readOnly]="(type === 'preview') || (form.value.status != 1)" maxlength="255"
+                               (blur)="trimSpace('appCode')"
+                               formControlName="appCode">
+                        <jhi-error-messages *ngIf="formControl['appCode'].hasError('required')"
+                                            [displayError]="isFieldValid('appCode')"
+                                            errorMsg="{{'profileAppraisal.validate.appCode.required'|translate}}"></jhi-error-messages>
+                        <jhi-error-messages *ngIf="formControl['appCode'].hasError('maxlength')"
+                                            [displayError]="isFieldValid('appCode')"
+                                            errorMsg="{{ 'profileAppraisal.validate.appCode.maxLength' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                      
+                      <div class="col-md-2 custom-label-right">
+                        <label class="col-form-label l-h-0" [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.appName"></label>
+                      </div>
+                      <div class="col-md-4 pt-1" [ngClass]="displayFieldHasError('appName')">
+                        <input type="text" class="form-control" [readOnly]="(type === 'preview') || (form.value.status != 1)" maxlength="255"
+                               (blur)="trimSpace('appName')"
+                               formControlName="appName">
+                        <jhi-error-messages *ngIf="formControl['appName'].hasError('required')"
+                                            [displayError]="isFieldValid('appName')"
+                                            errorMsg="{{'profileAppraisal.validate.appName.required'|translate}}"></jhi-error-messages>
+                        <jhi-error-messages *ngIf="formControl['appName'].hasError('maxlength')"
+                                            [displayError]="isFieldValid('appName')"
+                                            errorMsg="{{ 'profileAppraisal.validate.appName.maxLength' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                    </div>
+
+                    <!--Row 6-->
+                    <div class="row mb-3">
+                      <div class="col-md-2 custom-label-right col-form-label">
+                        <label class="col-form-label l-h-0"
+                               jhiTranslate="profileAppraisal.status"></label>
+                      </div>
+
+                      <div class="col-md-4 pt-1"
+                           [ngClass]="displayFieldHasError('status')" *ngIf="type !== 'preview'">
+                           <select class="form-control custom-select-arrow"
+                            formControlName="status">
+                            <option *ngFor="let s of listStatus" value="{{s.id}}">
+                              {{s.name}}
+                            </option>
+                          </select>
+                          <jhi-error-messages [displayError]="isFieldValid('status')"
+                                              errorMsg="{{'profileAppraisal.validate.status.required'|translate}}"></jhi-error-messages>
+
+                      </div>
+                      <div class="col-md-4 pt-1" *ngIf="type === 'preview'">
+                        <input type="text" class="form-control" [value]="getStatus(this.form.value.status)" disabled>
+                      </div>
+                        
+                      <div class="col-md-2 custom-label-right col-form-label">
+                        <label class="col-form-label l-h-0"  [ngClass]="type === 'preview'? '' : 'required'"
+                               jhiTranslate="profileAppraisal.file">File đính kèm
+                        </label>
+                      </div>
+
+                      <div class="col-md-4 pt-1">
+                        <div class="form-group">
+                          <ng-container>
+                            <a #deleteFileElem (click)="deleteFileImport()" [hidden]="!file">
+                              <span class="icon-delete-file import" aria-hidden="true"
+                                  ngbTooltip="{{ 'common.tooltip.action.deleteFileImport' | translate }}">x</span>
+                            </a>
+                          </ng-container>
+                          <jhi-upload-file *ngIf="type !== 'preview'" [fileType]="'excel'" [suggest]="'xls'" #fileImport [accept]="'.xls'" (onFileChange)="onChangeFile($event)"
+                                          (onError)="onError($event)" [isError]="errImport" >
+                          </jhi-upload-file>
+                            <input type="file" *ngIf="type === 'preview'" class="form-control" [value]="currentProfile.filePath" disabled>
+                          <div class="mt-2">
+                              <!-- <button #downloadTemplateBtn type="button" class="btn btn-link pl-0" (click)="downloadFileTemplate('xlsx')">
+                                  <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file mẫu (.xlsx)</span>
+                              </button> -->
+                              <button #downloadTemplateBtn type="button" [hidden]= "(type !== 'add')" class="btn btn-link pl-0" (click)="downloadFileTemplate('xls')">
+                                <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file mẫu (.xls)</span>
+                              </button>
+                              <button #downloadResultBtn [hidden]="(type === 'add')" type="button" class="btn btn-link pl-0" 
+                                    (click)="downloadFileResult(currentProfile.filePath)">
+                                <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file upload</span>
+                              </button>
+                              <button #downloadResultBtn [hidden]="(type === 'add')" type="button" class="btn btn-link pl-0" 
+                                    (click)="downloadFileResult(currentProfile.filePathResult)">
+                                <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file kết quả </span>
+                              </button>
+                          </div>
+                          <div class="text-danger" *ngIf="errImport">{{errMessage}}</div>
+                          <div class="text-success" *ngIf="successImport">{{successMessage}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="card card-header">
+                  
+                  </div> -->
+                </form>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center"
+                 [ngClass]="(type === 'update' || type === 'preview') ? 'mb-6': 'mb-5'">
+              <button type="button" class="btn btn-light" (click)="onCancelProfile()">
+                <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{(type !== 'preview'? 'common.button.confirm.cancel' : 'common.button.close')}}">Hủy bỏ</span>
+              </button>
+              <button *ngIf="type !== 'preview'" type="button" class="btn btn-primary ml-2"
+                      (click)="onSubmit()">
+                <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                jhiTranslate="common.button.confirm.save">Ghi lại</span>
+              </button>
+            </div>
+          </div>
+          <!-- </perfect-scrollbar>-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  </div>
+</perfect-scrollbar>
+<ng-template #template let-modal>
+ <div class="modal-header">
+   <h5 class="modal-title mt-0"><span>Kết quả thẩm định import file</span></h5>
+   <button type="button" class="close" aria-label="Close" (click)="closeModalResult()">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
+ <div class="modal-body">
+    <div class="row mb-3">
+      <div class="col-md-4 custom-label col-form-label">
+        <label class="col-form-label l-h-0" jhiTranslate="profileAppraisal.totalError">Tổng số dòng lỗi</label>
+      </div>
+      <div class="col-md-4  custom-label col-form-label">
+        <p class="col-form-label l-h-0">{{errorRecord}}</p>
+      </div>
+   </div>
+   <div class="row mb-3">
+      <div class="col-md-4 custom-label col-form-label">
+        <label class="col-form-label l-h-0" jhiTranslate="profileAppraisal.attachFile">File thẩm định</label>
+        
+      </div>
+      <div class="col-md-4  custom-label col-form-label">
+        <button type="button" style = "padding-left: 0;" class="btn btn-link pt-0 col-form-label l-h-0"
+                    (click)="downloadFileImport()">Tải file kết quả</button>
+      </div>
+    </div>
+ </div>
+</ng-template>
+

@@ -1,0 +1,60 @@
+<div class="card mb-1">
+    <div class="card-header">
+        <div class="row justify-content-center">
+            <h5>{{(selectedParam ? 'currency_management.update' : 'currency_management.add')|translate}}</h5>
+        </div>
+    </div>
+    <div id="search" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="createForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'currency_management.shortName'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('shortName')">
+                                <input type="text" class="form-control" jhiAutoFocusField formControlName="shortName">
+                                <app-inline-message [formName]="createForm.get('shortName')"
+                                                    [message]="'currency_management.shortName'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'currency_management.fullName'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('fullName')">
+                                <input type="text" class="form-control"
+                                       formControlName="fullName">
+                                <app-inline-message [formName]="createForm.get('fullName')"
+                                                    [message]="'currency_management.fullName'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label custom-label-left">{{ 'currency_management.description'| translate}}</label>
+                            <div class="col-md-9 form-custom-select w-100"
+                                 [ngClass]="displayFieldHasError('description')">
+                                <textarea type="text" style="height: 100px" class="form-control"
+                                          formControlName="description"></textarea>
+                                <app-inline-message [formName]="createForm.get('description')"
+                                                    [message]="'currency_management.description'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center ml-2">
+                    <button type="button" class="btn btn-primary ml-2" (click)="save()">
+                        <span> {{'app_param.add' | translate}}</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-2" (click)="cancel()">
+                        <span> {{'app_param.cancel'| translate}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

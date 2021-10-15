@@ -1,0 +1,134 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 *ngIf="type === 'add'" class="modal-title mt-0">
+      <span jhiTranslate="dataCategories.createData.add">Thêm Danh mực dữ liệu</span>
+    </h5>
+    <h5 *ngIf="type === 'update'" class="modal-title mt-0" jhiTranslate="dataCategories.createData.update">
+      <span jhiTranslate="dataCategories.createData.update">sửa Danh mực dữ liệu</span>
+    </h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-md-6">
+        <div  class="form-group row" [ngClass]="displayFieldHasError('code')">
+          <label class="col-form-label custom-label-right required">
+            <span jhiTranslate="dataCategories.createData.code">Mã danh mục</span>
+          </label>
+          <input  *ngIf="type === 'add'" type="text" class="form-control" formControlName="code" [readOnly]="type === 'detail'"
+                 (blur)="onBlurCode('code')" maxlength="20" jhiAutoFocusField>
+          <!--           nếu là update, nếu dữ liệu được sử dụng thì sẽ disabled,  -->
+          <input *ngIf="type === 'update'" [attr.disabled]="isDataUsed ? '' : null" type="text" class="form-control" formControlName="code" [readOnly]="type === 'detail'"
+                 (blur)="onBlurCode('code')" maxlength="20">
+        </div>
+        <jhi-error-messages *ngIf="isDuplicateDataCategoryCode" [displayError]="isDuplicateDataCategoryCode"
+                            errorMsg="{{ 'dataCategories.validation.code.duplicate' | translate }}">
+        </jhi-error-messages>
+        <jhi-error-messages *ngIf="formControl['code'].hasError('required')"
+                            [displayError]="isFieldValid('code')"
+                            errorMsg="{{'dataCategories.validation.code.codeRequire' | translate}}">
+        </jhi-error-messages>
+        <jhi-error-messages *ngIf="formControl['code'].hasError('pattern')"
+                            [displayError]="isFieldValid('code')"
+                            errorMsg="{{ 'dataCategories.validation.code.specialCharacters' | translate }}">
+        </jhi-error-messages>
+        <jhi-error-messages *ngIf="formControl['code'].hasError('validMaxLength')"
+                            [displayError]="isFieldValid('code')"
+                            errorMsg="{{ 'dataCategories.validation.code.maxlength' | translate }}">
+        </jhi-error-messages>
+
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row" [ngClass]="displayFieldHasError('name')">
+          <label class="col-form-label custom-label-right required">
+            <span jhiTranslate="dataCategories.createData.name">Tên danh mục</span>
+          </label>
+          <input type="text" class="form-control" formControlName="name" maxlength="250">
+        </div>
+        <jhi-error-messages *ngIf="formControl['name'].hasError('required')"
+                            [displayError]="isFieldValid('name')"
+                            errorMsg="{{'dataCategories.validation.name.nameRequire' | translate}}">
+        </jhi-error-messages>
+        <jhi-error-messages *ngIf="formControl['name'].hasError('pattern')"
+                            [displayError]="isFieldValid('name')"
+                            errorMsg="{{ 'dataCategories.validation.name.specialCharacters' | translate }}">
+        </jhi-error-messages>
+        <jhi-error-messages *ngIf="formControl['name'].hasError('validMaxLength250')"
+                            [displayError]="isFieldValid('name')"
+                            errorMsg="{{ 'dataCategories.validation.name.maxlength' | translate }}">
+        </jhi-error-messages>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <div class="form-group row dropdown form-custom-select" [ngClass]="displayFieldHasError('type')">
+          <label class="col-form-label custom-label-right required">Loại danh mục</label>
+
+          <select *ngIf="type === 'add'" #selectElement class="form-control custom-select-arrow" formControlName="type">
+            <option value="">{{'common.select.option.default' | translate}}</option>
+            <option *ngFor="let item of dataCategoryType" [ngValue]="item.id">{{item.paramName}}
+            </option>
+          </select>
+          <select *ngIf="type === 'update'" [attr.disabled]="isDataUsed ? '' : null" #selectElement class="form-control custom-select-arrow" formControlName="type">
+            <option value="">{{'common.select.option.default' | translate}}</option>
+            <option *ngFor="let item of dataCategoryType" [ngValue]="item.id">{{item.paramName}}
+            </option>
+          </select>
+
+          <span class="span-after-select"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+          <jhi-error-messages *ngIf="formControl['type'].hasError('required')"
+                              [displayError]="isFieldValid('type')"
+                              errorMsg="{{ 'dataCategories.validation.type.required' | translate }}">
+          </jhi-error-messages>
+        </div>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-control-label"
+                 jhiTranslate="dataCategories.createData.description">Mô tả</label>
+          <textarea rows="4" cols="400" formControlName="description" class="form-control"
+                    type="text" maxlength="255"></textarea>
+          <jhi-error-messages *ngIf="formControl['description'].hasError('validMaxLength255')"
+                              [displayError]="isFieldValid('description')"
+                              errorMsg="{{ 'dataCategories.validation.description.maxlength' | translate }}">
+          </jhi-error-messages>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-control-label"
+                 jhiTranslate="dataCategories.createData.note">Ghi chú</label>
+          <textarea rows="4" cols="400" formControlName="note" class="form-control"
+                    type="text" maxlength="255"></textarea>
+          <jhi-error-messages *ngIf="formControl['note'].hasError('validMaxLength255')"
+                              [displayError]="isFieldValid('note')"
+                              errorMsg="{{ 'dataCategories.validation.note.maxlength' | translate }}">
+          </jhi-error-messages>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button #cancelBtn type="button" class="btn btn-light" (click)="onCloseAddModal()">
+    <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+    jhiTranslate="{{(type !== 'detail'? 'common.button.confirm.cancel' :  'common.button.close') }}"> Hủy
+      bỏ</span>
+  </button>
+  <button *ngIf="type !== 'detail'" type="submit" class="btn btn-primary" (click)="onSubmitData()">
+    <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+    jhiTranslate="common.button.confirm.save">Ghi lại</span>
+  </button>
+</div>
+
+
+
+

@@ -1,0 +1,40 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0">
+      Thống kê nhân sự sẵn sàng của đối tác</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+<div class="modal-body">
+  <div id="organizationCategories" class="page-content">
+    <div class="row flex-column">
+      <div class="d-flex">
+        <span class="flex-grow-1"></span>
+        <label class="col-sm-3 col-form-label custom-label-right bold">Tổng nhân sự (>=)</label>
+        <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+          <input #input style="width: 32%" type="text" maxlength="10" class="form-control w-100"
+                 formControlName="employeeSum"
+                 (blur)="trimSpace('employeeSum')" (input)="onKeyInput($event, 'employeeSum')"
+                 (keydown.enter)="loadAll()" (blur)="loadAll()">
+        </form>
+      </div>
+      <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [dataLabels]="chartOptions.dataLabels"
+          [plotOptions]="chartOptions.plotOptions"
+          [responsive]="chartOptions.responsive"
+          [xaxis]="chartOptions.xaxis"
+          [legend]="chartOptions.legend"
+          [fill]="chartOptions.fill"
+          [colors]="chartOptions.legend.labels.colors"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+</div>
+</perfect-scrollbar>

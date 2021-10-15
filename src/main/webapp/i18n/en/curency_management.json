@@ -1,0 +1,8 @@
+{
+  "currency_management.shortName": "Short name",
+  "currency_management.fullName": "Full name",
+  "currency_management.description": "Description",
+  "currency_management.currency_management": "Curency Management",
+  "currency_management.add": "Add Currency",
+  "currency_management.update": "Update Currency"
+}

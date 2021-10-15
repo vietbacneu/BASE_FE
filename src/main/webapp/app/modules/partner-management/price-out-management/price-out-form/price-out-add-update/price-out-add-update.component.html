@@ -1,0 +1,138 @@
+<div class="dialog" style="display: block;">
+    <div class="custom-modal-large" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <h5 class="modal-title mt-0">{{(isSaving ? 'partner.priceOut.formAdd.title' : 'partner.priceOut.formUpdate.title') | translate}}</h5>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+        <div class="modal-body" [formGroup]="formGroup">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.priceOut.dest'| translate}}
+                    <span class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('destinationName')">
+                    <input type="text" class="form-control" formControlName="destinationName" maxLength="200">
+                    <app-inline-message [formName]="formGroup.get('destinationName')"
+                                        [message]="'partner.priceOut.dest'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.priceOut.code'| translate}}<span
+                        class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('code')">
+                    <input type="text" class="form-control" formControlName="code" maxLength="200">
+                    <app-inline-message [formName]="formGroup.get('code')"
+                                        [message]="'partner.priceOut.code'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.priceOut.price'| translate}}
+                    <span class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('price')">
+                    <input class="form-control" formControlName="price" maxLength="200" onlyDouble>
+                    <app-inline-message [formName]="formGroup.get('price')"
+                                        [message]="'partner.priceOut.price'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.priceOut.block'| translate}}
+                    <span class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('block')">
+                    <input type="text" class="form-control" formControlName="block" maxLength="200">
+                    <app-inline-message [formName]="formGroup.get('block')"
+                                        [message]="'partner.priceOut.block'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.status'| translate}}<span
+                        class="text-danger">*</span></label>
+                <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                     [ngClass]="displayFieldHasError('status')">
+                    <ng-select [items]="lstStatus"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                               bindLabel="label"
+                               bindValue="value"
+                               searchable="false"
+                               appendTo="body"
+                               formControlName="status">
+                    </ng-select>
+                    <app-inline-message [formName]="formGroup.get('status')"
+                                        [message]="'partner.status'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'invoice.fromDate'| translate}}<span
+                        class="text-danger">*</span></label>
+                <div id="fromDate" class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('startDate')">
+                    <div class="input-group">
+                        <input class="form-control"
+                               name="dp" ngbDatepicker [container]="'dialog'" [placement]="'top'"
+                               #startDate="ngbDatepicker" formControlName="startDate" (dateSelect)="onValidDate()">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary"
+                                    (click)="startDate.toggle()"
+                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <app-inline-message [formName]="formGroup.get('startDate')"
+                                        [message]="'invoice.fromDate'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'invoice.toDate'| translate}}<span
+                        class="text-danger">*</span></label>
+                <div id="toDate" class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('endDate')">
+                    <div class="input-group">
+                        <input class="form-control" (dateSelect)="onValidDate()"
+                               name="dp" ngbDatepicker [container]="'dialog'" [placement]="'top'"
+                               #endDate="ngbDatepicker" formControlName="endDate">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary"
+                                    (click)="endDate.toggle()"
+                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <app-inline-message [formName]="formGroup.get('endDate')"
+                                        [message]="'invoice.toDate'"></app-inline-message>
+                    <span class="error-mes"
+                          *ngIf="formGroup.get('endDate').hasError('small') && formGroup.get('endDate').touched">
+                        {{ 'partner.priceOut.smallEndDate' | translate }}</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.priceOut.searchMethod'| translate}}
+                    <span
+                            class="text-danger">*</span></label>
+                <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                     [ngClass]="displayFieldHasError('matchType')">
+                    <ng-select [items]="lstSearchMethod"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                               bindLabel="label"
+                               bindValue="value"
+                               searchable="false"
+                               appendTo="body"
+                               formControlName="matchType">
+                    </ng-select>
+                    <app-inline-message [formName]="formGroup.get('matchType')"
+                                        [message]="'partner.priceOut.searchMethod'"></app-inline-message>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+    <div class="modal-footer text-center">
+        <button [disabled]="isDisableBtn" type="submit" class="btn btn-primary" (click)="onSave()">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{isSaving ? 'common.button.add' :'common.button.update'}}"></span>
+        </button>
+        <button type="button" class="btn btn-light" (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.close'}}"></span>
+        </button>
+    </div>
+</div>

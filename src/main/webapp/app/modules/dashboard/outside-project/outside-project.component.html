@@ -1,0 +1,27 @@
+<div class="row flex-column">
+  <label class="title-chart">
+    <span class="title-width">Thống kê công nợ theo đối tác</span></label>
+  <div class="d-flex">
+    <span class="flex-grow-1"></span>
+    <label class="col-sm-3 col-form-label custom-label-right bold">MM còn nợ (>=)</label>
+    <input [textMask]="{mask: MMOwed}" #input style="width: 28%" type="text" class="form-control"  formControlName="MMOwed"
+           (blur)="onChangeDataChart(input.value)"
+           (keypress)="onTrimZero($event)"
+           [textMask]="{mask: MMOwed}"
+           (blur)="onChangeDataChart(input.value)" (keypress)="onTrimZero($event)" (blur)="deleteZero($event)"
+           (keyup.enter)="onChangeDataChart(input.value)">
+  </div>
+<!--  <div style="display: block" *ngIf="dataForChart">-->
+  <div class="d-flex">
+    <div class="flex-grow-1"></div>
+        <a (click)="openModalZoom()" ngbTooltip="Phóng to"><i class="fa fa-arrows-alt" style="font-size: 15px; float: right;color: #d6d5d5;position: relative;top: 25px;"></i></a>
+  </div>
+  <canvas #chart baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+    <div class="row d-flex justify-content-end pr-2 mb-3 mt-3">
+      <button type="button" (click)="openModal('detail')" class="float-right btn btn-primary">Xem chi tiết</button>
+    </div>
+<!--  </div>-->
+
+  <!-- end Popup tim kiem-->
+</div>

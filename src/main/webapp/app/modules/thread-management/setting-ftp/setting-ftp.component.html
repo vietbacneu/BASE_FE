@@ -1,0 +1,158 @@
+<div class="card-body">
+    <form autocomplete="off">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">FTP server</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <ng-select clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="name"
+                                           bindValue="value"
+                                           formControlName="protocol"
+                                           searchable="false">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Định dạng thời gian</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control" jhiAutoFocusField>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Remote directory</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Vị trí của group chứa sequence</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Remote backup directory</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Lấy file từ sequence</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Local temp directory</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Lấy file đến sequence</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Local final directory</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Lấy file từ ngày</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <div class="input-group">
+                                    <input class="form-control" name="dp"
+                                           ngbDatepicker #toDate1="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary"
+                                                (click)="toDate1.toggle()"
+                                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Dạng tên file(regex)</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Lấy file đến ngày giờ</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <div class="input-group">
+                                    <input class="form-control" name="dp"
+                                           ngbDatepicker #toDate2="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary"
+                                                (click)="toDate2.toggle()"
+                                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Vị trí của group chứa thời gian</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>  <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Lấy file tuần tự theo sequence</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

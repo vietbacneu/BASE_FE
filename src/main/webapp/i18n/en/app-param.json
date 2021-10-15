@@ -1,0 +1,15 @@
+{
+  "app_param.type": "Param Type",
+  "app_param.name": "Param Name",
+  "app_param.code": "Param Code",
+  "app_param.value": "Param Value",
+  "app_param.description": "Description",
+  "app_param.title": "Manage Param",
+  "app_param.addParam": "Add new Param",
+  "app_param.updateParam": "Update Param",
+  "app_param.cancel": "Cancel",
+  "app_param.add": "Save",
+  "app_param.orderNo": "STT",
+  "app_param.app-param": "Manage Param",
+  "app_param.param": "parameter"
+}

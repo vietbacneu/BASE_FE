@@ -1,0 +1,88 @@
+{
+  "versionManagement": {
+    "title": "Quản lý phiên bản",
+    "versionCode": "Mã phiên bản",
+    "titleAuth": "Phân quyền ký hiệu hóa đơn",
+    "versionName": "Tên phiên bản",
+    "title.table": "Danh sách phiên bản",
+    "position": "Chức danh",
+    "organization": "Đơn vị",
+    "orderNumber": "STT",
+    "action": "Hành động",
+    "startDate": "Thời gian bắt đầu hiệu lực",
+    "endDate": "Thời gian kết thúc hiệu lực",
+    "description": "Mô tả",
+    "emailAddress": "Acc email",
+    "status": "Trạng thái",
+    "dataType": "Loại dữ liệu",
+    "invalidDelete": "Phiên bản đã được sử dụng, không được phép xóa",
+    "delete": "phiên bản",
+    "modal": {
+      "action.deactivate": "Bạn chắc chắn muốn mở khóa phiên bản?",
+      "action.active": "Bạn chắc chắn muốn xóa phiên bản?",
+      "title": {
+        "add": "Thêm mới phiên bản",
+        "update": "Cập nhật phiên bản",
+        "detail": "Xem thông tin phiên bản"
+      }
+    },
+    "toastr": {
+      "title": {
+        "success": "Thành công",
+        "warning": "Cảnh báo",
+        "info": "Thông báo",
+        "error": "Có lỗi xảy ra"
+      },
+      "startDate": {
+        "required": "Thời gian bắt đầu hiệu lực bắt buộc chọn"
+      },
+      "endDate": {
+        "required": "Thời gian kết thúc hiệu lực bắt buộc chọn"
+      },
+      "messages": {
+        "success": {
+          "add": "Thêm mới Phiên bản thành công!",
+          "update": "Cập nhật Phiên bản thành công!",
+          "delete": "Xóa Phiên bản thành công!"
+        },
+        "warning": "Warning",
+        "error": {
+          "add": "Đã có lỗi xảy ra, hệ thống không thể lưu bản ghi",
+          "sendMail": "Đã có lỗi xảy ra, không thể thực hiện gửi mail",
+          "delete": "Đã có lỗi xảy ra, hệ thống không thể xóa biểu mẫu email"
+        }
+      }
+    },
+    "validate": {
+      "note": {
+        "required": "Ghi chú không được quá 500 ký tự"
+      },
+      "description": {
+        "required": "Mô tả không được quá 500 ký tự"
+      },
+      "versionName": {
+        "required": "Tên phiên bản bắt buộc nhập",
+        "maxlength": "Tên phiên bản không được quá 255 ký tự",
+        "invalid": "Tên phiên bản là chữ cái không dấu, chữ số và các ký tự - _ và ."
+      },
+      "versionCode": {
+        "required": "Mã phiên bản bắt buộc nhập",
+        "maxlength": "Mã phiên bản không được quá 50 ký tự",
+        "invalid": "Bạn đang nhập sai định dạng mã phiên bản",
+        "duplicate": "Mã phiên bản đã tồn tại trong hệ thống!"
+      },
+      "userGroup": {
+        "required": "Nhóm Phiên bản bắt buộc chọn "
+      },
+      "status": {
+        "required": "Trạng thái bắt buộc chọn"
+      },
+      "dataType": {
+        "required": "Loại dữ liệu bắt buộc chọn"
+      },
+      "startDate1": "Thời gian bắt đầu hiệu lực phải nhỏ hơn hoặc bằng Thời gian kết thúc hiệu lực",
+      "endDate1": "Thời gian kết thúc hiệu lực phải lớn hơn hoặc bằng Thời gian bắt đầu hiệu lực",
+      "endDateValidateNowDate": "Thời gian kết thúc hiệu lực phải lớn hơn hoặc bằng Thời gian bắt đầu hiệu lực"
+    }
+  }
+}

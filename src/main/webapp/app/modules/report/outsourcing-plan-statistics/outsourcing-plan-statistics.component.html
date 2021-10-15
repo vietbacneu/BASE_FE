@@ -1,0 +1,336 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+      <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li class="breadcrumb-item"><a jhiTranslate="outsourcingPlanReport.titleParent">Báo cáo</a></li>
+  <li class="breadcrumb-item active" jhiTranslate="outsourcingPlanReport.title">Báo cáo Thống kê kế hoạc thuê ngoài</li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div id="organizationCategories" class="page-content">
+    <div class="card mb-1">
+      <div class="card-header">
+        <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+            jhiTranslate="common.card.title.search"></span></a>
+      </div>
+      <div id="search" class="collapse show">
+        <div class="card-body">
+          <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="outsourcingPlanReport.project-code">Mã dự án</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" formControlName="projectManagementCode"  (blur)="trimSpace('projectManagementCode')" maxlength="50">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="outsourcingPlanReport.outsourcedPlan">Kế hoạch thuê ngoài</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <input type="text" class="form-control" formControlName="outsourcedPlan" (blur)="trimSpace('outsourcedPlan')" maxlength="8">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="outsourcingPlanReport.start-time">Thời gian bắt đầu OS dự
+                    kiến</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <jhi-date-range-picker formControlName="startTime"></jhi-date-range-picker>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="outsourcingPlanReport.end-time">Thời gian kết thúc OS dự kiến</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <jhi-date-range-picker formControlName="endTime"></jhi-date-range-picker>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="outsourcingPlanReport.production-unit">Đơn vị sản xuất</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <ng-select [items]="listProductUnit$ | async"
+                               placeholder="{{'common.select.option.all' | translate }}"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               notFoundText="{{( pUnitSearch ?   notFoundText :  'common.select.required') | translate }}"
+                               bindLabel="name" bindValue="id" formControlName="productUnitId"
+                               (search)="onSearchUnit($event, 1)"
+                               (clear)="onClearUnit(1)"
+                               (close)="onSearchUnitClose(1)">
+                      <ng-template ng-option-tmp let-item="item">
+                        {{item.name}} <br/>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="outsourcingPlanReport.business-unit">Đơn vị kinh doanh</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <ng-select [items]="listBusinessUnit$ | async"
+                               placeholder="{{'common.select.option.all' | translate }}"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               notFoundText="{{( bUnitSearch ?  notFoundText :  'common.select.required') | translate }}"
+                               bindLabel="name" bindValue="id" formControlName="businessUnitId"
+                               (search)="onSearchUnit($event, 2)"
+                               (clear)="onClearUnit(2)"
+                               (close)="onSearchUnitClose(2)">
+                      <ng-template ng-option-tmp let-item="item">
+                        {{item.name}} <br/>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="outsourcingPlan.outsourcing-type">Hình thức thuê ngoài</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <select #selectElement class="form-control custom-select-arrow" formControlName="outsourceType">
+                      <option value="">{{'common.select.option.all' | translate}}</option>
+                      <option *ngFor="let item of outsourceTypeList" [ngValue]="item.paramCode" >{{item.paramName}}
+                      </option>
+                    </select>
+                    <span class="span-after-select"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-primary" (click)="page = 0;search()">
+                <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                  jhiTranslate="common.button.search">Tìm kiếm</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+            jhiTranslate="projectManagement.result-search">Kết quả tìm kiếm</span></a>
+      </div>
+      <div id="dataTable" class="collapse show">
+        <div class="card-body pt-2 pb-0 px-2">
+          <div class="row d-flex justify-content-end pr-1">
+            <button type="button" class="btn btn-primary  mr-2" (click)="onExport()">
+              <i class="fa fa-file-excel-o mr-2" aria-hidden="true"></i><span
+              jhiTranslate="reportProject.export">Xuất Excel</span>
+            </button>
+            <div ngbDropdown class="d-inline-block choose-column" ngbTooltip="Cột hiển thị">
+              <button type="button" id="dropdownBasic1" class="btn btn-primary btn-view-column ml-2"
+                      placement="top" ngbDropdownToggle>
+                <i class="fa fa-list" aria-hidden="true"></i>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <perfect-scrollbar class="ps" [style.max-height.vh]="SHOW_HIDE_COL_HEIGHT">
+                  <ng-container *ngFor="let col of columns; let i = index">
+                    <div class="custom-control custom-checkbox" *ngIf="checkShowColumns(i)">
+                      <input class="custom-control-input" type="checkbox" checked="col.isShow"
+                             id="check{{ i }}" (click)="toggleColumns(col)"/>
+                      <label class="custom-control-label cursor-pointer" for="check{{ i }}">
+                        {{ col.value }}
+                      </label>
+                    </div>
+                  </ng-container>
+                </perfect-scrollbar>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <perfect-scrollbar id="scrollbarTable" class="ps">
+            <table class="table table-bordered table-hover table-report table-striped">
+              <thead>
+              <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                <th scope="col" rowspan="2" class="small-width-table"
+                    jhiTranslate="outsourcingPlanReport.no">STT
+                </th>
+                <th  scope="col" rowspan="2" *ngIf="this.columns[0]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.project-code">Mã dự án</span>
+                </th>
+                <th   scope="col" rowspan="2" *ngIf="this.columns[1]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.project-name">Tên dự án</span>
+
+                </th>
+                <th   scope="col" rowspan="2" *ngIf="this.columns[2]?.isShow" class="medium-width-table"><span
+                >Kế hoạch thuê ngoài</span>
+                </th>
+                <th  scope="col" rowspan="2" *ngIf="this.columns[3]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.pm">PM</span>
+
+                </th>
+                <th  scope="col" rowspan="2" *ngIf="this.columns[4]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.production-unit">Đơn vị sản xuất</span>
+
+                </th>
+                <th   scope="col" rowspan="2" *ngIf="this.columns[5]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.am">AM</span>
+
+                </th>
+                <th scope="col" rowspan="2" *ngIf="this.columns[6]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.business-unit">Đơn vị kinh doanh</span>
+
+                </th>
+                <th  scope="col" rowspan="2" *ngIf="this.columns[7]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.start-time">Thời gian bắt đầu OS dự kiến</span>
+
+                </th>
+                <th scope="col" rowspan="2" *ngIf="this.columns[8]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.end-time">Thời gian kết thúc OS dự kiến</span>
+
+                </th>
+                <th  scope="col" rowspan="2" *ngIf="this.columns[9]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.outsourcing-type">Hình thức thuê ngoài</span>
+                </th>
+                <th  scope="col" rowspan="2" *ngIf="this.columns[10]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.mmos">MM OS</span>
+
+                </th>
+
+                <th scope="col"  rowspan="1" *ngIf="this.columns[11]?.isShow && this.columns[11]?.col > 0" class="customWidth" [attr.colspan]="this.columns[11]?.col"
+                    jhiTranslate="outsourcingPlanReport.human-number">Số nhân sự OS/ tháng
+                </th>
+                <th  scope="col" rowspan="1" *ngIf="this.columns[12]?.isShow  && this.columns[12]?.col > 0" class="customWidth" [attr.colspan]="this.columns[12]?.col"
+                    jhiTranslate="outsourcingPlanReport.human-required">Yêu cầu đối với nhân sự OS
+                  hiện tại
+                </th>
+                <th  scope="col" rowspan="2" *ngIf="this.columns[22]?.isShow" class="medium-width-table"><span
+                    jhiTranslate="outsourcingPlanReport.description">Mô tả sơ bộ về sản phẩm</span>
+                </th>
+              </tr>
+              <tr>
+                <th  scope="col" *ngIf="this.columns[13]?.isShow" class="medium-width-table text-center">
+                  <span jhiTranslate="outsourcingPlanReport.sum">Tổng</span>
+                </th>
+                <th scope="col"  *ngIf="this.columns[14]?.isShow" class="medium-width-table text-center">
+                  <span jhiTranslate="outsourcingPlanReport.ba">BA</span>
+                </th>
+                <th  scope="col" *ngIf="this.columns[15]?.isShow"  class="medium-width-table text-center">
+                  <span jhiTranslate="outsourcingPlanReport.dev">Dev</span>
+                </th>
+                <th  scope="col" *ngIf="this.columns[16]?.isShow"  class="medium-width-table text-center">
+                  <span jhiTranslate="outsourcingPlanReport.devMobile">Dev Mobile</span>
+                </th>
+                <th scope="col"  *ngIf="this.columns[17]?.isShow" class="medium-width-table text-center">
+                  <span jhiTranslate="outsourcingPlanReport.test">Test</span>
+                </th>
+                <th scope="col" *ngIf="this.columns[18]?.isShow"  class="medium-width-table text-center"><span
+                    jhiTranslate="outsourcingPlanReport.ba">BA</span></th>
+                <th scope="col" *ngIf="this.columns[19]?.isShow"  class="medium-width-table text-center"><span
+                    jhiTranslate="outsourcingPlanReport.dev">Dev</span></th>
+                    <th scope="col" *ngIf="this.columns[20]?.isShow"  class="medium-width-table text-center"><span
+                      jhiTranslate="outsourcingPlanReport.devMobile">Dev Mobile</span></th>
+                <th  scope="col" *ngIf="this.columns[21]?.isShow"  class="medium-width-table text-center"><span
+                    jhiTranslate="outsourcingPlanReport.test">Test</span></th>
+              </tr>
+              </thead>
+              <tbody *ngFor="let item of outsourcingPlan; index as i">
+              <tr>
+                <td class="text-center" >
+                  <span *ngIf="item.isTotal"></span>
+                  <span *ngIf="!item.isTotal">{{itemsPerPage * (page - 1) + i + 1}}</span>
+                </td>
+                <td *ngIf="this.columns[0]?.isShow" ngbTooltip="{{item.projectCode}}"  container="body">
+                  <span *ngIf="item.isTotal"><b>{{'outsourcingPlan.sum' | translate}}</b></span>
+                  <span *ngIf="!item.isTotal">{{item.projectCode}}</span>
+                </td>
+                <td *ngIf="this.columns[1]?.isShow" ngbTooltip="{{item.projectName}}" container="body">{{item.projectName}}</td>
+                <td *ngIf="this.columns[2]?.isShow" ngbTooltip="{{item.planCode}}" container="body">{{item.planCode}}</td>
+                <td *ngIf="this.columns[3]?.isShow" ngbTooltip="{{item.pm}}" container="body">{{item.pm}}</td>
+                <td *ngIf="this.columns[4]?.isShow" ngbTooltip="{{item.planStatus !== 'APPROVE' ? item.productionOrgName : item.productionOrgNameActual}}" container="body">
+                  <span *ngIf="item.planStatus !== 'APPROVE'">{{item.productionOrgName}}</span>
+                  <span *ngIf="item.planStatus === 'APPROVE'">{{item.productionOrgNameActual}}</span>
+                </td>
+                <td *ngIf="this.columns[5]?.isShow" ngbTooltip="{{item.am}}" container="body">{{item.am}}</td>
+                <td *ngIf="this.columns[6]?.isShow" ngbTooltip="{{item.planStatus !== 'APPROVE' ? item.businessOrgName : item.businessOrgNameActual}}" container="body">
+                  <span *ngIf="item.planStatus !== 'APPROVE'">{{item.businessOrgName}}</span>
+                  <span *ngIf="item.planStatus === 'APPROVE'">{{item.businessOrgNameActual}}</span>
+                </td>
+                <td *ngIf="this.columns[7]?.isShow" ngbTooltip="{{(item.planStatus !== 'APPROVE' ? item.startTime : item.startTimeActual) | date: 'dd/MM/yyyy'}}" container="body" class="text-center">
+                  <span *ngIf="item.planStatus !== 'APPROVE'">{{item.startTime | date: 'dd/MM/yyyy'}}</span>
+                  <span *ngIf="item.planStatus === 'APPROVE'">{{item.startTimeActual | date: 'dd/MM/yyyy'}}</span>
+                </td>
+                <td *ngIf="this.columns[8]?.isShow" ngbTooltip="{{(item.planStatus !== 'APPROVE' ? item.endTime : item.endTimeActual) | date: 'dd/MM/yyyy'}}" container="body" class="text-center" >
+                  <span *ngIf="item.planStatus !== 'APPROVE'">{{item.endTime | date: 'dd/MM/yyyy'}}</span>
+                  <span *ngIf="item.planStatus === 'APPROVE'">{{item.endTimeActual | date: 'dd/MM/yyyy'}}</span>
+                </td>
+                <td *ngIf="this.columns[9]?.isShow" ngbTooltip="{{item.outsourceType}}" container="body">{{item.outsourceType}}</td>
+                <td *ngIf="this.columns[10]?.isShow" ngbTooltip="{{item.strMmOS}}" container="body" class="text-right">
+                  <span *ngIf="item.isTotal"><b>{{item.strMmOS}}</b></span>
+                  <span *ngIf="!item.isTotal">{{item.strMmOS}}</span>
+                </td>
+                <td *ngIf="this.columns[13]?.isShow" ngbTooltip="{{item.strTotal}}" container="body" class="text-right">
+                  <span *ngIf="item.isTotal"><b>{{item.strTotal}}</b></span>
+                  <span *ngIf="!item.isTotal">{{item.strTotal}}</span>
+                </td>
+                <td *ngIf="this.columns[14]?.isShow" ngbTooltip="{{item.strBaNumber}}" container="body" class="text-right">
+                  <span *ngIf="item.isTotal"><b>{{item.strBaNumber}}</b></span>
+                  <span *ngIf="!item.isTotal">{{item.strBaNumber}}</span>
+                </td>
+                <td *ngIf="this.columns[15]?.isShow" ngbTooltip="{{item.strDevNumber}}" container="body" class="text-right">
+                  <span *ngIf="item.isTotal"><b>{{item.strDevNumber}}</b></span>
+                  <span *ngIf="!item.isTotal">{{item.strDevNumber}}</span>
+                </td>
+                <td *ngIf="this.columns[16]?.isShow" ngbTooltip="{{item.strDevMobileNumber}}" container="body" class="text-right">
+                  <span *ngIf="item.isTotal"><b>{{item.strDevMobileNumber}}</b></span>
+                  <span *ngIf="!item.isTotal">{{item.strDevMobileNumber}}</span>
+                </td>
+                <td *ngIf="this.columns[17]?.isShow" ngbTooltip="{{item.strTestNumber}}" container="body" class="text-right">
+                  <span *ngIf="item.isTotal"><b>{{item.strTestNumber}}</b></span>
+                  <span *ngIf="!item.isTotal">{{item.strTestNumber}}</span>
+                </td>
+                <td *ngIf="this.columns[18]?.isShow" ngbTooltip="{{item.requireBA}}" container="body">{{item.requireBA}}</td>
+                <td *ngIf="this.columns[19]?.isShow" ngbTooltip="{{item.requireDEV}}" container="body">{{item.requireDEV}}</td>
+                <td *ngIf="this.columns[20]?.isShow" ngbTooltip="{{item.requireDevMobile}}" container="body">{{item.requireDevMobile}}</td>
+                <td *ngIf="this.columns[21]?.isShow" ngbTooltip="{{item.requireTEST}}" container="body">{{item.requireTEST}}</td>
+                <td *ngIf="this.columns[22]?.isShow" ngbTooltip="{{item.description}}" container="body">{{item.description}}</td>
+              </tr>
+              </tbody>
+            </table>
+            </perfect-scrollbar>
+          </div>
+          <div class="row justify-content-start py-2 pl-1 table-footer no-data" *ngIf="!totalItems || totalItems === 0">
+            <p class="item-count" jhiTranslate="common.table.noData"></p>
+          </div>
+
+          <div class="d-flex justify-content-end table-footer" [hidden]="totalItems === 0">
+            <div class="row justify-content-center">
+              <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+              <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                              [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                              (pageChange)="loadPage(page)">
+              </ngb-pagination>
+              <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</perfect-scrollbar>

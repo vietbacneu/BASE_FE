@@ -1,0 +1,15 @@
+.font-italic {
+  color: #0c69b5;
+  text-decoration: underline;
+  margin-top: 15px;
+  position: absolute;
+}
+
+.show {
+  min-height: 50px;
+}
+
+.disabled {
+  pointer-events: none;
+  color: grey;
+}

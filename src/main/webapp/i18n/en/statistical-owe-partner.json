@@ -1,0 +1,10 @@
+{
+  "searchTitle": {
+    "partnerCode": "Mã đối tác",
+    "partnerCategory": "Loại đối tác",
+    "outsourcedUnit": "Đơn vị thuê ngoài",
+    "MMOwed": "MM còn nợ",
+    "MMAccumulated": "MM sử dụng lũy kế",
+    "MMPayed": "MM đã thanh toán"
+  }
+}

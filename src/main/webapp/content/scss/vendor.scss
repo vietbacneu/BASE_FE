@@ -1,0 +1,28 @@
+/* after changing this file run 'npm run webpack:build' */
+
+/***************************
+put Sass variables here:
+eg $input-color: red;
+****************************/
+@import "~bootswatch/dist/minty/variables";
+// Override Bootstrap variables
+@import "bootstrap-variables";
+// Import Bootstrap source files from node_modules
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/minty/bootswatch";
+
+/* jhipster-needle-scss-add-vendor JHipster will add new css style */
+@import "node_modules/ngx-toastr/toastr";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@angular/cdk/overlay-prebuilt.css";
+@import '~@syncfusion/ej2-treegrid/styles/material.css';
+@import '~@syncfusion/ej2-base/styles/material.css';
+@import '~@syncfusion/ej2-buttons/styles/material.css';
+@import '~@syncfusion/ej2-calendars/styles/material.css';
+@import '~@syncfusion/ej2-dropdowns/styles/material.css';
+@import '~@syncfusion/ej2-inputs/styles/material.css';
+@import '~@syncfusion/ej2-navigations/styles/material.css';
+@import '~@syncfusion/ej2-popups/styles/material.css';
+@import '~@syncfusion/ej2-splitbuttons/styles/material.css';
+@import '~@syncfusion/ej2-grids/styles/material.css';
+

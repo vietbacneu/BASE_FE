@@ -1,0 +1,250 @@
+<div class="card mb-1">
+    <div class="card-header card-header-toggle" (click)="toggle()">
+        <a data-toggle="collapse" aria-expanded="true">
+            <i [ngClass]="'fa fa-sort-'+(isShow ?'desc':'asc')" aria-hidden="true"></i>
+            <span class="ml-1">{{'partner.partnerInfo' | translate}}</span></a>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="formGroup" autocomplete="off">
+                <div class="row">
+                    <div hidden class="col-hidden"></div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.code'| translate}}<span
+                                    *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('code')">
+                                <input type="text" class="form-control" formControlName="code" jhiAutoFocusField maxlength="50">
+                                <app-inline-message [formName]="formGroup.get('code')"
+                                                    [message]="'partner.code'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.telecom'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('networkName')">
+                                <input type="text" class="form-control"
+                                       formControlName="networkName" maxlength="50">
+                                <app-inline-message [formName]="formGroup.get('networkName')"
+                                                    [message]="'partner.telecom'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.accountNo'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('bankAccountNum')">
+                                <input type="text" class="form-control" regexInput="Number" jhiRegexInput
+                                       formControlName="bankAccountNum" maxlength="50">
+                                <app-inline-message [formName]="formGroup.get('bankAccountNum')"
+                                                    [message]="'partner.accountNo'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.name'| translate}}<span
+                                    *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('fullName')">
+                                <input type="text" class="form-control" formControlName="fullName" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('fullName')"
+                                                    [message]="'partner.name'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.status'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 row form-custom-select" ngbRadioGroup name="status"
+                                 formControlName="status">
+                                <div class="col-sm-6 radio-wrapper">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio"
+                                               [value]="1"> {{'partner.status.active' | translate}}
+                                    </label>
+                                </div>
+                                <div class="col-sm-6 radio-wrapper">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio"
+                                               [value]="0"> {{'partner.status.inactive'| translate}}
+                                    </label>
+                                </div>
+                                <app-inline-message class="radio-message" [formName]="formGroup.get('status')"
+                                                    [message]="'partner.status'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.bank'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('bankName')">
+                                <input type="text" class="form-control"
+                                       formControlName="bankName" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('bankName')"
+                                                    [message]="'partner.bank'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.standFor'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('shortName')">
+                                <input type="text" class="form-control" formControlName="shortName" maxlength="50">
+                                <app-inline-message [formName]="formGroup.get('shortName')"
+                                                    [message]="'partner.standFor'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.partnerType'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('partnerType')">
+                                <ng-select [items]="lstPartnerTypes"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="parName"
+                                           bindValue="parCode"
+                                           formControlName="partnerType"
+                                           searchable="false">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.owner'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('accountHolder')">
+                                <input type="text" class="form-control"
+                                       formControlName="accountHolder" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('accountHolder')"
+                                                    [message]="'partner.owner'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.country'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('countryId')">
+                                <ng-select [items]="countries"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="fullName"
+                                           bindValue="id"
+                                           formControlName="countryId"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('countryId')"
+                                                    [message]="'partner.country'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.erpCode'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('erpCode')">
+                                <input type="text" class="form-control"
+                                       formControlName="erpCode" maxlength="50">
+                                <app-inline-message [formName]="formGroup.get('erpCode')"
+                                                    [message]="'partner.erpCode'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.president'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('delegateName')">
+                                <input type="text" class="form-control"
+                                       formControlName="delegateName" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('delegateName')"
+                                                    [message]="'partner.president'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.address'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('fullAddress')">
+                                <input type="text" class="form-control"
+                                       formControlName="fullAddress" maxlength="200">
+                                <app-inline-message [formName]="formGroup.get('fullAddress')"
+                                                    [message]="'partner.address'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.bccsCode'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('bccsCode')">
+                                <input type="text" class="form-control"
+                                       formControlName="bccsCode" maxlength="50">
+                                <app-inline-message [formName]="formGroup.get('bccsCode')"
+                                                    [message]="'partner.bccsCode'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.position'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select"
+                                 [ngClass]="displayFieldHasError('positionOfDelegate')">
+                                <input type="text" class="form-control"
+                                       formControlName="positionOfDelegate" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('positionOfDelegate')"
+                                                    [message]="'partner.position'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.phone'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select"
+                                 [ngClass]="displayFieldHasError('telephoneNumber')">
+                                <input type="text" class="form-control" regexInput="Number" jhiRegexInput
+                                       formControlName="telephoneNumber" maxlength="20">
+                                <app-inline-message [formName]="formGroup.get('telephoneNumber')"
+                                                    [message]="'partner.bccsCode'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{'partner.AM' | translate}}<span
+                                    *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('amId')">
+                                <ng-select [items]="lstAM"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="name"
+                                           bindValue="id"
+                                           formControlName="amId"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('amId')"
+                                                    [message]="'partner.AM'"></app-inline-message>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div hidden class="col-hidden"></div>
+                </div>
+                <div *ngIf="isSaving" class="d-flex justify-content-center">
+                    <button style="width: 100px" type="button" class="btn btn-primary"
+                            (click)="save()">
+                        <span> {{'entity.action.save' | translate}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

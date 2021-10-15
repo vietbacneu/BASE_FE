@@ -1,0 +1,98 @@
+<div class="card mb-1">
+    <div class="card-header">
+        <div class="row justify-content-center">
+            <h5>{{(selectedRow ? 'ftp_server.update' : 'ftp_server.add')|translate}}</h5>
+        </div>
+    </div>
+    <div id="search" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="createForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'ftp_server.host'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('host')">
+                                <input type="text" class="form-control" jhiAutoFocusField formControlName="host">
+                                <app-inline-message [formName]="createForm.get('host')"
+                                                    [message]="'ftp_server.host'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'ftp_server.port'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('port')">
+                                <input type="text" class="form-control" jhiAutoFocusField formControlName="port">
+                                <app-inline-message [formName]="createForm.get('port')"
+                                                    [message]="'ftp_server.port'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'ftp_server.protocol'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('protocol')">
+                                <ng-select [items]="lstProtocol"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="name"
+                                           bindValue="value"
+                                           formControlName="protocol"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="createForm.get('protocol')"
+                                                    [message]="'ftp_server.protocol'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'ftp_server.settingName'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('settingName')">
+                                <input type="text" class="form-control"
+                                       formControlName="settingName">
+                                <app-inline-message [formName]="createForm.get('settingName')"
+                                                    [message]="'ftp_server.settingName'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label custom-label-left">{{ 'ftp_server.username'| translate}}</label>
+                            <div class="col-md-9 form-custom-select w-100"
+                                 [ngClass]="displayFieldHasError('username')">
+                                <input type="text" class="form-control"
+                                          formControlName="username"/>
+                                <app-inline-message [formName]="createForm.get('username')"
+                                                    [message]="'ftp_server.username'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'ftp_server.password'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('password')">
+                                <input type="text" class="form-control"
+                                       formControlName="password">
+                                <app-inline-message [formName]="createForm.get('password')"
+                                                    [message]="'ftp_server.password'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center ml-2">
+                    <button type="button" class="btn btn-primary ml-2" (click)="save()">
+                        <span> {{'app_param.add' | translate}}</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-2" (click)="cancel()">
+                        <span> {{'app_param.cancel'| translate}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

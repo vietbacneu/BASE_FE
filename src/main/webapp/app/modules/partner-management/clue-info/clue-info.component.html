@@ -1,0 +1,146 @@
+<div class="card mb-1">
+    <div class="card-header card-header-toggle" (click)="toggle()">
+        <a data-toggle="collapse" aria-expanded="true">
+            <i [ngClass]="'fa fa-sort-'+(isShow ?'desc':'asc')" aria-hidden="true"></i>
+            <span class="ml-1">{{'partner.clueInfo' | translate}}</span></a>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div class="card-body">
+            <form *ngIf="isSaving" [formGroup]="formGroup" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.clueInfo.name'| translate}}
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-custom-select"
+                                 [ngClass]="displayFieldHasError('fullName')">
+                                <input type="text" class="form-control" formControlName="fullName" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('fullName')"
+                                                    [message]="'partner.clueInfo.name'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{'partner.clueInfo.email' | translate}}
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('email')">
+                                <input type="text" class="form-control"
+                                       formControlName="email" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('email')"
+                                                    [message]="'partner.clueInfo.email'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.clueInfo.phone'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select"
+                                 [ngClass]="displayFieldHasError('telephoneNumber')">
+                                <input type="text" class="form-control" regexInput="Number" jhiRegexInput
+                                       formControlName="telephoneNumber" maxlength="20">
+                                <app-inline-message [formName]="formGroup.get('telephoneNumber')"
+                                                    [message]="'partner.clueInfo.phone'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.clueInfo.position'| translate}}</label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('position')">
+                                <ng-select [items]="position"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="label"
+                                           bindValue="value"
+                                           formControlName="position"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('position')"
+                                                    [message]="'partner.clueInfo.position'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8"></div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button [disabled]="disable" style="width: 100px" type="button" class="btn btn-primary"
+                            (click)="save()">
+                        <span> {{'entity.action.save' | translate}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div *ngIf="!isSaving" class="row">
+            <div style="padding-right: 15px !important;" class="col-md-3 offset-md-9 d-flex">
+                <div class="input-group">
+                    <input type="text" class="form-control" [formControl]="inputSearch">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" (click)="onSearch()">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body pt-2 pb-0 px-2">
+            <div class="row">
+                <perfect-scrollbar id="scrollbarTable" class="ps">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th [ngClass]="column.size+'-width-table'" *ngFor="let column of columns">
+                                {{column.name | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let item of lstPartnerContact; index as i">
+                        <tr>
+                            <td class="text-center">{{(page - 1) * itemsPerPage + i + 1}}</td>
+                            <td class="text-center">{{item.fullName}}</td>
+                            <td class="text-center">{{item.position}}</td>
+                            <td class="text-center">{{item.email}}</td>
+                            <td class="text-center">{{item.telephoneNumber}}</td>
+                            <td *ngIf="isSaving" class="text-center">
+                                <div class="group-action">
+                                    <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                            ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                            (click)="update( item)">
+                                        <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                            ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                            (click)="onDelete(item.id)">
+                                        <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+            <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                 *ngIf="!totalItems">
+                <p class="item-count" jhiTranslate="common.table.noData"></p>
+            </div>
+
+            <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                <div class="row justify-content-center">
+                    <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                    <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                    [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                    [boundaryLinks]="true"
+                                    (pageChange)="loadPage(page)">
+                    </ngb-pagination>
+                    <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

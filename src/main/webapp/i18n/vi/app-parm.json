@@ -1,0 +1,15 @@
+{
+  "app_param.title": "Quản lí tham số",
+  "app_param.type": "Loại tham số",
+  "app_param.name": "Tên tham số",
+  "app_param.code": "Mã tham số",
+  "app_param.value": "Giá trị tham số",
+  "app_param.description": "Mô tả",
+  "app_param.addParam": "Thêm mới tham số",
+  "app_param.updateParam": "Cập nhật tham số",
+  "app_param.cancel": "Hủy",
+  "app_param.orderNo": "STT",
+  "app_param.app-param": "Quản lý tham số",
+  "app_param.add": "Lưu",
+  "app_param.param": "tham số"
+}

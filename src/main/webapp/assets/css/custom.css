@@ -1,0 +1,47 @@
+.card-header-toggle {
+    background: #f3f5f7 !important;
+    cursor: pointer;
+}
+
+/*.row [class*=col-]:not(:last-child) {*/
+/*    padding-right: 15px !important;*/
+/*}*/
+
+.custom-title {
+    color: #0c69b5 !important;
+    opacity: inherit;
+    margin-left: 0.5rem;
+    font-weight: 600;
+    font-size: 13px !important;
+}
+
+perfect-scrollbar > .ps.ps--active-x.ps--active-y > .ps__rail-y {
+    z-index: 9999;
+}
+
+perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
+    z-index: 9999;
+}
+
+.pinned-column {
+    position: sticky;
+    z-index: 999;
+    right: 0;
+}
+
+.radio-message {
+    padding-left: 5px !important;
+}
+
+.modal-footer {
+    justify-content: center !important;
+}
+
+.icon-success {
+    color: #28a745;
+}
+
+.error-mes {
+    font-size: 12px;
+    color: red;
+}

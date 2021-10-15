@@ -1,0 +1,97 @@
+{
+  "nonFunctionManagement": {
+    "nonFunctionManagement": "Quản lý phi chức năng",
+    "work-code": "Mã đầu việc",
+    "work-name": "Đầu việc",
+    "delete": "phi chức năng",
+    "title": "Quản lý năng lực đối tác",
+    "version-code": "Mã phiên bản",
+    "efforts": "Nỗ lực (MH)",
+    "isOutsource": "Có thuê ngoài không",
+    "scopeWork": "Phạm vi",
+    "example": "ví dụ",
+    "description": "Mô tả công việc",
+    "title-add": "Thêm mới phi chức năng",
+    "title-update": "Cập nhật phi chức năng",
+    "action": "Hành động",
+    "title-show-detail": "Xem chi tiết phi chức năng",
+    "registeredBusinessAddress": "Địa chỉ đăng ký kinh doanh",
+    "headQuarter": "Trụ sở làm việc",
+    "city": "Thành phố",
+    "nameCluesContact": "Tên đầu mối liên hệ",
+    "pointOfContact": "Đầu mối liên hệ",
+    "currentProductionPersonnel": "Nhân sự sản xuất hiện tại",
+    "position": "Chức vụ",
+    "phoneNumber": "Số điện thoại",
+    "email": "Email",
+    "total": "Tổng",
+    "ba": "Ba",
+    "dev": "Dev",
+    "tester": "Tester",
+    "note": "Ghi chú",
+    "searchResult": "Kết quả tìm kiếm",
+    "orderNumber": "STT",
+    "partnerProfile": "hồ sơ đối tác",
+    "existsData": "Hồ sơ năng lực đối tác đã được sử dụng dữ liệu, không được phép xóa",
+    "devMobile": "Dev Mobile",
+    "nameOfDirector": "Tên giám đốc",
+    "devAmount": "Số lượng Dev",
+    "devMobileAmount": "Số lượng Dev Mobile",
+    "testerAmount": "Số lượng Tester",
+    "baAmount": "Số lượng BA",
+    "capacityScore": "Điểm năng lực",
+    "yearOfCooperation": "Năm hợp tác",
+    "cooperativeUnit": "Đơn vị hợp tác",
+    "director": "Giám đốc",
+    "directorPhoneNnumber": "Số điện thoại",
+    "pOCName": "Đầu mối liên hệ/Tên đầu mối liên hệ",
+    "pOCPosition": "Đầu mối liên hệ/Chức vụ",
+    "pOCPhone": "Đầu mối liên hệ/Số điện thoại",
+    "pOCEmail": "Đầu mối liên hệ/Email",
+    "directorName": "Giám đốc/Tên giám đốc",
+    "directorPhone": "Giám đốc/Số điện thoại",
+    "directorEmail": "Giám đốc/Email",
+    "cPPTotal": "Nhân sự sản xuất hiện tại/Tổng",
+    "cPPBA": "Nhân sự sản xuất hiện tại/BA",
+    "cPPDev": "Nhân sự sản xuất hiện tại/Dev",
+    "cPPDevMobile": "Nhân sự sản xuất hiện tại/Dev Mobile",
+    "cPPTester": "Nhân sự sản xuất hiện tại/Tester",
+    "validate": {
+      "workCode": {
+        "maxLength": "Mã đầu việc tối đa chỉ nhập 250 ký tự",
+        "required": "Mã đầu việc bắt buộc nhập",
+        "exist": "Mã đầu việc đã tồn tại"
+      },
+      "work-name": {
+        "required": "Đầu việc bắt buộc nhập"
+      },
+      "efforts": {
+        "required": "Nỗ lực (MH) bắt buộc nhập",
+        "maxLength": "Nỗ lực (MH) tối đa chỉ nhập 15 ký tự",
+        "pattern": "Nỗ lực (MH) không đúng định dạng"
+      },
+      "version-code": {
+        "required": "Mã phiên bản bắt buộc nhập"
+      },
+      "isOutsource": {
+        "required": "Có thuê ngoài không bắt buộc nhập"
+      }
+    },
+    "toastr": {
+      "messages": {
+        "success": {
+          "add": "Thêm mới phi chức năng thành công!",
+          "update": "Cập nhật phi chức năng thành công!",
+          "delete": "Xóa chức phi năng thành công!",
+          "title": "Thành công"
+        },
+        "warning": "Warning",
+        "error": {
+          "add": "Đã có lỗi xảy ra, hệ thống không thể lưu bản ghi",
+          "sendMail": "Đã có lỗi xảy ra, không thể thực hiện gửi mail",
+          "delete": "Đã có lỗi xảy ra, hệ thống không thể xóa biểu mẫu email"
+        }
+      }
+    }
+  }
+}

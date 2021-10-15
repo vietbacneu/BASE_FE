@@ -1,0 +1,204 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li routerLink="/partner-management" class="breadcrumb-item active"><a>{{'partner.pageTitle' | translate}}</a></li>
+    <li class="breadcrumb-item active"><a>{{'partner.priceInManagement' | translate}}</a></li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div class="card mb-1">
+        <div class="card-header">
+            <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+                    jhiTranslate="common.card.title.search"></span></a>
+        </div>
+        <div id="search" class="collapse show">
+            <div class="card-body">
+                <form [formGroup]="formGroup" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.priceOut.dest'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select"
+                                     [ngClass]="displayFieldHasError('destinationName')">
+                                    <input type="text" class="form-control" jhiAutoFocusField
+                                           formControlName="destinationName">
+                                    <app-inline-message [formName]="formGroup.get('destinationName')"
+                                                        [message]="'partner.priceOut.dest'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'invoice.fromDate'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('startDate')">
+                                    <div class="input-group">
+                                        <input class="form-control" (dateSelect)="onValidDate()"
+                                               name="dp" ngbDatepicker [container]="'body'"
+                                               #startDate="ngbDatepicker" formControlName="startDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    (click)="startDate.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <app-inline-message [formName]="formGroup.get('startDate')"
+                                                        [message]="'invoice.fromDate'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.status'| translate}}</label>
+                                <div class="col-sm-9 form-group dropdown form-custom-select"
+                                     [ngClass]="displayFieldHasError('status')">
+                                    <ng-select [items]="lstStatus"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                                               bindLabel="label"
+                                               bindValue="value"
+                                               formControlName="status"
+                                               searchable="false">
+                                    </ng-select>
+                                    <app-inline-message [formName]="formGroup.get('status')"
+                                                        [message]="'partner.status'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.priceOut.code'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('code')">
+                                    <input type="text" class="form-control" formControlName="code">
+                                    <app-inline-message [formName]="formGroup.get('code')"
+                                                        [message]="'partner.priceOut.code'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'invoice.toDate'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('endDate')">
+                                    <div class="input-group">
+                                        <input class="form-control" (dateSelect)="onValidDate()"
+                                               name="dp" ngbDatepicker [container]="'body'"
+                                               #endDate="ngbDatepicker" formControlName="endDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    (click)="endDate.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <app-inline-message [formName]="formGroup.get('endDate')"
+                                                        [message]="'invoice.toDate'"></app-inline-message>
+                                    <span class="error-mes"
+                                          *ngIf="formGroup.get('endDate').hasError('small') && formGroup.get('endDate').touched">
+                                        {{ 'partner.priceOut.smallEndDate' | translate }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" hidden></div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-primary" (click)="onSearch()">
+                            <span> {{'common.button.search' | translate}}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <a data-toggle="collapse" href="#dataTable"
+               aria-expanded="true"><span>{{'projectManagement.result-search' | translate}}</span></a>
+        </div>
+        <div id="dataTable" class="collapse show">
+            <div class="card-body pt-2 pb-0 px-2">
+                <div class="row d-flex justify-content-end pr-1">
+                    <button type="button" class="btn btn-primary mr-2" (click)="openPriceInForm(true)">
+                        <i class="fa fa-plus mr-2" aria-hidden="true"></i>
+                        <span>{{'common.button.add' | translate}}</span>
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span>Import</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <perfect-scrollbar id="scrollbarTable" class="ps">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="text-center">
+                                <th [ngClass]="[column.size+'-width-table',column.name==='partner.action'?'pinned-column':'']"
+                                    *ngFor="let column of columns">
+                                    {{column.name | translate}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of lstPriceIn; index as i">
+                            <tr>
+                                <td class="cursor-pointer text-center">{{(page - 1) * itemsPerPage + i + 1}}</td>
+                                <td class="cursor-pointer text-center">{{item?.destinationName}}</td>
+                                <td class="cursor-pointer text-center">{{item?.code}}</td>
+                                <td class="cursor-pointer text-center">{{item?.price}}</td>
+                                <td class="cursor-pointer text-center">{{item?.block}}</td>
+                                <td class="cursor-pointer text-center">{{getStatus(item?.status)}}</td>
+                                <td class="cursor-pointer text-center">{{item?.startDate | date:'dd/MM/yyyy'}}</td>
+                                <td class="cursor-pointer text-center">{{item?.endDate | date:'dd/MM/yyyy'}}</td>
+                                <td class="cursor-pointer text-center">{{getMatchType(item?.matchType)}}</td>
+                                <td class="cursor-pointer text-center">{{getCreationMethod(item?.creationMethod)}}</td>
+                                <td class="cursor-pointer text-center">{{item?.modifiedDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                <td class="cursor-pointer text-center">{{item?.modifiedBy}}</td>
+                                <td class="pinned-column text-right">
+                                    <div class="group-action">
+                                        <button *ngIf="Constants.STATUS_WARNING===item.status" class="btn btn-light"
+                                                placement="top"
+                                                onclick="this.blur()"
+                                                ngbTooltip="{{'common.tooltip.action.approve' | translate}}"
+                                                (click)="onApprove(item)">
+                                            <i class="fa fa-check icon-success" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                                ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                (click)="openPriceInForm(false,item)">
+                                            <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                (click)="onDelete(item)">
+                                            <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                     *ngIf="!totalItems">
+                    <p class="item-count" jhiTranslate="common.table.noData"></p>
+                </div>
+
+                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                    <div class="row justify-content-center">
+                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                        [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                        [boundaryLinks]="true"
+                                        (pageChange)="loadPage(page)">
+                        </ngb-pagination>
+                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</perfect-scrollbar>

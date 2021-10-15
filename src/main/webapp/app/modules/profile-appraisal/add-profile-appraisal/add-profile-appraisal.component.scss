@@ -1,0 +1,45 @@
+:host ::ng-deep .nav-tabs > li {
+  padding-left: 2px;
+  padding-right: 0;
+  width: 12.5%;
+  text-align: center;
+}
+:host ::ng-deep .nav-tabs .nav-link {
+  height: 100%;
+}
+
+:host ::ng-deep .table thead tr th {
+  text-align: center;
+}
+
+.padding-left {
+  padding-left: 100px;
+}
+
+.icon-check-green {
+  color: #28a745;
+}
+/*::ng-deep .ng-dropdown-panel.custom-growth {
+  left: 850px !important;
+  width: 161px !important;
+}
+::ng-deep .ng-dropdown-panel.custom-proManager {
+  left: 1024px !important;
+  width: 161px !important;
+}
+::ng-deep .ng-dropdown-panel.custom-criteria {
+  left: 1198px !important;
+  width: 161px !important;
+}
+::ng-deep .ng-dropdown-panel.custom-report {
+  left: 1372px !important;
+  width: 161px !important;
+}*/
+
+.card-header-custom {
+  padding: 0.75rem 1.25rem;
+}
+.breadcrumb a:hover {
+  color: #0c69b5;
+  text-decoration: none;
+}

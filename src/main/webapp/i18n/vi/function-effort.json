@@ -1,0 +1,56 @@
+{
+  "functionEffort": {
+    "title": "ULNL đã được phê duyệt",
+    "parent": "Tiện ích",
+    "functionName": "Tên chức năng",
+    "description": "Mô tả chức năng",
+    "effortTotal": "Tổng nỗ lực thực hiện (manhours)",
+    "appCode": "Mã ứng dụng",
+    "appName": "Tên ứng dụng",
+    "functionCode": "Loại chức năng",
+    "organizationRequest": "Đơn vị yêu cầu",
+    "profileAppraisaCode": "Mã thẩm định",
+    "action": "Hành động",
+    "startDate": "Thời gian tạo từ ngày",
+    "createDate": "Thời gian tạo",
+    "filePath": "File ulnl",
+    "viewProfileAppraisal": "Xem chi tiết",
+    "srCode": "Mã SR",
+    "createUser": "Người tạo",
+    "endDate": "Đến ngày",
+    "toastr": {
+      "title": {
+        "success": "Thành công",
+        "warning": "Cảnh báo",
+        "info": "Thông báo",
+        "error": "Có lỗi xảy ra"
+      },
+      "startDate": {
+        "required": "Ngày bắt đầu hiệu lực bắt buộc chọn"
+      },
+      "endDate": {
+        "required": "Ngày kết thúc hiệu lực bắt buộc chọn"
+      },
+      "messages": {
+        "success": {
+          "add": "Thêm mới Phiên bản thành công!",
+          "update": "Cập nhật Phiên bản thành công!",
+          "delete": "Xóa Phiên bản thành công!"
+        },
+        "warning": "Warning",
+        "error": {
+          "add": "Đã có lỗi xảy ra, hệ thống không thể lưu bản ghi",
+          "sendMail": "Đã có lỗi xảy ra, không thể thực hiện gửi mail",
+          "delete": "Đã có lỗi xảy ra, hệ thống không thể xóa biểu mẫu email"
+        }
+      }
+    },
+    "validate": {
+      "description": {
+        "required": "Mô tả không được quá 500 ký tự"
+      },
+      "startDate1": "Ngày bắt đầu hiệu lực phải bé hơn hoặc bằng ngày kết thúc hiệu lực",
+      "endDate1": "Ngày kết thúc hiệu lực phải lớn hơn hoặc bằng ngày bắt đầu hiệu lực"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "service_management.service_management": "Service Management",
+  "service_management.serviceCode": "Service Code",
+  "service_management.serviceName": "Service Name",
+  "service_management.serviceStatus": "Status",
+  "service_management.note": "Note",
+  "service_management.add": "Add new Service",
+  "service_management.update": "Update Service",
+  "service_management.active": "Active",
+  "service_management.inactive": "Inactive",
+  "service_management.service": "Service"
+}

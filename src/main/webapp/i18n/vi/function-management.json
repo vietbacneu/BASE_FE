@@ -1,0 +1,53 @@
+{
+  "functionManagement": {
+    "functionManagement": "Quản lý chức năng",
+    "version-code": "Mã phiên bản",
+    "work-type": "Loại công việc",
+    "title": "Quản lý năng lực đối tác",
+    "function-type": "Loại chức năng",
+    "efforts": "Nỗ lực (MH)",
+    "title-add": "Thêm mới chức năng",
+    "title-update": "Cập nhật chức năng",
+    "action": "Hành động",
+    "title-show-detail": "Xem chi tiết chức năng",
+    "status": "Trạng thái",
+    "searchResult": "Kết quả tìm kiếm",
+    "orderNumber": "STT",
+    "delete": "chức năng",
+    "validate": {
+      "functionType": {
+        "maxLength": "Loại chức năng tối đa chỉ nhập 250 ký tự",
+        "required": "Loại chức năng bắt buộc nhập",
+        "exist": "Loại chức năng đã tồn tại",
+        "invalid": "Loại chức năng không hợp lệ"
+      },
+      "work-type": {
+        "required": "Loại công việc bắt buộc chọn"
+      },
+      "efforts": {
+        "required": "Nỗ lực (MH) bắt buộc nhập",
+        "maxLength": "Nỗ lực (MH) tối đa chỉ nhập 15 ký tự",
+        "pattern": "Nỗ lực (MH) không đúng định dạng"
+      },
+      "version-code": {
+        "required": "Mã phiên bản bắt buộc nhập"
+      }
+    },
+    "toastr": {
+      "messages": {
+        "success": {
+          "title": "Thành công",
+          "add": "Thêm mới chức năng thành công!",
+          "update": "Cập nhật chức năng thành công!",
+          "delete": "Xóa chức năng thành công!"
+        },
+        "warning": "Warning",
+        "error": {
+          "add": "Đã có lỗi xảy ra, hệ thống không thể lưu bản ghi",
+          "sendMail": "Đã có lỗi xảy ra, không thể thực hiện gửi mail",
+          "delete": "Đã có lỗi xảy ra, hệ thống không thể xóa biểu mẫu email"
+        }
+      }
+    }
+  }
+}

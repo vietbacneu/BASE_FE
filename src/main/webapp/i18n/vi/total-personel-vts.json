@@ -1,0 +1,87 @@
+{
+  "totalPersonnelVts": {
+    "title": "Thêm mới hồ sơ năng lực đối tác",
+    "titleTable": "Tổng nhân sự sẵn sàng tham gia dự án VTS",
+    "titleTable1": "Tổng nhân sự sản xuất",
+    "numericalOrder": "STT",
+    "action": "Hành động",
+    "timeOfEvaluation": "Thời điểm đánh giá",
+    "purpose": "Mục đích",
+    "staffReview": "Nhân sự tham gia đánh giá",
+    "generalPersonnel": "Tổng nhân sự",
+    "ba": "BA",
+    "dev": "Dev",
+    "tester": "Tester",
+    "devMobile": "Dev mobile",
+    "total": "Tổng",
+    "expert": "Expert",
+    "experience": "Experience",
+    "basic": "Basic",
+
+    "errorTimeEvaluation": "Trường thời điểm đánh giá phải được chọn",
+    "errorTotalPersonnel": "Trường tổng nhân sự phải là số nguyên dương",
+    "errorBaExpert": "Trường BA có trình độ chuyên gia phải là số nguyên dương",
+    "errorBaExperient": "Trường BA có kinh nghiệm phải là số nguyên dương",
+    "errorBaBasic": "Trường BA có trình độ cơ bản phải là số nguyên dương",
+
+    "errorDevExpert": "Trường Dev có trình độ chuyên gia phải là số nguyên dương",
+    "errorDevExperience": "Trường Dev có kinh nghiệm phải là số nguyên dương",
+    "errorDevBasic": "Trường Dev có trình độ cơ bản phải là số nguyên dương",
+
+    "errorTesterExpert": "Trường Tester có trình độ chuyên gia phải là số nguyên dương",
+    "errorTesterExperience": "Trường Tester có kinh nghiệm phải là số nguyên dương",
+    "errorTesterBasic": "Trường Tester có trình độ cơ bản phải là số nguyên dương",
+
+    "toast": {
+      "error": {
+        "table.scoreEvaluation": "Điểm đánh giá phải nhập lớn hơn 0 và tối đa bằng 80.",
+        "table.totalScoreEvaluation": "Điểm đánh giá phải nhập lớn hơn 0 và tối đa bẳng 40.",
+        "table.totalScoreQuality": "Điểm đánh giá phải nhập lớn hơn 0 và tối đa bằng 400.",
+        "tab": {
+          "form": "Điền đầy đủ thông tin ở tab thông tin chung",
+          "similarContracts": "Điền đầy đủ thông tin ở tab các hợp đồng tương tự.",
+          "finacialCapacity": "Điền đầy đủ thông tin ở tab năng lực tài chính.",
+          "partnerResource": "Điền đầy đủ thông tin ở tab nguồn lực đối tác.",
+          "totalPersonnelProduce": "Điền đầy đủ thông tin ở tab tổng nhân sự sản xuất.",
+          "totalPersonnelProduceVts": "Điền đầy đủ thông tin ở tab tổng nhân sự sẵn sàng tham gia dự án VTS.",
+          "qualityCapacity": "Điền đầy đủ thông tin ở tab năng lực quản lý chất lượng.",
+          "capacitySecurity": "Điền đầy đủ thông tin ở tab năng lực bảo mật ATTT.",
+          "data": "Dữ liệu không hợp lệ"
+        }
+      }
+    },
+    "dashboard": {
+      "header": "Thống kê công nợ theo đối tác",
+      "search": {
+        "partnerCode": "Mã đối tác",
+        "employeeSum": "Tổng nhân sự",
+        "devAmount": "Số lượng Dev",
+        "devMobileAmount": "Số lượng Dev Mobile",
+        "devTesterAmount": "Số lượng Tester",
+        "devBAAmount": "Số lượng BA"
+      },
+      "column": {
+        "nameCluesContact": "Đầu mối liên hệ/Tên đầu mối liên hệ",
+        "phoneNumberCluesContact": "Đầu mối liên hệ/SĐT",
+        "fullNameManager": "Giám đốc/Họ tên",
+        "phoneNumberManager": "Giám đốc/SĐT",
+        "totalBA": "BA/Tổng",
+        "expertBA": "BA/Expert",
+        "experienceBA": "BA/Experience",
+        "basicBA": "BA/Basic",
+        "totalDev": "Dev/Tổng",
+        "expertDev": "Dev/Expert",
+        "experienceDev": "Dev/Experience",
+        "basicDev": "Dev/Basic",
+        "totalDevMobile": "Dev Mobile/Tổng",
+        "expertDevMobile": "Dev Mobile/Expert",
+        "experienceDevMobile": "Dev Mobile/Experience",
+        "basicDevMobile": "Dev Mobile/Basic",
+        "totalTester": "Tester/Tổng",
+        "expertTester": "Tester/Expert",
+        "experienceTester": "Tester/Experience",
+        "basicTester": "Tester/Basic"
+      }
+    }
+  }
+}

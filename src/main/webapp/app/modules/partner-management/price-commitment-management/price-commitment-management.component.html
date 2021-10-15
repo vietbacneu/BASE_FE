@@ -1,0 +1,132 @@
+<div class="card mb-1">
+    <div class="card-header card-header-toggle" (click)="toggle()">
+        <a data-toggle="collapse" aria-expanded="true">
+            <i [ngClass]="'fa fa-sort-'+(isShow ?'desc':'asc')" aria-hidden="true"></i>
+            <span class="ml-1">{{'partner.priceCommitmentManagement' | translate}}</span></a>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div *ngIf="!isSaving else addPriceCommitment">
+            <button (click)="openPriceCommitmentSearch()"
+                    class="btn btn-link font-italic cursor-pointer pl-5">{{'partner.priceCommitment' | translate}}</button>
+        </div>
+    </div>
+    <ng-template #addPriceCommitment>
+        <button [disabled]="disable" [class.disabled]="disable" (click)="openPriceCommitmentSearch()"
+                class="btn btn-link font-italic cursor-pointer pl-5">{{'partner.priceCommitment.add' | translate}}</button>
+    </ng-template>
+</div>
+<!--<ejs-treegrid #treegrid [dataSource]='data' [treeColumnIndex]='1' childMapping='subtasks'-->
+<!--              [expandStateMapping]="'isExpand'"-->
+<!--              (rowSelected)="rowClick($event)"-->
+<!--              [allowPaging]="true" [pageSettings]='pageSettings'>-->
+<!--    <e-columns>-->
+<!--        <e-column field='no' headerText='STT' textAlign='Center' width=50>-->
+<!--        </e-column>-->
+<!--        <e-column headerText='Direction' textAlign='Left' width=180></e-column>-->
+<!--        <e-column headerText='Lưu lượng từ' textAlign='Left' width=180></e-column>-->
+<!--        <e-column headerText='Lưu lượng đến' textAlign='Left'-->
+<!--                  width=90></e-column>-->
+<!--        <e-column headerText='Khai giá chi tiết' textAlign='Left' width=80></e-column>-->
+<!--        <e-column headerText='Thao tác' textAlign='Left' width=80></e-column>-->
+<!--    </e-columns>-->
+<!--    <ng-template #rowTemplate let-data>-->
+<!--        <tr class="e-row">-->
+<!--            <td class="e-rowcell text-center">-->
+<!--                <div>{{data.no}}</div>-->
+<!--            </td>-->
+<!--            <td class="e-rowcell">-->
+<!--                <i *ngIf="data.direction==='out'" [class]="'fa fa-arrow-circle-up'"-->
+<!--                   aria-hidden="true"></i>-->
+<!--                <i *ngIf="data.direction==='in'" [class]="'fa fa-arrow-circle-down'"-->
+<!--                   aria-hidden="true"></i>-->
+<!--            </td>-->
+<!--            <td class="e-rowcell">-->
+<!--                {{data.progress | number:'1.0-2':'en-US'}}-->
+<!--            </td>-->
+<!--            <td class="e-rowcell">-->
+<!--                {{data.duration | number:'1.0-2':'en-US'}}-->
+<!--            </td>-->
+<!--            <td class="e-rowcell">-->
+<!--                <span class="detail">Chi tiết</span>-->
+<!--            </td>-->
+<!--            <td class="e-rowcell text-center pinned-column">-->
+<!--                <div class="group-action">-->
+<!--                    <button class="btn btn-light" placement="top" onclick="this.blur()">-->
+<!--                        <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>-->
+<!--                    </button>-->
+<!--                    <button class="btn btn-light" placement="top" onclick="this.blur()">-->
+<!--                        <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </ng-template>-->
+<!--</ejs-treegrid>-->
+<hr>
+<!--<ejs-treegrid #treegrid [dataSource]='data' [treeColumnIndex]='1' childMapping='subtasks'-->
+<!--              [allowPaging]="true" [pageSettings]='pageSettings'>-->
+<!--    <ng-template #pagerTemplate let-data>-->
+<!--        <div class="e-pagertemplate">-->
+<!--            <div class="e-pagercontainer" role="navigation">-->
+<!--                <div class="e-first e-icons e-icon-first e-firstpagedisabled e-disable" title="Go to first page"-->
+<!--                     aria-label="Go to first page" tabindex="-1" index="1" aria-owns="_gridcontrol_content_table"></div>-->
+<!--                <div class="e-prev e-icons e-icon-prev e-prevpagedisabled e-disable" title="Go to previous page"-->
+<!--                     aria-label="Go to previous page" tabindex="-1" index="0"-->
+<!--                     aria-owns="_gridcontrol_content_table"></div>-->
+<!--                <div><a class="e-link e-pp e-spacing e-nextprevitemdisabled e-disable" title="Go to previous pager"-->
+<!--                        role="link" aria-label="Go to previous pager" tabindex="-1" name="Go to previous pager"-->
+<!--                        href="javascript:void(0);" index="-9">...</a></div>-->
+<!--                <div class="e-numericcontainer">-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-currentitem e-active" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 1" href="javascript:void(0);" name="Goto page1"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="" index="1">1</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 2" href="javascript:void(0);" name="Goto page2"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="" index="2">2</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 3" href="javascript:void(0);" name="Goto page3"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="" index="3">3</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 4" href="javascript:void(0);" name="Goto page4"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="" index="4">4</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 5" href="javascript:void(0);" name="Goto page5"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="display: none;">5</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 6" href="javascript:void(0);" name="Goto page6"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="display: none;">6</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 7" href="javascript:void(0);" name="Goto page7"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="display: none;">7</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 8" href="javascript:void(0);" name="Goto page8"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="display: none;">8</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 9" href="javascript:void(0);" name="Goto page9"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="display: none;">9</a></div>-->
+<!--                    <div><a class="e-link e-numericitem e-spacing e-pager-default" role="link" tabindex="-1"-->
+<!--                            aria-label="Goto Page 10" href="javascript:void(0);" name="Goto page10"-->
+<!--                            aria-owns="_gridcontrol_content_table" style="display: none;">10</a></div>-->
+<!--                </div>-->
+<!--                <div><a class="e-link e-np e-spacing e-nextprevitemdisabled e-disable" title="Go to next pager"-->
+<!--                        role="link" aria-label="Go to next pager" tabindex="-1" name="Go to next pager"-->
+<!--                        href="javascript:void(0);" index="NaN">...</a></div>-->
+<!--                <div class="e-next e-icons e-icon-next e-nextpage e-pager-default" title="Go to next page"-->
+<!--                     aria-label="Go to next page" tabindex="-1" index="2" aria-owns="_gridcontrol_content_table"></div>-->
+<!--                <div class="e-last e-icons e-icon-last e-lastpage e-pager-default" title="Go to last page"-->
+<!--                     aria-label="Go to last page" tabindex="-1" index="4" aria-owns="_gridcontrol_content_table"></div>-->
+<!--            </div>-->
+<!--            <div id="totalPages" class="e-parentmsgbar"-->
+<!--                 style="margin-top:5px;margin-left:30px;border: none; display: inline-block ">-->
+<!--                <span class="e-pagenomsg">{{data.currentPage}} của {{data.totalPages}} trang({{data.totalRecordsCount}}-->
+<!--                    bản ghi)</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </ng-template>-->
+<!--    <e-columns>-->
+<!--        <e-column field='taskID' headerText='Task ID' textAlign='Center' width=50></e-column>-->
+<!--        <e-column field='taskName' headerText='Task Name' textAlign='Left' width=180></e-column>-->
+<!--        <e-column field='startDate' headerText='Start Date' textAlign='Center' format='dd/MM/yyyy' width=90></e-column>-->
+<!--        <e-column field='duration' headerText='Duration' textAlign='Center' width=80></e-column>-->
+<!--    </e-columns>-->
+<!--</ejs-treegrid>-->

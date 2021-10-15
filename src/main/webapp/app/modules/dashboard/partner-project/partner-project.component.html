@@ -1,0 +1,68 @@
+<label class="title-chart">
+  <span class="title-width">Thống kê công nợ của đối tác theo hợp đồng</span>
+</label>
+<div class="d-flex">
+  <span class="flex-grow-1"></span>
+  <label class="col-sm-3 col-form-label custom-label-right bold">Thời gian kết thúc</label>
+  <div class="col-sm-9">
+    <jhi-date-range-picker [(ngModel)]="dataSearch" (ngModelChange)="onChangeData($event)"
+                     (keyup.enter)="onChangeData($event)"></jhi-date-range-picker>
+  </div>
+</div>
+<div class="mb-2">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-6" style="padding: 0px 10px 10px 10px;">
+        <span style="font-weight: bold">Công nợ của đối tác theo HĐ đã ký</span>
+        <div class="d-flex">
+          <div class="flex-grow-1"></div>
+          <a style="position: absolute; color: #d6d5d5; top: 0; right: 3px" (click)="openModalZoom()" ngbTooltip="Phóng to"><i
+            class="fa fa-arrows-alt"></i></a>
+        </div>
+        <div class="card-view chart-wrapper" style="display: block" *ngIf="pieChartLabels && pieChartData">
+          <canvas baseChart class="chart" height="500" width="500"
+                  [data]="pieChartData"
+                  [labels]="pieChartLabels"
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions"
+                  [plugins]="pieChartPlugins"
+                  [colors]="pieChartColors"
+                  [legend]="pieChartLegends">
+          </canvas>
+        </div>
+      </div>
+      <div class="col-lg-6" style="padding: 0px 10px 10px 10px;">
+        <span style="font-weight: bold">Công nợ của đối tác theo HĐ chưa ký</span>
+        <div class="d-flex">
+          <div class="flex-grow-1"></div>
+          <a style="position: absolute; color: #d6d5d5; top: 0; right: 3px" (click)="openModalZoomCk()" ngbTooltip="Phóng to"><i
+            class="fa fa-arrows-alt"></i></a>
+        </div>
+        <div class="card-view chart-wrapper" style="display: block" *ngIf="pieChartLabels && pieChartData">
+          <canvas baseChart height="500" width="500"
+                  [data]="pieChartDatas"
+                  [labels]="pieChartLabel"
+                  [chartType]="pieChartType"
+                  [options]="pieChartOptions"
+                  [plugins]="pieChartPlugins"
+                  [colors]="pieChartColors"
+                  [legend]="pieChartLegends">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row d-flex justify-content-end pr-2 mb-3 mt-3">
+          <button type="button" class="btn btn-primary" (click)="openModal(19)">Xem chi tiết</button>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row d-flex justify-content-end pr-2 mb-3 mt-3">
+          <button type="button" class="btn btn-primary" (click)="openModal(18)">Xem chi tiết</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

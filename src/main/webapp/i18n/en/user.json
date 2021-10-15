@@ -1,0 +1,78 @@
+{
+  "user": {
+    "title": "Danh mục người dùng",
+    "user": "người dùng",
+    "titleAuth": "Phân quyền ký hiệu hóa đơn",
+    "titleParent": "Danh mục hệ thống",
+    "title.table": "Danh sách người dùng",
+    "position": "Chức danh",
+    "organization": "Đơn vị",
+    "orderNumber": "STT",
+    "action": "Hành động",
+    "userName": "Tên nhân viên",
+    "note": "Ghi chú",
+    "description": "Mô tả",
+    "emailAddress": "Acc email",
+    "status": "Trạng thái",
+    "userGroup": "Nhóm người dùng",
+    "invalidDelete": "Người dùng đã được sử dụng, không được phép xóa",
+    "modal": {
+      "action.deactivate": "Bạn chắc chắn muốn mở khóa người dùng?",
+      "action.active": "Bạn chắc chắn muốn khóa người dùng?",
+      "title": {
+        "add": "Thêm mới người dùng",
+        "update": "Cập nhật người dùng",
+        "detail": "Xem thông tin người dùng"
+      }
+    },
+    "toastr": {
+      "title": {
+        "success": "Thành công",
+        "warning": "Cảnh báo",
+        "info": "Thông báo",
+        "error": "Có lỗi xảy ra"
+      },
+      "messages": {
+        "success": {
+          "add": "Thêm mới người dùng thành công!",
+          "update": "Cập nhật người dùng thành công!",
+          "delete": "Xóa biểu người dùng thành công !"
+        },
+        "warning": "Warning",
+        "error": {
+          "add": "Đã có lỗi xảy ra, hệ thống không thể lưu bản ghi",
+          "sendMail": "Đã có lỗi xảy ra, không thể thực hiện gửi mail",
+          "delete": "Đã có lỗi xảy ra, hệ thống không thể xóa biểu mẫu email"
+        }
+      }
+    },
+    "validate": {
+      "note": {
+        "required": "Ghi chú không được quá 500 ký tự"
+      },
+      "description": {
+        "required": "Mô tả không được quá 500 ký tự"
+      },
+      "userName": {
+        "required": "Bạn chưa nhập Tên nhân viên",
+        "maxlength": "Tên nhân viên không được quá 255 ký tự",
+        "invalid": "Tên nhân viên là chữ cái không dấu, chữ số và các ký tự - _ và ."
+      },
+      "emailAddress": {
+        "required": "Bạn chưa nhập Acc email",
+        "maxlength": "Acc email không được quá 50 ký tự",
+        "invalid": "Bạn đang nhập sai định dạng  Acc email",
+        "duplicate": "Acc mail đã tồn tại trong hệ thống!"
+      },
+      "userGroup": {
+        "required": "Bạn chưa chọn Nhóm người dùng"
+      },
+      "organizationId": {
+        "required": "Bạn chưa chọn Đơn vị"
+      },
+      "positionName": {
+        "required": "Bạn chưa chọn Chức danh"
+      }
+    }
+  }
+}

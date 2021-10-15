@@ -1,0 +1,141 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg"
+                ngbTooltip="{{'common.tooltip.app_param' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item active"><a>{{'app_param.app-param' | translate}}</a></li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div class="card mb-1">
+        <div class="card-header">
+            <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+                    jhiTranslate="common.card.title.search"></span></a>
+        </div>
+        <div id="search" class="collapse show">
+            <div class="card-body">
+                <form [formGroup]="formGroup" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.type'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select">
+                                    <input type="text" class="form-control" jhiAutoFocusField formControlName="parType">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.name'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select">
+                                    <input type="text" class="form-control"
+                                           formControlName="parName">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.code'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select">
+                                    <input type="text" class="form-control" formControlName="parCode">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'app_param.value'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select">
+                                    <input type="text" class="form-control"
+                                           formControlName="parStringValue">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-primary" (click)="search()">
+                            <span> {{'common.button.search' | translate}}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <a data-toggle="collapse" href="#dataTable"
+               aria-expanded="true"><span>{{'projectManagement.result-search' | translate}}</span></a>
+        </div>
+        <div id="dataTable" class="collapse show">
+            <div class="card-body pt-2 pb-0 px-2">
+                <div class="row d-flex justify-content-end pr-1">
+                    <button type="button" class="btn btn-primary" (click)="openDialog()">
+                        <i class="fa fa-plus mr-2" aria-hidden="true"></i>
+                        <span>{{'common.button.add' | translate}}</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <perfect-scrollbar id="scrollbarTable" class="ps">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="text-center">
+                                <th [ngClass]="[column.size+'-width-table',column.name==='partner.action'?'pinned-column':'']"
+                                    *ngFor="let column of columns">
+                                    {{column.name | translate}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of lstAppParam; index as i">
+                            <tr>
+                                                                <td (click)="viewDetail(item)"
+                                                                    class="cursor-pointer text-center">{{(page - 1) * itemsPerPage + i + 1}}</td>
+                                <td (click)="viewDetail(item)" class="cursor-pointer text-center">{{item?.parType}}</td>
+                                <td (click)="viewDetail(item)"
+                                    class="cursor-pointer text-center">{{item?.parName}}</td>
+                                <td (click)="viewDetail(item)"
+                                    class="cursor-pointer text-center">{{item?.parCode}}</td>
+                                <td (click)="viewDetail(item)"
+                                    class="cursor-pointer text-center">{{item?.parStringValue}}</td>
+                                <td (click)="viewDetail(item)"
+                                    class="cursor-pointer text-center">{{item?.description}}</td>
+                                <td class="text-center pinned-column">
+                                    <div class="group-action">
+                                        <button class="btn btn-light" placement="top"
+                                                ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                (click)="onEdit(item)">
+                                            <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-light" placement="top"
+                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                (click)="onDelete(item)">
+                                            <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                     *ngIf="!totalItems">
+                    <p class="item-count" jhiTranslate="common.table.noData"></p>
+                </div>
+
+                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                    <div class="row justify-content-center">
+                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                        [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                        [boundaryLinks]="true"
+                                        (pageChange)="loadPage(page)">
+                        </ngb-pagination>
+                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>

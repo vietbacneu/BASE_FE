@@ -1,0 +1,128 @@
+
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item"><a jhiTranslate="userGroup.titleParent">Danh mục hệ thống</a></li>
+    <li class="breadcrumb-item active" jhiTranslate="userGroup.title">Danh mục nhóm người dùng</li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div id="organizationCategories" class="page-content">
+        <div class="card mb-1">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+                    jhiTranslate="common.card.title.search"></span></a>
+            </div>
+            <div id="search" class="collapse show">
+                <div class="card-body">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="userGroup.userGroupCode">Mã nhóm</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" formControlName="code" jhiAutoFocusField>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="userGroup.userGroupName">Tên nhóm</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" formControlName="name" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary" (click)="doSearch()">
+                                <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                                jhiTranslate="common.button.search">Tìm kiếm</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+                    jhiTranslate="userGroup.titleTable"></span></a>
+            </div>
+            <div id="dataTable" class="collapse show">
+                <div class="card-body pt-2 pb-0 px-2">
+                    <div class="row d-flex justify-content-end pr-1">
+                        <button type="button"  class="btn btn-primary" *jhiHasPermission="['DMNND_ADD']" (click)="openModal('add')" >
+
+                            <i class="fa fa-plus mr-2" aria-hidden="true"></i><span jhiTranslate="common.button.add">Thêm mới</span>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <table class="table table-bordered table-hover table-striped" id="tableCustoms">
+                            <thead>
+                            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT</th>
+                                <th class="medium-width-table action-width-four-icon custom-width" jhiTranslate="userGroup.action">Hành động</th>
+                                <th><span jhiTranslate="userGroup.userGroupCode">Mã nhóm</span></th>
+                                <th ><span jhiTranslate="userGroup.userGroupName">Tên nhóm</span> </th>
+                                <th ><span jhiTranslate="userGroup.description">Mô tả</span></th>
+                                <th ><span jhiTranslate="userGroup.note">Ghi chú</span></th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of userGroupList; index as i">
+                            <tr>
+                                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                <td class="text-center four-icon medium-width-table">
+
+                                    <div class="group-action">
+                                        <button class="btn btn-light"
+                                                ngbTooltip="{{'common.tooltip.action.add.user' | translate}}" (click)="openModalUserAdd('update', item)"
+                                                onclick="this.blur();" >
+                                            <i class="fa fa-user-plus icon-update" aria-hidden="true"></i></button>
+                                        <button class="btn btn-light" placement="top"
+                                                (click)="openModalUserGroupAuth('add', item)"
+                                                ngbTooltip="{{'common.tooltip.action.auth.userGroup' | translate}}"
+                                                onclick="this.blur();">
+                                            <i class="fa fa-cog icon-config" aria-hidden="true"></i></button>
+                                        <button class="btn btn-light" placement="top"
+                                                ngbTooltip="Sửa" (click)="openModal('update', item)"
+                                                onclick="this.blur();">
+                                            <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i></button>
+                                        <button class="btn btn-light" placement="top"
+                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}" (click)="onDelete(item)"
+                                                 onclick="this.blur();">
+                                            <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i></button>
+                                    </div>
+                                </td>
+                                <td >{{item.code}}</td>
+                                <td >{{item.name}}</td>
+<!--                                <td ngbTooltip="{{item.description}}" container="body" class = "oneLine">{{item.description}}</td>-->
+                                <td>{{item.description}}</td>
+                                <td>{{item.note}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalItems || totalItems === 0">
+                        <p class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+                    <div class="d-flex justify-content-end table-footer" [hidden]="totalItems === 0">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                            <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                            [pageSize]="itemsPerPage"
+                                            [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                                            (pageChange)="loadPage(page)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>

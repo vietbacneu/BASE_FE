@@ -1,0 +1,138 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0" jhiTranslate="profileAppraisal.titleHistory">Lịch sử thẩm định dự án
+    </h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+ 
+   <perfect-scrollbar class="ps" [style.max-height.px]="height"  [style.max-width.px]="width" (window:resize)="onResize()">
+      <div class="modal-body">
+        <p class="general-information">Thông tin chung</p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.profileAppraisalCode">Mã thẩm định</label>
+              <p>{{listData.code}}</p>      
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.organizationRequest">Đơn vị yêu cầu</label>
+              <p>{{listData.organizationRequestName}}</p>      
+            </div>
+          </div>
+        </div>
+   
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.profileTitle">Tiêu đề</label>
+              <p>{{listData.profileTitle}}</p>    
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.appCode">Mã ứng dụng</label>
+              <p>{{listData.appCode}}</p>    
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.appName">Tên ứng dụng</label>
+              <p>{{listData.appName}}</p>    
+            </div>
+          </div>
+          <div class="col-md-6">
+          </div>
+       </div>
+       <p class="general-information">Thông tin riêng</p>
+       <div *ngFor="let item of listData.listData; index as i" >
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.createDate1">Thời gian tạo</label>
+              <p>{{item.createDate | date:" hh:mm dd/MM/yyyy "}}</p>    
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.createUser">Thời gian tạo</label>
+              <p>{{item.createUserName}}</p>    
+            </div> 
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.userRequest">Người tạo yêu cầu</label>
+              <p>{{item.userRequestName}}</p>    
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.handler">Người xử lý</label>
+              <p>{{item.handlerName}}</p>    
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.srCode">Mã SR</label>
+              <p>{{item.srCode}}</p>    
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.status">Trạng thái</label>
+              <p>{{getStatus(item.status)}}</p>    
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.startDate">Ngày bắt đầu</label>
+              <p>{{item.startDate | date:"dd/MM/yyyy" }}</p>    
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.endDate1">Ngày kết thúc</label>
+              <p>{{item.endDate | date:"dd/MM/yyyy" }}</p>    
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.filePath">File import</label>
+              <button type="button" class="btn btn-link pt-0 col-form-label l-h-0"
+                      (click)="downloadFileResult(item.filePath)">{{item.filePath}}</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label custome-history" jhiTranslate="profileAppraisal.filePathResult">File kết quả</label>
+              <button type="button" class="btn btn-link pt-0 col-form-label l-h-0"
+                      (click)="downloadFileResult(item.filePathResult)">{{item.filePathResult}}</button>
+            </div>
+          </div>
+        </div>
+        <div class ="dashed-history"></div>
+       </div>
+     </div>
+   </perfect-scrollbar>
+     <div class="modal-footer">
+        <button #cancelBtn type="button" class="btn btn-light alight" (click)="onCancel()">
+          <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+          jhiTranslate="{{'common.button.close'}}">Hủy bỏ</span>
+        </button>
+      </div>
+</div>
+
+

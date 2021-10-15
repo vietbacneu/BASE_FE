@@ -1,0 +1,470 @@
+<div class="card mb-1">
+    <div class="card-header card-header-toggle" (click)="toggle()">
+        <a data-toggle="collapse" aria-expanded="true">
+            <i [ngClass]="'fa fa-sort-'+(isShow ?'desc':'asc')" aria-hidden="true"></i>
+            <span class="ml-1">{{'partner.contractInfo' | translate}}</span></a>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="formGroup" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.no'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('contractNo')">
+                                <input type="text" class="form-control" formControlName="contractNo" maxlength="50">
+                                <app-inline-message [formName]="formGroup.get('contractNo')"
+                                                    [message]="'partner.contract.no'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.priceType'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 row form-custom-select" ngbRadioGroup name="radioBasic"
+                                 formControlName="sendingPriceType">
+                                <div class="col-sm-6 radio-wrapper">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio"
+                                               [value]="1"> {{'partner.contract.priceType.full' | translate}}
+                                    </label>
+                                </div>
+                                <div class="col-sm-6 radio-wrapper">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio"
+                                               [value]="0"> {{'partner.contract.priceType.unFull'| translate}}
+                                    </label>
+                                </div>
+                                <app-inline-message class="radio-message" [formName]="formGroup.get('sendingPriceType')"
+                                                    [message]="'partner.contract.priceType'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.fromDate'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('startDate')">
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="startDate"
+                                           name="dp" ngbDatepicker (dateSelect)="onValidDate()"
+                                           #fromDate="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button [disabled]="disable" class="btn btn-outline-secondary calendar"
+                                                (click)="fromDate.toggle()"
+                                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <app-inline-message [formName]="formGroup.get('startDate')"
+                                                    [message]="'partner.contract.fromDate'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.name'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('contractName')">
+                                <input type="text" class="form-control" formControlName="contractName" maxlength="100">
+                                <app-inline-message [formName]="formGroup.get('contractName')"
+                                                    [message]="'partner.contract.name'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.status'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('status')">
+                                <ng-select [items]="lstStatus"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="label"
+                                           bindValue="value"
+                                           formControlName="status"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('status')"
+                                                    [message]="'partner.contract.status'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.toDate'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('endDate')">
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="endDate" name="dp"
+                                           ngbDatepicker (dateSelect)="onValidDate()"
+                                           #toDate="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button [disabled]="disable" class="btn btn-outline-secondary calendar"
+                                                (click)="toDate.toggle()"
+                                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <app-inline-message [formName]="formGroup.get('endDate')"
+                                                    [message]="'partner.contract.toDate'"></app-inline-message>
+                                <span class="error-mes"
+                                      *ngIf="formGroup.get('endDate').hasError('small') && formGroup.get('endDate').touched">
+                                        {{ 'partner.priceOut.smallEndDate' | translate }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.currency'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('currency')">
+                                <ng-select [items]="lstCurrency"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="shortName"
+                                           bindValue="id"
+                                           formControlName="currency"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('currency')"
+                                                    [message]="'partner.contract.currency'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.roundRule'| translate}}
+                                <span *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('roundMethod')">
+                                <ng-select [items]="lstRoundMethod"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="parName"
+                                           bindValue="parCode"
+                                           formControlName="roundMethod"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('roundMethod')"
+                                                    [message]="'partner.contract.roundRule'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <label class="custom-label-left col-form-label l-h-0">{{'partner.contract.docsType4' | translate}}
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div *ngIf="disableBtn else fileDownload" class="col-md-9 form-custom-select">
+                                <jhi-upload-file [validMaxSize]="20" [isDisable]="disable"
+                                                 [multiple]="false" [fileType]="'excel'"
+                                                 [suggest]="'none'" [strType]="'single'"
+                                                 [accept]="'.pdf,.docx,.doc,.xlsx,.xls'"
+                                                 (onFileChange)="onChangeFile($event)"
+                                                 (onError)="onError($event)" [isError]="errImport">
+                                </jhi-upload-file>
+                                <div class="error-mes" *ngIf="errImport">{{errMessage}}</div>
+                                <div class="error-mes mt-1"
+                                     *ngIf="isEmptyFile"> {{ 'validation.required' | translate: {field: 'partner.contract.docsType4' | translate} }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #fileDownload>
+                        <span class="attach-files" [ngbTooltip]="contractTemplateName" [placement]="'top'"
+                              (click)="downloadFile(contractTemplateId,contractTemplateName)">{{contractTemplateName?.length > 30 ? contractTemplateName?.substring(0, 30).concat('...') : contractTemplateName}}</span>
+                    </ng-template>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.commitment.service'| translate}}</label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('service')">
+                                <ng-select [items]="lstService"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="serviceName"
+                                           bindValue="id"
+                                           searchable="false"
+                                           formControlName="service">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('service')"
+                                                    [message]="'partner.commitment.service'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.diff-rate'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('differenceRate')">
+                                <input id="controlErr" type="text" class="form-control" formControlName="differenceRate">
+                                <app-inline-message [formName]="formGroup.get('differenceRate')"
+                                                    [message]="'partner.contract.diff-rate'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.trackingTerm'| translate}}</label>
+                            <div class="col-sm-9">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.trackingType'| translate}}</label>
+                                    <div style="margin-bottom: 0px"
+                                         class="col-sm-9 form-group dropdown form-custom-select">
+                                        <ng-select [items]="lstTrackingType"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   bindLabel="label"
+                                                   bindValue="value"
+                                                   searchable="false"
+                                                   formControlName="trackingType">
+                                        </ng-select>
+                                        <app-inline-message [formName]="formGroup.get('trackingType')"
+                                                            [message]="'partner.contract.trackingType'"></app-inline-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.outGoingTimezone'| translate}}</label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('outGoingTimezone')">
+                                <ng-select [items]="lstTimezone"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="label"
+                                           bindValue="value"
+                                           searchable="false"
+                                           formControlName="outGoingTimezone">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('service')"
+                                                    [message]="'partner.contract.outGoingTimezone'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.diffMoney'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select"
+                                 [ngClass]="displayFieldHasError('differenceMoney')">
+                                <input type="text" class="form-control" formControlName="differenceMoney">
+                                <app-inline-message [formName]="formGroup.get('differenceMoney')"
+                                                    [message]="'partner.contract.diffMoney'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left"></label>
+                            <div class="col-sm-9">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.trackingFrequency'| translate}}</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" formControlName="trackingFrequency">
+                                        <app-inline-message [formName]="formGroup.get('trackingFrequency')"
+                                                            [message]="'partner.contract.trackingFrequency'"></app-inline-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.inComingTimezone'| translate}}</label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('inComingTimezone')">
+                                <ng-select [items]="lstTimezone"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="label"
+                                           bindValue="value"
+                                           searchable="false"
+                                           formControlName="inComingTimezone">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('inComingTimezone')"
+                                                    [message]="'partner.contract.inComingTimezone'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.diffType'| translate}}</label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('differenceType')">
+                                <ng-select [items]="lstDifferenceType"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="label"
+                                           bindValue="value"
+                                           searchable="false"
+                                           formControlName="differenceType">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('differenceType')"
+                                                    [message]="'partner.contract.diffType'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left"></label>
+                            <div class="col-sm-9">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.trackingCount'| translate}}</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" formControlName="trackingCount">
+                                        <app-inline-message [formName]="formGroup.get('trackingCount')"
+                                                            [message]="'partner.contract.trackingCount'"></app-inline-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.sendInvoiceDay'| translate}}</label>
+                            <div class="col-sm-9" [ngClass]="displayFieldHasError('sendInvoiceDay')">
+                                <input type="text" class="form-control" formControlName="sendInvoiceDay">
+                                <app-inline-message [formName]="formGroup.get('sendInvoiceDay')"
+                                                    [message]="'partner.contract.sendInvoiceDay'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.processTime'| translate}}</label>
+                            <div class="col-sm-9" [ngClass]="displayFieldHasError('processTime')">
+                                <input type="text" class="form-control" formControlName="processTime">
+                                <app-inline-message [formName]="formGroup.get('processTime')"
+                                                    [message]="'partner.contract.processTime'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{'partner.contract.trackingForm'|translate}}</label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                                 [ngClass]="displayFieldHasError('trackingForm')">
+                                <ng-select [items]="lstTrackingForm"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="label"
+                                           bindValue="value"
+                                           searchable="false"
+                                           formControlName="trackingForm">
+                                </ng-select>
+                                <app-inline-message [formName]="formGroup.get('trackingForm')"
+                                                    [message]="'partner.contract.trackingForm'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.contract.replyInvoiceTime'| translate}}</label>
+                            <div class="col-sm-9" [ngClass]="displayFieldHasError('replyInvoiceTime')">
+                                <input type="text" class="form-control" formControlName="replyInvoiceTime">
+                                <app-inline-message [formName]="formGroup.get('sendInvoiceDay')"
+                                                    [message]="'partner.contract.replyInvoiceTime'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-hidden" hidden></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div class="row">
+            <div class="col-md-4">
+                <span class="custom-title">{{'partner.attachDocs' | translate}}</span>
+            </div>
+            <div style="padding-right: 15px !important;" class="col-md-3 offset-md-5 d-flex">
+                <div *ngIf="!isSaving" class="input-group">
+                    <input type="text" class="form-control" [(ngModel)]="keyword" name="keyword">
+                    <div class="input-group-append" (click)="onSearch()">
+                        <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <button [disabled]="disableBtn||disable" *ngIf="isSaving" type="button" class="btn btn-primary ml-auto"
+                        (click)="addAttachmentDocs()">
+                    <span> {{'partner.contract.addDoc' | translate}}</span>
+                </button>
+            </div>
+        </div>
+        <div class="card-body pt-2 pb-0 px-2">
+            <div class="row">
+                <perfect-scrollbar id="scrollbarTable" class="ps">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th [ngClass]="column.size+'-width-table'" *ngFor="let column of columns">
+                                {{column.name | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let item of attachDocs; index as i">
+                        <tr>
+                            <td class="text-center">{{(page - 1) * itemsPerPage + i + 1}}</td>
+                            <td class="text-center">{{getDocumentTypeName(item?.docsType)}}</td>
+                            <td class="text-center">{{item?.documentCode}}</td>
+                            <td class="text-center">{{item?.documentName}}</td>
+                            <td class="text-center">{{item?.signedDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item?.startDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item?.endDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item?.description}}</td>
+                            <td class="text-left">
+                                <ng-container *ngFor="let f of item.attachFiles">
+                                    <span class="attach-files" [ngbTooltip]="f?.filename" [placement]="'left'"
+                                          (click)="downloadFile(f.id,f?.filename)">{{f?.filename?.length > 30 ? f?.filename?.substring(0, 30).concat('...') : f?.filename}}</span><br>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+            <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                 *ngIf="!totalItems">
+                <p class="item-count" jhiTranslate="common.table.noData"></p>
+            </div>
+
+            <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                <div class="row justify-content-center">
+                    <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                    <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                    [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                    [boundaryLinks]="true"
+                                    (pageChange)="loadPage(page)">
+                    </ngb-pagination>
+                    <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isSaving" class="d-flex justify-content-center pb-2">
+            <button [disabled]="disable" style="width: 100px" type="button" class="btn btn-primary" (click)="save()">
+                <span> {{'entity.action.save' | translate}}</span>
+            </button>
+        </div>
+    </div>
+</div>

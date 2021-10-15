@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-6">
+        <ng-container>
+            <a #deleteFileElem [hidden]="!file">
+        <span class="icon-delete-file import" aria-hidden="true"
+              ngbTooltip="{{ 'common.tooltip.action.deleteFileImport' | translate }}">x</span>
+            </a>
+        </ng-container>
+        <jhi-upload-file style="height: 100px;" class="h-100" [fileType]="'excel'" #fileImport [accept]="'.xls,.xlsx'" (change)="onChangeFile($event)"></jhi-upload-file>
+    </div>
+    <div class="col-md-6">
+        <button (click)="uploadFile()" type="submit" mat-raised-button class="mr-3" color="primary">
+           Upload File
+        </button>
+    </div>
+</div>

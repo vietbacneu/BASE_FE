@@ -1,0 +1,19 @@
+<form class="input-group mr-2" autocomplete="off">
+  <div class="form-group w-100 mb-0">
+    <div class="input-group">
+      <input id="bsDatepicker" #input [(ngModel)]="selectedValue" class="form-control" name="date" bsDatepicker #d="bsDatepicker"
+             autocomplete="off"
+             [disabled]="isDisabled ? true : null" [ngClass]="isError ? 'border-red' : ''" [minDate]="minDate"
+             [bsConfig]="{dateInputFormat: 'MM/YYYY', customClasses: 'custom-today-class'}" (bsValueChange)="onInputChange($event)" placeholder="mm/yyyy"
+             (blur)="onChangeBlur()"
+             (onShown)="onOpenCalendar($event)" container="body">
+      <div class="input-group-append">
+        <button class="btn calendar" (click)="d.toggle()"  [disabled]="isDisabled" type="button" [ngClass]="isError ? 'border-red' : ''">
+          <i class="pg-calender"></i>
+        </button>
+      </div>
+    </div>
+    <div class="text-danger" *ngIf="isError">{{msgError}}</div>
+  </div>
+</form>
+

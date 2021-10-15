@@ -1,0 +1,163 @@
+<div class="card-body">
+    <form autocomplete="off" [formGroup]="formGroup">
+        <div class="row justify-content-center align-content-center">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Thời gian bắt đầu</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <div class="input-group">
+                                    <ng-bootstrap-datetime-angular class="w-100" placeholder="Select DateTime" formControlName="test" inputDatetimeFormat="dd/MM/yyyy hh:mm a" name="activeEndDate"></ng-bootstrap-datetime-angular>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Thời gian kết thúc</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <div class="input-group w-100">
+                                    <ng-bootstrap-datetime-angular class="w-100" placeholder="Select DateTime" inputDatetimeFormat="dd/MM/yyyy hh:mm a" name="activeEndDate"></ng-bootstrap-datetime-angular>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row form-group form-custom-select" ngbRadioGroup name="status">
+                  <div class="row">
+                      <div class="col-sm-12 radio-wrapper">
+                          <label ngbButtonLabel class="custom-radio">
+                              <input [value]="0" ngbButton type="radio"> Lập lịch đơn giản
+                          </label>
+                      </div>
+                  </div>
+                    <ng-container>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-sm-4 col-form-label custom-label-left">Thời gian nghỉ</label>
+                                    <div class="col-sm-3 form-custom-select">
+                                        <input type="number" class="form-control">
+                                    </div>
+                                    <div class="col-sm-3 form-custom-select">
+                                        <input type="number" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-sm-4 col-form-label custom-label-left">Số lần lặp</label>
+                                    <div class="col-sm-3 form-custom-select">
+                                        <input type="number" class="form-control">
+                                    </div>
+                                    <div class="col-sm-3" hidden></div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="row">
+                        <div class="col-sm-12 radio-wrapper">
+                            <label ngbButtonLabel class="custom-radio">
+                                <input ngbButton #s2 type="radio" [value]="1"> Lập lịch kiểu cron
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <ng-container>
+                    <div class="row form-group form-custom-select" ngbRadioGroup name="status">
+                        <div style="padding-top: 10px" class="col-sm-12 radio-wrapper">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio">Hằng ngày vào lúc
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <ngb-timepicker></ngb-timepicker>
+                                </div>
+                                <div class="col-md-2" hidden>
+                                    <input type="number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top: 10px" class="col-sm-12 radio-wrapper">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <label>Của các ngày trong tuần</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <ng-select clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                                               bindLabel="name"
+                                               bindValue="value"
+                                               searchable="false">
+                                    </ng-select>
+                                </div>
+                                <div class="col" hidden></div>
+                            </div>
+                        </div>
+                        <div style="padding-top: 10px" class="col-sm-12 radio-wrapper">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio">Hằng tuần vào ngày giờ
+                                    </label>
+                                </div>
+                                <div class="col-md-6" hidden></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <ng-select clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                                               bindLabel="name"
+                                               bindValue="value"
+                                               searchable="false">
+                                    </ng-select>
+                                </div>
+                                <div class="col-md-4">
+                                    <ngb-timepicker></ngb-timepicker>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <label ngbButtonLabel class="custom-radio">
+                                        <input ngbButton type="radio">Hằng tháng vào ngày giờ
+                                    </label>
+                                </div>
+                                <div class="col-md-6" hidden></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    <ng-select clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                                               bindLabel="name"
+                                               bindValue="value"
+                                               searchable="false">
+                                    </ng-select>
+                                </div>
+                                <div class="col-md-4">
+                                    <ngb-timepicker></ngb-timepicker>
+                                </div>
+                                <div class="col-md-4" hidden>
+                                    <input type="number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </form>
+</div>

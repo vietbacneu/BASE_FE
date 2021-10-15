@@ -1,0 +1,85 @@
+{
+  "dataCategories": {
+    "webTitle": "Danh mục chức danh",
+    "serialNo": "Danh mục hệ thống",
+    "title": "Danh mục chức danh",
+    "importTitle": "Tên File",
+    "searchForm": {
+      "title": "Kết quả tìm kiếm",
+      "code": "Mã chức danh",
+      "name": "Tên chức danh",
+      "type": "Loại chức danh"
+    },
+    "listData": {
+      "code": "Mã chức danh",
+      "name": "Tên chức danh",
+      "type": "Loại chức danh"
+    },
+    "createData": {
+      "add": "Thêm chức danh",
+      "update": "Sửa chức danh",
+      "code": "Mã chức danh",
+      "name": "Tên chức danh",
+      "description": "Mô tả",
+      "note": "Ghi chú",
+      "type": "Loại chức danh"
+    },
+    "validation": {
+      "action": {
+        "delete": "Chức danh đã được sử dụng, không được phép xóa"
+      },
+      "code": {
+        "codeRequire": "Mã chức danh bắt buộc nhập",
+        "minLength": "Mã chức danh phải có từ 4 ký tự",
+        "whiteSpace": "Mã chức danh không tất là khoảng trắng",
+        "specialCharacters": "Mã chức danh không hợp lệ",
+        "duplicate": "Mã chức danh đã tồn tại trong hệ thống",
+        "maxlength": "Mã chức danh không quá 20 ký tự"
+      },
+      "name": {
+        "nameRequire": "Tên chức danh bắt buộc nhập",
+        "whiteSpace": "Tên chức danh không tất là khoảng trắng",
+        "specialCharacters": "Tên chức danh không chứa ký tự đặc biệt",
+        "maxlength": "Tên chức danh không quá 250 ký tự"
+      },
+      "description": {
+        "maxlength": "Mô tả không quá 255 ký tự"
+      },
+      "note": {
+        "maxlength": "Ghi chú không quá 255 ký tự"
+      },
+      "type": {
+        "required": "Loại chức danh bắt buộc chọn"
+      },
+      "import": "Loại File .xlsx,. xls dung lượng tối đa: 5MB"
+    },
+    "action": {
+      "title": "Hành Động",
+      "add": "chức danh",
+      "update": "Chức danh",
+      "delete": "chức danh",
+      "import": "chức danh",
+      "fileExcel": "File Excel"
+    },
+    "toastr": {
+      "title": {
+        "success": "Thành công",
+        "warning": "Cảnh báo",
+        "info": "Thông báo",
+        "error": "Có lỗi xảy ra"
+      },
+      "messages": {
+        "success": {
+          "add": "Thêm mới người dùng thành công!",
+          "update": "Cập nhật người dùng thành công!",
+          "delete": "Xóa tài liệu thành công!"
+        },
+        "warning": "Warning",
+        "error": {
+          "add": "Đã có lỗi xảy ra, hệ thống không thể lưu bản ghi",
+          "delete": "Đã có lỗi xảy ra, hệ thống không thể xóa tài liệu"
+        }
+      }
+    }
+  }
+}

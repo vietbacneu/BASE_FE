@@ -1,0 +1,48 @@
+
+<div jhiModalDrag [handle]="handle">
+    <div class="modal-header" #handle>
+        <h5 class="modal-title mt-0" jhiTranslate="userGroup.modal.title.auth">Phân quyền nhóm người dùng
+        </h5>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body auth-user-group">
+        <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-3 col-form-label custom-label-right"
+                               jhiTranslate="userGroup.userGroupName">Nhóm</label>
+                        <div class="col-sm-9">
+                            <input type="text" formControlName="name" class="form-control" disabled jhiAutoFocusField>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="card mb-0 mt-2">
+            <!--<div jhiTranslate="userGroup.title.modal" class="text-left ml-2">Danh sách quyền đã lựa chọn</div>-->
+            <div class="scroll">
+                <div class="collapse show">
+                    <div class="card-body pr-0">
+                        <ngx-treeview id="treeAuthUserGroup" [config]="config" [items]="treeViewItems"
+                                      (selectedChange)="onSelectedChange($event)">
+                        </ngx-treeview>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="onCloseAddModal()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span jhiTranslate="common.button.confirm.cancel">Hủy bỏ</span>
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmitData()">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+            jhiTranslate="common.button.confirm.save">Ghi lại</span>
+        </button>
+    </div>
+</div>
+
+

@@ -1,0 +1,21 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "select": {
+      "option": " --Tất cả-- "
+    },
+    "partnerCode": "Mã đối tác"
+  },
+  "liabilitiesPartner": {
+    "title": "Thống kê công nợ theo đơn vị thuê ngoài",
+    "partner": "Đối tác",
+    "unitOutsource": "Đơn vị thuê ngoài",
+    "MMUsed": "MM sử dụng lũy kế",
+    "MMPayed": "MM đã thanh toán",
+    "MMRemain": "MM còn nợ",
+    "moneyOwed": "Số tiền còn nợ",
+    "partnerType": "Loại đối tác",
+    "poiter": "Đầu mối liên hệ đề nghị hợp tác",
+    "total": "Tổng"
+  }
+}

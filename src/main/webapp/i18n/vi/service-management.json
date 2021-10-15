@@ -1,0 +1,12 @@
+{
+  "service_management.service_management": "Quản lý dịch vụ",
+  "service_management.serviceCode": "Mã dịch vụ",
+  "service_management.serviceName": "Tên dịch vụ",
+  "service_management.serviceStatus": "Trạng thái",
+  "service_management.note": "Ghi chú",
+  "service_management.add": "Thêm mới dịch vụ",
+  "service_management.update": "Cập nhật dịch vụ",
+  "service_management.active": "Hoạt động",
+  "service_management.inactive": "Không hoạt động",
+  "service_management.service": "Dịch vụ"
+}

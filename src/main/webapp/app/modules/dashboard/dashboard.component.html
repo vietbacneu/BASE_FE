@@ -1,0 +1,48 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active">Dashboard</li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div id="organizationCategories">
+    <div class="mb-2">
+      <div class="card-body">
+      <!--   Row 1     -->
+        <div class="row">
+          <div class="col-lg-6 custom-col-dashboard">
+            <div class="card-view heigh-chart">
+              <jhi-outside-project></jhi-outside-project>
+            </div>
+          </div>
+          <div class="col-lg-6 custom-col-dashboard">
+            <div class="card-view heigh-chart">
+              <jhi-partner-project></jhi-partner-project>
+            </div>
+          </div>
+        </div>
+        <!--Row 2-->
+        <div class="row">
+          <div class="col-lg-6 custom-col-dashboard">
+            <div class="card-view heigh-chart">
+              <jhi-liabilities-partner></jhi-liabilities-partner>
+            </div>
+          </div>
+          <div class="col-lg-6 custom-col-dashboard">
+            <div class="card-view heigh-chart">
+              <jhi-partner-organization></jhi-partner-organization>
+            </div>
+            </div>
+          </div>
+ <!--Row 3-->
+        <div class="row">
+          <div class="col-lg-6 custom-col-dashboard">
+            <div class="card-view" style="height: 610px">
+              <jhi-partner-employee-chart></jhi-partner-employee-chart>
+            </div>
+          </div>
+          <div class="col-lg-6">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>

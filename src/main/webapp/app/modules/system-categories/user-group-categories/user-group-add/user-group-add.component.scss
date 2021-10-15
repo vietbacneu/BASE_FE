@@ -1,0 +1,9 @@
+.textarea {
+  overflow: auto !important;
+  resize: vertical !important;
+}
+.form-control-label.required:after,
+.col-form-label.required:after,
+.file-name-label.required:after {
+  position: inherit !important;
+}

@@ -1,0 +1,89 @@
+<div class="card mb-1">
+    <div class="card-header">
+        <div class="row justify-content-center">
+            <h5>{{(selectedExchange ? 'exchange_rate.update' : 'exchange_rate.add')|translate}}</h5>
+        </div>
+    </div>
+    <div id="search" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="createForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'exchange_rate.billingPeriod'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('billingPeriod')">
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="billingPeriod" name="dp"
+                                           ngbDatepicker #toDate="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary"
+                                                (click)="toDate.toggle()"
+                                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <app-inline-message [formName]="createForm.get('billingPeriod')"
+                                                    [message]="'exchange_rate.billingPeriod'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'exchange_rate.currency'| translate}}</label>
+                            <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('currencyId')">
+                                <ng-select [items]="lstCurrency"
+                                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="shortName"
+                                           bindValue="id"
+                                           formControlName="currencyId"
+                                           searchable="false">
+                                </ng-select>
+                                <app-inline-message [formName]="createForm.get('currencyId')"
+                                                    [message]="'exchange_rate.currency'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label custom-label-left">{{ 'exchange_rate.rateType'| translate}}</label>
+                            <div class="col-md-9 form-custom-select w-100"
+                                 [ngClass]="displayFieldHasError('rateType')">
+                                <input type="number" class="form-control"
+                                       formControlName="rateType"/>
+                                <app-inline-message [formName]="createForm.get('rateType')"
+                                                    [message]="'exchange_rate.rateType'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label custom-label-left">{{ 'exchange_rate.rate'| translate}}</label>
+                            <div class="col-md-9 form-custom-select w-100"
+                                 [ngClass]="displayFieldHasError('rate')">
+                                <input type="number" class="form-control"
+                                       formControlName="rate"/>
+                                <app-inline-message [formName]="createForm.get('rate')"
+                                                    [message]="'exchange_rate.rate'"></app-inline-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center ml-2">
+                    <button type="button" class="btn btn-primary ml-2" (click)="save()">
+                        <span> {{'app_param.add' | translate}}</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-2" (click)="cancel()">
+                        <span> {{'app_param.cancel'| translate}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

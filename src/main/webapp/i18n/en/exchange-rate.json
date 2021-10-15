@@ -1,0 +1,9 @@
+{
+  "exchange_rate.billingPeriod": "Billing Period",
+  "exchange_rate.management": "Exchange rate management",
+  "exchange_rate.currency": "Currency type",
+  "exchange_rate.rateType": "Rate type",
+  "exchange_rate.rate": "Rate",
+  "exchange_rate.add": "Add new rate",
+  "exchange_rate.update": "Update rate"
+}

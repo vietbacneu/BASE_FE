@@ -1,0 +1,68 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg"
+                ngbTooltip="{{'common.tooltip.thread-management' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item active"><a>{{'thread_management.thread-management' | translate}}</a></li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div class="card">
+        <div id="dataTable" class="collapse show">
+            <div class="card-body pt-2 pb-0 px-2">
+                <div class="row">
+                    <perfect-scrollbar id="scrollbarTable" class="ps">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="text-center">
+                                <th [ngClass]="[column.size+'-width-table',column.name==='partner.action'?'pinned-column':'']"
+                                    *ngFor="let column of columns">
+                                    {{column.name | translate}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of lstThread; index as i">
+                            <tr>
+                                <td>{{i+1}}</td>
+                                <td>{{item.name}}</td>
+                                <td class="colStop"  align="center">
+                                    <button *ngIf="!item.status" class="btn btn-warning" disabled><i
+                                            class="fa fa-ban"></i>{{item.status?'Running':'Stopped'}}</button>
+                                    <button *ngIf="item.status" class="btn btn-success"><i
+                                            class="fa fa-plug" disabled></i>{{item.status?'Running':'Stopped'}}</button>
+                                </td>
+                                <td class="colStart" align="center">
+                                    <button *ngIf="!item.status" class="btn btn-success" (click)="turnOnThread(item.threadId)"><i class="fa fa-power-off"></i>Start</button>
+                                    <button *ngIf="item.status" class="btn btn-danger" (click)="turnOffThread(item.threadId)"><i class="fa fa-ban"></i>Stop</button>
+                                </td>
+                                <td class="colSetting" align="center">
+                                    <button class="btn btn-secondary" [routerLink]="['/thread-management/setting', item.threadId]"><i class="fa fa-cog"></i>Setting</button></td>
+                                <td class="colViewlogs" align="center">
+                                    <button class="btn btn-primary" [routerLink]="['/thread-management/viewLog', item.threadId]"><i class="fa fa-eye"></i>View logs</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                     *ngIf="!totalItems">
+                    <p class="item-count" jhiTranslate="common.table.noData"></p>
+                </div>
+
+                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                    <div class="row justify-content-center">
+                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                        [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                        [boundaryLinks]="true"
+                                        (pageChange)="loadPage(page)">
+                        </ngb-pagination>
+                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>

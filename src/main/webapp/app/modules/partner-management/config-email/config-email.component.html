@@ -1,0 +1,146 @@
+<div class="card mb-1">
+    <div class="card-header card-header-toggle" (click)="toggle()">
+        <a data-toggle="collapse" aria-expanded="true">
+            <i [ngClass]="'fa fa-sort-'+(isShow ?'desc':'asc')" aria-hidden="true"></i>
+            <span class="ml-1">{{'partner.emailConfig.title' | translate}}</span></a>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div class="card-body">
+            <form [formGroup]="formGroup" autocomplete="off">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.emailConfig.type'| translate}}
+                                <span
+                                        *ngIf="isSaving" class="text-danger">*</span></label>
+                            <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select">
+                                <select class="form-control custom-select-arrow"
+                                        formControlName="emailType">
+                                    <option value="">{{'common.select.option.all' | translate}}</option>
+                                </select>
+                                <span class="span-after-select"><i class="fa fa-angle-down"
+                                                                   aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8"></div>
+                </div>
+                <div *ngIf="isSaving">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{'partner.emailConfig.senderEmail'| translate}}
+                                    <span
+                                            *ngIf="isSaving" class="text-danger">*</span></label>
+                                <div class="col-sm-9 form-custom-select">
+                                    <input type="text" class="form-control" formControlName="senderEmail">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.emailConfig.mailSubject'| translate}}
+                                    <span *ngIf="isSaving" class="text-danger">*</span></label>
+                                <div class="col-sm-9 form-custom-select">
+                                    <input type="text" class="form-control"
+                                           formControlName="mailSubject">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.emailConfig.partnerAttachment'| translate}}</label>
+                                <div class="col-sm-9 form-custom-select">
+                                    <input type="text" class="form-control"
+                                           formControlName="partnerAttachment">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{'partner.emailConfig.senderSelector'| translate}}
+                                    <span
+                                            *ngIf="isSaving" class="text-danger">*</span></label>
+                                <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select">
+                                    <select class="form-control custom-select-arrow"
+                                            formControlName="senderSelector">
+                                        <option value="">{{'common.select.option.all' | translate}}</option>
+                                    </select>
+                                    <span class="span-after-select"><i class="fa fa-angle-down"
+                                                                       aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.emailConfig.mailSubjectSelector'| translate}}
+                                    <span *ngIf="isSaving" class="text-danger">*</span></label>
+                                <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select">
+                                    <select class="form-control custom-select-arrow"
+                                            formControlName="mailSubjectSelector">
+                                        <option value="">{{'common.select.option.all' | translate}}</option>
+                                    </select>
+                                    <span class="span-after-select"><i class="fa fa-angle-down"
+                                                                       aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.emailConfig.partnerSelector'| translate}}</label>
+                                <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select">
+                                    <select class="form-control custom-select-arrow"
+                                            formControlName="partnerSelector">
+                                        <option value="">{{'common.select.option.all' | translate}}</option>
+                                    </select>
+                                    <span class="span-after-select"><i class="fa fa-angle-down"
+                                                                       aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="isSaving" class="d-flex justify-content-center">
+                        <button [disabled]="disable" style="width: 100px" type="button" class="btn btn-primary"
+                                (click)="save()">
+                            <span> {{'entity.action.save' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div *ngIf="!isSaving" class="card-body pt-2 pb-0 px-2">
+            <div class="row">
+                <perfect-scrollbar id="scrollbarTable" class="ps">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th [ngClass]="column.size+'-width-table'" *ngFor="let column of columns">
+                                {{column.name | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+            <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                 *ngIf="!totalItems">
+                <p class="item-count" jhiTranslate="common.table.noData"></p>
+            </div>
+            <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                <div class="row justify-content-center">
+                    <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                    <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                    [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                    [boundaryLinks]="true"
+                                    (pageChange)="loadPage(page)">
+                    </ngb-pagination>
+                    <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

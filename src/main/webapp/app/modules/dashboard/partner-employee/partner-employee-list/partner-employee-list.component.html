@@ -1,0 +1,326 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0">
+      Thống kê nhân sự sẵn sàng của đối tác</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div class="modal-body">
+    <div class="page-content">
+      <div class="card mb-1">
+        <div class="card-header">
+          <a href="#search" aria-expanded="true"><span
+            jhiTranslate="common.card.title.search"></span></a>
+        </div>
+        <div id="search" class="collapse show">
+          <div class="ps mr-2">
+            <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="profileManagement.partnerShortName">Đối tác</label>
+                    <div class="col-sm-9">
+                      <input type="text" maxlength="20" class="form-control" formControlName="partnerShortName"
+                             (blur)="trimSpace('partnerShortName')">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="totalPersonnelVts.dashboard.search.employeeSum">Tổng nhân sự</label>
+                    <div class="col-sm-9">
+                      <input type="text" maxlength="10" class="form-control" formControlName="employeeSum"
+                             (blur)="trimSpace('employeeSum')" (input)="onKeyInput($event, 'employeeSum')">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="totalPersonnelVts.dashboard.search.devBAAmount">Số lượng BA</label>
+                    <div class="col-sm-9">
+                      <input type="text" maxlength="10" class="form-control" formControlName="baAmount"
+                             (blur)="trimSpace('baAmount')" (input)="onKeyInput($event, 'baAmount')">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="totalPersonnelVts.dashboard.search.devAmount">Số lượng Dev</label>
+                    <div class="col-sm-9">
+                      <input type="text" maxlength="10" class="form-control" formControlName="devAmount"
+                             (blur)="trimSpace('devAmount')" (input)="onKeyInput($event, 'devAmount')">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="totalPersonnelVts.dashboard.search.devMobileAmount">Số lượng Dev Mobile</label>
+                    <div class="col-sm-9">
+                      <input type="text" maxlength="10" class="form-control" formControlName="devMobileAmount"
+                             (blur)="trimSpace('devMobileAmount')" (input)="onKeyInput($event, 'devMobileAmount')">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="totalPersonnelVts.dashboard.search.devTesterAmount">Số lượng Tester</label>
+                    <div class="col-sm-9">
+                      <input type="text" maxlength="10" class="form-control" formControlName="testerAmount"
+                             (blur)="trimSpace('testerAmount')" (input)="onKeyInput($event, 'testerAmount')">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center pb-3">
+                <button type="button" class="btn btn-primary" (click)="doSearch()">
+                  <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                  jhiTranslate="common.button.search">Tìm kiếm</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <a href="#dataTable" aria-expanded="true">
+                    <span jhiTranslate="profileManagement.searchResult">
+                    </span>
+          </a>
+        </div>
+        <div id="dataTable" class="collapse show">
+          <div class="card-body pt-2 pb-0 px-2">
+            <div class="row d-flex justify-content-end mr-1">
+              <div ngbDropdown class="d-inline-block choose-column float-right" placement="bottom-right"
+                   ngbTooltip="Ẩn/hiện cột">
+                <button type="button" id="dropdownBasic1" class="btn btn-primary btn-view-column"
+                        placement="top" ngbDropdownToggle>
+                  <i class="fa fa-list" aria-hidden="true"></i>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <perfect-scrollbar class="ps" [style.max-height.vh]="SHOW_HIDE_COL_HEIGHT">
+                    <ng-container *ngFor="let col of columns; let i = index">
+                      <div class="custom-control custom-checkbox" *ngIf="checkShowColumns(i)">
+                        <input class="custom-control-input" type="checkbox" [checked]="col.isShow"
+                               id="check{{ i }}" (click)="toggleColumns(col)"/>
+                        <label class="custom-control-label cursor-pointer" for="check{{ i }}">
+                          {{ col.value }}
+                        </label>
+                      </div>
+                    </ng-container>
+                  </perfect-scrollbar>
+                </div>
+              </div>
+            </div>
+            <div class="row ml-1">
+              <perfect-scrollbar id="scrollbarTable" class="ps mr-3">
+                <table class="table table-bordered table-hover table-striped mr-2">
+                  <thead>
+                  <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                    <th rowspan="2" scope="col" class="small-width-table"
+                        jhiTranslate="profileManagement.orderNumber">STT
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[0]?.isShow" scope="col"
+                        class="medium-width-table"><span
+                      jhiTranslate="profileManagement.partnerShortName">Tên viết
+                                                tắt</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[1]?.isShow" scope="col"
+                        class="medium-width-table"><span
+                      jhiTranslate="profileManagement.partnerName">Tên đối tác</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[2]?.isShow" scope="col"
+                        class="medium-width-table"><span
+                      jhiTranslate="profileManagement.foundedYear">Năm thành lập</span>
+                    </th>
+                    <th rowspan="1" *ngIf="this.columns[24]?.isShow && this.columns[24]?.col > 0"
+                        [attr.colspan]="this.columns[24]?.col"
+                        jhiTranslate="profileManagement.pointOfContact" scope="col"
+                        class="large-width-table customWidth">Đầu mối liên hệ
+                    </th>
+                    <th rowspan="1" *ngIf="this.columns[25]?.isShow && this.columns[25]?.col > 0"
+                        [attr.colspan]="this.columns[25]?.col"
+                        jhiTranslate="profileManagement.director" scope="col"
+                        class="large-width-table customWidth">Giám đốc
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[7]?.isShow" scope="col"
+                        class="medium-width-table"><span
+                      jhiTranslate="profileManagement.employeeSum">Tổng nhân sự</span>
+                    </th>
+                    <th rowspan="1" *ngIf="this.columns[26]?.isShow && this.columns[26]?.col > 0"
+                        [attr.colspan]="this.columns[26]?.col"
+                        jhiTranslate="totalPersonnelVts.ba" scope="col"
+                        class="large-width-table customWidth">BA
+                    </th>
+                    <th rowspan="1" *ngIf="this.columns[27]?.isShow && this.columns[27]?.col > 0"
+                        [attr.colspan]="this.columns[27]?.col"
+                        jhiTranslate="totalPersonnelVts.dev" scope="col"
+                        class="large-width-table customWidth">DEV
+                    </th>
+                    <th rowspan="1" *ngIf="this.columns[28]?.isShow && this.columns[28]?.col > 0"
+                        [attr.colspan]="this.columns[28]?.col"
+                        jhiTranslate="totalPersonnelVts.devMobile" scope="col"
+                        class="large-width-table customWidth">DEV MOBILE
+                    </th>
+                    <th rowspan="1" *ngIf="this.columns[29]?.isShow && this.columns[29]?.col > 0"
+                        [attr.colspan]="this.columns[29]?.col"
+                        jhiTranslate="totalPersonnelVts.tester" scope="col"
+                        class="large-width-table customWidth">TESTER
+                    </th>
+                  </tr>
+                  <tr>
+                    <th rowspan="2" *ngIf="this.columns[3]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="profileManagement.nameCluesContact">Tên đầu mối liên hệ</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[4]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="profileManagement.phoneNumber">SĐT</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[5]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="profileManagement.fullName">Họ tên</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[6]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="profileManagement.phoneNumber">SĐT</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[8]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.total">SUM BA</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[9]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.expert">Expert BA</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[10]?.isShow" scope="col"
+                        class="medium-width-table"><span
+                      jhiTranslate="totalPersonnelVts.experience">Experience BA</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[11]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.basic">Basic BA</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[12]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.total">SUM DEV</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[13]?.isShow" scope="col"
+                        class="medium-width-table"><span
+                      jhiTranslate="totalPersonnelVts.expert">Expert DEV</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[14]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.experience">Experience DEV</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[15]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.basic">Basic DEV</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[16]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.total">SUM DEV mobile</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[17]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.expert">Expert dev mobile</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[18]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.experience">Experience dev mobile</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[19]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.basic">Basic dev mobile</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[20]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.total">SUM tester</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[21]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.expert">Expert tester</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[22]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.experience">Experience tester</span>
+                    </th>
+                    <th rowspan="2" *ngIf="this.columns[23]?.isShow" scope="col"
+                        class="medium-width-table text-center"><span
+                      jhiTranslate="totalPersonnelVts.basic">Basic tester</span>
+                    </th>
+                  </tr>
+
+
+                  </thead>
+                  <tbody *ngFor="let item of employeeOfPartnerList; index as i">
+                  <tr>
+                    <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                    <td class="text-left" *ngIf="this.columns[0]?.isShow">{{item.shortPartnerName}}</td>
+                    <td class="text-left" *ngIf="this.columns[1]?.isShow">{{item.partnerName}}</td>
+                    <td class="text-center" *ngIf="this.columns[2]?.isShow">{{item.foundedYear}}</td>
+                    <td class="text-left" *ngIf="this.columns[3]?.isShow">{{item.contactClue}}</td>
+                    <td class="text-center" *ngIf="this.columns[4]?.isShow">{{item.telephoneOfContactClue}}</td>
+                    <td class="text-left" *ngIf="this.columns[5]?.isShow">{{item.managerFullName}}</td>
+                    <td class="text-center" *ngIf="this.columns[6]?.isShow">{{item.telephoneOfManager}}</td>
+                    <td class="text-right" *ngIf="this.columns[7]?.isShow">{{item.employeeSum}}</td>
+
+                    <td class="text-right" *ngIf="this.columns[8]?.isShow">{{item.baSum}}</td>
+                    <td class="text-right" *ngIf="this.columns[9]?.isShow">{{item.baExpert}}</td>
+                    <td class="text-right" *ngIf="this.columns[10]?.isShow">{{item.baExperience}}</td>
+                    <td class="text-right" *ngIf="this.columns[11]?.isShow">{{item.baBasic}}</td>
+
+                    <td class="text-right" *ngIf="this.columns[12]?.isShow">{{item.devSum}}</td>
+                    <td class="text-right" *ngIf="this.columns[13]?.isShow">{{item.devExpert}}</td>
+                    <td class="text-right" *ngIf="this.columns[14]?.isShow">{{item.devExperience}}</td>
+                    <td class="text-right" *ngIf="this.columns[15]?.isShow">{{item.devBasic}}</td>
+
+                    <td class="text-right" *ngIf="this.columns[16]?.isShow">{{item.devMobileSum}}</td>
+                    <td class="text-right" *ngIf="this.columns[17]?.isShow">{{item.devMobileExpert}}</td>
+                    <td class="text-right" *ngIf="this.columns[18]?.isShow">{{item.devMobileExperience}}</td>
+                    <td class="text-right" *ngIf="this.columns[19]?.isShow">{{item.devMobileBasic}}</td>
+
+                    <td class="text-right" *ngIf="this.columns[20]?.isShow">{{item.testerSum}}</td>
+                    <td class="text-right" *ngIf="this.columns[21]?.isShow">{{item.testerExpert}}</td>
+                    <td class="text-right" *ngIf="this.columns[22]?.isShow">{{item.testerExperience}}</td>
+                    <td class="text-right" *ngIf="this.columns[23]?.isShow">{{item.testerBasic}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+            <div class="row ml-1 mr-1 py-2 pl-1  table-footer no-data"
+                 *ngIf="!totalItems || totalItems === 0">
+              <p class="item-count" jhiTranslate="common.table.noData"></p>
+            </div>
+            <div class="d-flex justify-content-end table-footer mr-2" [hidden]="totalItems === 0">
+              <div class="row justify-content-center">
+                <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                [pageSize]="itemsPerPage"
+                                [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                                (pageChange)="loadPage(page)">
+                </ngb-pagination>
+                <jhi-page-size-popup (onChangePageSize)="changePageSize($event)"></jhi-page-size-popup>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>
+

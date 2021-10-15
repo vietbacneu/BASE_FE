@@ -1,0 +1,8 @@
+{
+  "currency_management.shortName": "Tên viết tắt",
+  "currency_management.fullName": "Tên đầy đủ",
+  "currency_management.description": "Mô tả",
+  "currency_management.currency_management": "Quản lí tiền tệ",
+  "currency_management.add": "Thêm mới loại tiền tệ",
+  "currency_management.update": "Cập nhật loại tiền tệ"
+}

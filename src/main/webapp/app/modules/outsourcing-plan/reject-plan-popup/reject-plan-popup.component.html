@@ -1,0 +1,39 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0 required" *ngIf="type !== 'showReason'">Lý do từ chối <span style="color: red">(*)</span></h5>
+    <h5 class="modal-title mt-0" *ngIf="type === 'showReason'">Xem lý do từ chối</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form" novalidate autocomplete="off">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row"
+             [ngClass]="{'has-error': isFieldValid('reasonReject')}">
+          <textarea *ngIf="type !== 'showReason'" type="text" class="form-control" formControlName="reasonReject"
+                    maxlength="1000">
+          </textarea>
+          <div *ngIf="type === 'showReason'" class="show-reason">
+            <span>{{formControl['reasonReject'].value}}</span>
+          </div>
+          <jhi-error-messages *ngIf="formControl['reasonReject'].hasError('required')"
+                              [displayError]="isFieldValid('reasonReject')"
+                              errorMsg="{{'outsourcingPlan.required.reasonReject' | translate}}">
+          </jhi-error-messages>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="onCloseModal()">
+    <i class="fa fa-times mr-2" aria-hidden="true"></i><span> Hủy bỏ </span>
+  </button>
+  <button *ngIf="type === 'reject'" type="submit" class="btn btn-primary" (click)="onSubmit()">
+    <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+    jhiTranslate="{{'outsourcingPlan.button.reject'}}">Từ chối</span>
+  </button>
+</div>

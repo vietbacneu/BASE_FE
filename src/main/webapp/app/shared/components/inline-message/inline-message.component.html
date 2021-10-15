@@ -1,0 +1,75 @@
+<div class="form-text" *ngIf="(formName.invalid && formName.touched)">
+  <span *ngIf="formName.errors.required">
+    {{ 'validation.required' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.minlength">
+    {{ 'validation.minLength' | translate: {
+        field: message | translate,
+        value: formName.errors.minlength.requiredLength
+    } }}
+  </span>
+    <span *ngIf="formName.errors.maxlength && !formName.errors?.max">
+    {{ 'validation.maxLength' | translate: {
+        field: message | translate,
+        value: formName.errors.maxlength.requiredLength
+    } }}
+  </span>
+    <span *ngIf="formName.errors.pattern">
+    {{ 'validation.pattern' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.onlyNaturalNumber">
+    {{ 'validation.onlyNaturalNumber' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.onlyNumber">
+    {{ 'validation.onlyNumber' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.onlyDoubleNumber">
+    {{ 'validation.onlyDoubleNumber' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.onlyCharacter">
+    {{ 'validation.onlyCharacter' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.mustMatch">
+    {{ 'validation.mustMatch' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.passwordMustMatchChange">
+    {{ 'validation.mustMatch' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.email">
+    {{ 'validation.email' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.existCheck">
+    {{ 'validation.existCheck' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.max">
+    {{ 'validation.maxValue' | translate: {field: message | translate, value: formName.errors.max.max} }}
+  </span>
+    <span *ngIf="formName.errors.min">
+    {{ 'validation.minValue' | translate: {field: message | translate, value: formName.errors.min.min} }}
+  </span>
+    <span *ngIf="formName.errors.invalidBrand">
+    {{ 'validation.invalidBrand' | translate: {field: message} }}
+  </span>
+    <span *ngIf="formName.errors.customRequired">
+    {{ 'validation.customRequired' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.invalidCpCode">
+    {{ 'validation.invalidCpCode' | translate: {field: message} }}
+  </span>
+    <span *ngIf="formName.errors.invalidPhoneNumber">
+    {{ 'validation.invalidPhoneNumber' | translate: {field: message} }}
+  </span>
+    <span *ngIf="formName.errors.invalidPassword">
+    {{ 'validation.invalidPassword' | translate: {field: message} }}
+  </span>
+    <span *ngIf="formName.errors.isValidInput">
+    {{ 'validation.isValidInput' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.requiredCb">
+    {{ 'validation.requiredCb' | translate: {field: message | translate} }}
+  </span>
+    <span *ngIf="formName.errors.dateFull">
+    {{'validation.dateFull' | translate }}
+  </span>
+
+</div>

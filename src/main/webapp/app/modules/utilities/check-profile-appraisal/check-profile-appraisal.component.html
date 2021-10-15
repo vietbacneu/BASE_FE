@@ -1,0 +1,88 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+      <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li class="breadcrumb-item"><a jhiTranslate="utilities.titleParent">Tiện ích</a></li>
+  <li class="breadcrumb-item active" jhiTranslate="utilities.title">Danh mục người dùng</li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div id="organizationCategories" class="page-content">
+    <div class="card mb-1">
+      <!-- <div class="card-header">
+        <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+          jhiTranslate="common.card.title.search"></span></a>
+      </div> -->
+      <div id="search" class="collapse show">
+        <div class="card-body">
+            <div class="row">
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-2 custom-label-right col-form-label">
+                <label class="col-form-label l-h-0 " style="margin-right: 15px;"
+                       >File import
+                </label>
+              </div>
+
+              <div class="col-md-4 pt-1">
+                <div class="form-group">
+                  <ng-container>
+                    <a #deleteFileElem (click)="deleteFileImport()" [hidden]="!file">
+                      <span class="icon-delete-file import" aria-hidden="true"
+                          ngbTooltip="{{ 'common.tooltip.action.deleteFileImport' | translate }}">x</span>
+                    </a>
+                  </ng-container>
+                  <jhi-upload-file [fileType]="'excel'"  #fileImport [accept]="'.xls,.xlsx'" (onFileChange)="onChangeFile($event)"
+                    (onError)="onError($event)" [isError]="errImport" >
+                  </jhi-upload-file>
+                  <div class="mt-2">
+                    <button #downloadTemplateBtn type="button" class="btn btn-link pl-0" (click)="downloadFileTemplate('xls')">
+                      <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file mẫu (.xls)</span>
+                    </button>
+                </div>
+                  <div class="text-danger" *ngIf="errImport">{{errMessage}}</div>
+                  <div class="text-success" *ngIf="successImport">{{successMessage}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-primary" (click)="onSubmit()" >
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i><span
+                jhiTranslate="utilities.check"> Kiểm tra ULNL</span>
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>
+<ng-template #template let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0"><span>Kết quả kiểm tra file ULNL</span></h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModalResult()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+     <div class="row mb-3">
+       <div class="col-md-4 custom-label col-form-label">
+         <label class="col-form-label l-h-0" jhiTranslate="utilities.totalError">Tổng số dòng lỗi</label>
+       </div>
+       <div class="col-md-4  custom-label col-form-label">
+         <p class="col-form-label l-h-0">{{errorRecord}}</p>
+       </div>
+    </div>
+    <div class="row mb-3">
+       <div class="col-md-4 custom-label col-form-label">
+         <label class="col-form-label l-h-0" jhiTranslate="utilities.attachFile">File ULNL</label>
+         
+       </div>
+       <div class="col-md-4  custom-label col-form-label">
+         <button type="button" class="btn btn-link pt-0 col-form-label l-h-0"
+                     (click)="downloadFileImport()">Tải file kết quả</button>
+       </div>
+     </div>
+  </div>
+ </ng-template>

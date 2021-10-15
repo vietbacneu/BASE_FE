@@ -1,0 +1,41 @@
+{
+  "title": "THỐNG KÊ CÔNG NỢ THEO ĐỐI TÁC",
+  "searchTitle": {
+    "title": "THỐNG KÊ CÔNG NỢ THEO ĐỐI TÁC",
+    "partnerShortName": "Đối tác",
+    "partnerCode": "Mã đối tác",
+    "partnerCategory": "Loại đối tác",
+    "outsourcedUnit": "Đơn vị thuê ngoài",
+    "MMOwed": "MM còn nợ",
+    "MMAccumulated": "MM sử dụng lũy kế",
+    "MMPayed": "MM đã thanh toán"
+  },
+  "grid-view": {
+    "partner": "Đối tác",
+    "contract-num": "Số hợp đồng",
+    "partnerCategory": "Loại đối tác",
+    "productionUnit": "Đơn vị sản xuất",
+    "outsourcedUnit": "Đơn vị thuê ngoài",
+    "contactPointsForCooperation": "Đầu mối đề nghị hợp tác",
+    "totalMMAccumulated": "MM sử dụng lũy kế",
+    "MMOwed": "MM còn nợ",
+    "MMPayed": "MM đã thanh toán",
+    "listNameTechnicalClue": "Đầu mối sản xuất",
+    "listNameBusinessOrganization": "Đơn vị kinh doanh",
+    "listNameBusinessClue": "Đầu mối kinh doanh"
+  },
+  "validation": {
+    "MMOwed": {
+      "onlyNumber": "MM còn nợ không hợp lệ",
+      "numberLesThan0": "MM còn nợ chỉ nhập số nguyên lớn hơn 0"
+    },
+    "MMPayed": {
+      "onlyNumber": "MM đã thanh toán không hợp lệ",
+      "numberLesThan0": "MM đã thanh toán chỉ nhập số nguyên lớn hơn 0"
+    },
+    "MMAccumulated": {
+      "onlyNumber": "MM sử dụng lũy kế không hợp lệ",
+      "numberLesThan0": "MM sử dụng lũy kế chỉ nhập số nguyên lớn hơn 0"
+    }
+  }
+}

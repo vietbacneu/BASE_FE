@@ -1,0 +1,160 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 *ngIf="type === 'add'" class="modal-title mt-0" jhiTranslate="versionManagement.modal.title.add">Thêm mới phiên bản</h5>
+    <h5 *ngIf="type === 'update'" class="modal-title mt-0" jhiTranslate="versionManagement.modal.title.update">Cập nhật phiên bản
+    </h5>
+    <h5 *ngIf="type === 'preview'" class="modal-title mt-0" jhiTranslate="versionManagement.modal.title.detail">Xem thông tin</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div class="modal-body">
+      <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label"  [ngClass]="type === 'detail' ? '' : 'required'"
+                     jhiTranslate="versionManagement.startDate">Thời gian bắt đầu hiệu lực</label>
+                     <jhi-date-picker-popup name="startDate"
+                     formControlName="startDate"
+                     [isDisabled]="(type === 'preview')"
+                     (onChooseDate)="isShowErrorMessage(formControl['startDate'].value)"
+                     [touched]="true" jhiAutoFocusField>
+              </jhi-date-picker-popup>
+              <jhi-error-messages [displayError]="startDateValidate"
+                                errorMsg="{{'versionManagement.validate.startDate1' | translate}}">
+              </jhi-error-messages>
+              <jhi-error-messages *ngIf="formControl['startDate'].hasError('required')"
+                                  [displayError]="isFieldValid('startDate')"
+                                  errorMsg="{{'versionManagement.toastr.startDate.required' | translate }}"> </jhi-error-messages>
+              <jhi-error-messages [displayError]="startDateValidateData"
+                                  errorMsg="{{messageData}}">
+                </jhi-error-messages>
+                                  
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label"  [ngClass]="type === 'detail' ? '' : 'required'"
+                     jhiTranslate="versionManagement.endDate">Thời gian kết thúc hiệu lực</label>
+                     <jhi-date-picker-popup name="endDate"
+                     formControlName="endDate"
+                     [isDisabled]="(type === 'preview')"
+                     (onChooseDate)="isShowErrorMessage(formControl['endDate'].value)"
+                     [touched]="true">
+              </jhi-date-picker-popup>
+
+              <jhi-error-messages *ngIf="formControl['endDate'].hasError('required')"
+                                [displayError]="isFieldValid('endDate')"
+                                errorMsg="{{'versionManagement.toastr.endDate.required' | translate}}">
+              </jhi-error-messages>
+              <jhi-error-messages [displayError]="endDateValidate"
+                                errorMsg="{{'versionManagement.validate.endDate1' | translate}}">
+              </jhi-error-messages>
+              <jhi-error-messages [displayError]="endDateValidateNowDate"
+                                errorMsg="{{'versionManagement.validate.endDateValidateNowDate' | translate}}">
+              </jhi-error-messages>
+             
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [ngClass]="displayFieldHasError('versionCode')">
+              <label class="form-control-label" [ngClass]="type === 'detail' ? '' : 'required'"
+                     jhiTranslate="versionManagement.versionCode">Mã phiên bản</label>
+              <input type="text" [readOnly]="true" formControlName="versionCode" class="form-control"
+                     maxlength="50"/>
+              <jhi-error-messages *ngIf="formControl['versionCode'].hasError('required')"
+                                  [displayError]="isFieldValid('versionCode')"
+                                  errorMsg="{{ 'versionManagement.validate.versionCode.required' | translate }}">
+              </jhi-error-messages>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" [ngClass]="displayFieldHasError('versionName')">
+              <label class="form-control-label" [ngClass]="type === 'detail' ? '' : 'required'"
+                     jhiTranslate="versionManagement.versionName">Tên phiên bản</label>
+              <input type="text" formControlName="versionName" class="form-control"
+                     [readonly]="(type === 'preview')" maxlength="255" (blur)="trimSpace('versionName')"/>
+              <jhi-error-messages *ngIf="formControl['versionName'].hasError('required')" [displayError]="isFieldValid('versionName')"
+                                  errorMsg="{{ 'versionManagement.validate.versionName.required' | translate }}">
+              </jhi-error-messages>
+              <jhi-error-messages *ngIf="formControl['versionName'].hasError('maxlength')"
+                                  [displayError]="isFieldValid('versionName')"
+                                  errorMsg="{{ 'versionManagement.validate.versionName.maxlength' | translate }}">
+              </jhi-error-messages>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" [ngClass]="displayFieldHasError('status')">
+              <label class="form-control-label"
+                     jhiTranslate="versionManagement.status">Trạng thái</label>
+                     <select *ngIf="type !== 'preview'" class="form-control custom-select-arrow"
+                            formControlName="status">
+                      <option *ngFor="let s of listStatus" value="{{s.id}}">
+                        {{s.name}}
+                      </option>
+                    </select>
+                    <input  *ngIf="type === 'preview'" type="text" class="form-control" [value]="getStatus(this.form.value.status)" disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-control-label" [ngClass]="type === 'detail' ? '' : 'required'"
+            jhiTranslate="profileAppraisal.file">File đính kèm</label>
+            <div class="form-group">
+              <ng-container>
+                <a #deleteFileElem (click)="deleteFileImport()" [hidden]="!file">
+            <span class="icon-delete-file import" aria-hidden="true"
+                  ngbTooltip="{{ 'common.tooltip.action.deleteFileImport' | translate }}">x</span>
+                </a>
+            </ng-container>
+            <jhi-upload-file *ngIf="type !== 'preview'" [fileType]="'excel'"  #fileImport [accept]="'.xls,.xlsx'" (onFileChange)="onChangeFile($event)"
+                             (onError)="onError($event)" [isError]="errImport">
+            </jhi-upload-file>
+            <input type="file" *ngIf="type === 'preview'" class="form-control" [value]="data.filePath" disabled>
+            <div class="mt-2">
+                <button #downloadTemplateBtn type="button" [hidden]= "(type !== 'add')" class="btn btn-link pl-0" (click)="downloadFileTemplate('xlsx')">
+                    <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file mẫu (.xlsx)</span>
+                </button>
+                <button #downloadResultBtn1 type="button" [hidden]= "(type !== 'add')" class="btn btn-link pl-0" (click)="downloadFileTemplate('xls')">
+                  <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file mẫu (.xls)</span>
+                </button>
+                <button #downloadResultBtn [hidden]="(type === 'add')" type="button" class="btn btn-link pl-0" 
+                                  (click)="downloadFileResult(data.filePath)">
+                              <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file upload</span>
+                            </button>
+
+                <button #downloadResultBtn [hidden]="!importResult" type="button" class="btn btn-link ml-2" style="float: right"
+                      (click)="downloadFileImport()">
+                  <i class="fa fa-download mr-2" aria-hidden="true"></i><span>Tải file kết quả</span>
+                </button>
+            </div>
+            <div class="text-danger" *ngIf="errImport">{{errMessage}}</div>
+            <div class="text-success" *ngIf="successImport">{{successMessage}}</div>
+            </div>
+          </div>
+          
+        </div>
+        
+       
+      </form>
+    </div>
+  </perfect-scrollbar>
+  <div class="modal-footer">
+    <button #cancelBtn type="button" class="btn btn-light alight" (click)="onCancel()">
+      <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+      jhiTranslate="{{(type !== 'preview'? 'common.button.confirm.cancel' : 'common.button.close')}}">Hủy bỏ</span>
+    </button>
+    <button *ngIf="type !== 'preview'" type="submit" class="btn btn-primary" (click)="onSubmitData()">
+      <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span jhiTranslate="common.button.confirm.save">Ghi
+        lại</span>
+    </button>
+  </div>
+</div>
+
+

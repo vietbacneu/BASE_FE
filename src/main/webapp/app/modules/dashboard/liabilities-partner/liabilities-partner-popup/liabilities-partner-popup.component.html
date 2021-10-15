@@ -1,0 +1,238 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0" jhiTranslate="liabilitiesPartner.title">
+      Thống kê công nợ theo đơn vị thuê ngoài</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div class="modal-body">
+    <div id="organizationCategories" class="page-content">
+      <div class="card mb-1">
+        <div class="card-header">
+          <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+            jhiTranslate="common.card.title.search"></span></a>
+        </div>
+        <div id="search" class="collapse show">
+          <div class="card-header">
+            <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="liabilitiesPartner.unitOutsource">Đơn vị thuê ngoài</label>
+                    <div class="col-sm-9">
+                      <ng-select [items]="listOutOrg$ | async"
+                                 clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                 placeholder="{{'common.select.option.selection' | translate }}"
+                                 notFoundText="{{( codeSearchOutOrg ?  notFoundText :  'common.select.required') | translate }}"
+                                 bindLabel="out_ORG_CODE" bindValue="out_ORG_NAME"
+                                 formControlName="ousourceUnitName"
+                                 [searchFn]="customSearchFn"
+                                 (search)="onSelectOutOrg($event)"
+                                 (clear)="onClearOutOrg()"
+                                 (close)="onSearchOutOrgClose()">
+                        <ng-template ng-option-tmp let-item="item">
+                          {{item.out_ORG_CODE}} - {{item.out_ORG_NAME}}<br/>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="liabilitiesPartner.partner">Tên viết tắt</label>
+                    <div class="col-sm-9">
+                      <input type="text" formControlName="partner" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row"
+                       [ngClass]="{'has-error': formControl['MMUsed'].hasError('pattern') ||
+                        formControl['MMUsed'].hasError('max') ||
+                        formControl['MMUsed'].hasError('min') }">
+                    <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="liabilitiesPartner.MMUsed">MM sử dụng lũy kế</label>
+                    <div class="col-sm-9">
+                      <input #MMUsed type="text" formControlName="MMUsed" class="form-control" maxlength="22"
+                             [textMask]="{mask: currencyMask}"
+                             (blur)="checkValidate('MMUsed', MMUsed.value)">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row"
+                       [ngClass]="{'has-error': formControl['MMPayed'].hasError('pattern') ||
+                        formControl['MMPayed'].hasError('max') ||
+                        formControl['MMPayed'].hasError('min') }">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="liabilitiesPartner.MMPayed">MM đã thanh toán</label>
+                    <div class="col-sm-9">
+                      <input #MMPayed type="text" formControlName="MMPayed" class="form-control" maxlength="22"
+                             [textMask]="{mask: currencyMask}"
+                             (blur)="checkValidate('MMPayed', MMPayed.value)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row"
+                       [ngClass]="{'has-error': formControl['MMRemain'].hasError('pattern') ||
+                        formControl['MMRemain'].hasError('max') ||
+                        formControl['MMRemain'].hasError('min') }">
+                    <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="liabilitiesPartner.MMRemain">MM còn nợ</label>
+                    <div class="col-sm-9">
+                      <input #MMRemain type="text" formControlName="MMRemain" class="form-control" maxlength="22"
+                             [textMask]="{mask: currencyMask}"
+                             (blur)="checkValidate('MMRemain', MMRemain.value)">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row"
+                       [ngClass]="{'has-error': formControl['moneyRemain'].hasError('pattern') ||
+                        formControl['moneyRemain'].hasError('max') ||
+                        formControl['moneyRemain'].hasError('min') }">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                           jhiTranslate="liabilitiesPartner.moneyOwed">Số tiền còn nợ</label>
+                    <div class="col-sm-9">
+                      <input #moneyRemain type="text" formControlName="moneyRemain" class="form-control" maxlength="22"
+                             [textMask]="{mask: currencyMask}"
+                             (blur)="checkValidate('moneyRemain', moneyRemain.value)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center mt-2 ml-5">
+                <button type="button" class="btn btn-primary" >
+                  <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                  jhiTranslate="common.button.search" (click)="fetchData(true)">Tìm kiếm</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-1">
+        <div class="card-header">
+          <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+            jhiTranslate="projectManagement.result-search">Kết quả tìm kiếm</span></a>
+        </div>
+        <div id="dataTable" class="collapse show">
+          <div class="pt-2 pb-0 px-2">
+            <div id="table" class="collapse show">
+              <div class="row d-flex justify-content-end pr-3">
+                <div ngbDropdown class="d-inline-block choose-column" placement="bottom-right" ngbTooltip="Ẩn/hiện cột">
+                  <button type="button" id="dropdownBasic1" class="btn btn-primary btn-view-column ml-2"
+                          placement="top" ngbDropdownToggle>
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <perfect-scrollbar class="ps" [style.max-height.vh]="SHOW_HIDE_COL_HEIGHT">
+                      <ng-container *ngFor="let col of columns; let i = index">
+                        <div class="custom-control custom-checkbox">
+                          <input class="custom-control-input" type="checkbox" [checked]="col.isShow"
+                                 id="check{{ i }}" (click)="toggleColumns(col)"/>
+                          <label class="custom-control-label cursor-pointer" for="check{{ i }}">
+                            {{ col.value }}
+                          </label>
+                        </div>
+                      </ng-container>
+                    </perfect-scrollbar>
+                  </div>
+                </div>
+              </div>
+              <div class="ps-content mr-2">
+                <table class="table table-bordered table-hover table-striped mr-2 ml-2" sortable="true" id="tableCustoms">
+                  <thead>
+                  <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                    <th class="stt-width-table" jhiTranslate="projectManagement.orderNumber">
+                      <span jhiTranslate="projectManagement.orderNumber"></span>STT</th>
+                    <th *ngIf="this.columns[0]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.unitOutsource">
+                      <span jhiTranslate="liabilitiesPartner.unitOutsource">Đơn vị thuê ngoài</span>
+                    </th>
+                    <th *ngIf="this.columns[1]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.partner">
+                      <span jhiTranslate="liabilitiesPartner.partner">Đối tác</span>
+                    </th>
+                    <th *ngIf="this.columns[2]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.partnerType">
+                      <span jhiTranslate="liabilitiesPartner.partnerType">Loại đối tác</span>
+                    </th>
+                    <th *ngIf="this.columns[3]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.poiter">
+                      <span jhiTranslate="liabilitiesPartner.poiter">Đầu mối liên hệ đề nghị hợp tác</span>
+                    </th>
+                    <th *ngIf="this.columns[4]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.MMUsed">
+                      <span jhiTranslate="liabilitiesPartner.MMUsed">MM sử dụng lũy kế</span>
+                    </th>
+                    <th *ngIf="this.columns[5]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.MMPayed">
+                      <span jhiTranslate="liabilitiesPartner.MMPayed">MM đã thanh toán</span>
+                    </th>
+                    <th *ngIf="this.columns[6]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.MMRemain">
+                      <span jhiTranslate="liabilitiesPartner.MMRemain">MM còn nợ</span>
+                    </th>
+                    <th *ngIf="this.columns[7]?.isShow" class="medium-width-table" jhiTranslate="liabilitiesPartner.moneyOwed">
+                      <span jhiTranslate="liabilitiesPartner.moneyOwed">Số tiền còn nợ</span>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody *ngFor="let item of listLiabilities">
+                  <tr>
+                    <td class="text-center">{{item.stt}}</td>
+                    <td *ngIf="this.columns[0]?.isShow" class="text-center" [ngClass]="{'bold': item.out_ORG_CODE != null}">{{item.out_ORG_CODE}}</td>
+                    <td *ngIf="this.columns[1]?.isShow" class="text-left">{{item.partner_NAME}}</td>
+                    <td *ngIf="this.columns[2]?.isShow" class="text-left">{{item.partnerCategory}}</td>
+                    <td *ngIf="this.columns[3]?.isShow" class="text-left">{{item.nameClue}}</td>
+                    <td *ngIf="this.columns[4]?.isShow" class="text-right" [ngClass]="{'bold': item.out_ORG_CODE != null}">{{commonService.formatCurrency(item.mmUsed)}}</td>
+                    <td *ngIf="this.columns[5]?.isShow" class="text-right" [ngClass]="{'bold': item.out_ORG_CODE != null}">{{commonService.formatCurrency(item.mmPayed)}}</td>
+                    <td *ngIf="this.columns[6]?.isShow" class="text-right" [ngClass]="{'bold': item.out_ORG_CODE != null}">{{commonService.formatCurrency(item.mmOwed)}}</td>
+                    <td *ngIf="this.columns[7]?.isShow" class="text-right" [ngClass]="{'bold': item.out_ORG_CODE != null}">{{commonService.formatCurrency(item.moneyOwed)}}</td>
+                  </tr>
+                  </tbody>
+                  <tbody *ngIf="listLiabilities.length !== 0">
+                  <tr>
+                    <td class="bold text-center" ></td>
+                    <td *ngIf="this.columns[0]?.isShow" class="bold" jhiTranslate="liabilitiesPartner.total"></td>
+                    <td *ngIf="this.columns[1]?.isShow" class="text-left"></td>
+                    <td *ngIf="this.columns[2]?.isShow" class="text-left"></td>
+                    <td *ngIf="this.columns[3]?.isShow" class="text-left"></td>
+                    <td *ngIf="this.columns[4]?.isShow" class="text-right bold">{{commonService.formatCurrency(listLiabilities[0].mmUsedTotal)}}</td>
+                    <td *ngIf="this.columns[5]?.isShow" class="text-right bold">{{commonService.formatCurrency(listLiabilities[0].mmPayedTotal)}}</td>
+                    <td *ngIf="this.columns[6]?.isShow" class="text-right bold">{{commonService.formatCurrency(listLiabilities[0].mmOwedTotal)}}</td>
+                    <td *ngIf="this.columns[7]?.isShow" class="text-right bold">{{commonService.formatCurrency(listLiabilities[0].moneyOwedTotal)}}</td>
+                  </tr>
+                  </tbody>
+
+                </table>
+              </div>
+              <div class="row justify-content-start py-2 pl-1  table-footer no-data ml-2 mr-2"
+                   *ngIf="!totalItems || totalItems === 0">
+                <p class="item-count" jhiTranslate="common.table.noData"></p>
+              </div>
+              <div class="d-flex justify-content-end table-footer mr-2" [hidden]="totalItems === 0">
+                <div class="row justify-content-center">
+                  <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                  <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                  [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                  [boundaryLinks]="true"
+                                  (pageChange)="loadPage(page)">
+                  </ngb-pagination>
+                  <jhi-page-size-popup (onChangePageSize)="changePageSize($event)"></jhi-page-size-popup>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>.
+

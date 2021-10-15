@@ -1,0 +1,253 @@
+<div id="userGroup" class="page-content">
+    <div class="card mb-1">
+        <div class="card-header">
+            <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+                jhiTranslate="common.card.title.search"></span></a>
+        </div>
+        <div id="search" class="collapse show">
+            <div class="card-body">
+                <form novalidate [formGroup]="form" autocomplete="off">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-right">Số MM</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" jhiAutoFocusField formControlName="totalApprasedMM"
+                                           (blur)="trimSpace('totalApprasedMM')" (input)="onKeyInput($event,'totalApprasedMM')">
+<!--                                    <input type="text" class="form-control" -->
+<!--                                           formControlName="totalApprasedMM">-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row dropdown form-custom-select">
+                                <label class="col-sm-3 col-form-label custom-label-right"
+                                >Đầu mối đơn vị sản xuất</label>
+                                <div class="col-sm-9">
+                                    <ng-select [items]="listProductUnit$ | async"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{( pUnitSearch ?   'common.select.notFoundText' :  'common.select.required') | translate }}"
+                                               bindLabel="name" bindValue="id" formControlName="manufacturingOrgId"
+                                               (search)="onSearchUnit($event, 1)"
+                                               (clear)="onClearUnit(1)"
+                                               (close)="onSearchUnitClose(1)">
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.name}} <br/>
+                                        </ng-template>
+                                    </ng-select>
+<!--                                    <input type="text" class="form-control" formControlName="manufacturingOrgId">-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-right">Kinh doanh</label>
+                                <div class="col-sm-9">
+                                    <ng-select [items]="listBusinessUnit$ | async"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{( bUnitSearch ?   'common.select.notFoundText' :  'common.select.required') | translate }}"
+                                               bindLabel="name" bindValue="id" formControlName="businessOrgId"
+                                               (search)="onSearchUnit($event, 2)"
+                                               (clear)="onClearUnit(2)"
+                                               (close)="onSearchUnitClose(2)">
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.name}} <br/>
+                                        </ng-template>
+                                    </ng-select>
+<!--                                    <input type="text" class="form-control" formControlName="businessOrgId">-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row dropdown form-custom-select">
+                                <label class="col-sm-3 col-form-label custom-label-right">Đầu mối PM</label>
+                                <div class="col-sm-9">
+                                    <ng-select [items]="listPm$ | async"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{( pmSearch ?   'common.select.notFoundText' :  'common.select.required') | translate }}"
+                                               bindLabel="name" bindValue="id" formControlName="pm"
+                                               (search)="onSearchUser($event, 1)"
+                                               (clear)="onClearUser(1)"
+                                               (close)="onSearchUserClose(1)">
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.name}} <br/>
+                                        </ng-template>
+                                    </ng-select>
+<!--                                    <input type="text" class="form-control" formControlName="pm">-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label custom-label-right">Đầu mối AM</label>
+                                <div class="col-sm-9">
+                                    <ng-select [items]="listAm$ | async"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{( amSearch ?   'common.select.notFoundText' :  'common.select.required') | translate }}"
+                                               bindLabel="name" bindValue="id" formControlName="am"
+                                               (search)="onSearchUser($event, 2)"
+                                               (clear)="onClearUser(2)"
+                                               (close)="onSearchUserClose(2)">
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.name}} <br/>
+                                        </ng-template>
+                                    </ng-select>
+<!--                                    <input type="text" class="form-control" formControlName="am">-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row dropdown form-custom-select">
+                                <label class="col-sm-3 col-form-label custom-label-right">Tình trạng hợp đồng</label>
+                                <div class="col-sm-9">
+                                    <select #selectElement class="form-control custom-select-arrow"
+                                            formControlName="contractStatus">
+                                        <option value="">{{'common.select.option.default' | translate}}</option>
+                                        <option *ngFor="let item of listContractStatus"
+                                                [ngValue]="item.id">{{item.paramName}}
+                                        </option>
+                                    </select>
+                                    <span class="span-after-select"><i class="fa fa-angle-down"
+                                                                       aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button #buttonElement type="button" class="btn btn-primary" (click)="search()"><i class="fa fa-search mr-2"
+                                                                                        aria-hidden="true"></i><span
+                            jhiTranslate="common.button.search">Tìm kiếm</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div id="dataTable" class="collapse show">
+            <div class="card-body pt-2 pb-0 px-2">
+                <div id="table" class="collapse show">
+
+                    <div class="row d-flex justify-content-end pr-1">
+                        <button type="button" class="btn btn-primary mr-2" (click)="onExport()">
+                            <i class="fa fa-file-excel-o mr-2"
+                               aria-hidden="true"></i>{{ 'common.button.export' | translate }}
+                        </button>
+                        <!--                            <div ngbDropdown class="d-inline-block choose-column"-->
+                        <!--                                 ngbTooltip="{{'common.tooltip.toggle.columns' | translate}}">-->
+                        <!--                                <button type="button" id="dropdownBasic1" class="btn btn-primary btn-view-column"-->
+                        <!--                                        placement="top"-->
+                        <!--                                        ngbDropdownToggle>-->
+                        <!--                                    <i class="fa fa-list" aria-hidden="true"></i>-->
+                        <!--                                </button>-->
+                        <!--                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">-->
+                        <!--                                    <perfect-scrollbar class="ps" [style.max-height.vh]="30">-->
+                        <!--                                        <div class="custom-control custom-checkbox"-->
+                        <!--                                             *ngFor="let col of columns; let i = index">-->
+                        <!--                                            <input class="custom-control-input" type="checkbox" checked="col.isShow"-->
+                        <!--                                                   id="check{{ i }}"/>-->
+                        <!--                                            <label class="custom-control-label cursor-pointer" for="check{{ i }}">-->
+                        <!--                                                {{ col.value }}-->
+                        <!--                                            </label>-->
+                        <!--                                        </div>-->
+                        <!--                                    </perfect-scrollbar>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                    </div>
+
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped" sortable="true">
+                                <thead>
+                                <tr class="text-center">
+                                    <th scope="col" class="small-width-table"
+                                        jhiTranslate="common.table.orderNumber">STT
+                                    </th>
+                                    <th scope="col" class="medium-width-table">Tên dự án
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Mã dự án
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Đối tác thực hiện
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Loại đối tác
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Đơn vị sản xuất
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Đầu mối kỹ thuật
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Đơn vị kinh doanh
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> AM
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Đơn vị thuê ngoài
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Đầu mối liên hệ đề nghị hợp tác
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Số MM thẩm định
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Số MM sử dụng thực tế
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Số MM còn lại
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Số hợp đồng
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Trạng thái hợp đồng
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Số TTr PAKD
+                                    </th>
+                                    <th scope="col" class="medium-width-table"> Số văn bản PNX ULNL
+                                    </th>
+                                    <th scope="col" class="large-width-table"> Thời gian bắt đầu / Thời gian kết thúc
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of projectList; index as i">
+                                <tr>
+                                    <td class="text-center">{{ itemsPerPage * (page - 1) + i + 1 }}</td>
+                                    <td> {{ item.projectName }}</td>
+                                    <td> {{ item.projectCode }}</td>
+                                    <td> {{ item.partnerCode }}</td>
+                                    <td> {{ item.partnerTypeName }}</td>
+                                    <td> {{ item.manufacturingOrgName }}</td>
+                                    <td> {{ item.pmName }}</td>
+                                    <td> {{ item.businessOrgName }}</td>
+                                    <td> {{ item.amName }}</td>
+                                    <td> {{ item.outSourcingOrgName }}</td>
+                                    <td> {{ item.proposedCooperationName }}</td>
+                                    <td class="text-right"> {{ item.totalAppraisedMM }}</td>
+                                    <td class="text-right"> {{ item.totalUsedMM }}</td>
+                                    <td class="text-right"> {{ item.totalRemainMM }}</td>
+                                    <td> {{ item.contractNum }}</td>
+                                    <td> {{ item.contractStatus }}</td>
+                                    <td> {{ item.ttrPakdNum }}</td>
+                                    <td> {{ item.estimateEffortStatus }}</td>
+                                    <td class="text-center"> {{ item.startTime }}/{{ item.endTime }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalItems || totalItems === 0">
+                        <p class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+                    <div class="d-flex justify-content-end table-footer" [hidden]="totalItems === 0">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                            <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                            [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPage(page)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

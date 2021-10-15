@@ -1,0 +1,309 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb active" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item active" jhiTranslate="profileAppraisal.title">Quản lý thẩm định dự án</li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div id="organizationCategories" class="page-content">
+        <div class="card mb-1">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+                        jhiTranslate="common.card.title.search"></span></a>
+            </div>
+            <div id="search" class="collapse show">
+                <div class="card-body">
+                    <form [formGroup]="form" autocomplete="off">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right"
+                                    jhiTranslate="profileAppraisal.profileAppraisalCode"></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" formControlName="code" jhiAutoFocusField>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right"
+                                    jhiTranslate="profileAppraisal.handler"></label>
+                                    <div class="col-sm-9">
+                                        <ng-select 
+                                            placeholder="{{ 'common.select.option.selection' | translate }}"
+                                            [items]="listUsers"
+                                            clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                            notFoundText="{{ 'common.select.notFoundText' | translate }}"
+                                            bindLabel="name" bindValue="id" formControlName="handler"
+                                            (search)="searchUser($event)"
+                                            (clear)="onClearUserRequest(1)"
+                                            [maxlength]="20">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                    {{item.name}} <br/>
+                                                </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right"
+                                        jhiTranslate="profileAppraisal.organizationRequest"></label>
+                                    <div class="col-sm-9">
+                                        <ng-select
+                                            placeholder="{{'common.select.option.selection' | translate}}"
+                                            [items]="listOrganization"
+                                            clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                            notFoundText="{{'common.select.notFoundText' | translate}}"
+                                            bindLabel="name" bindValue="id" formControlName="organizationRequest"
+                                            (search)="searchOrganization($event)"
+                                            (clear)="onClearOrganization(1)"
+                                            [maxlength]="20">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{item.name}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right"
+                                        jhiTranslate="profileAppraisal.userRequest"></label>
+                                    <div class="col-sm-9">
+                                        <ng-select
+                                            placeholder="{{'common.select.option.selection' | translate }}"
+                                            [items]="listUsers"
+                                            clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                            notFoundText="{{'common.select.notFoundText' | translate}}"
+                                            bindLabel="name" bindValue="id" formControlName="userRequest"
+                                            (search)="searchUser($event)"
+                                            (clear)="onClearUserRequest(1)"
+                                            [maxlength]="20">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{item.name}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right"
+                                    jhiTranslate="profileAppraisal.createDate"></label>
+                                    <div class="col-sm-9">
+                                        <jhi-date-picker name="createDate"
+                                                formControlName="createDate"
+                                                [touched]="false">
+                                        </jhi-date-picker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right"
+                                        jhiTranslate="profileAppraisal.endDate"></label>
+                                    <div class="col-sm-9">
+                                        <jhi-date-picker name="endDate"
+                                                formControlName="endDate"
+                                                [touched]="false">
+                                        </jhi-date-picker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label custom-label-right"
+                                        jhiTranslate="profileAppraisal.srCode"></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" formControlName="srCode" (input)="onKeyInput($event, 'srCode')" maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label custom-label-right" jhiTranslate="profileAppraisal.status">Trạng thái</label>
+                                  <div class="col-sm-9 form-group row dropdown form-custom-select" style="margin-left: 0px;">
+                                    <select #selectElement class="form-control custom-select-arrow"
+                                        formControlName="status">
+                                        <option value="">{{'common.select.option.all' | translate}}</option>
+                                        <option *ngFor="let s of listStatus" value="{{s.id}}"> {{s.name}}</option>
+                                    </select>
+                                    <span class="span-after-select"><i class="fa fa-angle-down"
+                                            aria-hidden="true"></i></span>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>       
+
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary" (click)="searchHandle(true)">
+                                <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                                    jhiTranslate="common.button.search">Tìm kiếm</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#dataTable" aria-expanded="true">
+                    <span jhiTranslate="profileAppraisal.searchResult">
+                    </span>
+                </a>
+            </div>
+            <div id="dataTable" class="collapse show">
+                <div class="card-body pt-2 pb-0 px-2">
+                    <div class="row d-flex justify-content-end pr-1">
+                        <button type="button" class="btn btn-primary btn-view-column" *jhiHasPermission="['QLTD_ADD']" (click)="openModal('add')">
+                            <i class="fa fa-plus mr-2" aria-hidden="true"></i><span
+                                jhiTranslate="common.button.add">Thêm mới</span>
+                        </button>
+                        <!-- <button type="button" class="btn btn-primary btn-view-column ml-2" *jhiHasPermission="['resource.qldt_nldt_import']" (click)="openModal('import')">
+                            <i class="fa fa-upload mr-2" aria-hidden="true"></i><span>Import excel</span>
+                        </button> -->
+                        <!-- <button type="button" class="btn btn-primary ml-2">
+                            <i class="fa fa-bars" aria-hidden="true"></i><span></span>
+                        </button> -->
+                        <div ngbDropdown class="d-inline-block choose-column" ngbTooltip="Cột hiển thị">
+                            <button type="button" id="dropdownBasic1" class="btn btn-primary btn-view-column ml-2"
+                                placement="top" ngbDropdownToggle>
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <perfect-scrollbar class="ps" [style.max-height.vh]="SHOW_HIDE_COL_HEIGHT">
+                                    <ng-container *ngFor="let col of columns; let i = index">
+                                        <div class="custom-control custom-checkbox" *ngIf="checkShowColumns(i)">
+                                            <input class="custom-control-input" type="checkbox" [checked]="col.isShow"
+                                                id="check{{ i }}" (click)="toggleColumns(col)" />
+                                            <label class="custom-control-label cursor-pointer" for="check{{ i }}">
+                                                {{ col.value }}
+                                            </label>
+                                        </div>
+                                    </ng-container>
+                                </perfect-scrollbar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                        <th rowspan="2" scope="col" class="small-width-table"
+                                            jhiTranslate="profileAppraisal.orderNumber">STT
+                                        </th>
+                                        <th rowspan="2" scope="col" class="medium-width-table"
+                                            jhiTranslate="profileAppraisal.action">
+                                            Hành động
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[0]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                                jhiTranslate="profileAppraisal.profileAppraisalCode"></span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[1]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                                jhiTranslate="profileAppraisal.userRequest"></span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[2]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                                jhiTranslate="profileAppraisal.organizationRequest"></span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[3]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                                jhiTranslate="profileAppraisal.profileTitle"></span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[4]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                                jhiTranslate="profileAppraisal.srCode"></span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[5]?.isShow" scope="col"
+                                            class="medium-width-table"><span>Ngày bắt đầu</span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[6]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                               >Ngày kết thúc</span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[7]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                                jhiTranslate="profileAppraisal.handler"></span>
+                                        </th>
+                                        <th rowspan="2" *ngIf="this.columns[7]?.isShow" scope="col"
+                                            class="medium-width-table"><span
+                                                jhiTranslate="profileAppraisal.status"></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let item of pofileManagementList; index as i">
+                                    <tr>
+                                        <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                        <td class="text-center">
+                                            <div class="group-action">
+                                                <button class="btn btn-light" placement="top" *jhiHasPermission="['QLTD_VIEW']" (click)="openModal('preview', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.detail' | translate}}">
+                                                    <i class="fa fa-info icon-info" aria-hidden="true"></i></button>
+                                                <button [hidden]="item.status == 4" class="btn btn-light" placement="top" *jhiHasPermission="['QLTD_EDIT']"
+                                                    ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                    (click)="openModal('update',item)">
+                                                    <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                                </button>
+                                                <button [hidden]="item.status != 1" class="btn btn-light" placement="top" *jhiHasPermission="['QLTD_DELETE']"
+                                                    ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                    (click)="onDelete(item)">
+                                                    <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                                                </button>
+                                                <button class="btn btn-light" placement="top" *jhiHasPermission="['QLTD_HISTORY']"
+                                                    ngbTooltip="{{'common.tooltip.action.history' | translate}}"
+                                                    (click)="openModalHistory(item)">
+                                                    <i class="fa fa-history icon-update" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="text-left" *ngIf="this.columns[0]?.isShow">{{item.code}}</td>
+                                        <td class="text-left" *ngIf="this.columns[1]?.isShow">{{item.userRequestName}}</td>
+                                        <td class="text-left" *ngIf="this.columns[2]?.isShow">{{item.organizationRequestName}}</td>
+                                        <td class="text-center" *ngIf="this.columns[3]?.isShow">{{item.profileTitle}}</td>
+                                        <td class="text-left" *ngIf="this.columns[4]?.isShow">{{item.srCode}}
+                                        </td>
+                                        <td class="text-left" *ngIf="this.columns[5]?.isShow">
+                                            {{item.startDate | date:"dd/MM/yyyy"}}</td>
+                                        <td class="text-center" *ngIf="this.columns[6]?.isShow">
+                                            {{item.endDate | date:"dd/MM/yyyy"}}</td>
+                                        <td class="text-center" *ngIf="this.columns[6]?.isShow">
+                                            {{item.handlerName}}</td>
+                                        <td class="text-center" *ngIf="this.columns[6]?.isShow">
+                                            {{getStatus(item.status)}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                        *ngIf="!totalItems || totalItems === 0">
+                        <p class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+                    <div class="d-flex justify-content-end table-footer" [hidden]="totalItems === 0">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                            <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                                (pageChange)="loadPage(page)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>

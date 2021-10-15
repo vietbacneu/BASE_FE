@@ -1,0 +1,45 @@
+<!--<ol class="breadcrumb">-->
+<!--    <li class="breadcrumb-item">-->
+<!--        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="'Home'">-->
+<!--            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>-->
+<!--        </button>-->
+<!--    </li>-->
+<!--    <li class="breadcrumb-item"><a>Quản lý hệ thống</a></li>-->
+<!--    <li class="breadcrumb-item active">Cấu hình doanh nghiệp</li>-->
+<!--</ol>-->
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div id="tenantConfig" class="page-content">
+        <ngb-tabset>
+<!--            <ngb-tab>-->
+<!--                <ng-template ngbTabTitle><span class="bold">Dự án</span></ng-template>-->
+<!--                <ng-template ngbTabContent>-->
+<!--                     <jhi-outside-project></jhi-outside-project>-->
+<!--                </ng-template>-->
+<!--            </ngb-tab>-->
+            <ngb-tab>
+                <ng-template ngbTabTitle><span class="bold">Đối tác</span></ng-template>
+                <ng-template ngbTabContent>
+                     <jhi-customer></jhi-customer>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+                <ng-template ngbTabTitle><span class="bold">Hợp đồng</span></ng-template>
+                <ng-template ngbTabContent>
+                     <jhi-contract></jhi-contract>
+                </ng-template>
+            </ngb-tab>
+<!--            <ngb-tab>-->
+<!--                <ng-template ngbTabTitle>Số văn bản</ng-template>-->
+<!--                <ng-template ngbTabContent>-->
+<!--                     <jhi-number-of-document></jhi-number-of-document>-->
+<!--                </ng-template>-->
+<!--            </ngb-tab>-->
+<!--            <ngb-tab>-->
+<!--                <ng-template ngbTabTitle>Dự án</ng-template>-->
+<!--                <ng-template ngbTabContent>-->
+<!--                     <jhi-project></jhi-project>-->
+<!--                </ng-template>-->
+<!--            </ngb-tab>-->
+        </ngb-tabset>
+    </div>
+</perfect-scrollbar>

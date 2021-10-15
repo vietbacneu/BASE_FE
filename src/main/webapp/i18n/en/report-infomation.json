@@ -1,0 +1,23 @@
+{
+  "outsourceProject": {
+    "title": "Dự án đang thực hiện thuê ngoài",
+    "messages": {
+      "success": "<strong>Your user account has been activated.</strong> Please ",
+      "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
+    },
+    "label": {
+      "projectName": "Tên dự án",
+      "totalAppraisedMM": "Số MM thẩm định",
+      "isOutsource": "Dự án có/không thuê ngoài",
+      "projectCode": "Mã dự án",
+      "partnerPerform": "Đối tác thực hiện",
+      "partnerType": "Loại đối tác",
+      "manufacturingOrg": "Đơn vị sản xuất",
+      "businessOrg": "Đơn vị kinh doanh",
+      "pm": "Đầu mối sản xuất",
+      "am": "Đầu mối kinh doanh",
+      "outsourcingOrg": "Đơn vị thuê ngoài",
+      "proposedCooperationName": "Đầu mối đề nghị hợp tác"
+    }
+  }
+}

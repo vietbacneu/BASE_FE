@@ -1,0 +1,16 @@
+<div class="card mb-1">
+    <div class="card-header card-header-toggle" (click)="toggle()">
+        <a data-toggle="collapse" aria-expanded="true">
+            <i [ngClass]="'fa fa-sort-'+(isShow ?'desc':'asc')" aria-hidden="true"></i>
+            <span class="ml-1">{{'partner.priceForm' | translate}}</span></a>
+    </div>
+    <div *ngIf="isShow" class="collapse show">
+        <div *ngIf="!isSaving else addPriceForm">
+            <span class="font-italic cursor-pointer pl-5">{{'partner.priceForm.form' | translate}}</span>
+        </div>
+    </div>
+    <ng-template #addPriceForm>
+        <span [class.disabled]="disable"
+              class="font-italic cursor-pointer pl-5">{{'partner.priceForm.add' | translate}}</span>
+    </ng-template>
+</div>

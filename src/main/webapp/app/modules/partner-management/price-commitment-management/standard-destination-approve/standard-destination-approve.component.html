@@ -1,0 +1,261 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li routerLink="/partner-management" class="breadcrumb-item active"><a>{{'partner.pageTitle' | translate}}</a></li>
+    <li class="breadcrumb-item active" routerLink="/partner-management/price-commitment-management"><a>{{'partner.priceCommitmentManagement' | translate}}</a></li>
+    <li class="breadcrumb-item active"><a>{{'partner.commitment.approve' | translate}}</a></li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div class="card mb-1">
+        <div id="search" class="collapse show">
+            <div class="card-body">
+                <form [formGroup]="formGroup" autocomplete="off">
+                    <div class="row">
+                        <div hidden class="col-hidden"></div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.code'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input type="text" class="form-control" jhiAutoFocusField formControlName="code">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.name'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input type="text" class="form-control"
+                                           formControlName="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.fromDate'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <div class="input-group">
+                                        <input class="form-control"
+                                               name="dp" ngbDatepicker
+                                               #fromDate="ngbDatepicker" formControlName="fromDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    (click)="fromDate.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.toDate'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <div class="input-group">
+                                        <input class="form-control"
+                                               name="dp" ngbDatepicker
+                                               #toDate="ngbDatepicker" formControlName="toDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    (click)="toDate.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.service'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input type="text" class="form-control"
+                                           formControlName="service">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.adjourn'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <div class="input-group">
+                                        <input class="form-control"
+                                               name="dp" ngbDatepicker
+                                               #adjourn="ngbDatepicker" formControlName="adjourn">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary"
+                                                    (click)="adjourn.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label custom-label-left">{{ 'partner.contract.note'| translate}}</label>
+                                <div class="col-sm-11 form-custom-select">
+                                    <textarea rows="5" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div hidden class="col-hidden"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row form-group compare-price">
+        <div class="col-md-6" style="padding-right: 0px !important;">
+            <div class="card mb-1">
+                <div class="card-header">
+                    <a data-toggle="collapse" href="#"
+                       aria-expanded="true"><span>{{'partner.commitment.outWay'|translate}}</span></a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center">
+                                    <th [ngClass]="[column.size+'-width-table']"
+                                        *ngFor="let column of columns">
+                                        {{column.name | translate}}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of lstPriceOut; index as i">
+                                <tr>
+                                    <td class="cursor-pointer text-center">{{(pageOut - 1) * itemsPerPage + i + 1}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.destinationName}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.code}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.price}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.block}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalOutItems">
+                        <p class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+
+                    <div class="d-flex justify-content-end table-footer" [hidden]="!totalOutItems">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalOutItems}}</p>
+                            <ngb-pagination *ngIf="totalOutItems" [collectionSize]="totalOutItems"
+                                            [(page)]="pageOut"
+                                            [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPageOut(pageOut)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSizeOut($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th [ngClass]="[column.size+'-width-table']"
+                                *ngFor="let column of columnsTotal">
+                                {{column?.name | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center font-weight-bold">Tổng</td>
+                            <td class="text-center">{{3000000|number:'1.0-2':'en-US'}}</td>
+                            <td class="text-center">{{123000|number:'1.0-2':'en-US'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-1">
+                <div class="card-header">
+                    <a data-toggle="collapse" href="#"
+                       aria-expanded="true"><span>{{'partner.commitment.inWay'|translate}}</span></a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center">
+                                    <th [ngClass]="[column.size+'-width-table']"
+                                        *ngFor="let column of columns">
+                                        {{column.name | translate}}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of lstPriceIn; index as i">
+                                <tr>
+                                    <td class="cursor-pointer text-center">{{(pageIn - 1) * itemsPerPage + i + 1}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.destinationName}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.code}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.price}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.block}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalInItems">
+                        <p class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+
+                    <div class="d-flex justify-content-end table-footer" [hidden]="!totalInItems">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalInItems}}</p>
+                            <ngb-pagination *ngIf="totalInItems" [collectionSize]="totalInItems" [(page)]="pageIn"
+                                            [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPageIn(pageIn)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSizeIn($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th [ngClass]="[column.size+'-width-table']"
+                                *ngFor="let column of columnsTotal">
+                                {{column?.name | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center font-weight-bold">Tổng</td>
+                            <td class="text-center">{{3000000|number:'1.0-2':'en-US'}}</td>
+                            <td class="text-center">{{123000|number:'1.0-2':'en-US'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer text-center pb-5">
+        <div class="row form-group">
+            <label class="col-sm-1 col-form-label custom-label-left">{{ 'partner.commitment.content'| translate}}</label>
+            <div class="col-sm-11 form-custom-select">
+                <textarea rows="5" class="form-control"></textarea>
+            </div>
+            <div hidden class="col-hidden"></div>
+        </div>
+        <div>
+            <button class="btn btn-primary">{{'partner.commitment.button.refuse' | translate}}</button>
+            <button class="btn btn-primary ml-1">{{'partner.commitment.button.approve' | translate}}</button>
+        </div>
+    </div>
+</perfect-scrollbar>

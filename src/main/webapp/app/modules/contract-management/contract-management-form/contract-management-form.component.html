@@ -1,0 +1,978 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+      <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li class="breadcrumb-item">
+    <a jhiTranslate="contractManagement.title" routerLink="/contract-management"></a>
+  </li>
+  <li class="breadcrumb-item active" jhiTranslate="contractManagement.titleAdd" *ngIf="checkTile === 0">Thêm mới hợp
+    đồng
+    thuê ngoài
+  </li>
+  <li class="breadcrumb-item active" jhiTranslate="contractManagement.titleUpdate" *ngIf="checkTile === 2">Cập nhật hợp
+    đông thuê ngoài
+  </li>
+  <li class="breadcrumb-item active" jhiTranslate="contractManagement.titleDetail" *ngIf="checkTile === 1">Xem hợp
+    đông thuê ngoài
+  </li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div id="organizationCategories">
+    <div class="card mb-1">
+      <div class="card-header">
+        <a href="#">
+          <span jhiTranslate="contractManagement.titleForm">Thông tin chung</span></a>
+      </div>
+      <div id="search" class="collapse show">
+        <div class="card-body">
+          <!-- start -->
+          <form [formGroup]="form">
+            <div class="row col-md-12">
+              <div class="col-md-6 {{clErrNumContract}}">
+                <!-- Số hợp đồng -->
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"> Số hợp đồng</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <input type="text" class="form-control" formControlName="numContract" (blur)="checkNumContract()"
+                           (keypress)="checkMaxLenght($event,255)" (paste)="onPaste($event,'numContract',255)">
+                    <input type="text" class="form-control" formControlName="id" hidden>
+                    <input type="text" class="form-control" formControlName="type" hidden>
+                    <input type="text" class="form-control" formControlName="outsourcingContractId" hidden>
+                    <p></p>
+                    <jhi-error-messages [displayError]="errorMsgNumberContract != '' "
+                                        errorMsg="{{errorMsgNumberContract}}">
+                    </jhi-error-messages>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="col-md-6">
+                <!-- trạng thái ký -->
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.signatureStatus">Trạng thái ký</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <select class="form-control custom-select-arrow"
+                            formControlName="signatureStatus">
+                      <option *ngFor="let s of signatureStatusList" value="{{s.id}}">
+                        {{s.paramName}}
+                      </option>
+                    </select>
+                    <span class="span-after-select"><i class="fa fa-angle-down"
+                                                       aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row col-md-12">
+              <!-- loại hợp đồng -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.contractType">Loại hợp đồng</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <select class="form-control custom-select-arrow" formControlName="contractType">
+                      <option value="">{{'common.select.option.default' | translate}}</option>
+                      <option *ngFor="let c of contractTypeList" value="{{c.id}}">
+                        {{c.paramName}}
+                      </option>
+                    </select>
+                    <span class="span-after-select">
+                                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                  </div>
+                </div>
+              </div>
+              <!-- trạng thái hợp đồng -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.contractStatus">Trạng thái hợp đồng</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <select #selectElement class="form-control custom-select-arrow"
+                            formControlName="contractStatus">
+                      <!-- <option value="">{{'common.select.option.default' | translate}}</option>-->
+                      <option *ngFor="let c of contractStatusList" value="{{c.id}}">
+                        {{c.paramName}}
+                      </option>
+                    </select>
+                    <span class="span-after-select">
+                                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row col-md-12">
+              <!-- thời gian bắt đầu -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.startTime">Thời gian bắt đầu</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <jhi-date-picker name="startTime" formControlName="startTime"
+                                     [isDisabled]="hidden">
+                    </jhi-date-picker>
+                    <jhi-error-messages [displayError]="checkDate() === 1">
+                    </jhi-error-messages>
+                  </div>
+                </div>
+              </div>
+              <!-- thời gian kết thúc -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.endTime">Thời gian kết thúc</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <jhi-date-picker name="endTime" formControlName="endTime" [isDisabled]="hidden">
+                      <!-- (blur)="onChangeDate()" -->
+                    </jhi-date-picker>
+                    <jhi-error-messages [displayError]="checkDate() === 1" errorMsg="{{messageDate}}">
+                    </jhi-error-messages>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <!-- Tổng MM thuê ngoài (form)-->
+              <div class="col-md-6 {{priceClError}}">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right required"
+                         jhiTranslate="contractManagement.totalMM">Tổng MM thuê ngoài</label>
+                  <div class="col-sm-9 form-custom-select {{clErrorTtal}}">
+                    <input type="text" class="form-control" formControlName="totalMM"
+                           (input)="onChangeTotal()" [textMask]="{mask: totalMM}" disabled
+                           (keypress)="onInputChange($event)" (blur)="validateTotal()">
+                    <jhi-error-messages [displayError]="errorMMTN === 'totalMM'" errorMsg="{{message}}">
+                    </jhi-error-messages>
+                  </div>
+                </div>
+              </div>
+              <!-- Tổng MM sử dụng luỹ kế -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.totalAccumulatedMM">Tổng MM sử dụng luỹ
+                    kế</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <input type="text" class="form-control" formControlName="totalAccumulatedMM"
+                           (keypress)="onInputChange($event)"
+                           [textMask]="{mask: totalAccumulatedMM}" (blur)="checkBlurLKContract()" (input)="onChangeLK($event)">
+                    <!-- (keypress)="onInputChange($event)" -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row col-md-12">
+              <!-- Tổng MM đã thanh toán -->
+              <div class="col-md-6 {{totalClErrorPayed}}">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.totalMMPayed">Tổng MM đã thanh toán</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <input type="text" class="form-control" formControlName="totalMMPayed"
+                           (input)="onChangeTotal()" [textMask]="{mask: totalMMPayed}"
+                           (keypress)="onInputChange($event)"
+                           (blur)="checkBlurTotalpay()">
+                    <p></p>
+                    <jhi-error-messages [displayError]="errorMsgMMPayed != '' " errorMsg="{{errorMsgMMPayed}}">
+                    </jhi-error-messages>
+                  </div>
+                </div>
+              </div>
+              <!-- MM còn nợ -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.totalOwnedMM">MM còn nợ</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <input type="text" class="form-control" formControlName="totalOwnedMM"
+                           [textMask]="{mask: totalOwnedMM2}" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row col-md-12">
+              <!-- Đơn giá -->
+              <div class="col-md-6 {{priceClError}}">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.price">Đơn giá</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <input type="text" class="form-control" formControlName="price"
+                           [textMask]="{mask: price}" (input)="onChangeTotal()"
+                           (keypress)="onInputChange($event)">
+                  </div>
+                </div>
+              </div>
+              <!-- Giá trị hợp đồng -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.contractValue">Giá trị hợp đồng</label>
+                  <div class="col-sm-9 form-custom-select">
+                    <input type="text" class="form-control" formControlName="contractValue" [(ngModel)]="contractValue"
+                           [textMask]="{mask: contractVal}">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row col-md-12">
+              <!-- Số tiền còn nơ -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.ownedAmount">Số tiền còn nợ</label>
+                  <div class="col-sm-9 ">
+                    <input type="text" class="form-control" formControlName="ownedAmount"
+                           (keypress)="onInputChangeMM2($event,15)" [textMask]="{mask: totalOwnedMM2}"
+                           [(ngModel)]="ownedAmount">
+                  </div>
+                </div>
+              </div>
+              <!-- Thông tin chung hợp đồng -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.contractDescription">Thông tin chung hợp
+                    đồng</label>
+                  <div class="col-sm-9 form-custom-select">
+                                        <textarea class="form-control" formControlName="contractDescription"
+                                                  (keypress)="checkMaxLenght($event,1000)"
+                                                  rows="1"
+                                                  (paste)="onPaste($event,'contractDescription', 1000)"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row col-md-12">
+              <!-- Ghi chú -->
+              <div class="col-md-6">
+                <div class="form-group row dropdown form-custom-select">
+                  <label class="col-sm-3 col-form-label custom-label-right"
+                         jhiTranslate="contractManagement.note">Ghi chú</label>
+                  <div class="col-sm-9 form-custom-select">
+                                        <textarea class="form-control" formControlName="note" rows="5"
+                                                  (keypress)="checkMaxLenght($event,1000)"
+                                                  (paste)="onPaste($event,'note', 1000)"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+              </div>
+            </div>
+          </form>
+          <!-- end -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Đối tác tham gia -->
+  <div class="card" style="margin-bottom: 3px;">
+    <div class="card-header">
+      <a href="#">
+        <span style="font-size: 14px !important;">Đối tác tham gia <span style="color: #dc3545;">*</span></span>
+      </a>
+    </div>
+    <perfect-scrollbar id="scrollbarTable" class="ps" >
+      <div class="card-body pt-1 px-3">
+        <div class="row">
+          <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr class="text-center">
+              <th scope="col" class="small-width-table">
+                <span>STT</span>
+              </th>
+              <th scope="col" class="medium-width-table" *ngIf="!hiddenView">
+                <span>Hành động</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="required">Mã đối tác</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="">Đơn vị thuê ngoài</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="">Đầu mối đề nghị hợp tác</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="">Tổng MM thuê ngoài</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="">MM sử dụng lũy kế</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="">MM đã thanh toán</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="">MM còn nợ</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span class="">Số tiền còn nợ</span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of params.partnerJoinList2; index as k">
+              <!-- STT -->
+              <td scope="col" class="small-width-table"
+                  style="text-align: center;"> {{((currentPage2 - 1) * numberPerPage2) + (k + 1)}}</td>
+              <!-- Hành động  -->
+              <td scope="col" *ngIf="!hiddenView">
+                <div class="group-action">
+                  <!-- btn sửa -->
+                  <button class="btn btn-light" placement="top" [disabled]="btnDisabled"
+                          ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                          (click)="onClickEditPartnerJoin(k)" *ngIf="item.status">
+                    <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                  </button>
+                  <!-- btn xóa -->
+                  <button class="btn btn-light" placement="top" [disabled]="btnDisabled"
+                          ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                          (click)="onDeletePartnerJoin(k)" *ngIf="item.status">
+                    <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                  </button>
+                  <!-- btn không sửa -->
+                  <button class="btn btn-light" placement="top" ngbTooltip="Hủy bỏ"
+                          (click)="onNotUpdatePartnerJoin(k)" *ngIf="!item.status">
+                    <i class="fa fa-remove icon-remove" aria-hidden="true"
+                       style="color: #dc3545"></i>
+                  </button>
+                  <!-- btn có sửa -->
+                  <button class="btn btn-light" placement="top" ngbTooltip="Đồng ý"
+                          (click)="onUpdatePartnerJoin(k)" *ngIf="!item.status" [disabled]="btnDisabled1">
+                    <i class="fa fa-check icon-check" aria-hidden="true"
+                       style="color: #28a745"></i>
+                  </button>
+                </div>
+              </td>
+              <!-- Mã đối tác  -->
+              <td scope="col" class="{{item.clJoinPartnerId}}">
+                <ng-select [items]="item.listJoinDT$ | async" [readonly]="item.status" autofocus='true'
+                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                           notFoundText="{{( joinUnitSearch1 ?   notFoundText :  'common.select.required') | translate }}"
+                           placeholder="{{ 'common.select.option.selection' | translate }}"
+                           bindLabel="partnerCode" bindValue="id" (clear)="onClearlistJoinDT(k, 'DT')"
+                           [(ngModel)]="item.partnerId" [ngModelOptions]="{standalone: true}"
+                           (search)="onSearchJoinUnit($event,'doitac;'+k)" (change)="changePartnerJoin($event,k)" appendTo="body">
+                  <ng-template ng-option-tmp let-item="item">
+                    <span> {{item.partnerCode}} </span>
+                    <br/>
+                  </ng-template>
+                </ng-select>
+              </td>
+              <!-- Đơn vị thuê ngoài  -->
+              <td scope="col">
+                <!-- <input type="text" class="form-control " name="item.outsourcingOrganizationId" style="text-align: right"> -->
+                <ng-select [items]="item.listJoinDVTN$ | async" [readonly]="item.status"
+                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                           notFoundText="{{( joinUnitSearch2 ?   notFoundText :  'common.select.required') | translate }}"
+                           placeholder="{{ 'common.select.option.selection' | translate }}"
+                           bindLabel="name" bindValue="id" (clear)="onClearlistJoinDT(k, 'DVTN')"  (close)="onClearlistJoinDT(k, 'DVTN')"
+                           name="item.outsourcingOrganizationId" [(ngModel)]="item.outsourcingOrganizationId"
+                           [searchFn]="customSearchFnDVTN"
+                           (search)="onSearchJoinUnit($event,'dvtn;'+k)" appendTo="body">
+                  <ng-template ng-option-tmp let-item="item">
+                    <span> {{item.code}}-{{item.name}}</span>
+                    <br/>
+                  </ng-template>
+                </ng-select>
+              </td>
+              <!-- Đầu mối đề nghị hợp tác -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.nameClue" style="text-align: left"
+                       [disabled]="item.status"
+                       [(ngModel)]="item.nameClue" (keypress)="checkMaxLenght($event,255)"
+                       (paste)="onPasteL($event,'nameClue',k,256)">
+              </td>
+              <!-- Tổng MM thuê ngoài (đối tác tham gia) -->
+              <td scope="col " class="{{clErrorMMOutSourcing}}">
+                <input type="text" class="form-control " name="item.outsourcingMMTotal"
+                       (input)="totalMMOWedJoin(k)" [(ngModel)]="item.outsourcingMMTotal" [disabled]="item.status"
+                       (blur)="clearSpanceJoin(k, 'outsourcingMMTotal')"
+                       style="text-align: right" [textMask]="{mask: totalMMJoin}" (keypress)="onInputChange($event)">
+              </td>
+              <!-- MM sử dụng lũy kế -->
+              <td scope="col " class="{{ clErrorMMUsing }}">
+                <input type="text" class="form-control " name="item.mmUsing" [(ngModel)]="item.mmUsing"
+                       (keypress)="onInputChange($event)" (blur)="checkBlurLK()" (blur)="clearSpanceJoin(k, 'mmUsing')"
+                       style="text-align: right" [textMask]="{mask: totalMMJoin}" [disabled]="item.status">
+              </td>
+              <!-- MM đã thanh toán -->
+              <td scope="col " class="{{clErrorPayed}}">
+                <input type="text" class="form-control "
+                       (input)="totalMMOWedJoin(k)" [(ngModel)]="item.mmPayed" (blur)="clearSpanceJoin(k, 'mmPayed')"
+                       (keypress)="onInputChange($event)" (blur)="checkValueMMPayed(item, $event)"
+                       name="item.mmPayed" style="text-align: right" [textMask]="{mask: totalMMJoin}"
+                       [disabled]="item.status">
+              </td>
+              <!-- MM còn nợ -->
+              <td scope="col">
+                <input type="text" class="form-control"
+                       [(ngModel)]="item.mmOwed" [textMask]="{mask: mmOwedJoin}"
+                       (keypress)="onInputChange($event)"
+                       name="item.mmOwed" style="text-align: right" disabled>
+              </td>
+              <!-- Số tiền còn nợ -->
+              <td scope="col" class="{{item.clErrorMoneyOwed}}">
+                <input type="text" class="form-control "
+                       [(ngModel)]="item.moneyOwed" [textMask]="{mask: mmOwedJoin}"
+                       name="item.moneyOwed" style="text-align: right" disabled>
+              </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+
+    </perfect-scrollbar>
+    <!-- paging đối tác tham gia -->
+    <div class="row justify-content-start py-2 pl-1 ml-2 table-footer no-data"
+         *ngIf="params.partnerJoinList.length < 1">
+      <p class="item-count center-margin" jhiTranslate="common.table.noData"></p>
+    </div>
+
+    <!-- show khi có data đối tác tham gia -->
+    <!-- *ngIf= "numRecord !== 0" -->
+    <div style="text-align:center;" class="row justify-content-end d-flex table-footer" *ngIf="numRecord2 !== 0">
+      <p _ngcontent-pku-c5="" class="item-count" style="margin: 7px 6px 0 0;">Tổng số bản ghi: {{ numRecord2 }}</p>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+          <li class="page-item ng-star-inserted {{ checkFirstAndPrev(1) }} " (click)="firstPage(1)">
+            <a aria-label="First" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">««</span>
+            </a>
+          </li>
+
+          <li class="page-item ng-star-inserted {{ checkFirstAndPrev(1) }} " (click)="previousPage(1)">
+            <a aria-label="Previous" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">«</span>
+            </a>
+          </li>
+
+          <div *ngFor="let numb of arrNumberOfPages2; index as num">
+            <li class="page-item {{ checkActive(num,1) }} ng-star-inserted" (click)="changePage(num,1)">
+              <a class="page-link ng-star-inserted" tabindex="-1" style="border-radius: unset"> <span aria-hidden="true"
+                                                                                                      class="ng-star-inserted"> {{ num + 1 }} </span></a>
+            </li>
+          </div>
+
+          <li class="page-item ng-star-inserted {{ checkNextAndLast(1) }} " (click)="nextPage(1)">
+            <a aria-label="Next" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">»</span>
+            </a>
+          </li>
+
+          <li class="page-item ng-star-inserted {{ checkNextAndLast(1) }} " (click)="lastPage(1)">
+            <a aria-label="Last" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">»»</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div style=" margin: 0px 15px 0px 12px;">
+        <select class="browser-default custom-select" #t (change)="onChangePage($event.target.value,1)"
+                style="font-size: 0.85rem;">
+          <option selected value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+    </div>
+    <!-- thêm mới đối tác tham gia-->
+    <button type="button" class="btn btn-primary btn-view-column ml-2 mb-3 mt-2" *ngIf="!hiddenView" title="Thêm mới"
+            (click)="onClickAddPartnerJoin()" style="width: 60px;" [disabled]="btnDisabled">
+      <i class="fa fa-plus mr-2" aria-hidden="true"></i>
+    </button>
+  </div>
+  <!-- Thông tin nỗ lực sử dụng thực tế -->
+  <div class="card">
+    <div class="card-header">
+      <a href="#"> <span style="font-size: 14px !important;" jhiTranslate="contractManagement.titleTable">Thông
+                    tin nỗ lực sử dụng thực tế</span></a>
+    </div>
+    <!-- start table -->
+    <perfect-scrollbar id="table" class="ps">
+      <div class="card-body pt-1 px-3">
+        <div class="row">
+          <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr class="text-center">
+              <th scope="col" class="small-width-table">
+                <span>STT</span>
+              </th>
+
+              <th scope="col" class="medium-width-table" *ngIf="!hiddenView">
+                <span>Hành động</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span class="required">Mã đối tác</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span class="required">Mã dự án</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Kế hoạch thuê ngoài</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Số TTr PAKD</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span class="required">Trạng thái thẩm định ULNL</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Đơn vị kinh doanh</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Đầu mối kinh doanh</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Đơn vị sản xuất</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Đầu mối kỹ thuật</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span class="required">Năm hợp tác</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span class="required">Tổng MM đã thẩm định</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>MM còn lại</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Tổng MM sử dụng thực tế </span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Tổng MD sử dụng thực tế</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Tháng 1 (MD)</span>
+              </th>
+
+              <th scope="col" class="large-width-table">
+                <span>Tháng 2 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 3 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 4 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 5 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 6 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 7 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 8 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 9 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 10 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 11 (MD)</span>
+              </th>
+              <th scope="col" class="large-width-table">
+                <span>Tháng 12 (MD)</span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of params.actualEffortList2; index as k; last as last">
+              <td scope="col" class="small-width-table"
+                  style="text-align: center;">{{((currentPage - 1) * numberPerPage) + (k + 1)}}</td>
+              <td scope="col" *ngIf="!hiddenView">
+                <!-- Hành động -->
+                <div class="group-action">
+                  <!-- btn sửa -->
+                  <button class="btn btn-light" placement="top" [disabled]="buttonDisabled"
+                          ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                          (click)="onClickEditEffort(k)" *ngIf="item.status">
+                    <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                  </button>
+                  <!-- btn xóa -->
+                  <button class="btn btn-light" placement="top" [disabled]="buttonDisabled"
+                          ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                          (click)="onDeleteEffort(k)" *ngIf="item.status">
+                    <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                  </button>
+                  <!-- btn không sửa -->
+                  <button class="btn btn-light" placement="top" ngbTooltip="Hủy bỏ"
+                          (click)="onNotUpdateEffort(k)" *ngIf="!item.status">
+                    <i class="fa fa-remove icon-remove" aria-hidden="true"
+                       style="color: #dc3545"></i>
+                  </button>
+                  <!-- btn có sửa -->
+                  <button class="btn btn-light" placement="top" ngbTooltip="Đồng ý"
+                          (click)="onUpdateEffort(k)" *ngIf="!item.status">
+                    <i class="fa fa-check icon-check" aria-hidden="true"
+                       style="color: #28a745"></i>
+                  </button>
+                </div>
+              </td>
+
+              <td scope="col " class="{{item.clErrPaC}}">
+                <!-- Mã đối tác -->
+                <select class="form-control custom-select-arrow " name="item.partnerId"
+                        [disabled]="item.status" [(ngModel)]="item.partnerId"  appendTo="body">
+                  <option value="">
+                    -- Lựa chọn --
+                  </option>
+                  <option *ngFor="let c of actualEffortListSort" value="{{c.partnerId}}">
+                    {{c.partnerCode}}
+                  </option>
+                </select>
+              </td>
+
+              <td scope="col" class="{{item.clErrPC}}" style="text-align: left;">
+                <!-- Mã dự án -->
+                <ng-select [items]="item.listUnit$ | async" [readonly]="item.status"
+                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                           placeholder="{{ 'common.select.option.selection' | translate }}"
+                           notFoundText="{{( unitSearch1 ?   notFoundText :  'common.select.required') | translate }}"
+                           bindLabel="projectCode" bindValue="id" (change)="changeProject($event,k)"
+                           [(ngModel)]="item.projectId" [ngModelOptions]="{standalone: true}" (clear)="onClearUnit('duan',k)"
+                           (close)="onSearchUnitClose('duan',k)"
+                           [searchFn]="customSearchFnMDA"
+                           (search)="onSearchUnit($event,'duan;'+k)" appendTo="body">
+                  <ng-template ng-option-tmp let-item="item">
+                    <span> {{item.projectCode}} - {{item.projectName}}</span>
+                    <br/>
+                  </ng-template>
+                </ng-select>
+              </td>
+              <td scope="col">
+                <!-- Kế hoạch thuê ngoài -->
+                <ng-select #multiselect class="cursor-text scroll-ng-select" [readonly]="item.status"
+                           clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                           notFoundText="{{ 'common.select.notFoundText' | translate }}"
+                           [ngClass]="type === 'preview' ? 'input-border-bottom' : ''"
+                           placeholder="{{ 'common.select.option.selection' | translate }}"
+                           [items]="item.outsourcePlans"
+                           [multiple]="true" [readonly]="type === 'preview'"
+                           bindLabel="planCode" bindValue="softwareDevelopmentID" (change)="getValues($event,k)"
+                           [closeOnSelect]="false" name="item.outsourcePlanId" [(ngModel)]="item.outsourcePlanId" appendTo="body">
+                  <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                               let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"
+                           [ngModelOptions]="{ standalone: true }"/>
+                    {{ item.planCode }}
+                  </ng-template>
+                </ng-select>
+              </td>
+
+              <td scope="col">
+                <!-- Số TTr PAKD -->
+                <!-- {{params.ttrpakdNumber}} -->
+                <input type="text" class="form-control " (blur)="trimSpaceOfTable(k, 'numberTTrPAKD', $event)"
+                       name="item.numberTTrPAKD" (keypress)="checkMaxLenght($event,50)"
+                       (paste)="onPasteL($event,'numberTTrPAKD',k,50)"
+                       [disabled]="item.status" [(ngModel)]="item.numberTTrPAKD"/>
+              </td>
+              <td scope="col" class="{{item.clErrULNL}}">
+                <!-- Trạng thái thẩm định ULNL -->
+                <select class="form-control custom-select-arrow" name="item.estimateEffortStatus"
+                        [disabled]="item.status" [(ngModel)]="item.estimateEffortStatus">
+                  <option value="">
+                    {{ 'common.select.option.selection' | translate }}
+                  </option>
+                  <option *ngFor="let c of effortStatusList" value="{{c.id}}">
+                    {{c.paramName}}
+                  </option>
+                </select>
+
+              </td>
+              <td scope="col" class="medium-width-table">
+                <!-- Đơn vị kinh doanh -->
+                <span title="{{item.businessOrgName}}">
+                                        <input type="text" class="form-control " name="item.businessOrganizationId"
+                                               [disabled]="item.flagOutSourcingPlan"
+                                               [(ngModel)]="item.businessOrgName"/>
+                                    </span>
+              </td>
+              <td scope="col" class="medium-width-table">
+                <!-- Đầu mối kinh doanh -->
+                <span title="{{item.amName}}">
+                                        <input type="text" class="form-control " name="item.businessClueUserId"
+                                               [disabled]="item.flagOutSourcingPlan" [(ngModel)]="item.amName"/>
+                                     </span>
+
+              </td>
+              <td scope="col" class="medium-width-table">
+                <!-- Đơn vị sản xuất -->
+                <span title="{{item.productionOrgName}}">
+                                        <input type="text" class="form-control " name="item.manufacturingOrganizationId"
+                                               [disabled]="item.flagOutSourcingPlan"
+                                               [(ngModel)]="item.productionOrgName"/>
+                                    </span>
+
+              </td>
+              <td scope="col" class="medium-width-table">
+                <!-- Đầu mối kỹ thuật -->
+                <span title="{{item.pmName}}">
+                                        <input type="text" class="form-control " name="item.technicalClueUserId"
+                                               [disabled]="item.flagOutSourcingPlan" [(ngModel)]="item.pmName"/>
+                                    </span>
+
+              </td>
+              <td scope="col" class="{{item.clErrYear}}">
+                <!-- Năm hợp tác -->
+                <select class="form-control custom-select-arrow" name="item.cooperationYear"
+                        style="text-align: center; text-align-last: center;"
+                        [disabled]="item.status" [(ngModel)]="item.cooperationYear">
+                  <option value=""> -- Lựa chọn --</option>
+                  <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                </select>
+              </td>
+              <td scope="col" class="{{item.clErrorMM}}">
+                <!-- Tổng MM đã thẩm định (thông tin nỗ lực)-->
+                <input type="text" class="form-control " name="item.totalAppraisedMM" style="text-align: right"
+                       [disabled]="item.flagMMOS"
+                       [(ngModel)]="item.totalAppraisedMM"
+                       [textMask]="{mask: totalAppraisedMM}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)" (blur)="checkBlurTotalAppraisedMM(k, 'totalAppraisedMM')">
+              </td>
+              <td scope="col">
+                <!-- MM còn lại: MM đã thẩm đinh - MM sử dụng thực tế -->
+                <input type="text" class="form-control " name="item.totalSaveMM" disabled style="text-align: right"
+                       [textMask]="{mask: monthValue1}"
+                       [(ngModel)]="item.totalSaveMM">
+              </td>
+              <td scope="col">
+                <!-- MM sử dụng thực tế -->
+                <!-- {{(item.totalUsedMM)  | number : '1.0-2'}} -->
+                <input type="text" class="form-control " name="item.totalRealityMM" style="text-align: right"
+                       [textMask]="{mask: totalAppraisedMM}"
+                       [(ngModel)]="item.totalRealityMM" disabled>
+              </td>
+              <td scope="col">
+                <!-- Tổng MD sử dụng thực tế -->
+                <!-- {{item.totalMD}} -->
+                <input type="text" class="form-control" name="item.totalRealityMD" style="text-align: right"
+                       [textMask]="{mask: totalAppraisedMM}"
+                       [(ngModel)]="item.totalRealityMD" disabled>
+              </td>
+              <!-- Tháng 1 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue1" style="text-align: right"
+                       [(ngModel)]="item.monthValue1" [disabled]="item.status" [disabled]="false"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue1')"
+                       (keypress)="onInputChange($event)">
+
+              </td>
+              <!-- Tháng 2 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue2" style="text-align: right"
+                       [(ngModel)]="item.monthValue2" [disabled]="item.status" [disabled]="false"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue2')"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 3 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue3" style="text-align: right"
+                       [(ngModel)]="item.monthValue3" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue3')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 4 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue4" style="text-align: right"
+                       [(ngModel)]="item.monthValue4" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue4')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+
+              </td>
+              <!-- Tháng 5 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue5" style="text-align: right"
+                       [(ngModel)]="item.monthValue5" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue5')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 6 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue6" style="text-align: right"
+                       [(ngModel)]="item.monthValue6" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue6')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 7 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue7" style="text-align: right"
+                       [(ngModel)]="item.monthValue7" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue7')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 8 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue8" style="text-align: right"
+                       [(ngModel)]="item.monthValue8" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue8')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 9 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue9" style="text-align: right"
+                       [(ngModel)]="item.monthValue9" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue9')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 10 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue10" style="text-align: right"
+                       [(ngModel)]="item.monthValue10" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue10')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 11 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue11" style="text-align: right"
+                       [(ngModel)]="item.monthValue11" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue11')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+              <!-- Tháng 12 (MD) -->
+              <td scope="col">
+                <input type="text" class="form-control " name="item.monthValue12" style="text-align: right"
+                       [(ngModel)]="item.monthValue12" [disabled]="item.status" [disabled]="false"
+                       (blur)="checkBlurTotalAppraisedMM(k,'monthValue12')"
+                       [textMask]="{mask: monthValue1}" (input)="onChangeTotalMD(k)"
+                       (keypress)="onInputChange($event)">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </perfect-scrollbar>
+    <!-- paging -->
+    <div class="row justify-content-start py-2 pl-1 ml-2 table-footer no-data"
+         *ngIf="params.actualEffortList.length < 1">
+      <p class="item-count center-margin" jhiTranslate="common.table.noData"></p>
+    </div>
+
+    <!-- show khi có data -->
+    <div style="text-align:center;" class="row justify-content-end d-flex table-footer" *ngIf="numRecord !== 0">
+      <p _ngcontent-pku-c5="" class="item-count" style="margin: 7px 6px 0 0;">Tổng số bản ghi: {{ numRecord }}</p>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+          <li class="page-item ng-star-inserted {{ checkFirstAndPrev() }} " (click)="firstPage()">
+            <a aria-label="First" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">««</span>
+            </a>
+          </li>
+
+          <li class="page-item ng-star-inserted {{ checkFirstAndPrev() }} " (click)="previousPage()">
+            <a aria-label="Previous" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">«</span>
+            </a>
+          </li>
+
+          <div *ngFor="let numb of arrNumberOfPages; index as num">
+            <li class="page-item {{ checkActive(num) }} ng-star-inserted" (click)="changePage(num)">
+              <a class="page-link ng-star-inserted" tabindex="-1" style="border-radius: unset"> <span aria-hidden="true"
+                                                                                                      class="ng-star-inserted"> {{ num + 1 }} </span></a>
+            </li>
+          </div>
+
+          <li class="page-item ng-star-inserted {{ checkNextAndLast() }} " (click)="nextPage()">
+            <a aria-label="Next" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">»</span>
+            </a>
+          </li>
+
+          <li class="page-item ng-star-inserted {{ checkNextAndLast() }} " (click)="lastPage()">
+            <a aria-label="Last" class="page-link" tabindex="-1">
+              <span aria-hidden="true" class="ng-star-inserted">»»</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div style=" margin: 0px 15px 0px 12px;">
+        <select class="browser-default custom-select" #t (change)="onChangePage($event.target.value)"
+                style="font-size: 0.85rem;">
+          <option selected value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+    </div>
+    <!-- thêm mới -->
+    <button type="button" class="btn btn-primary btn-view-column ml-2 mb-3 mt-2" *ngIf="!hiddenView" title="Thêm mới"
+            (click)="onClickAddEffort()" style="width: 60px;" [disabled]="buttonDisabled">
+      <i class="fa fa-plus mr-2" aria-hidden="true"></i>
+    </button>
+    <!-- end table -->
+    <div class="d-flex justify-content-end table-footer">
+      <div style="margin: 0 auto 20px">
+        <button type="button" class="btn btn-light ng-star-inserted" (click)="onCancel()" *ngIf="!hiddenView"
+                [disabled]="buttonDisabled">
+          <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+          jhiTranslate="{{'common.button.confirm.cancel'}}">Hủybỏ</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-view-column" (click)="onSave()" *ngIf="!hiddenView"
+                [disabled]="buttonDisabled">
+          <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+          jhiTranslate="{{'common.button.confirm.save'}}">Ghi lại</span>
+        </button>
+        <button type="button" class="btn btn-light" (click)="onCancel(1)" *ngIf="hiddenView">
+          <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+          jhiTranslate="{{'common.button.confirm.close'}}">Đóng</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>

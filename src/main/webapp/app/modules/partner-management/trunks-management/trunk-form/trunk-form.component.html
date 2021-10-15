@@ -1,0 +1,103 @@
+<div style="display: block;">
+    <div class="custom-modal-large" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <h5 class="modal-title mt-0">{{(isSaving ? 'partner.trunk.add' : 'partner.trunk.update') | translate}}</h5>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+        <div class="modal-body" [formGroup]="formGroup">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.trunk.code'| translate}}
+                    <span class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('trunkCode')">
+                    <input type="text" class="form-control" formControlName="trunkCode" maxlength="20">
+                    <app-inline-message [formName]="formGroup.get('trunkCode')"
+                                        [message]="'partner.trunk.code'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.trunk.name'| translate}}<span
+                        class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('trunkName')">
+                    <input type="text" class="form-control" formControlName="trunkName" maxlength="50">
+                    <app-inline-message [formName]="formGroup.get('trunkName')"
+                                        [message]="'partner.trunk.name'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.trunk.trunkType'| translate}}
+                    <span class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('type')">
+                    <ng-select [items]="types"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                               bindLabel="label"
+                               bindValue="value"
+                               searchable="false"
+                               appendTo="body"
+                               formControlName="type">
+                    </ng-select>
+                    <app-inline-message [formName]="formGroup.get('type')"
+                                        [message]="'partner.trunk.trunkType'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.trunk.ccCode'| translate}}
+                    <span class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('networkElement')">
+                    <ng-select [items]="networkElement"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                               bindLabel="shortName"
+                               bindValue="id"
+                               searchable="false"
+                               appendTo="body"
+                               formControlName="networkElement">
+                    </ng-select>
+                    <app-inline-message [formName]="formGroup.get('networkElement')"
+                                        [message]="'partner.trunk.ccCode'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.status'| translate}}<span
+                        class="text-danger">*</span></label>
+                <div style="margin-bottom: 0px" class="col-sm-9 form-group dropdown form-custom-select"
+                     [ngClass]="displayFieldHasError('status')">
+                    <ng-select [items]="status"
+                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                               bindLabel="label"
+                               bindValue="value"
+                               searchable="false"
+                               appendTo="body"
+                               formControlName="status">
+                    </ng-select>
+                    <app-inline-message [formName]="formGroup.get('status')"
+                                        [message]="'partner.status'"></app-inline-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label custom-label-left">{{ 'partner.trunk.capacity'| translate}}<span
+                        class="text-danger">*</span></label>
+                <div class="col-sm-9 form-custom-select" [ngClass]="displayFieldHasError('volume')">
+                    <input type="text" class="form-control" formControlName="volume" maxlength="100">
+                    <app-inline-message [formName]="formGroup.get('volume')"
+                                        [message]="'partner.trunk.capacity'"></app-inline-message>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+    <div class="modal-footer text-center">
+        <button type="submit" class="btn btn-primary" (click)="onSave()">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{isSaving ? 'common.button.add' :'common.button.update'}}"></span>
+        </button>
+        <button type="button" class="btn btn-light" (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.close'}}"></span>
+        </button>
+    </div>
+</div>

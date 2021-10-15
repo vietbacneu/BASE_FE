@@ -1,0 +1,16 @@
+{
+  "thread_management":{
+    "thread-management": "Quản lí thread",
+    "name": "Tên Thread",
+    "action": "Thao tác",
+    "state": "State",
+    "setting": "Cài đặt",
+    "log": "Log",
+    "viewlog": "View Log",
+    "level": "Cấp độ",
+    "date": "Ngày",
+    "message": "Tin nhắn",
+    "delayTime": "Delay Time",
+    "param": "Parameters"
+  }
+}

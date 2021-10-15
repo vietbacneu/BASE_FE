@@ -1,0 +1,504 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+      <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+    </button>
+  </li>
+  <li class="breadcrumb-item">
+    <a jhiTranslate="outsourcingPlan.title" routerLink="/outsourcing-plan"></a>
+  </li>
+  <li *ngIf="type == 'add'" class="breadcrumb-item active" >
+    <a>{{'outsourcingPlan.function.add.title' | translate}}</a>
+  </li>
+  <li *ngIf="type == 'update'" class="breadcrumb-item active">
+    <a>{{'outsourcingPlan.update' | translate}}</a>
+  </li>
+  <li *ngIf="type == 'detail'" class="breadcrumb-item active">
+    <a>{{'outsourcingPlan.detail' | translate}}</a>
+  </li>
+</ol>
+<div class="w-100 d-inline-block">
+  <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div id="outsourcingPlan" class="page-content">
+      <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+        <div class="card mb-1">
+          <div class="card-header">
+            <a  href="#search" aria-expanded="true"><span
+              jhiTranslate="outsourcingPlan.function.add.generalInfo">1. Thông tin chung</span></a>
+          </div>
+          <div id="search" class="collapse show">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.codePlanning">Mã kế hoạch</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" formControlName="planCode" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div *ngIf="type !== 'add'">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.status">Trạng thái</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" formControlName="planStatusName" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right {{(type === 'detail' ? '': 'required' )}}"
+                           jhiTranslate="outsourcingPlan.function.add.codeProject">Mã dự án</label>
+                      <div class="col-sm-9" *ngIf="type !== 'detail' && projectCodeForwardFromProject === ''"
+                           [ngClass]="displayFieldHasError('idProject')">
+                        <ng-select class="cursor-text"
+                                   [items]="listProject | async" (change)="onSelectCodeProject($event)"
+                                   placeholder="--Lựa chọn--"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{ (codeSearch ? notFoundText : 'common.select.required') | translate }}"
+                                   bindLabel="projectCode" formControlName="idProject"
+                                   bindValue="id"
+                                   (search)="onSearchProject($event)"
+                                   (clear)="onClearProject()"
+                                   (close)="onSearchProjectClose()">
+                          <ng-template ng-option-tmp let-item="item">
+                            {{item.projectCode}} <br/>
+                          </ng-template>
+                        </ng-select>
+                        <jhi-error-messages
+                          *ngIf="formControl['idProject'].hasError('required')"
+                          [displayError]="isFieldValid('idProject')"
+                          errorMsg="{{ 'outsourcingPlan.required.idProject' | translate }}">
+                        </jhi-error-messages>
+                    </div>
+                    <div class="col-sm-9">
+                      <input  *ngIf="projectCodeForwardFromProject !== '' && type !== 'detail'"  class='form-control' type="text" maxlength="400"
+                              formControlName="projectCode" disabled>
+                      <input  *ngIf="type === 'detail' && projectCodeForwardFromProject == ''" class='form-control' type="text" maxlength="400"
+                             formControlName="projectCode" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.nameProject">Tên dự án</label>
+                    <div class="col-sm-9">
+                      <input class='form-control' type="text" maxlength="500"
+                             formControlName="projectName" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="plan-tab" data-toggle="tab" href="#plan"
+                   role="tab" aria-controls="plan" aria-selected="true">Kế hoạch</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="plan" role="tabpanel"
+                   aria-labelledby="plan-tab">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label custom-label-right "
+                             jhiTranslate="outsourcingPlan.function.add.pm">PM</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" formControlName="pm" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label
+                        class="col-sm-3 col-form-label custom-label-right {{(type === 'detail' ? '': 'required' )}}"
+                        jhiTranslate="outsourcingPlan.function.add.productionUnit">Đơn vị sản xuất</label>
+                      <div class="col-sm-9" *ngIf="type !== 'detail'" [ngClass]="displayFieldHasError('idProductionUnit')">
+                        <ng-select class="cursor-text"
+                                   [items]="listProduction$ | async"
+                                   placeholder="--Lựa chọn--"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{ (nameProductionSearch ? notFoundText : 'common.select.required') | translate }}"
+                                   bindLabel="name" formControlName="idProductionUnit"
+                                   bindValue="id"
+                                   [searchFn]="customSearchFnMDA"
+                                   (search)="onSearchProduction($event)"
+                                   (clear)="onClearProduction()"
+                                   (close)="onSearchProductionClose()">
+                          <ng-template ng-option-tmp let-item="item">
+                            {{item.code}} - {{item.name}} - {{item.parentName}} <br/>
+                          </ng-template>
+                        </ng-select>
+                        <jhi-error-messages
+                          *ngIf="formControl['idProductionUnit'].hasError('required')"
+                          [displayError]="isFieldValid('idProductionUnit')"
+                          errorMsg="{{ 'outsourcingPlan.required.idProductionUnit' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                      <div class="col-sm-9" *ngIf="type === 'detail'">
+                        <input type="text" class="form-control" formControlName="productUnit" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label custom-label-right "
+                             jhiTranslate="outsourcingPlan.function.add.am">AM</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" formControlName="am" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label
+                        class="col-sm-3 col-form-label custom-label-right {{(type === 'detail' ? '': 'required' )}}"
+                        jhiTranslate="outsourcingPlan.function.add.businessUnit">Đơn vị kinh doanh</label>
+                      <div class="col-sm-9 form-custom-select" *ngIf="type !== 'detail'" [ngClass]="displayFieldHasError('idBusinessUnit')">
+                        <ng-select class="cursor-text"
+                                   [items]="listBusiness$ | async"
+                                   placeholder="--Lựa chọn--"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{ (nameBusinessSearch ? notFoundText : 'common.select.required') | translate }}"
+                                   bindLabel="name" formControlName="idBusinessUnit"
+                                   bindValue="id"
+                                   [searchFn]="customSearchFnMDA"
+                                   (search)="onSearchBusiness($event)"
+                                   (clear)="onClearBusiness()"
+                                   (close)="onSearchBusinessClose()">
+                          <ng-template ng-option-tmp let-item="item"> {{item.code}} - {{item.name}} - {{item.parentName}} <br/><br/></ng-template>
+                        </ng-select>
+                        <jhi-error-messages
+                          *ngIf="formControl['idBusinessUnit'].hasError('required')"
+                          [displayError]="isFieldValid('idBusinessUnit')"
+                          errorMsg="{{ 'outsourcingPlan.required.idBusinessUnit' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                      <div class="col-sm-9" *ngIf="type === 'detail'">
+                        <input type="text" class="form-control" formControlName="businessUnit" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label
+                        class="col-sm-3 col-form-label custom-label-right {{(type === 'detail' ? '': 'required' )}}"
+                        jhiTranslate="outsourcingPlan.function.add.startTimeOSExpected"> Thời gian bắt đầu OS dự
+                        kiến</label>
+                      <div class="col-sm-9" [ngClass]="displayFieldHasError('startTime')">
+                        <jhi-date-picker-popup name="signDate" [isDisabled]="type === 'detail'"
+                                               formControlName="startTime">
+                        </jhi-date-picker-popup>
+                        <jhi-error-messages *ngIf="formControl['startTime'].hasError('required')" [displayError]="isFieldValid('startTime')"
+                          errorMsg="{{ 'outsourcingPlan.required.startTime' | translate }}"></jhi-error-messages>
+                        <jhi-error-messages  [displayError]="isDateErrProject('startTime')"
+                                            errorMsg="{{'outsourcingPlan.error.startTime.startDateProject' | translate}}"></jhi-error-messages>
+                        <jhi-error-messages   [displayError]="isDateErrProject('startTimeBeforeEndDateOfProject')"
+                                            errorMsg="{{'outsourcingPlan.error.startTime.startTimeBeforeEndDateOfProject' | translate}}"></jhi-error-messages>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label custom-label-right "
+                             jhiTranslate="outsourcingPlan.function.add.endTimeOSExpected"
+                      > Thời gian kết thúc OS dự kiến</label>
+                      <div class="col-sm-9" [ngClass]="displayFieldHasError('endTime')">
+                        <jhi-date-picker [isDisabled]="type === 'detail'" formControlName="endTime" placeholder="dd/mm/yyyy"></jhi-date-picker>
+                        <jhi-error-messages [displayError]="isEndDateErr('endTime')"
+                                            errorMsg="{{'outsourcingPlan.error.endDate.project.null' | translate}}"></jhi-error-messages>
+                        <jhi-error-messages  [displayError]="isDateErrProject('endTime')"
+                                            errorMsg="{{'outsourcingPlan.error.endTime.endDateProject' | translate}}"></jhi-error-messages>
+                        <jhi-error-messages  [displayError]="isDateErr('endTime')"
+                                            errorMsg="{{'outsourcingPlan.required.invalid.start' | translate}}"></jhi-error-messages>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6" [ngClass]="displayFieldHasError('outsourceTypeCode')">
+                    <div class="form-group row dropdown form-custom-select">
+                      <label
+                        class="col-sm-3 col-form-label custom-label-right {{(type === 'detail' ? '': 'required' )}}"
+                        jhiTranslate="outsourcingPlan.function.add.formOfOutSourcing">Hình thức thuê ngoài</label>
+                      <div class="col-sm-9 form-custom-select" *ngIf="type !== 'detail'">
+                        <select #selectElement class="form-control custom-select-arrow"
+                                formControlName="outsourceTypeCode">
+                          <option value="">{{'common.select.option.default' | translate}}</option>
+                          <option *ngFor="let item of outsourcingFormList"
+                                  [ngValue]="item.paramCode">{{item.paramName}}
+                          </option>
+                        </select>
+                        <span class="span-after-select"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                        <jhi-error-messages
+                          *ngIf="formControl['outsourceTypeCode'].hasError('required')"
+                          [displayError]="isFieldValid('outsourceTypeCode')"
+                          errorMsg="{{ 'outsourcingPlan.required.formOfOutSourcing' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                      <div class="col-sm-9" *ngIf="type === 'detail'">
+                        <input type="text" class="form-control" formControlName="outsourceTypeName" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row" [ngClass]="displayFieldHasError('mmos')">
+                      <label class="col-sm-3 col-form-label custom-label-right "
+                             jhiTranslate="outsourcingPlan.function.add.mmos">
+                        MM OS</label>
+                      <div class="col-sm-9" >
+                        <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="mmos"
+                               (input)="onKeyInput($event, 'mmos')"
+                               maxlength="8">
+                        <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="mmos" disabled>
+                        <jhi-error-messages
+                          *ngIf="formControl['mmos'].hasError('pattern')"
+                          [displayError]="isFieldValid('mmos')"
+                          errorMsg="{{ 'userGroup.modal.validate.charSpecial' | translate }}">
+                        </jhi-error-messages>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row" >
+                      <label class="col-sm-3 col-form-label custom-label-right "
+                             jhiTranslate="outsourcingPlan.function.add.descriptionProduct">Mô tả sơ bộ về sản phẩm
+                      </label>
+                      <div class="col-sm-9" >
+                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
+                                  formControlName="description" maxlength="1000" (blur)="trimSpace('description')"></textarea>
+                        <textarea *ngIf="type === 'detail'" class="form-control" type="text" rows="3"
+                                  formControlName="description" maxlength="1000" disabled></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label custom-label-right "
+                             jhiTranslate="outsourcingPlan.function.add.file">File sở cứ kế hoạch
+                      </label>
+                      <div class="col-sm-9">
+                        <jhi-upload-file *ngIf="type !== 'detail'" #fileImport [fileType]="'fileOutsourcePlan'" [multiple]='true'
+                                         [property]="formControl['listFilePlan']"
+                                         [title]="'title'" [isFocus]="false"
+                                         [isError]="errImportFile"
+                                         (onFileChange)="onChangeFile($event)"
+                                         (onError)="onError($event)">
+                        </jhi-upload-file>
+                        <div *ngIf="errImportFile" class="text-danger">{{errMessageFile}}</div>
+                        <div *ngIf="formControl['listFilePlan'].value && formControl['listFilePlan'].value.length > 0">
+                          <table class="table table-bordered table-hover table-striped"
+                                 sortable="true">
+                            <thead>
+                            <tr class="text-center">
+                              <th scope="col" class="text-center small-width-table">Stt</th>
+                              <th scope="col" class="text-center small-width-table" *ngIf="type !== 'detail'">Hành động</th>
+                              <th scope="col" class="text-center medium-width-table ">Tên file
+                              </th>
+                            </tr>
+                            </thead>
+                            <tbody
+                              *ngFor="let item of formControl['listFilePlan'].value |slice: (filePage-1) * filePerPage : (filePage-1) * filePerPage + filePerPage; index as i">
+                            <tr>
+                              <td class="text-center">{{filePerPage * (filePage - 1) + i + 1}}</td>
+                              <td class="text-center" *ngIf="type !== 'detail'">
+                                <div class="group-action">
+                                  <button class="btn btn-light" placement="top"
+                                          ngbTooltip="{{ 'common.tooltip.action.delete' | translate }}"
+                                          (click)="onDeleteDocument(item)">
+                                    <i class="fa fa-trash-o icon-delete"
+                                       aria-hidden="true"></i>
+                                  </button>
+                                </div>
+                              </td>
+                              <td class="text-left {{(item.id === undefined ? '' : 'text-primary')}}" (click)="downloadFile(item)" >{{item.fileName || item.name}}</td>
+                            </tr>
+                            </tbody>
+                          </table>
+                          <div class="d-flex justify-content-end table-footer"
+                               [hidden]="formControl['listFilePlan'].value.length === 0">
+                            <div class="row justify-content-center">
+                              <p
+                                class="item-count">{{'common.table.totalItems'| translate}} {{formControl['listFilePlan'].value.length}}</p>
+                              <ngb-pagination *ngIf="formControl['listFilePlan'].value.length"
+                                              [collectionSize]="formControl['listFilePlan'].value.length"
+                                              [(page)]="filePage"
+                                              [pageSize]="filePerPage" [maxSize]="maxFilePage"
+                                              [rotate]="true"
+                                              [boundaryLinks]="true" (pageChange)="pageChange($event)">
+                              </ngb-pagination>
+                              <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-2" >
+                           <label class="text-danger" *ngIf="formControl['listFilePlan'].hasError('maxFile')"  >Tổng dung lượng các file tối đa: 150MB</label>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card-header">
+                <a  href="#customerInfo" aria-expanded="true"><span
+                  jhiTranslate="outsourcingPlan.function.add.amountEmpOS">2. Số nhân sự OS/ tháng </span></a>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.ba">BA</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="baNumber" maxlength="5" (input)="onKeyInput($event, 'baNumber')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="baNumber" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.dev">Dev</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="devNumber" maxlength="5" (input)="onKeyInput($event, 'devNumber')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="devNumber" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.devMobile">Dev Mobile</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="devMobileNumber" maxlength="5" (input)="onKeyInput($event, 'devMobileNumber')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="devMobileNumber" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.test">Test</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="testNumber" maxlength="5" (input)="onKeyInput($event, 'testNumber')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="testNumber" disabled>
+                    </div>
+                  </div>
+                </div>
+
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-group row">-->
+<!--                    <label class="col-sm-3 col-form-label custom-label-right "-->
+<!--                           jhiTranslate="outsourcingPlan.function.add.devMobile">Dev Mobile</label>-->
+<!--                    <div class="col-sm-9" >-->
+<!--                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="devMobileNumber" maxlength="5" (input)="onKeyInput($event, 'devMobileNumber')">-->
+<!--                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="devMobileNumber" disabled>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+              </div>
+
+              <div class="card-header">
+                <a  href="#customerInfo" aria-expanded="true"><span
+                  jhiTranslate="outsourcingPlan.function.add.requestEmpOs">3. Yêu cầu đối với nhân sự OS </span></a>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.ba">BA</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="requireBA" maxlength="255" (blur)="trimSpace('requireBA')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="requireBA" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.dev">Dev</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="requireDev" maxlength="255" (blur)="trimSpace('requireDev')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="requireDev" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.devMobile">Dev Mobile</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="requireDevMobile" maxlength="255" (blur)="trimSpace('requireDevMobile')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="requireDevMobile" disabled>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right "
+                           jhiTranslate="outsourcingPlan.function.add.test">Test</label>
+                    <div class="col-sm-9" >
+                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="requireTest" maxlength="255" (blur)="trimSpace('requireTest')">
+                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="requireTest" disabled>
+                    </div>
+                  </div>
+                </div>
+
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-group row">-->
+<!--                    <label class="col-sm-3 col-form-label custom-label-right "-->
+<!--                           jhiTranslate="outsourcingPlan.function.add.devMobile">Dev Mobile</label>-->
+<!--                    <div class="col-sm-9" >-->
+<!--                      <input *ngIf="type !== 'detail'" type="text" class="form-control" formControlName="requireDevMobile" maxlength="255" (blur)="trimSpace('requireDevMobile')">-->
+<!--                      <input *ngIf="type === 'detail'" type="text" class="form-control" formControlName="requireDevMobile" disabled>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </perfect-scrollbar>
+</div>
+<div class="py-3 bgr-primary">
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-6">
+      <button #cancelBtn type="button" class="btn btn-light" style="text-align:center" (click)="cancelAddOrUpdate()">
+        <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+        jhiTranslate="{{(type !== 'detail'? 'common.button.confirm.cancel' :  'common.button.close') }}">
+                                        Hủy bỏ </span>
+      </button>
+      <button *ngIf="type !== 'detail'" type="submit" class="btn btn-primary" (click)="onSubmitData()">
+        <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+        jhiTranslate="common.button.confirm.save">Ghi lại</span>
+      </button>
+    </div>
+  </div>
+</div>

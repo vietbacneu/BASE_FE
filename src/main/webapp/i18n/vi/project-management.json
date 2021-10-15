@@ -1,0 +1,68 @@
+{
+  "projectManagement": {
+    "projectManagement": "Quản lý dự án",
+    "start-date": "Ngày bắt đầu",
+    "end-date": "Ngày kết thúc",
+    "project-code": "Mã dự án",
+    "project-name": "Tên dự án",
+    "am": "AM",
+    "pm": "PM",
+    "customer": "Khách hàng",
+    "production-unit": "Đơn vị sản xuất",
+    "business-unit": "Đơn vị kinh doanh",
+    "expected-date": "Ngày dự kiến triển khai chính thức",
+    "yes/no-outcesource": "Có/Không thuê ngoài",
+    "programming-language": "Ngôn ngữ lập trình",
+    "frameworks": "Frameworks",
+    "database": "Database",
+    "versions": "Các phiên bản",
+    "note": "Ghi chú",
+    "result-search": "Kết quả tìm kiếm",
+    "orderNumber": "STT",
+    "action": "Hành Động",
+    "popup": {
+      "title-show-detail": "Xem chi tiết dự án",
+      "title-update": "Cập nhật dự án",
+      "title-add": "Thêm mới dự án",
+      "this-value": "bản ghi này"
+    },
+    "toast": {
+      "projectCode": {
+        "codeRequire": "Mã dự án bắt buộc nhập",
+        "exist": "Mã dự án đã tồn tại",
+        "invalid": "Mã dự án không hợp lệ"
+      },
+      "projectName": {
+        "codeRequire": "Tên dự án bắt buộc nhập"
+      },
+      "pm": {
+        "codeRequire": "PM bắt buộc chọn"
+      },
+      "productUnit": {
+        "codeRequire": "Đơn vị sản xuất bắt buộc chọn"
+      },
+      "startDate": {
+        "codeRequire": "Ngày bắt đầu bắt buộc chọn",
+        "valid": "Ngày bắt đầu phải nhỏ hơn ngày kết thúc"
+      },
+      "isOutsource": {
+        "codeRequire": "Có/Không thuê ngoài bắt buộc chọn"
+      },
+      "success": {
+        "title": "Thành công",
+        "create": "Thêm mới thành công",
+        "update": "Cập nhật thành công",
+        "delete": "Xóa dữ liệu thành công"
+      },
+      "existUsed": "Dự án đã được sử dụng dữ liệu, không được phép xóa"
+    },
+    "validDate": {
+      "startDate1": "Ngày bắt đầu phải bé hơn hoặc bằng Ngày kết thúc",
+      "startDate2": "Ngày bắt đầu phải bé hơn hoặc bằng ngày dự kiến triển khai chính thức",
+      "endDate1": "Ngày kết thúc phải lớn hơn hoặc bằng Ngày bắt đầu",
+      "endDate2": "Ngày kết thúc phải lớn hơn hoặc bằng Ngày dự kiến triển khai chính thức",
+      "expectDate1": "Ngày dự kiến triển khai chính thức phải lớn hơn hoặc bằng Ngày bắt đầu",
+      "expectDate2": "Ngày dự kiến triển khai chính thức phải bé hơn hoặc bằng Ngày kết thúc"
+    }
+  }
+}

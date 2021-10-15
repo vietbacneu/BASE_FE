@@ -1,0 +1,431 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li routerLink="/partner-management" class="breadcrumb-item active"><a>{{'partner.pageTitle' | translate}}</a></li>
+    <li class="breadcrumb-item active" routerLink="/partner-management/price-commitment-management">
+        <a>{{'partner.priceCommitmentManagement' | translate}}</a></li>
+    <li class="breadcrumb-item active"><a>{{'partner.commitment.add' | translate}}</a></li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div class="card mb-1">
+        <div id="search" class="collapse show">
+            <div class="card-body">
+                <form [formGroup]="formGroup" autocomplete="off">
+                    <div class="row">
+                        <div hidden class="col-hidden"></div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.code'| translate}}
+                                    <span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-10 form-custom-select" [ngClass]="displayFieldHasError('cmtCode')">
+                                    <input type="text" class="form-control" jhiAutoFocusField formControlName="cmtCode">
+                                    <app-inline-message [formName]="formGroup.get('cmtCode')"
+                                                        [message]="'partner.commitment.code'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.name'| translate}}
+                                    <span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-10 form-custom-select" [ngClass]="displayFieldHasError('cmtName')">
+                                    <input type="text" class="form-control"
+                                           formControlName="cmtName">
+                                    <app-inline-message [formName]="formGroup.get('cmtName')"
+                                                        [message]="'partner.commitment.name'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.fromDate'| translate}}
+                                    <span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-10 form-custom-select" [ngClass]="displayFieldHasError('fromDate')">
+                                    <div class="input-group">
+                                        <input class="form-control"
+                                               name="dp" ngbDatepicker
+                                               #fromDate="ngbDatepicker" formControlName="fromDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar"
+                                                    (click)="fromDate.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <app-inline-message [formName]="formGroup.get('fromDate')"
+                                                        [message]="'partner.commitment.fromDate'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.toDate'| translate}}
+                                    <span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-10 form-custom-select" [ngClass]="displayFieldHasError('toDate')">
+                                    <div class="input-group">
+                                        <input class="form-control"
+                                               name="dp" ngbDatepicker
+                                               #toDate="ngbDatepicker" formControlName="toDate">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar"
+                                                    (click)="toDate.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <app-inline-message [formName]="formGroup.get('toDate')"
+                                                        [message]="'partner.commitment.toDate'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.service'| translate}}
+                                    <span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-10 dropdown form-custom-select"
+                                     [ngClass]="displayFieldHasError('service')">
+                                    <ng-select [items]="lstService"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                                               bindLabel="serviceName"
+                                               bindValue="id"
+                                               formControlName="service"
+                                               searchable="false">
+                                    </ng-select>
+                                    <app-inline-message [formName]="formGroup.get('service')"
+                                                        [message]="'partner.commitment.service'"></app-inline-message>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.adjourn'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <div class="input-group">
+                                        <input class="form-control"
+                                               name="dp" ngbDatepicker
+                                               #adjourn="ngbDatepicker" formControlName="adjourn">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar"
+                                                    (click)="adjourn.toggle()"
+                                                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label custom-label-left">{{ 'partner.contract.note'| translate}}</label>
+                                <div class="col-sm-11 form-custom-select">
+                                    <textarea rows="5" class="form-control" formControlName="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div hidden class="col-hidden"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row form-group compare-price">
+        <div class="col-md-6" style="padding-right: 0px !important;">
+            <div class="card mb-1">
+                <div class="card-header">
+                    <a data-toggle="collapse" href="#"
+                       aria-expanded="true"><span>{{'partner.commitment.outWay'|translate}}</span></a>
+                </div>
+                <div class="card-body">
+                    <div [formGroup]="outGoingForm" class="row form-group">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.priceOut.dest'| translate}}</label>
+                                <div class="col-sm-10 dropdown form-custom-select">
+                                    <ng-select [items]="lstOutGoingDest"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                                               bindLabel="destination"
+                                               bindValue="id"
+                                               formControlName="dest"
+                                               [placeholder]="'common.select.option.default' | translate"
+                                               [(ngModel)]="outGoingPriceSelect"
+                                               [searchable]="true"
+                                               [multiple]="true"
+                                               [closeOnSelect]="false">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.priceCommitment'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input class="form-control"
+                                           formControlName="cmtPrice" onlyDouble>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.overPrice'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input class="form-control"
+                                           formControlName="overPrice" onlyDouble>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.flow'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input class="form-control"
+                                           formControlName="flow" onlyDouble>
+                                </div>
+                            </div>
+                        </div>
+                        <div hidden class="col-hidden"></div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary"
+                                (click)="addOutGoing()">{{'common.button.add' | translate}}</button>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <a data-toggle="collapse" href="#"
+                       aria-expanded="true"><span>{{'partner.commitment.outWayList' | translate}}</span></a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center">
+                                    <th [ngClass]="[column.size+'-width-table',column.name==='partner.action'?'pinned-column':'']"
+                                        *ngFor="let column of columns">
+                                        {{column.name | translate}}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of lstPriceOut; index as i">
+                                <tr>
+                                    <td class="cursor-pointer text-center">{{(pageOut - 1) * itemsPerPage + i + 1}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.destinationName}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.flow |number:'1.0-2':'en-US'}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.cmtPrice |number:'1.0-2':'en-US' }}</td>
+                                    <td class="cursor-pointer text-center">{{item?.overPrice|number:'1.0-2':'en-US'}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.total |number:'1.0-2':'en-US'}}</td>
+                                    <td class="text-center pinned-column">
+                                        <div class="group-action">
+                                            <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                                    ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                    (click)="openModal(item,Constant.OUTGOING)">
+                                                <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                                    ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                    (click)="onDelete(item)">
+                                                <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalOutItems">
+                        <p class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+
+                    <div class="d-flex justify-content-end table-footer" [hidden]="!totalOutItems">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalOutItems}}</p>
+                            <ngb-pagination *ngIf="totalOutItems" [collectionSize]="totalOutItems"
+                                            [(page)]="pageOut"
+                                            [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPageOut(pageOut)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSizeOut($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th [ngClass]="[column.size+'-width-table']"
+                                *ngFor="let column of columnsTotal">
+                                {{column?.name | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center font-weight-bold">Tổng</td>
+                            <td class="text-center">{{totalOutGoingFlow|number:'1.0-2':'en-US'}}</td>
+                            <td class="text-center">{{totalOutGoing|number:'1.0-2':'en-US'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-1">
+                <div class="card-header">
+                    <a data-toggle="collapse" href="#"
+                       aria-expanded="true"><span>{{'partner.commitment.inWay'|translate}}</span></a>
+                </div>
+                <div class="card-body">
+                    <div [formGroup]="inComingForm" class="row form-group">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.priceOut.dest'| translate}}</label>
+                                <div class="col-sm-10 dropdown form-custom-select">
+                                    <ng-select [items]="lstInComingDest"
+                                               clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                               notFoundText="{{'common.select.notFoundText' | translate}}"
+                                               bindLabel="destination"
+                                               bindValue="id"
+                                               formControlName="dest"
+                                               [placeholder]="'common.select.option.default' | translate"
+                                               [(ngModel)]="inComingPriceSelect"
+                                               [searchable]="true"
+                                               [multiple]="true"
+                                               [closeOnSelect]="false">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.priceCommitment'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input class="form-control"
+                                           formControlName="cmtPrice" onlyDouble>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.overPrice'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input class="form-control"
+                                           formControlName="overPrice" onlyDouble>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label custom-label-left">{{ 'partner.commitment.flow'| translate}}</label>
+                                <div class="col-sm-10 form-custom-select">
+                                    <input class="form-control"
+                                           formControlName="flow" onlyDouble>
+                                </div>
+                            </div>
+                        </div>
+                        <div hidden class="col-hidden"></div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary"
+                                (click)="addInComing()">{{'common.button.add' | translate}}</button>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <a data-toggle="collapse" href="#"
+                       aria-expanded="true"><span>{{'partner.commitment.inWayList' | translate}}</span></a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center">
+                                    <th [ngClass]="[column.size+'-width-table',column.name==='partner.action'?'pinned-column':'']"
+                                        *ngFor="let column of columns">
+                                        {{column.name | translate}}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of lstPriceIn; index as i">
+                                <tr>
+                                    <td class="cursor-pointer text-center">{{(pageIn - 1) * itemsPerPage + i + 1}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.destinationName}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.flow |number:'1.0-2':'en-US'}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.cmtPrice |number:'1.0-2':'en-US' }}</td>
+                                    <td class="cursor-pointer text-center">{{item?.overPrice|number:'1.0-2':'en-US'}}</td>
+                                    <td class="cursor-pointer text-center">{{item?.total |number:'1.0-2':'en-US'}}</td>
+                                    <td class="text-center pinned-column">
+                                        <div class="group-action">
+                                            <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                                    ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                    (click)="openModal(item,Constant.INCOMING)">
+                                                <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-light" placement="top" onclick="this.blur()"
+                                                    ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                    (click)="onDelete(item)">
+                                                <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalInItems">
+                        <p class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+
+                    <div class="d-flex justify-content-end table-footer" [hidden]="!totalInItems">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalInItems}}</p>
+                            <ngb-pagination *ngIf="totalInItems" [collectionSize]="totalInItems" [(page)]="pageIn"
+                                            [pageSize]="itemsPerPage" [maxSize]="maxSizePage" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPageIn(pageIn)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSizeIn($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th [ngClass]="[column.size+'-width-table']"
+                                *ngFor="let column of columnsTotal">
+                                {{column?.name | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center font-weight-bold">Tổng</td>
+                            <td class="text-center">{{totalInComingFlow|number:'1.0-2':'en-US'}}</td>
+                            <td class="text-center">{{totalInComing|number:'1.0-2':'en-US'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer text-center pb-5">
+        <div>
+            <button class="btn btn-primary"
+                    routerLink="/partner-management/price-commitment-management">{{'entity.action.back' | translate}}</button>
+            <button class="btn btn-primary ml-1" (click)="onSave()">{{'entity.action.save' | translate}}</button>
+        </div>
+    </div>
+</perfect-scrollbar>

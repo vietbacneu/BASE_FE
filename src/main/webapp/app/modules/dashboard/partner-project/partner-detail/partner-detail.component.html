@@ -1,0 +1,185 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0">Thống kê công nợ của đối tác theo hợp đồng</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div class="modal-body">
+    <div id="organizationCategories" class="page-content">
+      <div class="card mb-1">
+        <div class="card-header">
+          <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+            jhiTranslate="common.card.title.search"></span></a>
+        </div>
+        <div id="search" class="collapse show">
+          <div class="card-body">
+            <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right" >Số hợp đồng</label>
+                    <div class="col-sm-9">
+                      <input type="text" formControlName="contractNum" class="form-control" maxlength="255">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right"
+                          >Đối tác</label>
+                    <div class="col-sm-9">
+                      <input type="text" formControlName="partnerShortName" class="form-control"  maxlength="255">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right">Thời gian bắt đầu</label>
+                    <div class="col-sm-9">
+                      <jhi-date-range-picker  formControlName="startTime"></jhi-date-range-picker>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right">Thời gian kết thúc</label>
+                    <div class="col-sm-9">
+                      <jhi-date-range-picker  formControlName="endTime"></jhi-date-range-picker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label custom-label-right">MM còn nợ</label>
+                    <div class="col-sm-9">
+                      <input type="text" [textMask]="{mask: mmowed}" (blur)="deleteZero($event)" formControlName="mmowed"  class="form-control"  maxlength="20" >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group row dropdown form-custom-select">
+                    <label class="col-sm-3 col-form-label custom-label-right" >Trạng thái hợp đồng</label>
+                    <div class="col-sm-9 form-custom-select">
+                      <select class="form-control custom-select-arrow"
+                              formControlName="contractStatus">
+                        <option value="">{{'common.select.option.default' | translate}}</option>
+                        <option *ngFor="let item of contractStatusList" [ngValue]="item.id">
+                          {{item.paramName}}
+                        </option>
+                      </select>
+                      <span class="span-after-select"><i class="fa fa-angle-down"
+                                                         aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="d-flex justify-content-center mt-2 ml-5">
+                <button type="button" class="btn btn-primary" (click)="doSearch(true)">
+                  <i class="fa fa-search mr-2" aria-hidden="true"></i><span
+                  jhiTranslate="common.button.search" >Tìm kiếm</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+            jhiTranslate="partnerOrgan.titleTable"></span></a>
+        </div>
+        <div id="dataTable" class="collapse show">
+          <div class="card-body pt-2 pb-0 px-2">
+            <div id="table" class="collapse show">
+              <div class="row d-flex justify-content-end pr-2">
+                <div ngbDropdown class="d-inline-block choose-column float-right mr-2" placement="bottom-right" ngbTooltip="Ẩn/hiện cột">
+                  <button type="button" id="dropdownBasic" class="btn btn-primary btn-view-column ml-2"
+                          placement="top" ngbDropdownToggle>
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <perfect-scrollbar class="ps" [style.max-height.vh]="SHOW_HIDE_COL_HEIGHT">
+                      <ng-container *ngFor="let col of columns; let i = index">
+                        <div class="custom-control custom-checkbox">
+                          <input class="custom-control-input" type="checkbox" [checked]="col.isShow"
+                                 id="check{{ i }}" (click)="toggleColumns(col)"/>
+                          <label class="custom-control-label cursor-pointer" for="check{{ i }}">
+                            {{ col.value }}
+                          </label>
+                        </div>
+                      </ng-container>
+                    </perfect-scrollbar>
+                  </div>
+                </div>
+              </div>
+              <div class="row mr-2 ml-1">
+                <table class="table table-bordered table-hover table-striped mr-2 ml-2" sortable="true" id="tableCustoms">
+                  <thead>
+                  <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                    <th  class="small-width-table"  scope="col" jhiTranslate="partnerOrgan.orderNumber">STT</th>
+                    <th *ngIf="this.columns[0]?.isShow"  scope="col" ><span >Đối tác</span>
+                    </th>
+                    <th *ngIf="this.columns[1]?.isShow"  scope="col" ><span >Số hợp đồng</span>
+                    </th>
+<!--                    <th *ngIf="this.columns[2]?.isShow"  scope="col" ><span >MM sử dụng lũy kế</span>-->
+<!--                    </th>-->
+<!--                    <th *ngIf="this.columns[3]?.isShow"  scope="col" ><span >MM đã thanh toán</span>-->
+<!--                    </th>-->
+                    <th *ngIf="this.columns[2]?.isShow"  scope="col" ><span >MM còn nợ</span>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody *ngFor="let item of data; index as i">
+                  <tr>
+                    <td class="text-center">{{((page - 1) * itemsPerPage) + (i + 1)}}</td>
+                    <td *ngIf="this.columns[0]?.isShow" style="font-weight: bold">{{ item.partnerShortName }}</td>
+                    <td *ngIf="this.columns[1]?.isShow">{{ item.contractNum }}</td>
+<!--                    <td *ngIf="this.columns[2]?.isShow" class="text-right">{{ item.mmUsingStr }}</td>-->
+<!--                    <td *ngIf="this.columns[3]?.isShow" class="text-right">{{ item.mmPayedStr }}</td>-->
+                    <td *ngIf="item.partnerShortName !== null && this.columns[2]?.isShow" class="text-right" style="font-weight: bold">{{ item.mmOwedStr }}</td>
+                    <td *ngIf="item.partnerShortName === null && this.columns[2]?.isShow" class="text-right">{{ item.mmOwedStr }}</td>
+                  </tr>
+                  </tbody>
+                  <tr *ngIf="dataTotal">
+                    <td></td>
+                    <td *ngIf="this.columns[0]?.isShow" style="font-weight: bold">Tổng</td>
+                    <td *ngIf="this.columns[1]?.isShow" ></td>
+<!--                    <td *ngIf="this.columns[2]?.isShow" class="text-right bold" >{{dataTotal.totalMmUsingStr}}</td>-->
+<!--                    <td *ngIf="this.columns[3]?.isShow" class="text-right bold">{{dataTotal.totalMmPayedStr}}</td>-->
+                    <td *ngIf="this.columns[2]?.isShow" class="text-right bold">{{dataTotal.totalMmowedStr}}</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="row justify-content-start py-2 pl-1  table-footer no-data ml-2 mr-2"
+                   *ngIf="!totalItems || totalItems === 0">
+                <p class="item-count" jhiTranslate="common.table.noData"></p>
+              </div>
+              <div class="d-flex justify-content-end table-footer mr-4" [hidden]="totalItems === 0">
+                <div class="row justify-content-center">
+                  <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                  <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                  [pageSize]="itemsPerPage"
+                                  [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                                  (pageChange)="loadPage(page)"></ngb-pagination>
+                  <jhi-page-size-popup (onChangePageSize)="changePageSize($event)"></jhi-page-size-popup>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</perfect-scrollbar>

@@ -1,0 +1,116 @@
+{
+  "outsourcingPlan": {
+    "title": "Kế hoạch thuê ngoài",
+    "title-detail": "Xem chi tiết",
+    "title-add": "Thêm mới kế hoạch thuê ngoài",
+    "title-update": "Cập nhật kế hoạch thuê ngoài",
+    "plan-status": "Trạng thái kế hoạch",
+    "project-code": "Mã dự án",
+    "start-time": "Thời gian bắt đầu OS dự kiến",
+    "end-time": "Thời gian kết thúc OS dự kiến",
+    "plan-code": "Mã kế hoạch",
+    "outsourcing-type": "Hình thức thuê ngoài",
+    "business-unit": "Đơn vị kinh doanh",
+    "production-unit": "Đơn vị sản xuất",
+    "am": "AM",
+    "pm": "PM",
+    "no": "STT",
+    "action": "Hành động",
+    "project-name": "Tên dự án",
+    "mmos": "MMOS",
+    "sum": "Tổng",
+    "ba": "BA",
+    "dev": "Dev",
+    "devMobile": "Dev Mobile",
+    "test": "Tester",
+    "description": "Mô tả sơ bộ về sản phẩm",
+    "human-number": "Số nhân sự OS/ tháng",
+    "human-required": "Yêu cầu đối với nhân sự OS",
+    "plan": "kế hoạch",
+    "baNumber": "Số lượng BA",
+    "devNumber": "Số lượng Dev",
+    "devMobileNumber": "Số lượng Dev Mobile",
+    "testNumber": "Số lượng Tester",
+    "baRequired": "Yêu cầu BA",
+    "devRequired": "Yêu cầu Dev",
+    "devMobileRequired": "Yêu cầu Dev Mobile",
+    "testRequired": "Yêu cầu Tester",
+    "create": "Tạo kế hoạch thuê ngoài",
+    "status": "Trạng thái kế hoạch",
+    "update": "Cập nhật kế hoạch thuê ngoài",
+    "detail": "Xem chi tiết kế hoạch thuê ngoài",
+
+    "popup": {
+      "isExist": "Mã kế hoạch {{ planCodeCodeOld }} đã tồn tại. Mã kế hoạch của bạn là: {{ planCodeNew }}",
+      "reasonReject": "Lý do từ chối"
+    },
+    "required": {
+      "idProject": "Mã dự án bắt buộc chọn",
+      "idBusinessUnit": "Đơn vị kinh doanh bắt buộc chọn",
+      "idProductionUnit": "Đơn vị sản xuất bắt buộc chọn",
+      "formOfOutSourcing": "Hình thức thuê ngoài bắt buộc chọn",
+      "startTime": "Thời gian bắt đầu OS dự kiến bắt buộc chọn",
+      "invalid": {
+        "start": "Thời gian kết thúc OS dự kiến phải lớn hơn hoặc bằng Thời gian bắt đầu OS dự kiến",
+        "ba": "BA phải nhập số",
+        "dev": "Dev phải nhập số",
+        "devMobile": "Dev Mobile phải nhập số",
+        "test": "Tester phải nhập số"
+      },
+      "reasonReject": "Lý do từ chối bắt buộc nhập",
+      "maxNumber": "Số quá lớn",
+      "negativeNumber": "Số phải là số dương"
+    },
+
+    "button": {
+      "createNewContract": "Tạo hợp đồng",
+      "linkTo": "Lập kế hoạch thuê ngoài",
+      "reject": "Từ chối"
+    },
+    "function": {
+      "add": {
+        "generalInfo": "1. Thông tin chung",
+        "title": "Thêm mới kế hoạch thuê ngoài",
+        "codePlanning": "Mã kế hoạch",
+        "codeProject": "Mã dự án",
+        "nameProject": "Tên dự án",
+        "pm": "PM",
+        "am": "AM",
+        "productionUnit": "Đơn vị sản xuất",
+        "businessUnit": "Đơn vị kinh doanh",
+        "startTimeOSExpected": "Thời gian bắt đầu OS dự kiến",
+        "endTimeOSExpected": "Thời gian kết thúc OS dự kiến",
+        "mmos": "MM OS",
+        "formOfOutSourcing": "Hình thức thuê ngoài",
+        "descriptionProduct": "Mô tả sơ bộ về sản phẩm",
+        "file": "File sở cứ kế hoạch",
+        "amountEmpOS": "2. Số nhân sự OS/ tháng",
+        "ba": "BA",
+        "dev": "Dev",
+        "test": "Tester",
+        "requestEmpOs": "3. Yêu cầu đối với nhân sự OS",
+        "devMobile": "Dev mobile"
+      }
+    },
+    "toastr": {
+      "delete": {
+        "successful": "Xoá file thành công",
+        "fail": "Xóa file thất bại"
+      }
+    },
+    "toast": {
+      "errorTitle": "Có lỗi xảy ra",
+      "success": "Thành công",
+      "notDraft": "Bản ghi không phải ở trạng thái dự thảo",
+      "rejectSuccess": "Từ chối phê duyệt bản ghi thành công",
+      "approveSuccess": "Phê duyệt bản ghi thành công"
+    },
+    "error": {
+      "startTime.startDateProject": "Thời gian bắt đầu OS dự kiến lớn hơn hoặc bằng Ngày bắt đầu của dự án",
+      "startTime.startTimeBeforeEndDateOfProject": "Thời gian bắt đầu OS dự kiến phải nhỏ hơn hoặc bằng Ngày kết thúc của dự án",
+      "endTime.endDateProject": "Thời gian kết thúc OS dự kiến phải nhỏ hơn hoặc bằng Ngày kết thúc của dự án",
+      "startDate.project.null": "Thời gian kết thúc dự án chưa nhập",
+      "endDate.project.null": "Thời gian kết thúc dự án chưa nhập"
+    }
+  }
+}

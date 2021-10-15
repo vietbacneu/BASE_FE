@@ -1,0 +1,130 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0" jhiTranslate="userGroup.modal.title.addUser">
+      Thêm người dùng</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div class="modal-body">
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="col-sm-3 col-form-label custom-label-right"
+                   jhiTranslate="userGroup.userGroupName">Nhóm</label>
+            <div class="col-sm-9">
+              <input type="text" formControlName="name" class="form-control" disabled jhiAutoFocusField>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card pl-1 mt-3">
+        <div class="card-header">
+          <a href="#search"><span
+            jhiTranslate="userGroup.card.title">Danh sách người dùng</span></a>
+        </div>
+        <div class="row mt-1"><!-- *jhiHasPermission="['resource.qldt_dmnd_add_user']"-->
+          <button class="btn btn-light" placement="top"
+                  [disabled]="disabledAdd == true"
+                  ngbTooltip="{{'common.button.add' | translate}}"
+                  (click)="onAddRow()">
+            <i class="fa fa-plus icon-color-blue" aria-hidden="true"></i></button>
+        </div>
+        <div class="row">
+          <table class="table table-bordered table-hover table-striped table-modal" sortable="true">
+            <thead>
+            <tr class="text-center">
+              <th class="small-width-table" jhiTranslate="userGroup.orderNumber"></th>
+              <th class="medium-width-table" jhiTranslate="userGroup.action"></th>
+              <th><span class = "required" jhiTranslate="userGroup.tableAddUser.email"></span></th>
+              <th jhiTranslate="userGroup.tableAddUser.organization"></th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let item of listUser2; index as i">
+            <tr>
+              <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+              <td class="text-center">
+                <div class="group-action">
+                  <button *ngIf="!item.status" class="btn btn-light" placement="top"
+                          ngbTooltip="{{'common.tooltip.action.update' | translate}}" (click)="editUser(i)"
+                          onclick="this.blur();">
+                    <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                  </button>
+                  <button *ngIf="item.status" (click)="saveUser(i)"  ngbTooltip="Đồng ý" class="btn btn-light" [disabled]="emailIsExistInGroup">
+                    <i class="fa fa-check-circle icon-update" aria-hidden="true"></i>
+                  </button>
+                  <button *ngIf="item.status" (click)="cancelUser(i)" ngbTooltip="Hủy bỏ" class="btn btn-light" type="submit" [disabled]="emailIsExistInGroup">
+                    <i class="fa fa-times-circle user-cancel" aria-hidden="true"></i>
+                  </button>
+                  <button *ngIf="!item.status" class="btn btn-light" placement="top"
+                          ngbTooltip="{{'common.tooltip.action.delete' | translate}}" (click)="onDeleteRow(i)"
+                          onclick="this.blur();">
+                    <i class="fa fa-trash-o icon-delete" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div [ngClass]="{'has-error' : (emailIsExistInGroup === true && index === i) ||
+                                                (emailIsNull === true && index === i)}" >
+                  <ng-select class="cursor-text" (blur) = "showMessIsExist()"
+                             clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                             notFoundText="{{ (termSearchAccEmail ? notFoundText : 'common.select.required' )| translate }}"
+                             addTagText="{{ 'common.button.add' | translate }}"
+                             placeholder="{{'common.select.option.default' | translate }}"
+                             [items]="listAccEmail$ | async" bindLabel="email" [(ngModel)]="item.email"
+                             (search)="onSearchItemEmail($event, i)" (clear)="clearValueEmail(i)"
+                             [ngModelOptions]="{standalone: true}"
+                             (change)="onChangeEmail(i, $event)"
+                             (blur)="checkEmailNull(i)"
+                             [disabled]="!item.status"
+                             appendTo="body">
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.email}}
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </td>
+              <td>
+                <div disabled class="form-control orgWrapText" [(ngModel)]="item.organizationName"
+                     [ngModelOptions]="{standalone: true}">{{item.organizationName}}</div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+             *ngIf="!totalItems || totalItems === 0">
+          <p class="item-count" jhiTranslate="common.table.noData"></p>
+        </div>
+        <div class="d-flex justify-content-end table-footer" [hidden]="totalItems === 0">
+          <div class="row justify-content-center">
+            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+            <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                            [pageSize]="itemsPerPage"
+                            [maxSize]="maxSizePage" [rotate]="true" [boundaryLinks]="true"
+                            (pageChange)="loadPage(page)">
+            </ngb-pagination>
+            <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</perfect-scrollbar>
+<div class="modal-footer">
+  <button #cancelBtn type="button" class="btn btn-light" (click)="onCloseAddModal()">
+    <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+    jhiTranslate="{{(type !== 'detail'? 'common.button.confirm.cancel' : 'common.button.close') }}">Hủy bỏ</span>
+  </button>
+  <button *ngIf="type !== 'detail'" type="submit" class="btn btn-primary" [disabled]="hiddenSave"
+          (click)="onSubmitData()">
+    <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+    jhiTranslate="common.button.confirm.save">Ghi lại</span>
+  </button>
+</div>

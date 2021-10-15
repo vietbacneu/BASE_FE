@@ -1,0 +1,23 @@
+{
+  "partnerOrgan": {
+    "title": "Thống kê công nợ của đối tác theo đơn vị - đối tác",
+    "outsourcing": "Đơn vị thuê ngoài",
+    "partnerShortName": "Đối tác",
+    "mmPayed": "MM đã thanh toán",
+    "mmOwed": "MM còn nợ",
+    "orderNumber": "STT",
+    "mmUsing": "MM sử dụng lũy kế",
+    "titleTable": "Kết quả tìm kiếm",
+    "validate": {
+      "partnerShortName": {
+        "maxLength": "Tên Đối tác không được nhập quá 255 ký tự"
+      },
+      "mmPayed": {
+        "maxLength": "MM đã thanh toán không được nhập quá 20 ký tự"
+      },
+      "mmOwed": {
+        "maxLength": "MM còn nợ không được nhập quá 20 ký tự"
+      }
+    }
+  }
+}

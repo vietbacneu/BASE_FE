@@ -1,0 +1,113 @@
+<div class="card-body">
+    <form autocomplete="off">
+        <div class="row justify-content-center align-content-center">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Cấu hình email server</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <ng-select clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                           notFoundText="{{'common.select.notFoundText' | translate}}"
+                                           bindLabel="name"
+                                           bindValue="value"
+                                           formControlName="protocol"
+                                           searchable="false">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Thư mục tạm</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Thư mục chính</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Danh sách địa chỉ người gửi</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Tiêu đề thư (regex)</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Các định dạng file</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Email từ ngày</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <div class="input-group">
+                                    <input class="form-control" name="dp"
+                                           ngbDatepicker #toDate="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary"
+                                                (click)="toDate.toggle()"
+                                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label custom-label-left">Email đến ngày</label>
+                            <div class="col-sm-9 form-custom-select">
+                                <div class="input-group">
+                                    <input class="form-control" name="dp"
+                                           ngbDatepicker #toDate1="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary"
+                                                (click)="toDate1.toggle()"
+                                                type="button"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,74 @@
+<div class="row flex-column">
+  <label class="title-chart">
+    <span class="title-width">Thống kê công nợ theo đơn vị thuê ngoài</span></label>
+  <div class="d-flex">
+    <span class="flex-grow-1"></span>
+    <label class="col-sm-3 col-form-label custom-label-right bold">MM còn nợ (>=)</label>
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+      <input #input type="text" class="w-100 form-control" formControlName="MMRemain"
+             (blur)="getDataChart(input.value)" (keypress)="onTrimZero($event)"
+             (keyup.enter)="getDataChart(input.value)"
+             [textMask]="{mask: currencyMask}"
+             maxlength="18">
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="d-flex">
+        <div class="flex-grow-1 text-center bold" style="height: 25px">Công nợ theo đơn vị thuê ngoài</div>
+        <a style="position: absolute; color: #d6d5d5; top: 0; right: 3px" (click)="openModalColumnZoom()" ngbTooltip="Phóng to">
+          <i class="fa fa-arrows-alt"></i>
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="d-flex">
+        <span class="flex-grow-1 text-center bold" style="height: 25px">Công nợ theo đơn vị thuê ngoài</span>
+        <a style="position: absolute; color: #d6d5d5; top: 0; right: 3px" (click)="openModalCycleZoom()" ngbTooltip="Phóng to">
+          <i class="fa fa-arrows-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="custom-card-view" >
+        <div class="chart chart-custom-1366">
+          <canvas baseChart height="450px"
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="custom-card-view chart-wrapper">
+        <canvas baseChart height="500px" width="500"
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                [options]="pieChartOptions"
+                [colors]="pieChartColors"
+                [plugins]="pieChartPlugins"
+                [legend]="pieChartLegends">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row d-flex justify-content-end mb-3 mt-3">
+    <div class="col-md-6">
+      <button (click)="openModal(true)" class="float-right btn btn-primary">Xem chi tiết</button>
+    </div>
+    <div class="col-md-6">
+      <button (click)="openModal(false)" class="float-right btn btn-primary">Xem chi tiết</button>
+    </div>
+  </div>
+  <!-- start Popup tim kiem-->
+
+  <!-- end Popup tim kiem-->
+</div>

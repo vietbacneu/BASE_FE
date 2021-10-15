@@ -1,0 +1,9 @@
+{
+  "exchange_rate.billingPeriod": "Kỳ giá",
+  "exchange_rate.management": "Quản lý tỷ giá",
+  "exchange_rate.currency": "Loại tiền tệ",
+  "exchange_rate.rateType": "Loại tỷ giá",
+  "exchange_rate.rate": "Tỷ giá",
+  "exchange_rate.add": "Thêm mới tỷ giá",
+  "exchange_rate.update": "Cập nhật tỷ giá"
+}

@@ -1,0 +1,189 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0" *ngIf="type === 'detail'" jhiTranslate="nonFunctionManagement.title-show-detail">
+      Xem chi tiết phi chức năng</h5>
+    <h5 class="modal-title mt-0" *ngIf="type === 'update'" jhiTranslate="nonFunctionManagement.title-update">
+      Sửa thông tin phi chức năng</h5>
+    <h5 class="modal-title mt-0" *ngIf="type === 'add'" jhiTranslate="nonFunctionManagement.title-add">
+      Thêm phi chức năng</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+  <div class="modal-body">
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row"
+               [ngClass]="{'has-error': (isPmCodeExist || isFieldValid('workCode'))}">
+            <label [ngClass]="type === 'update' ? 'required' : '' ||
+                                    type === 'add' ? 'required' : ''"
+                   class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.work-code">Mã đầu việc</label>
+            <input class="form-control"
+                   formControlName="workCode" [readOnly]="type == 'detail'"
+                   type="text" maxlength="15"
+                   (blur)="trimSpace('workCode');"
+                   maxlength="50"
+                   jhiAutoFocusField>
+            <jhi-error-messages *ngIf="formControl['workCode'].hasError('required')"
+                                [displayError]="isFieldValid('workCode')"
+                                errorMsg="{{'nonFunctionManagement.validate.workCode.required' | translate}}">
+            </jhi-error-messages>
+            <jhi-error-messages [displayError]="isDuplicate"
+                                errorMsg="{{messageDuplicate}}">
+            </jhi-error-messages>
+            </jhi-error-messages>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="form-group"
+               [ngClass]="{'has-error': isFieldValid('workName')}">
+            <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                   class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.work-name">Đầu việc</label>
+                   <input type="text" class="form-control" formControlName="workName" [readOnly]="type == 'detail'"
+                   (blur)="trimSpace('workName')"
+                   >
+            <jhi-error-messages *ngIf="formControl['workName'].hasError('required')"
+                                [displayError]="isFieldValid('workName')"
+                                errorMsg="{{'nonFunctionManagement.validate.work-name.required' | translate}}">
+            </jhi-error-messages>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''" class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.efforts">Nỗ lực (MH)</label>
+            <input type="number" class="form-control" formControlName="effort" [readOnly]="type == 'detail'"
+            (blur)="onBlurCheckRegex('effort');trimSpace('functionType')" maxlength="15">
+            <jhi-error-messages *ngIf="formControl['effort'].hasError('required')"
+                                [displayError]="isFieldValid('effort')"
+                                errorMsg="{{'nonFunctionManagement.validate.efforts.required' | translate}}">
+            </jhi-error-messages>
+            <jhi-error-messages *ngIf="formControl['effort'].hasError('pattern')"
+                                [displayError]="isFieldValid('effort')"
+                                errorMsg="{{ 'nonFunctionManagement.validate.efforts.pattern' | translate }}">
+            </jhi-error-messages>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group"
+               [ngClass]="{'has-error': isFieldValid('versionCode')}">
+            <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                   class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.version-code">Mã phiên bản</label>
+            <input *ngIf="type == 'detail'" type="text" class="form-control" [value]="selectedData.versionCode"
+                   [readOnly]="type == 'detail'">
+            <ng-select [items]="listVersion" *ngIf="type != 'detail'" 
+                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                   bindLabel="versionName" bindValue="versionCode" formControlName="versionCode"
+                   (search)="searchVersion($event.term)"
+                   (clear)="onClearVersion(1)">
+          <ng-template ng-option-tmp let-item="item">
+            {{formatPreShow(item.versionName)}} <br/>
+          </ng-template>
+        </ng-select>
+
+            <jhi-error-messages *ngIf="formControl['versionCode'].hasError('required')"
+                                [displayError]="isFieldValid('versionCode')"
+                                errorMsg="{{'nonFunctionManagement.validate.version-code.required' | translate}}">
+            </jhi-error-messages>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.isOutsource">Có thuê ngoài không</label>
+                   <input *ngIf="type == 'detail'" type="text" class="form-control" [value]="selectedData.isOutsource"
+                   [readOnly]="type == 'detail'">
+                   <select #selectElement class="form-control custom-select-arrow" *ngIf="type != 'detail'" 
+                        formControlName="isOutsource">
+                        <option *ngFor="let s of listOutsource" value="{{s.id}}"> {{s.name}}</option>
+                    </select>
+            <jhi-error-messages *ngIf="formControl['isOutsource'].hasError('required')"
+                                [displayError]="isFieldValid('isOutsource')"
+                                errorMsg="{{'nonFunctionManagement.validate.isOutsource.required' | translate}}">
+            </jhi-error-messages>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group"
+               [ngClass]="{'has-error': isFieldValid('scopeWork')}">
+            <label class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.scopeWork">Phạm vi</label>
+            <textarea class="form-control" formControlName="scopeWork"
+            (blur)="trimSpace('scopeWork')"
+                   [readOnly]="type == 'detail'">
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.example">Ví dụ</label>
+            <textarea class="form-control" formControlName="example"
+            (blur)="trimSpace('example')"
+                   [readOnly]="type == 'detail'">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-control-label"
+                   jhiTranslate="nonFunctionManagement.description">Mô tả công việc</label>
+            <textarea class="form-control" formControlName="note"
+            (blur)="trimSpace('note')"
+                   [readOnly]="type == 'detail'">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="form-control-label"
+                   jhiTranslate="functionManagement.status">Trạng thái</label>
+              <select #selectElement class="form-control custom-select-arrow"
+                   formControlName="status">
+                   <option *ngFor="let s of listStatus" value="{{s.id}}"> {{s.name}}</option>
+               </select>
+            </jhi-error-messages>
+            </jhi-error-messages>
+          </div>
+        </div>
+        <div class="col-md-6">
+      </div>
+      
+    </form>
+  </div>
+</perfect-scrollbar>
+<div class="modal-footer">
+  <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
+          (click)="onCancel()">
+    <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+    jhiTranslate="{{'common.button.confirm.cancel'}}">Hủy bỏ</span>
+  </button>
+  <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-primary"
+          (click)="onSubmit()">
+    <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+    jhiTranslate="{{'common.button.confirm.save'}}">Ghi lại</span>
+  </button>
+  <button *ngIf="type === 'detail'" type="button" class="btn btn-light" (click)="onCancel()">
+    <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+    jhiTranslate="{{'common.button.confirm.close'}}">Đóng</span>
+  </button>
+</div>

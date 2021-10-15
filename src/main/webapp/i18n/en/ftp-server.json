@@ -1,0 +1,12 @@
+{
+  "ftp_server.host": "Host",
+  "ftp_server.port": "Port",
+  "ftp_server.protocol": "Protocol",
+  "ftp_server.settingName": "Setting name",
+  "ftp_server.username": "User name",
+  "ftp_server.password": "Password",
+  "ftp_server.ftp_server": "Configuration management FTP/SFTP server",
+  "ftp_server.add": "Add",
+  "ftp_server.update": "Update",
+  "ftp_server.configuration": "configuration"
+}

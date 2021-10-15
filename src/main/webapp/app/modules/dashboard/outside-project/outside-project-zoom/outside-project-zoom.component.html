@@ -1,0 +1,30 @@
+<div class="custom-modal-large" jhiModalDrag [handle]="handle">
+  <div class="modal-header" #handle>
+    <h5 class="modal-title mt-0" jhiTranslate="totalPersonnelVts.dashboard.header">
+      Thống kê công nợ theo đối tác</h5>
+    <button type="button" class="close" aria-label="Close" (click)="onCloseAddModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+<div class="modal-body">
+  <div id="organizationCategories" class="page-content">
+    <div class="row flex-column">
+      <div class="d-flex">
+        <span class="flex-grow-1"></span>
+        <label class="col-sm-3 col-form-label custom-label-right bold">MM còn nợ (>=)</label>
+        <input [textMask]="{mask: MMOwed}" #input style="width: 28%" type="text" class="form-control" formControlName="totalAppraisedMM"
+               (blur)="onChangeDataChart(input.value)"  (blur)="deleteZero($event)"
+               (keyup.enter)="onChangeDataChart(input.value)">
+      </div>
+      <div style="display: block" *ngIf="dataForChart">
+        <canvas #chart baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+      </div>
+
+      <!-- end Popup tim kiem-->
+    </div>
+    </div>
+  </div>
+</perfect-scrollbar>
