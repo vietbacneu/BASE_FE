@@ -156,7 +156,14 @@ const routes: Routes = [
                     import("../../modules/thread-management/thread-management.module").then(
                         m => m.ThreadManagementModule
                     )
-            }
+            },
+            {
+                path: "",
+                loadChildren: () =>
+                    import("../../modules/qlkh-manager/qlkh-manager.module").then(
+                        m => m.QlkhManagerModule
+                    )
+            },
         ]
     }
 ];

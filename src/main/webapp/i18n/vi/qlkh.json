@@ -1,0 +1,12 @@
+{
+  "loaiHang": {
+    "name" : "Tên loại hàng",
+    "code" : "Mã loại hàng",
+    "nameNCC" : "Tên nhà cung cấp",
+    "unit" : "Đơn vị",
+    "status" : "Trạng thái",
+    "createdDate" : "Ngày tạo",
+    "updateDate" : "Ngày cập nhập",
+    "createdUser" : "Người tạo"
+  }
+}
