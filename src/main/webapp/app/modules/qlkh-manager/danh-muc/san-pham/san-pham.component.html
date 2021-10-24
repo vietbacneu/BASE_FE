@@ -107,15 +107,13 @@
                                 </th>
                                 <th class="medium-width-table"><span>Đơn vị tính</span>
                                 </th>
-                                <th class="medium-width-table"><span>Người tạo</span>
-                                </th>
                                 <th class="medium-width-table"><span>Giá nhập</span>
                                 </th>
-                                <th class="medium-width-table"><span>Giá bán lẻ</span>
-                                </th>
-                                <th class="medium-width-table"><span>Giá bán sỉ</span>
+                                <th class="medium-width-table"><span>Giá bán </span>
                                 </th>
                                 <th class="medium-width-table"><span>Trạng thái</span>
+                                </th>
+                                <th class="medium-width-table"><span>Người tạo</span>
                                 </th>
                                 <th class="medium-width-table action-width-four-icon custom-width"
                                     jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -125,11 +123,14 @@
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.reportName}}</td>
-                                <td>{{item.objName}}</td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.roleName}}</td>
-                                <td>{{item.statusRole == 1 ? 'Hoạt động' : item.statusRole == 0 ? 'Không hoạt động' : "N/A"}}</td>
+                                <td>{{item.ma_san_pham}}</td>
+                                <td>{{item.ten_san_pham}}</td>
+                                <td>{{item.loai_san_pham}}</td>
+                                <td>{{item.don_vi_tinh}}</td>
+                                <td>{{item.gia_nhap}}</td>
+                                <td>{{item.gia_ban}}</td>
+                                <td>{{item.trang_thai}}</td>
+                                <td>{{item.nguoi_tao}}</td>
                                 <td class="text-left four-icon medium-width-table">
                                     <div class="group-action">
                                         <button class="btn btn-light" placement="top"
@@ -139,14 +140,12 @@
                                             <i class="fa fa-copy icon-update" aria-hidden="true"></i>
                                         </button>
                                         <button class="btn btn-light" placement="top"
-                                                *ngIf="item.statusRole === 1"
                                                 (click)="openModal('update', item)"
                                                 ngbTooltip="{{'common.tooltip.action.update' | translate}}"
                                                 onclick="this.blur();">
                                             <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
                                         </button>
                                         <button class="btn btn-light" placement="top"
-                                                *ngIf="item.statusRole === 1"
                                                 ngbTooltip="{{'common.tooltip.action.active' | translate}}"
                                                 (click)="onDelete(item.id)"
                                                 onclick="this.blur();">

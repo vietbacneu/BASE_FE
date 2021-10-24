@@ -1,0 +1,109 @@
+<div style="display: block;">
+    <div class="custom-modal-large" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới loại hàng</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết loại hàng</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật loại hàng</h5>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-90-center">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select"
+                         [ngClass]="{'has-error': isFieldValid('ma_nha_cung_cap')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Mã nhà cung cấp</label>
+                        <input type="text" class="form-control" formControlName="ma_nha_cung_cap"
+                               (blur)="trimSpace('ma_nha_cung_cap')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                        <jhi-error-messages *ngIf="formControl['ma_nha_cung_cap'].hasError('required')"
+                                            [displayError]="isFieldValid('ma_nha_cung_cap')"
+                                            errorMsg="Mã loại hàng không được để trống">
+                        </jhi-error-messages>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select"
+                         [ngClass]="{'has-error': isFieldValid('ten_nha_cung_cap')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Tên nhà cung cấp</label>
+                        <input type="text" class="form-control" formControlName="ten_nha_cung_cap"
+                               (blur)="trimSpace('ten_nha_cung_cap')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                        <jhi-error-messages *ngIf="formControl['ten_nha_cung_cap'].hasError('required')"
+                                            [displayError]="isFieldValid('ten_nha_cung_cap')"
+                                            errorMsg="Tên loại hàng không được để trống">
+                        </jhi-error-messages>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Mã số thuế</label>
+                        <input type="text" class="form-control" formControlName="ma_so_thue"
+                               (blur)="trimSpace('ma_so_thue')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email"
+                               (blur)="trimSpace('email')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Số điện thoại</label>
+                        <input type="text" class="form-control" formControlName="sdt"
+                               (blur)="trimSpace('sdt')"
+                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
+                               maxlength="10">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select"
+                         [ngClass]="{'has-error': isFieldValid('dia_chi')}">
+                        <label class="form-control-label">Địa chỉ</label>
+                        <input type="text" class="form-control" formControlName="dia_chi"
+                               (blur)="trimSpace('dia_chi')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-primary"
+                (click)="onSubmit()">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.save'}}"></span>
+        </button>
+        <button *ngIf="type === 'add'" type="submit" class="btn btn-primary"
+                (click)="onSubmit('addAndClose')">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span>Ghi lại và đóng</span>
+        </button>
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
+                (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.cancel'}}"></span>
+        </button>
+        <button *ngIf="type === 'detail'" type="button" class="btn btn-light" (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.close'}}"></span>
+        </button>
+    </div>
+</div>

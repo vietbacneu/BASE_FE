@@ -12,14 +12,14 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
-import {ThemSuaNhaCungCapComponent} from "app/modules/qlkh-manager/danh-muc/nha-cung-cap/them-sua-nha-cung-cap/them-sua-nha-cung-cap.component";
+import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/them-sua-nhap-hang.component";
 
 @Component({
-  selector: 'jhi-nha-cung-cap',
-  templateUrl: './nha-cung-cap.component.html',
-  styleUrls: ['./nha-cung-cap.component.scss']
+  selector: 'jhi-nhap-hang',
+  templateUrl: './nhap-hang.component.html',
+  styleUrls: ['./nhap-hang.component.scss']
 })
-export class NhaCungCapComponent implements OnInit {
+export class NhapHangComponent implements OnInit {
 
 
   form: FormGroup;
@@ -70,8 +70,8 @@ export class NhaCungCapComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      ma_nha_cung_cap: [null],
-      ten_nha_cung_cap: [null],
+      ma_don_hang: [null],
+      noi_dung_nhap_hang: [null],
     });
   }
 
@@ -107,7 +107,7 @@ export class NhaCungCapComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaNhaCungCapComponent, {
+    const modalRef = this.modalService.open(ThemSuaNhapHangComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -126,6 +126,7 @@ export class NhaCungCapComponent implements OnInit {
 
   onSearchData() {
     this.loadAll()
+    // this.loadDepartment();
   }
 
   isFieldValid(field: string) {
@@ -235,4 +236,5 @@ export class NhaCungCapComponent implements OnInit {
       );
     }
   }
+
 }

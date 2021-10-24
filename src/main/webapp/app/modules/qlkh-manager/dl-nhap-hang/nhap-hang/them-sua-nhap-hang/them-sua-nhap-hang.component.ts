@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
@@ -6,21 +6,23 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {NgxSpinnerService} from "ngx-spinner";
 import {JhiEventManager} from "ng-jhipster";
 import {ToastService} from "app/shared/services/toast.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
-import {ThemSuaNhaCungCapComponent} from "app/modules/qlkh-manager/danh-muc/nha-cung-cap/them-sua-nha-cung-cap/them-sua-nha-cung-cap.component";
+import {ChiTietDonNhapComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/chi-tiet-don-nhap/chi-tiet-don-nhap.component";
 
 @Component({
-  selector: 'jhi-nha-cung-cap',
-  templateUrl: './nha-cung-cap.component.html',
-  styleUrls: ['./nha-cung-cap.component.scss']
+  selector: 'jhi-them-sua-nhap-hang',
+  templateUrl: './them-sua-nhap-hang.component.html',
+  styleUrls: ['./them-sua-nhap-hang.component.scss']
 })
-export class NhaCungCapComponent implements OnInit {
-
+export class ThemSuaNhapHangComponent implements OnInit {
+  @Input() public selectedData;
+  @Input() type;
+  @Output() response = new EventEmitter<any>();
 
   form: FormGroup;
   height: number;
@@ -50,6 +52,7 @@ export class NhaCungCapComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       private shareDataFromProjectService: ShareDataFromProjectService,
+      public activeModal: NgbActiveModal,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -70,8 +73,9 @@ export class NhaCungCapComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      ma_nha_cung_cap: [null],
-      ten_nha_cung_cap: [null],
+      ma_don_hang: [null],
+      noi_dung_nhap_hang: [null],
+      chi_tiet_don_nhap: [null]
     });
   }
 
@@ -107,7 +111,7 @@ export class NhaCungCapComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaNhaCungCapComponent, {
+    const modalRef = this.modalService.open(ChiTietDonNhapComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -122,10 +126,6 @@ export class NhaCungCapComponent implements OnInit {
     modalRef.result.then(result => {
     }).catch(() => {
     });
-  }
-
-  onSearchData() {
-    this.loadAll()
   }
 
   isFieldValid(field: string) {
@@ -161,11 +161,9 @@ export class NhaCungCapComponent implements OnInit {
     //     );
   }
 
-
-  private paginateUserList(data) {
-    this.totalItems = data.totalElements;
-    this.listData = data.content;
-    this.maxSizePage = data.totalPages;
+  onCancel() {
+    this.form.reset();
+    this.activeModal.dismiss(true);
   }
 
   sort() {
@@ -182,57 +180,7 @@ export class NhaCungCapComponent implements OnInit {
   }
 
   onDelete(id: any) {
-    const modalRef = this.modalService.open(ConfirmModalComponent, {
-      centered: true,
-      backdrop: "static"
-    });
-    modalRef.componentInstance.type = "deactivate";
-    modalRef.componentInstance.param = this.translateService.instant(
-        "managementDepartmentUser.confirmLock"
-    );
-    modalRef.componentInstance.onCloseModal.subscribe(value => {
-      if (value === true) {
-        this.onSubmitDelete(id);
-      }
-    });
   }
 
-  onSubmitDelete(id: any = []) {
-    this.spinner.show();
-    // this.departmentManagementService.deleteUserToDepartment({id: id}).subscribe(
-    //     res => {
-    //       this.shareDataFromProjectService.getDataFromList(null);
-    //       this.handleResponseSubmit(res);
-    //       this.loadAll();
-    //     },
-    //     err => {
-    //       this.spinner.hide()
-    //       if (err.status == STATUS_CODE.BAD_REQUEST) {
-    //         this.toastService.openErrorToast(
-    //             err.error,
-    //         );
-    //       } else {
-    //         this.toastService.openErrorToast(
-    //             this.translateService.instant("common.toastr.messages.error.load")
-    //         );
-    //       }
-    //     }
-    // );
-  }
 
-  handleResponseSubmit(res) {
-    this.spinner.hide();
-    if (res) {
-      this.toastService.openSuccessToast(
-          this.translateService.instant("managementDepartmentUser.button.lock.success")
-      );
-      this.eventManager.broadcast({
-        name: "outSourcingChange"
-      });
-    } else {
-      this.toastService.openErrorToast(
-          this.translateService.instant("managementDepartmentUser.error.delete")
-      );
-    }
-  }
 }
