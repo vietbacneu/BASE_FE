@@ -27,6 +27,7 @@ import { noop } from "rxjs";
 import createAutoCorrectedDatePipe from "text-mask-addons/dist/createAutoCorrectedDatePipe";
 import * as textMask from "vanilla-text-mask/dist/vanillaTextMask.js";
 
+
 @Component({
   selector: "jhi-date-picker",
   templateUrl: "./date-picker.component.html",

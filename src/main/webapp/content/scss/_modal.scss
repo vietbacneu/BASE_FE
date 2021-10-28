@@ -98,6 +98,25 @@
   }
 }
 
+.custom-modal-big {
+  .modal-body {
+    min-width: 80vh;
+    overflow-x: hidden;
+  }
+
+  .tab-content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (min-width: 1200px) {
+    .modal-dialog.modal-lg {
+      max-width: 1600px;
+      width: 1600px !important;
+    }
+  }
+}
+
 .modal-action {
   .modal-footer {
     .fa {

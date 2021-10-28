@@ -1,5 +1,5 @@
 <div style="display: block;">
-    <div class="custom-modal-large" jhiModalDrag [handle]="handle">
+    <div class="custom-modal-big" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
             <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới dữ liệu nhập</h5>
             <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết dữ liệu nhập</h5>
@@ -11,7 +11,7 @@
     </div>
 
     <div class="card-body">
-        <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+        <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row dropdown form-custom-select">
@@ -24,10 +24,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group row dropdown form-custom-select">
-                        <label class="col-sm-3 custom-label-right">Nội dung nhập hàng</label>
+                        <label class="col-sm-3 custom-label-right">Nội dung</label>
                         <div class="col-sm-8 form-custom-select">
-                            <input type="text" class="form-control" formControlName="noi_dung_nhap_hang"
-                                   maxlength="200" (blur)="trimSpace('noi_dung_nhap_hang')">
+                            <input type="text" class="form-control" formControlName="mieu_ta"
+                                   maxlength="200" (blur)="trimSpace('mieu_ta')">
                         </div>
                     </div>
                 </div>
@@ -38,83 +38,77 @@
                 </button>
             </div>
         </form>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
-                    jhiTranslate="projectManagement.result-search"></span></a>
-        </div>
-        <div id="dataTable" class="collapse show">
-            <div class="row">
-                <perfect-scrollbar id="scrollbarTable" class="ps">
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                        <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
-                            <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
-                            </th>
-                            <th class="medium-width-table"><span>Sản phẩm</span>
-                            </th>
-                            <th class="medium-width-table"><span>Nhà cung cấp</span>
-                            </th>
-                            <th class="medium-width-table"><span>Đơn giá</span>
-                            </th>
-                            <th class="medium-width-table"><span>Ngày sản xuất</span>
-                            </th>
-                            <th class="medium-width-table"><span>Ngày hết hạn</span>
-                            </th>
-                            <th class="medium-width-table"><span>Tổng tiền</span>
-                            </th>
-                            <th class="medium-width-table action-width-four-icon custom-width"
-                                jhiTranslate="userGroup.action" style="width: 7rem;">
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody *ngFor="let item of listData; index as i">
-                        <tr>
-                            <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                            <td>{{item.san_pham}}</td>
-                            <td>{{item.nha_cung_cap}}</td>
-                            <td>{{item.so_luong}}</td>
-                            <td>{{item.don_gia}}</td>
-                            <td>{{item.ngay_san_xuat}}</td>
-                            <td>{{item.ngay_het_han}}</td>
-                            <td>{{item.tong_tien}}</td>
-                            <td class="text-left four-icon medium-width-table">
-                                <div class="group-action">
-                                    <button class="btn btn-light" placement="top"
-                                            (click)="openModal('update', item)"
-                                            ngbTooltip="{{'common.tooltip.action.update' | translate}}"
-                                            onclick="this.blur();">
-                                        <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
-                                    </button>
-                                    <button class="btn btn-light" placement="top"
-                                            ngbTooltip="{{'common.tooltip.action.active' | translate}}"
-                                            (click)="onDelete(item.id)"
-                                            onclick="this.blur();">
-                                        <i class="fa fa-lock icon-delete" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </perfect-scrollbar>
-            </div>
-            <div class="row justify-content-start py-2 pl-1  table-footer no-data"
-                 *ngIf="!totalItems">
-                <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
-            </div>
 
-            <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
-                <div class="row justify-content-center">
-                    <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
-                    <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
-                                    [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
-                                    [boundaryLinks]="true"
-                                    (pageChange)="loadPage(page)">
-                    </ngb-pagination>
-                    <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
-                </div>
+        <div class="row">
+            <perfect-scrollbar id="scrollbarTable" class="ps">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                        <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                        </th>
+                        <th class="medium-width-table"><span>Sản phẩm</span>
+                        </th>
+                        <th class="medium-width-table"><span>Nhà cung cấp</span>
+                        </th>
+                        <th class="medium-width-table"><span>Đơn giá</span>
+                        </th>
+                        <th class="medium-width-table"><span>Ngày sản xuất</span>
+                        </th>
+                        <th class="medium-width-table"><span>Ngày hết hạn</span>
+                        </th>
+                        <th class="medium-width-table"><span>Tổng tiền</span>
+                        </th>
+                        <th class="medium-width-table action-width-four-icon custom-width"
+                            jhiTranslate="userGroup.action" style="width: 7rem;">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let item of listData; index as i">
+                    <tr>
+                        <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                        <td>{{item.san_pham}}</td>
+                        <td>{{item.nha_cung_cap}}</td>
+                        <td>{{item.so_luong}}</td>
+                        <td>{{item.don_gia}}</td>
+                        <td>{{item.ngay_san_xuat}}</td>
+                        <td>{{item.ngay_het_han}}</td>
+                        <td>{{item.tong_tien}}</td>
+                        <td class="text-left four-icon medium-width-table">
+                            <div class="group-action">
+                                <button class="btn btn-light" placement="top"
+                                        (click)="openModal('update', item)"
+                                        ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                        onclick="this.blur();">
+                                    <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-light" placement="top"
+                                        ngbTooltip="{{'common.tooltip.action.active' | translate}}"
+                                        (click)="onDelete(item.id)"
+                                        onclick="this.blur();">
+                                    <i class="fa fa-lock icon-delete" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </perfect-scrollbar>
+        </div>
+
+        <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+             *ngIf="!totalItems">
+            <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
+        </div>
+
+        <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+            <div class="row justify-content-center">
+                <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
+                                [boundaryLinks]="true"
+                                (pageChange)="loadPage(page)">
+                </ngb-pagination>
+                <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
             </div>
         </div>
     </div>

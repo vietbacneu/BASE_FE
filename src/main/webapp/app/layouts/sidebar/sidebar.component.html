@@ -8,7 +8,7 @@
             class="sidebar-header d-flex"
     >
         <img
-                src="../../../assets/img/logo.png"
+                src="../../../assets/img/logoKH.png"
                 alt="logo"
                 class="brand"
                 data-src="assets/img/logo.png"
@@ -23,7 +23,7 @@
     flex-direction: column; flex-grow: 1"
         >
             <span>HỆ THỐNG QUẢN LÝ</span>
-            <span>DỊCH VỤ THOẠI QUỐC TẾ</span>
+            <span>KHO HÀNG</span>
         </div>
         <div
                 class="sidebar-header-controls flex-grow-1"
@@ -57,25 +57,25 @@
                     <span class="customTitle">Danh mục</span>
                     <span class=" arrow"></span>
                 </a>
-                <span class="icon-thumbnail"><i class="fa fa-address-card-o"></i></span>
+                <span class="icon-thumbnail"><i class="fa fa-list" aria-hidden="true"></i></span>
                 <ul class="sub-menu">
                     <li>
                         <a routerLink="/loai-hang">
                             <span class="customTitle">Loại hàng</span>
                         </a>
-                        <span class="icon-thumbnail"><i class="fa fa-address-card-o"></i></span>
+                        <span class="icon-thumbnail"><i class="fa fa-linode" aria-hidden="true"></i></span>
                     </li>
                     <li>
                         <a routerLink="/san-pham">
                             <span class="customTitle">Sản phẩm</span>
                         </a>
-                        <span class="icon-thumbnail"><i class="fa fa-address-card-o"></i></span>
+                        <span class="icon-thumbnail"><i class="fa fa-product-hunt" aria-hidden="true"></i></span>
                     </li>
                     <li>
                         <a routerLink="/nha-cung-cap">
                             <span class="customTitle">Nhà cung cấp</span>
                         </a>
-                        <span class="icon-thumbnail"><i class="fa fa-address-card-o"></i></span>
+                        <span class="icon-thumbnail"><i class="fa fa-handshake-o" aria-hidden="true"></i></span>
                     </li>
                 </ul>
             </li>
@@ -84,21 +84,48 @@
                     <span class="customTitle">Dữ liệu nhập hàng</span>
                     <span class=" arrow"></span>
                 </a>
-                <span class="icon-thumbnail"><i class="fa fa-address-card-o"></i></span>
+                <span class="icon-thumbnail"><i class="fa fa-server" aria-hidden="true"></i></span>
                 <ul class="sub-menu">
                     <li>
                         <a routerLink="/nhap-hang">
                             <span class="customTitle">Nhập hàng</span>
                         </a>
-                        <span class="icon-thumbnail"><i class="fa fa-address-card-o"></i></span>
+                        <span class="icon-thumbnail"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
                     </li>
                     <li>
                         <a routerLink="/san-pham-da-nhap">
                             <span class="customTitle">Sản phẩm đã nhập</span>
                         </a>
-                        <span class="icon-thumbnail"><i class="fa fa-address-card-o"></i></span>
+                        <span class="icon-thumbnail"><i class="fa fa-database" aria-hidden="true"></i></span>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <a href="javascript:">
+                    <span class="customTitle">Dữ liệu xuất hàng</span>
+                    <span class=" arrow"></span>
+                </a>
+                <span class="icon-thumbnail"><i class="fa fa-outdent" aria-hidden="true"></i></span>
+                <ul class="sub-menu">
+                    <li>
+                        <a routerLink="/xuat-hang">
+                            <span class="customTitle">Xuất hàng</span>
+                        </a>
+                        <span class="icon-thumbnail"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></span>
+                    </li>
+                    <li>
+                        <a routerLink="/san-pham-da-xuat">
+                            <span class="customTitle">Sản phẩm đã xuất</span>
+                        </a>
+                        <span class="icon-thumbnail"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a routerLink="/du-lieu-kho-hang">
+                    <span class="customTitle">Dữ liệu kho hàng</span>
+                </a>
+                <span class="icon-thumbnail"><i class="fa fa-cube" aria-hidden="true"></i></span>
             </li>
         </ul>
         <div class="clearfix"></div>

@@ -110,7 +110,8 @@ export class NhapHangComponent implements OnInit {
     const modalRef = this.modalService.open(ThemSuaNhapHangComponent, {
       size: "lg",
       backdrop: "static",
-      keyboard: false
+      keyboard: false,
+      windowClass: "custom-modal"
     });
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.selectedData = selectedData;

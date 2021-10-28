@@ -6,7 +6,7 @@ const routes: Routes = [
     {
         path: '', component: AppParamComponent,
         data: {
-            pageTitle: "partner.appParam",
+            pageTitle: "common.appParam",
         }
     }
 ];

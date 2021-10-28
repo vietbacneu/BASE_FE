@@ -74,7 +74,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       ma_don_hang: [null],
-      noi_dung_nhap_hang: [null],
+      mieu_ta: [null],
       chi_tiet_don_nhap: [null]
     });
   }

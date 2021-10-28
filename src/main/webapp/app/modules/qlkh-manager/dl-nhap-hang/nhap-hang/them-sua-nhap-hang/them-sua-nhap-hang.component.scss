@@ -1,3 +1,8 @@
 .btn{
   margin-left: 1% !important;
 }
+.modal .modal-dialog {
+  min-width: 1200px !important;
+  -webkit-transition: all 0.2s !important;
+  transition: all 0.2s !important;
+}

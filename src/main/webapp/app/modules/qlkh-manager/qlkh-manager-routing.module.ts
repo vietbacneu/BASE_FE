@@ -5,6 +5,9 @@ import {LoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/loa
 import {NhaCungCapComponent} from "app/modules/qlkh-manager/danh-muc/nha-cung-cap/nha-cung-cap.component";
 import {NhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/nhap-hang.component";
 import {SanPhamDaNhapComponent} from "app/modules/qlkh-manager/dl-nhap-hang/san-pham-da-nhap/san-pham-da-nhap.component";
+import {XuatHangComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/xuat-hang.component";
+import {SanPhamDaXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/san-pham-da-xuat/san-pham-da-xuat.component";
+import {DuLieuKhoHangComponent} from "app/modules/qlkh-manager/du-lieu-kho-hang/du-lieu-kho-hang.component";
 
 const routes: Routes = [
   {
@@ -31,6 +34,21 @@ const routes: Routes = [
     }
   },{
     path: 'san-pham-da-nhap', component: SanPhamDaNhapComponent,
+    data: {
+      pageTitle: "common.appParam",
+    }
+  },{
+    path: 'xuat-hang', component: XuatHangComponent,
+    data: {
+      pageTitle: "common.appParam",
+    }
+  },{
+    path: 'san-pham-da-xuat', component: SanPhamDaXuatComponent,
+    data: {
+      pageTitle: "common.appParam",
+    }
+  },{
+    path: 'du-lieu-kho-hang', component: DuLieuKhoHangComponent,
     data: {
       pageTitle: "common.appParam",
     }
