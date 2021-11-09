@@ -68,10 +68,9 @@ export class ThemSuaLoaiHangComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      ten_danh_muc: [null, Validators.required],
-      ma_danh_muc: [null, Validators.required],
-      nha_cung_cap: [null, Validators.required],
-      don_vi_tinh: [null, Validators.required],
+      tenDanhMuc: [null, Validators.required],
+      maDanhMuc: [null, Validators.required],
+      donViTinh: [null, Validators.required],
     });
     if (this.selectedData) {
       this.form.patchValue(this.selectedData);

@@ -5,7 +5,7 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Danh mục</li>
+    <li class="breadcrumb-item">Thông tin chung</li>
     <li class="breadcrumb-item">Sản phẩm</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
@@ -23,8 +23,8 @@
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Mã sản phầm</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="ma_san_pham"
-                                               maxlength="200" (blur)="trimSpace('ma_san_pham')">
+                                        <input type="text" class="form-control" formControlName="maSanPham"
+                                               maxlength="200" (blur)="trimSpace('maSanPham')">
                                     </div>
                                 </div>
                             </div>
@@ -32,8 +32,8 @@
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Tên sản phẩm</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="ten_san_pham"
-                                               maxlength="200" (blur)="trimSpace('ten_san_pham')">
+                                        <input type="text" class="form-control" formControlName="maSanPham"
+                                               maxlength="200" (blur)="trimSpace('maSanPham')">
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                                    searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="id_danh_muc">
+                                                   bindLabel="name" bindValue="id" formControlName="idDanhMuc">
                                             <ng-template ng-option-tmp let-item="item">
                                                 {{formatPreShow(item.name)}} <br/>
                                             </ng-template>
@@ -65,7 +65,7 @@
                                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                                    searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="trang_thai">
+                                                   bindLabel="name" bindValue="id" formControlName="trangThai">
                                             <ng-template ng-option-tmp let-item="item">
                                                 {{formatPreShow(item.name)}} <br/>
                                             </ng-template>
@@ -123,14 +123,14 @@
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.ma_san_pham}}</td>
-                                <td>{{item.ten_san_pham}}</td>
-                                <td>{{item.loai_san_pham}}</td>
-                                <td>{{item.don_vi_tinh}}</td>
-                                <td>{{item.gia_nhap}}</td>
-                                <td>{{item.gia_ban}}</td>
-                                <td>{{item.trang_thai}}</td>
-                                <td>{{item.nguoi_tao}}</td>
+                                <td>{{item.maSanPham}}</td>
+                                <td>{{item.tenSanPham}}</td>
+                                <td>{{item.tenDanhMuc}}</td>
+                                <td>{{item.donVi}}</td>
+                                <td>{{item.giaNhapNiemYet}}</td>
+                                <td>{{item.giaBanNiemYet}}</td>
+                                <td>{{item.trangThai}}</td>
+                                <td>{{item.nguoiTao}}</td>
                                 <td class="text-left four-icon medium-width-table">
                                     <div class="group-action">
                                         <button class="btn btn-light" placement="top"
@@ -146,10 +146,10 @@
                                             <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
                                         </button>
                                         <button class="btn btn-light" placement="top"
-                                                ngbTooltip="{{'common.tooltip.action.active' | translate}}"
+                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
                                                 (click)="onDelete(item.id)"
                                                 onclick="this.blur();">
-                                            <i class="fa fa-lock icon-delete" aria-hidden="true"></i>
+                                            <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </td>

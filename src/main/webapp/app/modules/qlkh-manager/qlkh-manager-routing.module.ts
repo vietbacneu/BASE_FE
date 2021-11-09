@@ -8,6 +8,8 @@ import {SanPhamDaNhapComponent} from "app/modules/qlkh-manager/dl-nhap-hang/san-
 import {XuatHangComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/xuat-hang.component";
 import {SanPhamDaXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/san-pham-da-xuat/san-pham-da-xuat.component";
 import {DuLieuKhoHangComponent} from "app/modules/qlkh-manager/du-lieu-kho-hang/du-lieu-kho-hang.component";
+import {ChiNhanhCuaHangComponent} from "app/modules/qlkh-manager/danh-muc/chi-nhanh-cua-hang/chi-nhanh-cua-hang.component";
+import {KhachHangComponent} from "app/modules/qlkh-manager/danh-muc/khach-hang/khach-hang.component";
 
 const routes: Routes = [
   {
@@ -49,6 +51,16 @@ const routes: Routes = [
     }
   },{
     path: 'du-lieu-kho-hang', component: DuLieuKhoHangComponent,
+    data: {
+      pageTitle: "common.appParam",
+    }
+  },{
+    path: 'chi-nhanh-cua-hang', component: ChiNhanhCuaHangComponent,
+    data: {
+      pageTitle: "common.appParam",
+    }
+  },{
+    path: 'khach-hang', component: KhachHangComponent,
     data: {
       pageTitle: "common.appParam",
     }

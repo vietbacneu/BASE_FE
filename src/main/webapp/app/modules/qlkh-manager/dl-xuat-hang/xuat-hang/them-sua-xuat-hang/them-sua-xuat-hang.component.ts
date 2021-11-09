@@ -149,7 +149,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
     //     .subscribe(
     //         res => {
     //           this.spinner.hide();
-    //           this.paginateUserList(res.body);
+    //           this.paginateListData(res.body);
     //         },
     //         err => {
     //           this.spinner.hide();

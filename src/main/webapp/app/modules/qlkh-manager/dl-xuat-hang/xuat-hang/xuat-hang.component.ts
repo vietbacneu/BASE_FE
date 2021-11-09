@@ -151,7 +151,7 @@ export class XuatHangComponent implements OnInit {
     //     .subscribe(
     //         res => {
     //           this.spinner.hide();
-    //           this.paginateUserList(res.body);
+    //           this.paginateListData(res.body);
     //         },
     //         err => {
     //           this.spinner.hide();
@@ -164,7 +164,7 @@ export class XuatHangComponent implements OnInit {
   }
 
 
-  private paginateUserList(data) {
+  private paginateListData(data) {
     this.totalItems = data.totalElements;
     this.listData = data.content;
     this.maxSizePage = data.totalPages;

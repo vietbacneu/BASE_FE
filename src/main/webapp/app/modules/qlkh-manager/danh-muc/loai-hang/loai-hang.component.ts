@@ -13,6 +13,7 @@ import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.con
 import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 import {STATUS_CODE} from "app/shared/constants/status-code.constants";
+import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 
 @Component({
   selector: 'jhi-loai-hang',
@@ -48,6 +49,7 @@ export class LoaiHangComponent implements OnInit {
       private modalService: NgbModal,
       protected router: Router,
       protected commonService: CommonService,
+      protected thongTinChungApiService: ThongTinChungApiService,
       private shareDataFromProjectService: ShareDataFromProjectService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -58,6 +60,8 @@ export class LoaiHangComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
+      }else {
+        this.page = 1;
       }
     });
   }
@@ -69,8 +73,8 @@ export class LoaiHangComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      ten_loai_hang: [null],
-      nha_cung_cap: [null],
+      tenDanhMuc: [null],
+      maDanhMuc: [null],
     });
   }
 
@@ -137,32 +141,31 @@ export class LoaiHangComponent implements OnInit {
   }
 
   loadAll() {
-    // this.spinner.show();
-    // this.departmentManagementService
-    //     .search({
-    //       isCount:  1,
-    //       ten_loai_hang: this.form.value.ten_loai_hang,
-    //       nha_cung_cap: this.form.value.nha_cung_cap ,
-    //       page: this.page - 1,
-    //       size: this.itemsPerPage,
-    //     })
-    //     .subscribe(
-    //         res => {
-    //           this.spinner.hide();
-    //           this.paginateUserList(res.body);
-    //         },
-    //         err => {
-    //           this.spinner.hide();
-    //           this.userList = []
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //     );
+    this.spinner.show();
+    this.thongTinChungApiService
+        .searchDanhMuc({
+          isCount:  1,
+          tenDanhMuc: this.form.value.tenDanhMuc,
+          maDanhMuc: this.form.value.maDanhMuc ,
+          page: this.page - 1,
+          size: this.itemsPerPage,
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              this.paginateListData(res.body);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
 
 
-  private paginateUserList(data) {
+  private paginateListData(data) {
     this.totalItems = data.totalElements;
     this.listData = data.content;
     this.maxSizePage = data.totalPages;

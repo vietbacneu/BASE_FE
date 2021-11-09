@@ -8,6 +8,8 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {CommonService} from "app/shared/services/common.service";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
+import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
+import {ToastService} from "app/shared/services/toast.service";
 
 @Component({
   selector: 'jhi-them-sua-san-pham',
@@ -42,7 +44,9 @@ export class ThemSuaSanPhamComponent implements OnInit {
       private spinner: NgxSpinnerService,
       protected router: Router,
       protected commonService: CommonService,
+      private toastService: ToastService,
       public activeModal: NgbActiveModal,
+      private thongTinChungApiService: ThongTinChungApiService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -61,15 +65,17 @@ export class ThemSuaSanPhamComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm()
+    this.getLoaiSanPham();
+
   }
 
 
   buildForm() {
     this.form = this.formBuilder.group({
-      ten_san_pham: ['', Validators.required],
-      ma_san_pham: ['', Validators.required],
-      id_danh_muc: [null, Validators.required],
-      trang_thai: [null, Validators.required],
+      tenSanPham: ['', Validators.required],
+      maSanPham: ['', Validators.required],
+      idDanhMuc: [null, Validators.required],
+      trangThai: [null, Validators.required],
       gia_nhap: [''],
       gia_ban: [''],
       mo_ta: [''],
@@ -118,10 +124,10 @@ export class ThemSuaSanPhamComponent implements OnInit {
     // this.spinner.show();
     // const data = {
     //   id: null,
-    //   ten_san_pham: this.form.value.ten_san_pham,
-    //   ma_san_pham: this.form.value.ma_san_pham,
-    //   id_danh_muc: this.form.value.id_danh_muc,
-    //   trang_thai: this.form.value.trang_thai,
+    //   tenSanPham: this.form.value.tenSanPham,
+    //   maSanPham: this.form.value.maSanPham,
+    //   idDanhMuc: this.form.value.idDanhMuc,
+    //   trangThai: this.form.value.trangThai,
     //   gia_nhap: this.form.value.gia_nhap,
     //   gia_ban: this.form.value.gia_ban,
     //   mo_ta: this.form.value.mo_ta,
@@ -221,5 +227,18 @@ export class ThemSuaSanPhamComponent implements OnInit {
     const charCode = (event.which) ? event.which : event.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   }
+  getLoaiSanPham() {
+    this.thongTinChungApiService.searchDanhMuc({}).subscribe(
+        res => {
+          this.listTypeProduct = res.body.content
+        },
+        err => {
+          this.toastService.openErrorToast(
+              this.translateService.instant("common.toastr.messages.error.load")
+          );
+        }
+    );
+    this.spinner.hide();
 
+  }
 }

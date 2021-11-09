@@ -18,6 +18,10 @@ import { SanPhamDaXuatComponent } from './dl-xuat-hang/san-pham-da-xuat/san-pham
 import { ThemSuaXuatHangComponent } from './dl-xuat-hang/xuat-hang/them-sua-xuat-hang/them-sua-xuat-hang.component';
 import { ChiTietDonXuatComponent } from './dl-xuat-hang/xuat-hang/them-sua-xuat-hang/chi-tiet-don-xuat/chi-tiet-don-xuat.component';
 import { DuLieuKhoHangComponent } from './du-lieu-kho-hang/du-lieu-kho-hang.component';
+import { ChiNhanhCuaHangComponent } from './danh-muc/chi-nhanh-cua-hang/chi-nhanh-cua-hang.component';
+import { KhachHangComponent } from './danh-muc/khach-hang/khach-hang.component';
+import { ThemSuaChiNhanhComponent } from './danh-muc/chi-nhanh-cua-hang/them-sua-chi-nhanh/them-sua-chi-nhanh.component';
+import { ThemSuaKhachHangComponent } from './danh-muc/khach-hang/them-sua-khach-hang/them-sua-khach-hang.component';
 
 
 @NgModule({
@@ -37,6 +41,10 @@ import { DuLieuKhoHangComponent } from './du-lieu-kho-hang/du-lieu-kho-hang.comp
         ThemSuaXuatHangComponent,
         ChiTietDonXuatComponent,
         DuLieuKhoHangComponent,
+        ChiNhanhCuaHangComponent,
+        KhachHangComponent,
+        ThemSuaChiNhanhComponent,
+        ThemSuaKhachHangComponent,
     ],
     imports: [
         CommonModule,
@@ -51,6 +59,8 @@ import { DuLieuKhoHangComponent } from './du-lieu-kho-hang/du-lieu-kho-hang.comp
         ChiTietDonNhapComponent,
         ThemSuaXuatHangComponent,
         ChiTietDonXuatComponent,
+        ThemSuaChiNhanhComponent,
+        ThemSuaKhachHangComponent,
     ]
 })
 export class QlkhManagerModule {

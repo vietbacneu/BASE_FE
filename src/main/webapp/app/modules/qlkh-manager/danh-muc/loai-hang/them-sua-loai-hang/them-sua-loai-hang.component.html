@@ -14,30 +14,30 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('ma_danh_muc')}">
+                         [ngClass]="{'has-error': isFieldValid('maDanhMuc')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Mã loại hàng</label>
-                        <input type="text" class="form-control" formControlName="ma_danh_muc"
-                               (blur)="trimSpace('ma_danh_muc')"
+                        <input type="text" class="form-control" formControlName="maDanhMuc"
+                               (blur)="trimSpace('maDanhMuc')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['ma_danh_muc'].hasError('required')"
-                                            [displayError]="isFieldValid('ma_danh_muc')"
+                        <jhi-error-messages *ngIf="formControl['maDanhMuc'].hasError('required')"
+                                            [displayError]="isFieldValid('maDanhMuc')"
                                             errorMsg="Mã loại hàng không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('ten_danh_muc')}">
+                         [ngClass]="{'has-error': isFieldValid('tenDanhMuc')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Tên loại hàng</label>
-                        <input type="text" class="form-control" formControlName="ten_danh_muc"
-                               (blur)="trimSpace('ten_danh_muc')"
+                        <input type="text" class="form-control" formControlName="tenDanhMuc"
+                               (blur)="trimSpace('tenDanhMuc')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['ten_danh_muc'].hasError('required')"
-                                            [displayError]="isFieldValid('ten_danh_muc')"
+                        <jhi-error-messages *ngIf="formControl['tenDanhMuc'].hasError('required')"
+                                            [displayError]="isFieldValid('tenDanhMuc')"
                                             errorMsg="Tên loại hàng không được để trống">
                         </jhi-error-messages>
                     </div>
@@ -46,34 +46,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('nha_cung_cap')}">
-                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Nhà cung cấp</label>
-                        <ng-select [items]="listNCC"
-                                   placeholder="Chọn nhà cung cấp"
-                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                   searchable="false"
-                                   [readonly]="type === 'detail'"
-                                   bindLabel="name" bindValue="id" formControlName="nha_cung_cap">
-                        </ng-select>
-                        <jhi-error-messages *ngIf="formControl['nha_cung_cap'].hasError('required')"
-                                            [displayError]="isFieldValid('nha_cung_cap')"
-                                            errorMsg="Nhà cung cấp không được để trống">
-                        </jhi-error-messages>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('don_vi_tinh')}">
+                         [ngClass]="{'has-error': isFieldValid('donViTinh')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Đơn vị tính</label>
-                        <input type="text" class="form-control" formControlName="don_vi_tinh"
-                               (blur)="trimSpace('don_vi_tinh')"
+                        <input type="text" class="form-control" formControlName="donViTinh"
+                               (blur)="trimSpace('donViTinh')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['don_vi_tinh'].hasError('required')"
-                                            [displayError]="isFieldValid('don_vi_tinh')"
+                        <jhi-error-messages *ngIf="formControl['donViTinh'].hasError('required')"
+                                            [displayError]="isFieldValid('donViTinh')"
                                             errorMsg="Đơn vị tính không được để trống">
                         </jhi-error-messages>
                     </div>

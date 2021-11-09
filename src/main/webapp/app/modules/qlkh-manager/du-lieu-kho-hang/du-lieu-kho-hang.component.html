@@ -22,8 +22,8 @@
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Mã sản phẩm</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="ma_san_pham"
-                                               maxlength="200" (blur)="trimSpace('ma_san_pham')">
+                                        <input type="text" class="form-control" formControlName="maSanPham"
+                                               maxlength="200" (blur)="trimSpace('maSanPham')">
                                     </div>
                                 </div>
                             </div>
@@ -83,8 +83,8 @@
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.ma_san_pham}}</td>
-                                <td>{{item.ten_san_pham}}</td>
+                                <td>{{item.maSanPham}}</td>
+                                <td>{{item.maSanPham}}</td>
                                 <td>{{item.nha_cung_cap}}</td>
                                 <td>{{item.don_vi_tinh}}</td>
                                 <td>{{item.so_luong_ton}}</td>

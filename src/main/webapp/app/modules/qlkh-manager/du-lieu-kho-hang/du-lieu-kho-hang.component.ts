@@ -69,7 +69,7 @@ export class DuLieuKhoHangComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      ma_san_pham: [null],
+      maSanPham: [null],
       nha_cung_cap: [null],
     });
   }
@@ -149,7 +149,7 @@ export class DuLieuKhoHangComponent implements OnInit {
     //     .subscribe(
     //         res => {
     //           this.spinner.hide();
-    //           this.paginateUserList(res.body);
+    //           this.paginateListData(res.body);
     //         },
     //         err => {
     //           this.spinner.hide();
@@ -162,7 +162,7 @@ export class DuLieuKhoHangComponent implements OnInit {
   }
 
 
-  private paginateUserList(data) {
+  private paginateListData(data) {
     this.totalItems = data.totalElements;
     this.listData = data.content;
     this.maxSizePage = data.totalPages;
