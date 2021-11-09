@@ -1,0 +1,104 @@
+<div style="display: block;">
+    <div class="custom-modal-large" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới loại hàng</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết loại hàng</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật loại hàng</h5>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-90-center">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select"
+                         [ngClass]="{'has-error': isFieldValid('maKhachHang')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Mã khách hàng</label>
+                        <input type="text" class="form-control" formControlName="maKhachHang"
+                               (blur)="trimSpace('maKhachHang')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                        <jhi-error-messages *ngIf="formControl['maKhachHang'].hasError('required')"
+                                            [displayError]="isFieldValid('maKhachHang')"
+                                            errorMsg="Mã khách hàng không được để trống">
+                        </jhi-error-messages>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select"
+                         [ngClass]="{'has-error': isFieldValid('tenKhachHang')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Tên khách hàng</label>
+                        <input type="text" class="form-control" formControlName="tenKhachHang"
+                               (blur)="trimSpace('tenKhachHang')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                        <jhi-error-messages *ngIf="formControl['tenKhachHang'].hasError('required')"
+                                            [displayError]="isFieldValid('tenKhachHang')"
+                                            errorMsg="Tên khách hàng không được để trống">
+                        </jhi-error-messages>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Email</label>
+                        <input type="text" class="form-control" formControlName="email"
+                               (blur)="trimSpace('email')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">SĐT</label>
+                        <input type="text" class="form-control" formControlName="sdt"
+                               (blur)="trimSpace('sdt')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Địa chỉ</label>
+                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
+                                  formControlName="diaChi" maxlength="200" (blur)="trimSpace('diaChi')"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Mô tả</label>
+                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
+                                  formControlName="mieuTa" maxlength="200" (blur)="trimSpace('mieuTa')"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-primary"
+                (click)="onSubmit()">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.save'}}"></span>
+        </button>
+        <button *ngIf="type === 'add'" type="submit" class="btn btn-primary"
+                (click)="onSubmit('addAndClose')">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span>Ghi lại và đóng</span>
+        </button>
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
+                (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.cancel'}}"></span>
+        </button>
+        <button *ngIf="type === 'detail'" type="button" class="btn btn-light" (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.close'}}"></span>
+        </button>
+    </div>
+</div>
