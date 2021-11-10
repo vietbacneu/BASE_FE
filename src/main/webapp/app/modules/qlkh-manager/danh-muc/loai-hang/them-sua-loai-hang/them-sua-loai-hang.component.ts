@@ -132,12 +132,7 @@ export class ThemSuaLoaiHangComponent implements OnInit {
             this.spinner.hide();
 
             this.toastService.openSuccessToast(
-                this.translateService.instant(
-                    "serviceManagement.create.success"
-                ),
-                this.translateService.instant(
-                    "functionManagement.toastr.messages.success.title"
-                )
+                "Thêm mới thành công"
             );
             this.response.emit(true)
             if (typeSubmit && typeSubmit === 'addAndClose') {
@@ -160,12 +155,7 @@ export class ThemSuaLoaiHangComponent implements OnInit {
           res => {
             this.spinner.hide();
             this.toastService.openSuccessToast(
-                this.translateService.instant(
-                    "serviceManagement.update.success"
-                ),
-                this.translateService.instant(
-                    "functionManagement.toastr.messages.success.title"
-                )
+                "Cập nhập thành công"
             );
             this.response.emit(true)
             this.onCloseModal();
