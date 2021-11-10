@@ -29,19 +29,30 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right"
-                                           jhiTranslate="loaiHang.nameNCC"></label>
+                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listNhaCungCap"
+                                        <ng-select [items]="listCuaHang"
                                                    placeholder="{{this.translateService.instant('common.select.option.all')}}"
                                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                                    searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="nha_cung_cap">
+                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
                                             <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.name)}} <br/>
+                                                {{formatPreShow(item.tenCuaHang)}} <br/>
                                             </ng-template>
                                         </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select">
+                                    <label class="col-sm-3 custom-label-right">Ngày hết hạn</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <jhi-date-picker formControlName="ngayHetHan"
+                                                         jhiAutoFocusField>
+                                        </jhi-date-picker>
                                     </div>
                                 </div>
                             </div>
@@ -49,6 +60,9 @@
                         <div class="d-flex justify-content-center">
                             <button type="button" class="btn btn-primary" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="onExport()">
+                                <i class="fa fa-file-export mr-2" aria-hidden="true"></i><span>Xuất Báo Cáo</span>
                             </button>
                         </div>
                     </form>
@@ -72,22 +86,34 @@
                                 </th>
                                 <th class="medium-width-table"><span>Tên sản phẩm</span>
                                 </th>
-                                <th class="medium-width-table"><span>Nhà cung cấp</span>
+                                <th class="medium-width-table"><span>Danh mục</span>
                                 </th>
-                                <th class="medium-width-table"><span>Đơn vị tính</span>
+                                <th class="medium-width-table"><span>Giá bán niêm yết</span>
+                                </th>
+                                <th class="medium-width-table"><span>Giá nhập niêm yết</span>
+                                </th>
+                                <th class="medium-width-table"><span>Số lượng nhập</span>
+                                </th>
+                                <th class="medium-width-table"><span>Số lượng xuất</span>
                                 </th>
                                 <th class="medium-width-table"><span>Số lượng tồn</span>
+                                </th>
+                                <th class="medium-width-table"><span>Cửa hàng</span>
                                 </th>
                             </tr>
                             </thead>
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
-                                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                <td class="text-center">{{i+1}}</td>
                                 <td>{{item.maSanPham}}</td>
                                 <td>{{item.maSanPham}}</td>
-                                <td>{{item.nha_cung_cap}}</td>
-                                <td>{{item.don_vi_tinh}}</td>
-                                <td>{{item.so_luong_ton}}</td>
+                                <td>{{item.tenDanhMuc}}</td>
+                                <td>{{item.giaBanNiemYet}}</td>
+                                <td>{{item.giaNhapNiemYet}}</td>
+                                <td>{{item.soLuongNhap}}</td>
+                                <td>{{item.soLuongBan}}</td>
+                                <td>{{item.soLuongTon}}</td>
+                                <td>{{item.tenCuaHang}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -98,17 +124,17 @@
                     <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
                 </div>
 
-                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
-                    <div class="row justify-content-center">
-                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
-                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
-                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
-                                        [boundaryLinks]="true"
-                                        (pageChange)="loadPage(page)">
-                        </ngb-pagination>
-                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
-                    </div>
-                </div>
+<!--                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">-->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>-->
+<!--                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"-->
+<!--                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"-->
+<!--                                        [boundaryLinks]="true"-->
+<!--                                        (pageChange)="loadPage(page)">-->
+<!--                        </ngb-pagination>-->
+<!--                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>

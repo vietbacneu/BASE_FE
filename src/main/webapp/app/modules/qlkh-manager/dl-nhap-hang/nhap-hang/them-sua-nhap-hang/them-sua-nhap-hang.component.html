@@ -23,6 +23,38 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
+                    <div class="col-sm-8 form-custom-select">
+                        <ng-select [items]="listCuaHang"
+                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                   searchable="false"
+                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
+                            <ng-template ng-option-tmp let-item="item">
+                                {{formatPreShow(item.tenCuaHang)}} <br/>
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="col-sm-3 custom-label-right">Nhà cung cấp</label>
+                    <div class="col-sm-8 form-custom-select">
+                        <ng-select [items]="listNhaCungCap"
+                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                   searchable="false"
+                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
+                            <ng-template ng-option-tmp let-item="item">
+                                {{formatPreShow(item.tenCuaHang)}} <br/>
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group row dropdown form-custom-select">
                         <label class="col-sm-3 custom-label-right">Nội dung</label>
                         <div class="col-sm-8 form-custom-select">
@@ -47,8 +79,6 @@
                         <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                         </th>
                         <th class="medium-width-table"><span>Sản phẩm</span>
-                        </th>
-                        <th class="medium-width-table"><span>Nhà cung cấp</span>
                         </th>
                         <th class="medium-width-table"><span>Đơn giá</span>
                         </th>

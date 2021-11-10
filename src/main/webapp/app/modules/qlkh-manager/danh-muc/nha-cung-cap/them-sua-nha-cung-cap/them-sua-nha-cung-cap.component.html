@@ -14,30 +14,30 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('ma_nha_cung_cap')}">
+                         [ngClass]="{'has-error': isFieldValid('maNhaCungCap')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Mã nhà cung cấp</label>
-                        <input type="text" class="form-control" formControlName="ma_nha_cung_cap"
-                               (blur)="trimSpace('ma_nha_cung_cap')"
+                        <input type="text" class="form-control" formControlName="maNhaCungCap"
+                               (blur)="trimSpace('maNhaCungCap')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['ma_nha_cung_cap'].hasError('required')"
-                                            [displayError]="isFieldValid('ma_nha_cung_cap')"
+                        <jhi-error-messages *ngIf="formControl['maNhaCungCap'].hasError('required')"
+                                            [displayError]="isFieldValid('maNhaCungCap')"
                                             errorMsg="Mã loại hàng không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('ten_nha_cung_cap')}">
+                         [ngClass]="{'has-error': isFieldValid('tenNhaCungCap')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Tên nhà cung cấp</label>
-                        <input type="text" class="form-control" formControlName="ten_nha_cung_cap"
-                               (blur)="trimSpace('ten_nha_cung_cap')"
+                        <input type="text" class="form-control" formControlName="tenNhaCungCap"
+                               (blur)="trimSpace('tenNhaCungCap')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['ten_nha_cung_cap'].hasError('required')"
-                                            [displayError]="isFieldValid('ten_nha_cung_cap')"
+                        <jhi-error-messages *ngIf="formControl['tenNhaCungCap'].hasError('required')"
+                                            [displayError]="isFieldValid('tenNhaCungCap')"
                                             errorMsg="Tên loại hàng không được để trống">
                         </jhi-error-messages>
                     </div>
@@ -47,23 +47,12 @@
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Mã số thuế</label>
-                        <input type="text" class="form-control" formControlName="ma_so_thue"
-                               (blur)="trimSpace('ma_so_thue')"
+                        <input type="text" class="form-control" formControlName="maSoThue"
+                               (blur)="trimSpace('maSoThue')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group dropdown form-custom-select">
-                        <label class="form-control-label">Email</label>
-                        <input type="email" class="form-control" formControlName="email"
-                               (blur)="trimSpace('email')"
-                               [readOnly]="type == 'detail'"
-                               maxlength="200">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Số điện thoại</label>
@@ -73,12 +62,13 @@
                                maxlength="10">
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('dia_chi')}">
+                    <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Địa chỉ</label>
-                        <input type="text" class="form-control" formControlName="dia_chi"
-                               (blur)="trimSpace('dia_chi')"
+                        <input type="text" class="form-control" formControlName="diaChi"
+                               (blur)="trimSpace('diaChi')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
                     </div>

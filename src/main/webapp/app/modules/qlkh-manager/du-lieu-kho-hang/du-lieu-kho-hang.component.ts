@@ -12,6 +12,8 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
+import {SERVER_API} from "app/shared/constants/api-resource.constants";
 
 @Component({
   selector: 'jhi-du-lieu-kho-hang',
@@ -36,6 +38,7 @@ export class DuLieuKhoHangComponent implements OnInit {
   items = 12;
   listData: any;
   listNhaCungCap: any;
+  listCuaHang: any;
 
   constructor(
       public translateService: TranslateService,
@@ -49,6 +52,7 @@ export class DuLieuKhoHangComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       private shareDataFromProjectService: ShareDataFromProjectService,
+      private ThongTinApi: ThongTinChungApiService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -58,6 +62,8 @@ export class DuLieuKhoHangComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
+      }else {
+        this.page = 1;
       }
     });
   }
@@ -65,12 +71,14 @@ export class DuLieuKhoHangComponent implements OnInit {
   ngOnInit(): void {
     this.onResize();
     this.buidForm();
+    this.loadAllCuaHang();
   }
 
   private buidForm() {
     this.form = this.formBuilder.group({
       maSanPham: [null],
-      nha_cung_cap: [null],
+      cuaHang: [null],
+      ngayHetHan: [null],
     });
   }
 
@@ -105,6 +113,29 @@ export class DuLieuKhoHangComponent implements OnInit {
     this.loadAll();
   }
 
+  onExport() {
+    this.spinner.show();
+    this.ThongTinApi
+        .exportTonKho({
+          tenSanPham: this.form.value.tenSanPham,
+          idCuaHang: this.form.value.tenCuaHang,
+          ngayHetHan: this.form.value.ngayHetHan
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              // window.open(res.body.path, '_blank').focus();
+              window.open(SERVER_API + "/api" + "/sanPhams/download/?path=" + res.body.path);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
+
   openModal(type?: string, selectedData?: any) {
     const modalRef = this.modalService.open(ThemSuaLoaiHangComponent, {
       size: "lg",
@@ -123,6 +154,24 @@ export class DuLieuKhoHangComponent implements OnInit {
     });
   }
 
+  loadAllCuaHang() {
+    this.ThongTinApi
+        .searchChiNhanh({
+        })
+        .subscribe(
+            res => {
+      this.listCuaHang = res.body.content
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
+
+
   onSearchData() {
     this.loadAll()
     // this.loadDepartment();
@@ -137,35 +186,30 @@ export class DuLieuKhoHangComponent implements OnInit {
   }
 
   loadAll() {
-    // this.spinner.show();
-    // this.departmentManagementService
-    //     .search({
-    //       isCount:  1,
-    //       ten_loai_hang: this.form.value.ten_loai_hang,
-    //       nha_cung_cap: this.form.value.nha_cung_cap ,
-    //       page: this.page - 1,
-    //       size: this.itemsPerPage,
-    //     })
-    //     .subscribe(
-    //         res => {
-    //           this.spinner.hide();
-    //           this.paginateListData(res.body);
-    //         },
-    //         err => {
-    //           this.spinner.hide();
-    //           this.userList = []
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //     );
+    this.spinner.show();
+    this.ThongTinApi
+        .searchTonKho({
+          tenSanPham: this.form.value.tenSanPham,
+          idCuaHang: this.form.value.tenCuaHang ,
+          ngayHetHan: this.form.value.ngayHetHan ,
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              this.paginateListData(res.body);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
 
 
   private paginateListData(data) {
-    this.totalItems = data.totalElements;
-    this.listData = data.content;
-    this.maxSizePage = data.totalPages;
+    this.listData = data;
   }
 
   sort() {

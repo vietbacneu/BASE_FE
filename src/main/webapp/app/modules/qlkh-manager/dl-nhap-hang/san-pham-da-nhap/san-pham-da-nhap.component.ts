@@ -60,6 +60,8 @@ export class SanPhamDaNhapComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
+      }else {
+        this.page = 1;
       }
     });
   }

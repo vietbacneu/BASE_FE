@@ -33,27 +33,6 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('nha_cung_cap')}">
-                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Nhà cung cấp</label>
-                        <ng-select [items]="listNCC"
-                                   placeholder="Chọn nhà cung cấp"
-                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                   searchable="false"
-                                   [readonly]="type === 'detail'"
-                                   bindLabel="name" bindValue="id" formControlName="nha_cung_cap">
-                        </ng-select>
-                        <jhi-error-messages *ngIf="formControl['nha_cung_cap'].hasError('required')"
-                                            [displayError]="isFieldValid('nha_cung_cap')"
-                                            errorMsg="Nhà cung cấp không được để trống">
-                        </jhi-error-messages>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group dropdown form-custom-select"
                          [ngClass]="{'has-error': isFieldValid('so_luong')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Số lượng</label>
@@ -68,6 +47,9 @@
                         </jhi-error-messages>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
                          [ngClass]="{'has-error': isFieldValid('don_gia')}">
@@ -82,6 +64,32 @@
                                             [displayError]="isFieldValid('don_gia')"
                                             errorMsg="Đơn giá không được để trống">
                         </jhi-error-messages>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-control-label">Tổng tiền</label>
+                    <input type="text" class="form-control" formControlName="tong_tien"
+                           (blur)="trimSpace('tong_tien')"
+                           [readOnly]="true">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Ngày sản xuất</label>
+                        <jhi-date-picker formControlName="ngay_san_xuat"
+                                         [isDisabled]="type === 'detail'"
+                                         jhiAutoFocusField>
+                        </jhi-date-picker>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Ngày hết hạn</label>
+                        <jhi-date-picker formControlName="ngay_het_han"
+                                         [isDisabled]="type === 'detail'"
+                                         jhiAutoFocusField>
+                        </jhi-date-picker>
                     </div>
                 </div>
             </div>
@@ -105,14 +113,6 @@
             <!--                    </div>-->
             <!--                </div>-->
             <!--            </div>-->
-            <div class="row">
-                <div class="col-md-12">
-                    <label class="form-control-label">Tổng tiền</label>
-                    <input type="text" class="form-control" formControlName="tong_tien"
-                           (blur)="trimSpace('tong_tien')"
-                           [readOnly]="true">
-                </div>
-            </div>
         </div>
     </form>
     <div class="d-flex justify-content-center" style="margin-bottom: 2%;">

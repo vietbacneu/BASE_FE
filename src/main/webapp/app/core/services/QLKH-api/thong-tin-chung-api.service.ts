@@ -21,6 +21,84 @@ export class ThongTinChungApiService {
             observe: "response"
         });
     }
+
+    searchNCC(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/nhaCungCaps/search',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    searchTonKho(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/searchTon',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    searchSpChiPhi(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/searchTongChiPhi',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
+    download(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.get(this.resourceUrl + '/api/sanPhams/download', {
+            params: option,
+            observe: "response"
+        });
+    }
+
+    searchSpDoanhThu(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/searchTongDoanhThu',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
+    searchNhapHang(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/nhapHangs/search',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    searchXuatHang(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/xuatHangs/search',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
+
+    exportTonKho(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportTonKho',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    exportSpChiPhi(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThu',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
+    exportSpDoanhThu(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportChiPhi',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
     createDanhMuc(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.post(this.resourceUrl + '/api/danhMucs',data, {
@@ -122,6 +200,27 @@ export class ThongTinChungApiService {
     deleteKhachHang(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.delete(this.resourceUrl + `/api/khachHangs/${data.id}`, {
+            params: option,
+            observe: "response"
+        });
+    }
+    createNhaCungCap(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/nhaCungCaps',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    updateNhaCungCap(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.put(this.resourceUrl + '/api/nhaCungCaps/update',data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    deleteNhaCungCap(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.delete(this.resourceUrl + `/api/nhaCungCaps/${data.id}`, {
             params: option,
             observe: "response"
         });

@@ -186,12 +186,7 @@ export class ContractManagementComponent implements OnInit {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
-      if (data && data.pagingParams) {
-        this.page = data.pagingParams.page;
-        this.previousPage = data.pagingParams.page;
-        this.reverse = data.pagingParams.ascending;
-        this.predicate = data.pagingParams.predicate;
-      }
+
     });
   }
 

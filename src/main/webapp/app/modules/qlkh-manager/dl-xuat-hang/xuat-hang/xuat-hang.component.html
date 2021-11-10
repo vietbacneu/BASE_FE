@@ -23,17 +23,25 @@
                                 <div class="form-group row dropdown form-custom-select">
                                     <label class="col-sm-3 custom-label-right">Mã đơn hàng</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="ma_don_hang"
+                                        <input type="text" class="form-control" formControlName="maDonHang"
                                                maxlength="200" (blur)="trimSpace('ma_don_hang')">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Nội dung</label>
+                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="noi_dung_xuat_hang"
-                                               maxlength="200" (blur)="trimSpace('noi_dung_xuat_hang')">
+                                        <ng-select [items]="listCuaHang"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.tenCuaHang)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
                                     </div>
                                 </div>
                             </div>
@@ -63,26 +71,13 @@
                             <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                 <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                 </th>
-                                <th class="medium-width-table"><span
-                                        jhiTranslate="loaiHang.code"></span>
+                                <th class="medium-width-table"><span>Mã xuất hàng</span>
                                 </th>
-                                <th class="medium-width-table"><span
-                                        jhiTranslate="loaiHang.name"></span>
+                                <th class="medium-width-table"><span>Tên khách hàng</span>
                                 </th>
-                                <th class="medium-width-table"><span
-                                        jhiTranslate="loaiHang.nameNCC"></span>
+                                <th class="medium-width-table"><span>Tên cửa hàng</span>
                                 </th>
-                                <th class="medium-width-table"><span
-                                        jhiTranslate="loaiHang.unit"></span>
-                                </th>
-                                <th class="medium-width-table"><span
-                                        jhiTranslate="loaiHang.createdUser"></span>
-                                </th>
-                                <th class="medium-width-table"><span
-                                        jhiTranslate="loaiHang.createdDate"></span>
-                                </th>
-                                <th class="medium-width-table"><span
-                                        jhiTranslate="loaiHang.updateDate"></span>
+                                <th class="medium-width-table"><span>Ngày xuất</span>
                                 </th>
                                 <th class="medium-width-table action-width-four-icon custom-width"
                                     jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -92,13 +87,10 @@
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.ma_danh_muc}}</td>
-                                <td>{{item.ten_danh_muc}}</td>
-                                <td>{{item.ten_nha_cung_cap}}</td>
-                                <td>{{item.don_vi_tinh}}</td>
-                                <td>{{item.nguoi_tao}}</td>
-                                <td>{{item.ngay_tao}}</td>
-                                <td>{{item.ngay_thay_doi}}</td>
+                                <td>{{item.maXuatHang}}</td>
+                                <td>{{item.tenKhachHang}}</td>
+                                <td>{{item.tenCuaHang}}</td>
+                                <td>{{item.ngayXuat}}</td>
                                 <td class="text-left four-icon medium-width-table">
                                     <div class="group-action">
                                         <button class="btn btn-light" placement="top"

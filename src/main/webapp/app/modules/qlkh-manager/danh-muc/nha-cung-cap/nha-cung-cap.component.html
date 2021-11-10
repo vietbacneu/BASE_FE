@@ -23,8 +23,8 @@
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Mã nhà cung cấp</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="ma_nha_cung_cap"
-                                               maxlength="200" (blur)="trimSpace('ma_nha_cung_cap')">
+                                        <input type="text" class="form-control" formControlName="maNhaCungCap"
+                                               maxlength="200" (blur)="trimSpace('maNhaCungCap')">
                                     </div>
                                 </div>
                             </div>
@@ -32,8 +32,8 @@
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Tên nhà cung cấp</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="ten_nha_cung_cap"
-                                               maxlength="200" (blur)="trimSpace('ten_nha_cung_cap')">
+                                        <input type="text" class="form-control" formControlName="tenNhaCungCap"
+                                               maxlength="200" (blur)="trimSpace('tenNhaCungCap')">
                                     </div>
                                 </div>
                             </div>
@@ -69,15 +69,9 @@
                                 </th>
                                 <th class="medium-width-table"><span>Mã số thuế</span>
                                 </th>
-                                <th class="medium-width-table"><span>Email</span>
-                                </th>
                                 <th class="medium-width-table"><span>Số điện thoại</span>
                                 </th>
                                 <th class="medium-width-table"><span>Địa chỉ</span>
-                                </th>
-                                <th class="medium-width-table"><span>Người tạo</span>
-                                </th>
-                                <th class="medium-width-table"><span>Ngày tạo</span>
                                 </th>
                                 <th class="medium-width-table action-width-four-icon custom-width"
                                     jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -87,14 +81,11 @@
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.ma_nha_cung_cap}}</td>
-                                <td>{{item.ten_nha_cung_cap}}</td>
-                                <td>{{item.ma_so_thue}}</td>
-                                <td>{{item.email}}</td>
+                                <td>{{item.maNhaCungCap}}</td>
+                                <td>{{item.tenNhaCungCap}}</td>
+                                <td>{{item.maSoThue}}</td>
                                 <td>{{item.sdt}}</td>
-                                <td>{{item.dia_chi}}</td>
-                                <td>{{item.nguoi_tao}}</td>
-                                <td>{{item.ngay_tao}}</td>
+                                <td>{{item.diaChi}}</td>
                                 <td class="text-left four-icon medium-width-table">
                                     <div class="group-action">
                                         <button class="btn btn-light" placement="top"

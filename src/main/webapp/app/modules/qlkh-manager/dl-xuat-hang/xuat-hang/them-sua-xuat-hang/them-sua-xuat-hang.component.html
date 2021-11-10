@@ -48,11 +48,13 @@
                         </th>
                         <th class="medium-width-table"><span>Sản phẩm</span>
                         </th>
-                        <th class="medium-width-table"><span>Nhà cung cấp</span>
-                        </th>
                         <th class="medium-width-table"><span>Đơn giá</span>
                         </th>
                         <th class="medium-width-table"><span>Tổng tiền</span>
+                        </th>
+                        <th class="medium-width-table"><span>Ngày sản xuất</span>
+                        </th>
+                        <th class="medium-width-table"><span>Ngày hết hạn</span>
                         </th>
                         <th class="medium-width-table action-width-four-icon custom-width"
                             jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -63,10 +65,11 @@
                     <tr>
                         <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                         <td>{{item.san_pham}}</td>
-                        <td>{{item.nha_cung_cap}}</td>
                         <td>{{item.so_luong}}</td>
                         <td>{{item.don_gia}}</td>
                         <td>{{item.tong_tien}}</td>
+                        <td>{{item.ngay_san_xuat}}</td>
+                        <td>{{item.ngay_het_han}}</td>
                         <td class="text-left four-icon medium-width-table">
                             <div class="group-action">
                                 <button class="btn btn-light" placement="top"

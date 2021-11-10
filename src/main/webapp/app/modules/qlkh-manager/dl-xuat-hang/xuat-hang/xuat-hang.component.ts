@@ -13,6 +13,7 @@ import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.con
 import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/them-sua-nhap-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 import {ThemSuaXuatHangComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/them-sua-xuat-hang/them-sua-xuat-hang.component";
+import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 
 @Component({
   selector: 'jhi-xuat-hang',
@@ -37,6 +38,8 @@ export class XuatHangComponent implements OnInit {
   items = 12;
   listData: any;
   listNhaCungCap: any;
+  listCuaHang : any;
+
 
   constructor(
       public translateService: TranslateService,
@@ -50,6 +53,7 @@ export class XuatHangComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       private shareDataFromProjectService: ShareDataFromProjectService,
+      private ThongTinApi: ThongTinChungApiService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -59,6 +63,8 @@ export class XuatHangComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
+      }else {
+        this.page = 1;
       }
     });
   }
@@ -70,11 +76,26 @@ export class XuatHangComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      ma_don_hang: [null],
-      noi_dung_xuat_hang: [null],
+      maDonHang: [null],
+      idCuaHang: [null],
     });
   }
 
+  loadAllCuaHang() {
+    this.ThongTinApi
+        .searchChiNhanh({})
+        .subscribe(
+            res => {
+              this.listCuaHang = res.body.content
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
   onResize() {
     this.height = this.heightService.onResizeWithoutFooter();
   }
@@ -139,28 +160,24 @@ export class XuatHangComponent implements OnInit {
   }
 
   loadAll() {
-    // this.spinner.show();
-    // this.departmentManagementService
-    //     .search({
-    //       isCount:  1,
-    //       ten_loai_hang: this.form.value.ten_loai_hang,
-    //       nha_cung_cap: this.form.value.nha_cung_cap ,
-    //       page: this.page - 1,
-    //       size: this.itemsPerPage,
-    //     })
-    //     .subscribe(
-    //         res => {
-    //           this.spinner.hide();
-    //           this.paginateListData(res.body);
-    //         },
-    //         err => {
-    //           this.spinner.hide();
-    //           this.userList = []
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //     );
+    this.spinner.show();
+    this.ThongTinApi
+        .searchXuatHang({
+          tenSanPham: this.form.value.tenSanPham,
+          idCuaHang: this.form.value.tenCuaHang ,
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              this.paginateListData(res.body);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
 
 

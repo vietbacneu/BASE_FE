@@ -10,6 +10,8 @@ import {SanPhamDaXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/san-
 import {DuLieuKhoHangComponent} from "app/modules/qlkh-manager/du-lieu-kho-hang/du-lieu-kho-hang.component";
 import {ChiNhanhCuaHangComponent} from "app/modules/qlkh-manager/danh-muc/chi-nhanh-cua-hang/chi-nhanh-cua-hang.component";
 import {KhachHangComponent} from "app/modules/qlkh-manager/danh-muc/khach-hang/khach-hang.component";
+import {BcSanPhamChiPhiComponent} from "app/modules/qlkh-manager/bao-cao/bc-san-pham-chi-phi/bc-san-pham-chi-phi.component";
+import {BcSanPhamDanhThuComponent} from "app/modules/qlkh-manager/bao-cao/bc-san-pham-danh-thu/bc-san-pham-danh-thu.component";
 
 const routes: Routes = [
   {
@@ -61,6 +63,16 @@ const routes: Routes = [
     }
   },{
     path: 'khach-hang', component: KhachHangComponent,
+    data: {
+      pageTitle: "common.appParam",
+    }
+    },{
+    path: 'bc-san-pham-chi-phi', component: BcSanPhamChiPhiComponent,
+    data: {
+      pageTitle: "common.appParam",
+    }
+  },{
+    path: 'bc-san-pham-doanh-thu', component: BcSanPhamDanhThuComponent,
     data: {
       pageTitle: "common.appParam",
     }

@@ -53,6 +53,8 @@ export class ChiTietDonNhapComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
+      }else {
+        this.page = 1;
       } else {
         this.page = 1;
       }

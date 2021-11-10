@@ -39,6 +39,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
   items = 12;
   listData: any;
   listNhaCungCap: any;
+  listCuaHang: any;
 
   constructor(
       public translateService: TranslateService,
@@ -62,6 +63,8 @@ export class ThemSuaNhapHangComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
+      }else {
+        this.page = 1;
       }
     });
   }
