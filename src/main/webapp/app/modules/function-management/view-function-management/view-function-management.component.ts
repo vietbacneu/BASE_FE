@@ -335,7 +335,7 @@ export class ViewFunctionManagementComponent implements OnInit {
                 "functionManagement.toastr.messages.success.add"
               ),
               this.translateService.instant(
-                "functionManagement.toastr.messages.success.title"
+                "Thêm mới thành công"
               )
             );
           }
@@ -345,7 +345,7 @@ export class ViewFunctionManagementComponent implements OnInit {
                 "functionManagement.toastr.messages.success.update"
               ),
               this.translateService.instant(
-                "functionManagement.toastr.messages.success.title"
+                "Thêm mới thành công"
               )
             );
           }

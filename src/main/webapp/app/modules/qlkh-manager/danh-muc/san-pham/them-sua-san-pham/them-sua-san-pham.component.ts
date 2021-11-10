@@ -58,8 +58,6 @@ export class ThemSuaSanPhamComponent implements OnInit {
         this.predicate = data.pagingParams.predicate;
       }else {
         this.page = 1;
-      } else {
-        this.page = 1;
       }
     });
   }
@@ -142,10 +140,10 @@ export class ThemSuaSanPhamComponent implements OnInit {
     //         if (200 <= res.body.code && res.body.code < 300) {
     //           this.toastService.openSuccessToast(
     //               this.translateService.instant(
-    //                   "serviceManagement.create.success"
+    //                   "Thành công"
     //               ),
     //               this.translateService.instant(
-    //                   "functionManagement.toastr.messages.success.title"
+    //                   "Thêm mới thành công"
     //               )
     //           );
     //           this.response.emit(true)
@@ -181,7 +179,7 @@ export class ThemSuaSanPhamComponent implements OnInit {
     //                   "serviceManagement.update.success"
     //               ),
     //               this.translateService.instant(
-    //                   "functionManagement.toastr.messages.success.title"
+    //                   "Thêm mới thành công"
     //               )
     //           );
     //           this.response.emit(true)

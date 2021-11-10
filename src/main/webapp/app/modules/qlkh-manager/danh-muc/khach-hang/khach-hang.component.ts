@@ -192,10 +192,8 @@ export class KhachHangComponent implements OnInit {
       centered: true,
       backdrop: "static"
     });
-    modalRef.componentInstance.type = "deactivate";
-    modalRef.componentInstance.param = this.translateService.instant(
-        "managementDepartmentUser.confirmLock"
-    );
+    modalRef.componentInstance.type = "delete";
+    modalRef.componentInstance.param = "bản ghi";
     modalRef.componentInstance.onCloseModal.subscribe(value => {
       if (value === true) {
         this.onSubmitDelete(id);

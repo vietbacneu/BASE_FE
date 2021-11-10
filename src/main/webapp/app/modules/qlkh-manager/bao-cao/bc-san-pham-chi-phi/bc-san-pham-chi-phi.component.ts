@@ -226,7 +226,7 @@ export class BcSanPhamChiPhiComponent implements OnInit {
             centered: true,
             backdrop: "static"
         });
-        modalRef.componentInstance.type = "deactivate";
+        modalRef.componentInstance.type = "delete";
         modalRef.componentInstance.param = this.translateService.instant(
             "managementDepartmentUser.confirmLock"
         );

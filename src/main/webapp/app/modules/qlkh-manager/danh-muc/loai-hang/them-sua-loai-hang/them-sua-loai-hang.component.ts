@@ -131,10 +131,10 @@ export class ThemSuaLoaiHangComponent implements OnInit {
     //         if (200 <= res.body.code && res.body.code < 300) {
     //           this.toastService.openSuccessToast(
     //               this.translateService.instant(
-    //                   "serviceManagement.create.success"
+    //                   "Thành công"
     //               ),
     //               this.translateService.instant(
-    //                   "functionManagement.toastr.messages.success.title"
+    //                   "Thêm mới thành công"
     //               )
     //           );
     //           this.response.emit(true)
@@ -170,7 +170,7 @@ export class ThemSuaLoaiHangComponent implements OnInit {
     //                   "serviceManagement.update.success"
     //               ),
     //               this.translateService.instant(
-    //                   "functionManagement.toastr.messages.success.title"
+    //                   "Thêm mới thành công"
     //               )
     //           );
     //           this.response.emit(true)

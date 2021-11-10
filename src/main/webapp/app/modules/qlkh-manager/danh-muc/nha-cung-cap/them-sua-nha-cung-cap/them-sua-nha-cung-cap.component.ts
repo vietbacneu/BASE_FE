@@ -135,10 +135,10 @@ export class ThemSuaNhaCungCapComponent implements OnInit {
 
             this.toastService.openSuccessToast(
                 this.translateService.instant(
-                    "serviceManagement.create.success"
+                    "Thành công"
                 ),
                 this.translateService.instant(
-                    "functionManagement.toastr.messages.success.title"
+                    "Thêm mới thành công"
                 )
             );
             this.response.emit(true)
@@ -166,7 +166,7 @@ export class ThemSuaNhaCungCapComponent implements OnInit {
                     "serviceManagement.update.success"
                 ),
                 this.translateService.instant(
-                    "functionManagement.toastr.messages.success.title"
+                    "Thêm mới thành công"
                 )
             );
             this.response.emit(true)

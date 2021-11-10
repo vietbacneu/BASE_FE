@@ -298,7 +298,7 @@ export class ViewNonFunctionManagementComponent implements OnInit {
                 "nonFunctionManagement.toastr.messages.success.add"
               ),
               this.translateService.instant(
-                "nonFunctionManagement.toastr.messages.success.title"
+                "nonThêm mới thành công"
               )
             );
           }
@@ -308,7 +308,7 @@ export class ViewNonFunctionManagementComponent implements OnInit {
                 "nonFunctionManagement.toastr.messages.success.update"
               ),
               this.translateService.instant(
-                "nonFunctionManagement.toastr.messages.success.title"
+                "nonThêm mới thành công"
               )
             );
           }
