@@ -32,8 +32,8 @@
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Tên sản phẩm</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="maSanPham"
-                                               maxlength="200" (blur)="trimSpace('maSanPham')">
+                                        <input type="text" class="form-control" formControlName="tenSanPham"
+                                               maxlength="200" (blur)="trimSpace('tenSanPham')">
                                     </div>
                                 </div>
                             </div>
@@ -48,26 +48,9 @@
                                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                                    searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="idDanhMuc">
+                                                   bindLabel="tenDanhMuc" bindValue="id" formControlName="idDanhMuc">
                                             <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.name)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Trạng thái</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listStatus"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="trangThai">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.name)}} <br/>
+                                                {{formatPreShow(item.tenDanhMuc)}} <br/>
                                             </ng-template>
                                         </ng-select>
                                     </div>
@@ -104,16 +87,12 @@
                                 <th class="medium-width-table"><span>Tên sản phẩm</span>
                                 </th>
                                 <th class="medium-width-table"><span>Loại sản phẩm</span>
-                                </th>
+                            </th>
                                 <th class="medium-width-table"><span>Đơn vị tính</span>
                                 </th>
                                 <th class="medium-width-table"><span>Giá nhập</span>
                                 </th>
                                 <th class="medium-width-table"><span>Giá bán </span>
-                                </th>
-                                <th class="medium-width-table"><span>Trạng thái</span>
-                                </th>
-                                <th class="medium-width-table"><span>Người tạo</span>
                                 </th>
                                 <th class="medium-width-table action-width-four-icon custom-width"
                                     jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -129,8 +108,6 @@
                                 <td>{{item.donVi}}</td>
                                 <td>{{item.giaNhapNiemYet}}</td>
                                 <td>{{item.giaBanNiemYet}}</td>
-                                <td>{{item.trangThai}}</td>
-                                <td>{{item.nguoiTao}}</td>
                                 <td class="text-left four-icon medium-width-table">
                                     <div class="group-action">
                                         <button class="btn btn-light" placement="top"

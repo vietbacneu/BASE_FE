@@ -11,6 +11,7 @@ import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {STATUS_CODE} from "app/shared/constants/status-code.constants";
+import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 
 @Component({
   selector: 'jhi-them-sua-loai-hang',
@@ -21,6 +22,8 @@ export class ThemSuaLoaiHangComponent implements OnInit {
 
   @Input() public selectedData;
   @Input() type;
+  @Output() response = new EventEmitter<any>();
+
 
   form: FormGroup;
   height: number;
@@ -45,6 +48,8 @@ export class ThemSuaLoaiHangComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       public activeModal: NgbActiveModal,
+      private ThongTinApi: ThongTinChungApiService,
+      private toastService: ToastService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -55,8 +60,6 @@ export class ThemSuaLoaiHangComponent implements OnInit {
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
       }else {
-        this.page = 1;
-      } else {
         this.page = 1;
       }
     });
@@ -72,7 +75,7 @@ export class ThemSuaLoaiHangComponent implements OnInit {
     this.form = this.formBuilder.group({
       tenDanhMuc: [null, Validators.required],
       maDanhMuc: [null, Validators.required],
-      donViTinh: [null, Validators.required],
+      thongTin: [null],
     });
     if (this.selectedData) {
       this.form.patchValue(this.selectedData);
@@ -115,83 +118,67 @@ export class ThemSuaLoaiHangComponent implements OnInit {
       this.commonService.validateAllFormFields(this.form);
       return;
     }
-    // this.spinner.show();
-    // const data = {
-    //   id: null,
-    //   reportType: this.form.value.reportValue,
-    //   objId: this.form.value.depId,
-    //   userName: this.form.value.name,
-    //   roleType: this.form.value.roleCode,
-    // };
-    // if (this.type === "add") {
-    //   this.departmentManagementService
-    //       .saveOrUpdate(data).subscribe(
-    //       res => {
-    //         this.spinner.hide();
-    //         if (200 <= res.body.code && res.body.code < 300) {
-    //           this.toastService.openSuccessToast(
-    //               this.translateService.instant(
-    //                   "Thành công"
-    //               ),
-    //               this.translateService.instant(
-    //                   "Thêm mới thành công"
-    //               )
-    //           );
-    //           this.response.emit(true)
-    //           if (typeSubmit && typeSubmit === 'addAndClose') {
-    //             this.onCloseModal();
-    //           }
-    //         }
-    //       },
-    //       error => {
-    //         if (error.status == STATUS_CODE.BAD_REQUEST) {
-    //           this.toastService.openErrorToast(
-    //               error.error,
-    //           );
-    //         } else {
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //         this.response.emit(false)
-    //         this.spinner.hide();
-    //       }
-    //   );
-    // }
-    // if (this.type === "update") {
-    //   if (this.selectedData !== undefined) data.id = this.selectedData.id;
-    //   this.departmentManagementService
-    //       .saveOrUpdate(data).subscribe(
-    //       res => {
-    //         this.spinner.hide();
-    //         if (200 <= res.body.code && res.body.code < 300) {
-    //           this.toastService.openSuccessToast(
-    //               this.translateService.instant(
-    //                   "serviceManagement.update.success"
-    //               ),
-    //               this.translateService.instant(
-    //                   "Thêm mới thành công"
-    //               )
-    //           );
-    //           this.response.emit(true)
-    //           this.onCloseModal();
-    //         }
-    //       },
-    //       error => {
-    //         if (error.status == STATUS_CODE.BAD_REQUEST) {
-    //           this.toastService.openErrorToast(
-    //               error.error,
-    //           );
-    //         } else {
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //         this.response.emit(false)
-    //         this.spinner.hide();
-    //       }
-    //   );
-    // }
+    this.spinner.show();
+    const data = {
+      id: null,
+      maDanhMuc: this.form.value.maDanhMuc,
+      tenDanhMuc: this.form.value.tenDanhMuc,
+      thongTin: this.form.value.thongTin,
+    };
+    if (this.type === "add") {
+      this.ThongTinApi
+          .createDanhMuc(data).subscribe(
+          res => {
+            this.spinner.hide();
+
+            this.toastService.openSuccessToast(
+                this.translateService.instant(
+                    "serviceManagement.create.success"
+                ),
+                this.translateService.instant(
+                    "functionManagement.toastr.messages.success.title"
+                )
+            );
+            this.response.emit(true)
+            if (typeSubmit && typeSubmit === 'addAndClose') {
+              this.onCloseModal();
+            }
+          },
+          error => {
+            this.toastService.openErrorToast(
+                this.translateService.instant("common.toastr.messages.error.load")
+            );
+            this.response.emit(false)
+            this.spinner.hide();
+          }
+      );
+    }
+    if (this.type === "update") {
+      if (this.selectedData !== undefined) data.id = this.selectedData.id;
+      this.ThongTinApi
+          .updateDanhMuc(data).subscribe(
+          res => {
+            this.spinner.hide();
+            this.toastService.openSuccessToast(
+                this.translateService.instant(
+                    "serviceManagement.update.success"
+                ),
+                this.translateService.instant(
+                    "functionManagement.toastr.messages.success.title"
+                )
+            );
+            this.response.emit(true)
+            this.onCloseModal();
+          },
+          error => {
+            this.toastService.openErrorToast(
+                this.translateService.instant("common.toastr.messages.error.load")
+            );
+            this.response.emit(false)
+            this.spinner.hide();
+          }
+      );
+    }
   }
 
   onCloseModal() {

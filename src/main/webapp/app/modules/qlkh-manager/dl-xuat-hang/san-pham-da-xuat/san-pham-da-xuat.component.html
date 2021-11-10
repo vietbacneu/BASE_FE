@@ -23,51 +23,23 @@
                                 <div class="form-group row dropdown form-custom-select">
                                     <label class="col-sm-3 custom-label-right">Sản phẩm</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listSanPham"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="san_pham">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.name)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
+                                        <input type="text" class="form-control" formControlName="tenSanPham"
+                                               maxlength="200" (blur)="trimSpace('tenSanPham')">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right"
-                                           jhiTranslate="loaiHang.nameNCC"></label>
+                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listNhaCungCap"
+                                        <ng-select [items]="listCuaHang"
                                                    placeholder="{{this.translateService.instant('common.select.option.all')}}"
                                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                                    searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="nha_cung_cap">
+                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
                                             <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.name)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Trạng thái</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listStatus"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="name" bindValue="id" formControlName="status">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.name)}} <br/>
+                                                {{formatPreShow(item.tenCuaHang)}} <br/>
                                             </ng-template>
                                         </ng-select>
                                     </div>
@@ -96,80 +68,59 @@
                             <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                 <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                 </th>
+                                <th class="medium-width-table">Mã sản phẩm<span></span>
+                                </th>
                                 <th class="medium-width-table">Tên sản phẩm<span></span>
                                 </th>
-                                <th class="medium-width-table">Nhà cung cấp<span></span>
+                                <th class="medium-width-table">Khách hàng<span></span>
                                 </th>
                                 <th class="medium-width-table">Số lượng<span></span>
                                 </th>
-                                <th class="medium-width-table">Đơn giá<span></span>
+                                <th class="medium-width-table">Giá xuất niêm yết<span></span>
+                                </th>
+                                <th class="medium-width-table">Đơn giá xuất<span></span>
                                 </th>
                                 <th class="medium-width-table">Đơn vị<span></span>
-                                </th>
-                                <th class="medium-width-table">Người xuất<span></span>
                                 </th>
                                 <th class="medium-width-table">Tổng tiền<span></span>
                                 </th>
                                 <th class="medium-width-table">Ngày xuất<span></span>
-                                </th>
-                                <th class="medium-width-table action-width-four-icon custom-width"
-                                    jhiTranslate="userGroup.action" style="width: 7rem;">
                                 </th>
                             </tr>
                             </thead>
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.ma_danh_muc}}</td>
-                                <td>{{item.ten_danh_muc}}</td>
-                                <td>{{item.ten_nha_cung_cap}}</td>
-                                <td>{{item.don_vi_tinh}}</td>
-                                <td>{{item.nguoi_tao}}</td>
-                                <td>{{item.ngay_tao}}</td>
-                                <td>{{item.ngay_thay_doi}}</td>
-                                <td class="text-left four-icon medium-width-table">
-                                    <div class="group-action">
-                                        <button class="btn btn-light" placement="top"
-                                                (click)="openModal('add', item)"
-                                                ngbTooltip="{{'common.tooltip.action.copy' | translate}}"
-                                                onclick="this.blur();">
-                                            <i class="fa fa-copy icon-update" aria-hidden="true"></i>
-                                        </button>
-                                        <button class="btn btn-light" placement="top"
-                                                (click)="openModal('update', item)"
-                                                ngbTooltip="{{'common.tooltip.action.update' | translate}}"
-                                                onclick="this.blur();">
-                                            <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
-                                        </button>
-                                        <button class="btn btn-light" placement="top"
-                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
-                                                (click)="onDelete(item.id)"
-                                                onclick="this.blur();">
-                                            <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </td>
+                                <td>{{item.maSanPham}}</td>
+                                <td>{{item.tenSanPham}}</td>
+                                <td>{{item.tenKhachHang}}</td>
+                                <td>{{item.soLuongBan}}</td>
+                                <td>{{item.giaBanNiemYet}}</td>
+                                <td>{{item.giaBan}}</td>
+                                <td>{{item.donVi}}</td>
+                                <td>{{item.totalDoanhThu}}</td>
+                                <td>{{item.ngayXuat}}</td>
                             </tr>
                             </tbody>
                         </table>
                     </perfect-scrollbar>
                 </div>
-                <div class="row justify-content-start py-2 pl-1  table-footer no-data"
-                     *ngIf="!totalItems">
-                    <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
-                </div>
+<!--                <div class="row justify-content-start py-2 pl-1  table-footer no-data"-->
+<!--                     *ngIf="!totalItems">-->
+<!--                    <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>-->
+<!--                </div>-->
 
-                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
-                    <div class="row justify-content-center">
-                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
-                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
-                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
-                                        [boundaryLinks]="true"
-                                        (pageChange)="loadPage(page)">
-                        </ngb-pagination>
-                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
-                    </div>
-                </div>
+<!--                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">-->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>-->
+<!--                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"-->
+<!--                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"-->
+<!--                                        [boundaryLinks]="true"-->
+<!--                                        (pageChange)="loadPage(page)">-->
+<!--                        </ngb-pagination>-->
+<!--                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>

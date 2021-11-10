@@ -10,7 +10,6 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
-import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 import {ThemSuaSanPhamComponent} from "app/modules/qlkh-manager/danh-muc/san-pham/them-sua-san-pham/them-sua-san-pham.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
@@ -70,6 +69,7 @@ export class SanPhamComponent implements OnInit {
     ngOnInit(): void {
         this.onResize();
         this.buidForm();
+        this.loadAllDanhMuc();
     }
 
     private buidForm() {
@@ -77,8 +77,25 @@ export class SanPhamComponent implements OnInit {
             maSanPham: [null],
             tenSanPham: [null],
             idDanhMuc: [null],
-            trangThai: [null],
         });
+    }
+
+    loadAllDanhMuc() {
+        this.spinner.show();
+        this.thongTinChungApiService
+            .searchDanhMuc({})
+            .subscribe(
+                res => {
+                    this.spinner.hide();
+                    this.listTypeProduct = res.body.content
+                },
+                err => {
+                    this.spinner.hide();
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
+            );
     }
 
     onResize() {
@@ -151,7 +168,6 @@ export class SanPhamComponent implements OnInit {
                 maSanPham: this.form.value.maSanPham,
                 tenSanPham: this.form.value.tenSanPham,
                 idDanhMuc: this.form.value.idDanhMuc,
-                trangThai: this.form.value.trangThai,
                 page: this.page - 1,
                 size: this.itemsPerPage,
             })

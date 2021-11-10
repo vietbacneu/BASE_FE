@@ -17,242 +17,242 @@ import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chun
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
 
 @Component({
-    selector: 'jhi-nhap-hang',
-    templateUrl: './nhap-hang.component.html',
-    styleUrls: ['./nhap-hang.component.scss']
+  selector: 'jhi-nhap-hang',
+  templateUrl: './nhap-hang.component.html',
+  styleUrls: ['./nhap-hang.component.scss']
 })
 export class NhapHangComponent implements OnInit {
 
 
-    form: FormGroup;
-    height: number;
-    itemsPerPage: any;
-    maxSizePage: any;
-    routeData: any;
-    page: number;
-    totalItems: any;
-    previousPage: any;
-    predicate: any;
-    pageSize = 10;
-    total: number;
-    reverse: any;
-    items = 12;
-    listData: any;
-    listNhaCungCap: any;
-    listCuaHang: any;
+  form: FormGroup;
+  height: number;
+  itemsPerPage: any;
+  maxSizePage: any;
+  routeData: any;
+  page: number;
+  totalItems: any;
+  previousPage: any;
+  predicate: any;
+  pageSize = 10;
+  total: number;
+  reverse: any;
+  items = 12;
+  listData: any;
+  listNhaCungCap: any;
+  listCuaHang: any;
 
-    constructor(
-        public translateService: TranslateService,
-        private heightService: HeightService,
-        private activatedRoute: ActivatedRoute,
-        private formBuilder: FormBuilder,
-        private spinner: NgxSpinnerService,
-        private eventManager: JhiEventManager,
-        private toastService: ToastService,
-        private modalService: NgbModal,
-        protected router: Router,
-        protected commonService: CommonService,
-        private shareDataFromProjectService: ShareDataFromProjectService,
-        private ThongTinApi: ThongTinChungApiService,
-        private nhapXuatApiService: NhapXuatApiService,
-    ) {
-        this.itemsPerPage = ITEMS_PER_PAGE;
-        this.maxSizePage = MAX_SIZE_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
-            if (data && data.pagingParams) {
-                this.page = data.pagingParams.page;
-                this.previousPage = data.pagingParams.page;
-                this.reverse = data.pagingParams.ascending;
-                this.predicate = data.pagingParams.predicate;
-            } else {
-                this.page = 1;
-            }
-        });
-    }
+  constructor(
+      public translateService: TranslateService,
+      private heightService: HeightService,
+      private activatedRoute: ActivatedRoute,
+      private formBuilder: FormBuilder,
+      private spinner: NgxSpinnerService,
+      private eventManager: JhiEventManager,
+      private toastService: ToastService,
+      private modalService: NgbModal,
+      protected router: Router,
+      protected commonService: CommonService,
+      private shareDataFromProjectService: ShareDataFromProjectService,
+      private ThongTinApi: ThongTinChungApiService,
+      private nhapXuatApiService: NhapXuatApiService,
+  ) {
+    this.itemsPerPage = ITEMS_PER_PAGE;
+    this.maxSizePage = MAX_SIZE_PAGE;
+    this.routeData = this.activatedRoute.data.subscribe(data => {
+      if (data && data.pagingParams) {
+        this.page = data.pagingParams.page;
+        this.previousPage = data.pagingParams.page;
+        this.reverse = data.pagingParams.ascending;
+        this.predicate = data.pagingParams.predicate;
+      } else {
+        this.page = 1;
+      }
+    });
+  }
 
-    ngOnInit(): void {
-        this.onResize();
-        this.buidForm();
-    }
+  ngOnInit(): void {
+    this.onResize();
+    this.buidForm();
+  }
 
-    private buidForm() {
-        this.form = this.formBuilder.group({
-            maDonHang: [null],
-            idCuaHang: [null],
-        });
-    }
+  private buidForm() {
+    this.form = this.formBuilder.group({
+      maDonHang: [null],
+      idCuaHang: [null],
+    });
+  }
 
-    onResize() {
-        this.height = this.heightService.onResizeWithoutFooter();
-    }
+  onResize() {
+    this.height = this.heightService.onResizeWithoutFooter();
+  }
 
-    setValueToField(item, data) {
-        this.form.get(item).setValue(data);
-    }
+  setValueToField(item, data) {
+    this.form.get(item).setValue(data);
+  }
 
-    getValueOfField(item) {
-        return this.form.get(item).value;
-    }
+  getValueOfField(item) {
+    return this.form.get(item).value;
+  }
 
-    loadAllCuaHang() {
-        this.ThongTinApi
-            .searchChiNhanh({})
-            .subscribe(
-                res => {
-                    this.listCuaHang = res.body.content
-                },
-                err => {
-                    this.spinner.hide();
-                    this.toastService.openErrorToast(
-                        this.translateService.instant("common.toastr.messages.error.load")
-                    );
-                }
-            );
-    }
-
-    trimSpace(element) {
-        const value = this.getValueOfField(element);
-        if (value) {
-            this.setValueToField(element, value.trim());
-        }
-    }
-
-    loadPage(page: number) {
-        if (page !== this.previousPage) {
-            this.previousPage = page;
-            this.loadAll()
-        }
-    }
-
-    changePageSize(size) {
-        this.itemsPerPage = size;
-        this.loadAll();
-    }
-
-    openModal(type?: string, selectedData?: any) {
-        const modalRef = this.modalService.open(ThemSuaNhapHangComponent, {
-            size: "lg",
-            backdrop: "static",
-            keyboard: false,
-            windowClass: "custom-modal"
-        });
-        modalRef.componentInstance.type = type;
-        modalRef.componentInstance.selectedData = selectedData;
-        modalRef.componentInstance.response.subscribe(value => {
-            if (value === true) {
-                this.loadAll();
-            }
-        });
-        modalRef.result.then(result => {
-        }).catch(() => {
-        });
-    }
-
-    onSearchData() {
-        this.loadAll()
-        // this.loadDepartment();
-    }
-
-    isFieldValid(field: string) {
-        return !this.form.get(field).valid && this.form.get(field).touched;
-    }
-
-    get formControl() {
-        return this.form.controls;
-    }
-
-    loadAll() {
-        this.spinner.show();
-        this.ThongTinApi
-            .searchNhapHang({
-                tenSanPham: this.form.value.tenSanPham,
-                idCuaHang: this.form.value.tenCuaHang,
-            })
-            .subscribe(
-                res => {
-                    this.spinner.hide();
-                    this.paginateListData(res.body);
-                },
-                err => {
-                    this.spinner.hide();
-                    this.toastService.openErrorToast(
-                        this.translateService.instant("common.toastr.messages.error.load")
-                    );
-                }
-            );
-    }
-
-
-    private paginateListData(data) {
-        this.totalItems = data.totalElements;
-        this.listData = data.content;
-        this.maxSizePage = data.totalPages;
-    }
-
-    sort() {
-        const result = [this.predicate + "," + (this.reverse ? "desc" : "asc")];
-        if (this.predicate !== "modifiedDate") {
-            result.push("modifiedDate");
-        }
-        return result;
-    }
-
-    formatPreShow(content: string) {
-        if (content.length > 60) return content.substring(0, 60) + "...";
-        else return content;
-    }
-
-    onDelete(id: any) {
-        const modalRef = this.modalService.open(ConfirmModalComponent, {
-            centered: true,
-            backdrop: "static"
-        });
-        modalRef.componentInstance.type = "delete";
-        modalRef.componentInstance.param = "bản ghi";
-        modalRef.componentInstance.onCloseModal.subscribe(value => {
-            if (value === true) {
-                this.onSubmitDelete(id);
-            }
-        });
-    }
-
-    onSubmitDelete(id: any = []) {
-        this.spinner.show();
-        this.nhapXuatApiService.deleteNhapHang({id: id}).subscribe(
+  loadAllCuaHang() {
+    this.ThongTinApi
+        .searchChiNhanh({})
+        .subscribe(
             res => {
-                this.shareDataFromProjectService.getDataFromList(null);
-                this.handleResponseSubmit(res);
-                this.loadAll();
+              this.listCuaHang = res.body.content
             },
             err => {
-                this.spinner.hide()
-                if (err.error) {
-                    this.toastService.openErrorToast(
-                        err.error.message,
-                    );
-                } else {
-                    this.toastService.openErrorToast(
-                        this.translateService.instant("common.toastr.messages.error.load")
-                    );
-                }
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
             }
         );
-    }
+  }
 
-    handleResponseSubmit(res) {
-        this.spinner.hide();
-        if (res) {
-            this.toastService.openSuccessToast(
-                this.translateService.instant("managementDepartmentUser.button.lock.success")
-            );
-            this.eventManager.broadcast({
-                name: "outSourcingChange"
-            });
-        } else {
-            this.toastService.openErrorToast(
-                this.translateService.instant("managementDepartmentUser.error.delete")
-            );
-        }
+  trimSpace(element) {
+    const value = this.getValueOfField(element);
+    if (value) {
+      this.setValueToField(element, value.trim());
     }
+  }
+
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.loadAll()
+    }
+  }
+
+  changePageSize(size) {
+    this.itemsPerPage = size;
+    this.loadAll();
+  }
+
+  openModal(type?: string, selectedData?: any) {
+    const modalRef = this.modalService.open(ThemSuaNhapHangComponent, {
+      size: "lg",
+      backdrop: "static",
+      keyboard: false,
+      windowClass: "custom-modal"
+    });
+    modalRef.componentInstance.type = type;
+    modalRef.componentInstance.selectedData = selectedData;
+    modalRef.componentInstance.response.subscribe(value => {
+      if (value === true) {
+        this.loadAll();
+      }
+    });
+    modalRef.result.then(result => {
+    }).catch(() => {
+    });
+  }
+
+  onSearchData() {
+    this.loadAll()
+    // this.loadDepartment();
+  }
+
+  isFieldValid(field: string) {
+    return !this.form.get(field).valid && this.form.get(field).touched;
+  }
+
+  get formControl() {
+    return this.form.controls;
+  }
+
+  loadAll() {
+    this.spinner.show();
+    this.ThongTinApi
+        .searchNhapHang({
+          tenSanPham: this.form.value.tenSanPham,
+          idCuaHang: this.form.value.tenCuaHang,
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              this.paginateListData(res.body);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
+
+
+  private paginateListData(data) {
+    this.totalItems = data.totalElements;
+    this.listData = data.content;
+    this.maxSizePage = data.totalPages;
+  }
+
+  sort() {
+    const result = [this.predicate + "," + (this.reverse ? "desc" : "asc")];
+    if (this.predicate !== "modifiedDate") {
+      result.push("modifiedDate");
+    }
+    return result;
+  }
+
+  formatPreShow(content: string) {
+    if (content.length > 60) return content.substring(0, 60) + "...";
+    else return content;
+  }
+
+  onDelete(id: any) {
+    const modalRef = this.modalService.open(ConfirmModalComponent, {
+      centered: true,
+      backdrop: "static"
+    });
+    modalRef.componentInstance.type = "delete";
+    modalRef.componentInstance.param = "bản ghi";
+    modalRef.componentInstance.onCloseModal.subscribe(value => {
+      if (value === true) {
+        this.onSubmitDelete(id);
+      }
+    });
+  }
+
+  onSubmitDelete(id: any = []) {
+    this.spinner.show();
+    this.nhapXuatApiService.deleteNhapHang({id: id}).subscribe(
+        res => {
+          this.shareDataFromProjectService.getDataFromList(null);
+          this.handleResponseSubmit(res);
+          this.loadAll();
+        },
+        err => {
+          this.spinner.hide()
+          if (err.error) {
+            this.toastService.openErrorToast(
+                err.error.message,
+            );
+          } else {
+            this.toastService.openErrorToast(
+                this.translateService.instant("common.toastr.messages.error.load")
+            );
+          }
+        }
+    );
+  }
+
+  handleResponseSubmit(res) {
+    this.spinner.hide();
+    if (res) {
+      this.toastService.openSuccessToast(
+          this.translateService.instant("managementDepartmentUser.button.lock.success")
+      );
+      this.eventManager.broadcast({
+        name: "outSourcingChange"
+      });
+    } else {
+      this.toastService.openErrorToast(
+          this.translateService.instant("managementDepartmentUser.error.delete")
+      );
+    }
+  }
 
 }
