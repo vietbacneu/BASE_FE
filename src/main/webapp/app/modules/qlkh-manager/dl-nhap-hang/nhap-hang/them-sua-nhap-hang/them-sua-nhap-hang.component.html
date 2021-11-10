@@ -55,6 +55,17 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Ngày nhập</label>
+                        <jhi-date-picker formControlName="ngayNhap"
+                                         [isDisabled]="type === 'detail'"
+                                         jhiAutoFocusField>
+                        </jhi-date-picker>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group row dropdown form-custom-select">
                         <label class="col-sm-3 custom-label-right">Nội dung</label>
                         <div class="col-sm-8 form-custom-select">

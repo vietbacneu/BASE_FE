@@ -39,6 +39,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
   items = 12;
   listData: any;
   listNhaCungCap: any;
+  listCuaHang: any;
 
   constructor(
       public translateService: TranslateService,
