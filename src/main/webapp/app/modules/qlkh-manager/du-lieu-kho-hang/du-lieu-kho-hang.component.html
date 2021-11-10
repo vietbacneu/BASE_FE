@@ -48,11 +48,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select">
+                                    <label class="col-sm-3 custom-label-right">Sản phẩm</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="text" class="form-control" formControlName="tenSanPham"
+                                               maxlength="200" (blur)="trimSpace('tenSanPham')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select">
                                     <label class="col-sm-3 custom-label-right">Ngày hết hạn</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <jhi-date-picker formControlName="ngayHetHan"
-                                                         jhiAutoFocusField>
-                                        </jhi-date-picker>
+                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayHetHan">
                                     </div>
                                 </div>
                             </div>

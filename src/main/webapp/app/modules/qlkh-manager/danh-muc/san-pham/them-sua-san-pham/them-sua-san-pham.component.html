@@ -29,15 +29,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group row"
-                         [ngClass]="{'has-error': isFieldValid('maSanPham')}">
+                         [ngClass]="{'has-error': isFieldValid('tenSanPham')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Tên sản phẩm</label>
-                        <input type="text" class="form-control" formControlName="maSanPham"
-                               (blur)="trimSpace('maSanPham')"
+                        <input type="text" class="form-control" formControlName="tenSanPham"
+                               (blur)="trimSpace('tenSanPham')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['maSanPham'].hasError('required')"
-                                            [displayError]="isFieldValid('maSanPham')"
+                        <jhi-error-messages *ngIf="formControl['tenSanPham'].hasError('required')"
+                                            [displayError]="isFieldValid('tenSanPham')"
                                             errorMsg="Tên sản phẩm không được để trống">
                         </jhi-error-messages>
                     </div>
@@ -64,41 +64,31 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('trangThai')}">
-                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Trạng thái</label>
-                        <ng-select [items]="listTypeProduct"
-                                   placeholder="Chọn trạng thái"
-                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                   searchable="false"
-                                   [readonly]="type === 'detail'"
-                                   bindLabel="name" bindValue="id" formControlName="trangThai">
-                        </ng-select>
-                        <jhi-error-messages *ngIf="formControl['trangThai'].hasError('required')"
-                                            [displayError]="isFieldValid('trangThai')"
-                                            errorMsg="Trạng thái không được để trống">
-                        </jhi-error-messages>
+                    <div class="form-group row">
+                        <label class="form-control-label">Giá nhập</label>
+                        <input type="text" class="form-control" formControlName="giaNhapNiemYet"
+                               (blur)="trimSpace('giaNhapNiemYet')"
+                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
+                               maxlength="15">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
-                        <label class="form-control-label">Giá nhập</label>
-                        <input type="text" class="form-control" formControlName="gia_nhap"
-                               (blur)="trimSpace('gia_nhap')"
+                        <label class="form-control-label">Giá bán</label>
+                        <input type="text" class="form-control" formControlName="giaBanNiemYet"
+                               (blur)="trimSpace('giaBanNiemYet')"
                                [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
                                maxlength="15">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group row">
-                        <label class="form-control-label">Giá bán</label>
-                        <input type="text" class="form-control" formControlName="gia_ban"
-                               (blur)="trimSpace('gia_ban')"
-                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
+                        <label class="form-control-label">Đơn vị</label>
+                        <input type="text" class="form-control" formControlName="donVi"
+                               (blur)="trimSpace('donVi')"
+                               [readOnly]="type == 'detail'"
                                maxlength="15">
                     </div>
                 </div>
@@ -108,7 +98,7 @@
                     <div class="form-group row">
                         <label class="form-control-label">Mô tả</label>
                         <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
-                                  formControlName="mo_ta" maxlength="1000" (blur)="trimSpace('mo_ta')"></textarea>
+                                  formControlName="moTa" maxlength="1000" (blur)="trimSpace('moTa')"></textarea>
                     </div>
                 </div>
             </div>

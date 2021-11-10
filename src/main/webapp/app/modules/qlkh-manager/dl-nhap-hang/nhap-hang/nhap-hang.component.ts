@@ -40,6 +40,7 @@ export class NhapHangComponent implements OnInit {
   listNhaCungCap: any;
   listCuaHang : any;
 
+
   constructor(
       public translateService: TranslateService,
       private heightService: HeightService,

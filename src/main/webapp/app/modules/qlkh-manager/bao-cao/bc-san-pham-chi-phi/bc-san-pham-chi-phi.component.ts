@@ -77,7 +77,8 @@ export class BcSanPhamChiPhiComponent implements OnInit {
     private buidForm() {
         this.form = this.formBuilder.group({
             maSanPham: [null],
-            cuaHang: [null],
+            tenSanPham: [null],
+            idCuaHang: [null],
         });
     }
 
@@ -156,8 +157,9 @@ export class BcSanPhamChiPhiComponent implements OnInit {
         this.spinner.show();
         this.ThongTinApi
             .exportSpChiPhi({
+                maSanPham: this.form.value.maSanPham,
                 tenSanPham: this.form.value.tenSanPham,
-                idCuaHang: this.form.value.tenCuaHang,
+                idCuaHang: this.form.value.idCuaHang,
             })
             .subscribe(
                 res => {
@@ -186,8 +188,9 @@ export class BcSanPhamChiPhiComponent implements OnInit {
         this.spinner.show();
         this.ThongTinApi
             .searchSpChiPhi({
+                maSanPham: this.form.value.maSanPham,
                 tenSanPham: this.form.value.tenSanPham,
-                idCuaHang: this.form.value.tenCuaHang,
+                idCuaHang: this.form.value.idCuaHang,
             })
             .subscribe(
                 res => {

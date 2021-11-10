@@ -78,7 +78,8 @@ export class BcSanPhamDanhThuComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       maSanPham: [null],
-      cuaHang: [null],
+      tenSanPham: [null],
+      idCuaHang: [null],
     });
   }
 
@@ -156,10 +157,12 @@ export class BcSanPhamDanhThuComponent implements OnInit {
 
   onExport() {
     this.spinner.show();
+    console.log(this.form.value)
     this.ThongTinApi
         .exportSpDoanhThu({
+          maSanPham: this.form.value.maSanPham,
           tenSanPham: this.form.value.tenSanPham,
-          idCuaHang: this.form.value.tenCuaHang,
+          idCuaHang: this.form.value.idCuaHang,
         })
         .subscribe(
             res => {
@@ -188,8 +191,9 @@ export class BcSanPhamDanhThuComponent implements OnInit {
     this.spinner.show();
     this.ThongTinApi
         .searchSpDoanhThu({
+          maSanPham: this.form.value.maSanPham,
           tenSanPham: this.form.value.tenSanPham,
-          idCuaHang: this.form.value.tenCuaHang ,
+          idCuaHang: this.form.value.idCuaHang,
         })
         .subscribe(
             res => {
