@@ -14,68 +14,78 @@
         <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group row dropdown form-custom-select">
-                        <label class="col-sm-3 custom-label-right">Mã đơn hàng</label>
+                    <div [ngClass]="{'has-error': isFieldValid('maDonHang')}"
+                         class="form-group row dropdown form-custom-select">
+                        <label class="col-sm-3 custom-label-right required">Mã đơn hàng</label>
                         <div class="col-sm-8 form-custom-select">
-                            <input type="text" class="form-control" formControlName="ma_don_hang"
-                                   maxlength="200" (blur)="trimSpace('ma_don_hang')">
+                            <input type="text" class="form-control" formControlName="maDonHang"
+                                   maxlength="200" (blur)="trimSpace('maDonHang')">
+                            <jhi-error-messages *ngIf="formControl['maDonHang'].hasError('required')"
+                                                [displayError]="isFieldValid('maDonHang')"
+                                                errorMsg="Mã đơn hàng không được để trống">
+                            </jhi-error-messages>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
-                    <div class="col-sm-8 form-custom-select">
-                        <ng-select [items]="listCuaHang"
-                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                   searchable="false"
-                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                            <ng-template ng-option-tmp let-item="item">
-                                {{formatPreShow(item.tenCuaHang)}} <br/>
-                            </ng-template>
-                        </ng-select>
+                    <div class="form-group" [ngClass]="{'has-error': isFieldValid('idCuaHang')}">
+                        <label class="col-sm-3 custom-label-right required">Tên cửa hàng</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <ng-select [items]="listCuaHang"
+                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                       notFoundText="{{'common.select.notFoundText' | translate}}"
+                                       searchable="false"
+                                       bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{formatPreShow(item.tenCuaHang)}} <br/>
+                                </ng-template>
+                            </ng-select>
+                            <jhi-error-messages *ngIf="formControl['idCuaHang'].hasError('required')"
+                                                [displayError]="isFieldValid('idCuaHang')"
+                                                errorMsg="Cửa hàng không được để trống">
+                            </jhi-error-messages>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label class="col-sm-3 custom-label-right">Khách hàng</label>
-                    <div class="col-sm-8 form-custom-select">
-                        <ng-select [items]="listNhaCungCap"
-                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                   searchable="false"
-                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                            <ng-template ng-option-tmp let-item="item">
-                                {{formatPreShow(item.tenCuaHang)}} <br/>
-                            </ng-template>
-                        </ng-select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">Ngày xuất</label>
-                            <jhi-date-picker formControlName="ngayNhap"
-                                             [isDisabled]="type === 'detail'"
-                                             jhiAutoFocusField>
-                            </jhi-date-picker>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group row dropdown form-custom-select">
-                        <label class="col-sm-3 custom-label-right">Nội dung</label>
+                    <div class="form-group" [ngClass]="{'has-error': isFieldValid('idKhachHang')}">
+                        <label class="col-sm-3 custom-label-right required">Khách hàng</label>
                         <div class="col-sm-8 form-custom-select">
-                            <input type="text" class="form-control" formControlName="mieu_ta"
-                                   maxlength="200" (blur)="trimSpace('mieu_ta')">
+                            <ng-select [items]="listKhachHang"
+                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                       notFoundText="{{'common.select.notFoundText' | translate}}"
+                                       searchable="false"
+                                       bindLabel="tenKhachHang" bindValue="id" formControlName="idKhachHang">
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{formatPreShow(item.tenKhachHang)}} <br/>
+                                </ng-template>
+                            </ng-select>
+                            <jhi-error-messages *ngIf="formControl['idKhachHang'].hasError('required')"
+                                                [displayError]="isFieldValid('idKhachHang')"
+                                                errorMsg="Khách hàng không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldValid('ngayXuat')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="col-sm-3 custom-label-right required">Ngày xuất</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayXuat">
+                            <jhi-error-messages *ngIf="formControl['ngayXuat'].hasError('required')"
+                                                [displayError]="isFieldValid('ngayXuat')"
+                                                errorMsg="Ngày xuất không được để trống">
+                            </jhi-error-messages>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
                 <button type="button" class="btn btn-primary" (click)="openModal('add')">
                     <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Xuất thêm</span>
                 </button>
@@ -91,6 +101,8 @@
                         </th>
                         <th class="medium-width-table"><span>Sản phẩm</span>
                         </th>
+                        <th class="medium-width-table"><span>Số lượng</span>
+                        </th>
                         <th class="medium-width-table"><span>Đơn giá</span>
                         </th>
                         <th class="medium-width-table"><span>Tổng tiền</span>
@@ -104,15 +116,15 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody *ngFor="let item of listData; index as i">
+                    <tbody *ngFor="let item of listDonXuat; index as i">
                     <tr>
                         <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                        <td>{{item.san_pham}}</td>
-                        <td>{{item.so_luong}}</td>
-                        <td>{{item.don_gia}}</td>
-                        <td>{{item.tong_tien}}</td>
-                        <td>{{item.ngay_san_xuat}}</td>
-                        <td>{{item.ngay_het_han}}</td>
+                        <td>{{item.tenSanPham}}</td>
+                        <td>{{item.soLuong}}</td>
+                        <td>{{item.gia}}</td>
+                        <td>{{item.tongTien}}</td>
+                        <td>{{item.ngaySanXuat}}</td>
+                        <td>{{item.ngayHetHan}}</td>
                         <td class="text-left four-icon medium-width-table">
                             <div class="group-action">
                                 <button class="btn btn-light" placement="top"
@@ -123,7 +135,7 @@
                                 </button>
                                 <button class="btn btn-light" placement="top"
                                         ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
-                                        (click)="onDelete(item.id)"
+                                        (click)="onDelete(item)"
                                         onclick="this.blur();">
                                     <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
                                 </button>
@@ -134,22 +146,21 @@
                 </table>
             </perfect-scrollbar>
         </div>
-
-        <div class="row justify-content-start py-2 pl-1  table-footer no-data"
-             *ngIf="!totalItems">
-            <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
-        </div>
-
-        <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
-            <div class="row justify-content-center">
-                <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
-                <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
-                                [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
-                                [boundaryLinks]="true"
-                                (pageChange)="loadPage(page)">
-                </ngb-pagination>
-                <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
-            </div>
+        <div class="d-flex justify-content-center" style="margin-bottom: 2%;margin-top: 2%;">
+            <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-primary"
+                    (click)="onSubmit()">
+                <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                    jhiTranslate="{{'common.button.confirm.save'}}"></span>
+            </button>
+            <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
+                    (click)="onCancel()">
+                <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                    jhiTranslate="{{'common.button.confirm.cancel'}}"></span>
+            </button>
+            <button *ngIf="type === 'detail'" type="button" class="btn btn-light" (click)="onCancel()">
+                <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                    jhiTranslate="{{'common.button.confirm.close'}}"></span>
+            </button>
         </div>
     </div>
 </div>

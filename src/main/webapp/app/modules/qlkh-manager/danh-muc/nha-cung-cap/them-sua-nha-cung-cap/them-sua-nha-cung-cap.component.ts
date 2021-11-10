@@ -134,12 +134,7 @@ export class ThemSuaNhaCungCapComponent implements OnInit {
             this.spinner.hide();
 
             this.toastService.openSuccessToast(
-                this.translateService.instant(
-                    "Thành công"
-                ),
-                this.translateService.instant(
-                    "Thêm mới thành công"
-                )
+               "Thêm mới thành công"
             );
             this.response.emit(true)
             if (typeSubmit && typeSubmit === 'addAndClose') {
@@ -162,12 +157,7 @@ export class ThemSuaNhaCungCapComponent implements OnInit {
           res => {
             this.spinner.hide();
             this.toastService.openSuccessToast(
-                this.translateService.instant(
-                    "serviceManagement.update.success"
-                ),
-                this.translateService.instant(
-                    "Thêm mới thành công"
-                )
+                "Cập nhập thành công"
             );
             this.response.emit(true)
             this.onCloseModal();

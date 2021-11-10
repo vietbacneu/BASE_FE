@@ -136,9 +136,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
         modalRef.componentInstance.selectedData = selectedData;
         modalRef.componentInstance.response.subscribe(value => {
             if (type === 'update') {
-                console.log('vao day', this.listDonNhap)
                 this.listDonNhap = this.listDonNhap.filter(data => data.id !== value.id)
-                console.log('vao day2', this.listDonNhap)
                 this.listDonNhap.push(value)
             } else {
                 this.listDonNhap.push(value)
@@ -228,13 +226,11 @@ export class ThemSuaNhapHangComponent implements OnInit {
                 .createNhapHang(data).subscribe(
                 res => {
                     this.spinner.hide();
-                    if (200 <= res.body.code && res.body.code < 300) {
-                        this.toastService.openSuccessToast(
-                            "Cập nhập thành công"
-                        );
-                        this.response.emit(true)
-                        this.onCancel();
-                    }
+                    this.toastService.openSuccessToast(
+                        "Cập nhập thành công"
+                    );
+                    this.response.emit(true)
+                    this.onCancel();
                 },
                 error => {
                     this.toastService.openErrorToast(

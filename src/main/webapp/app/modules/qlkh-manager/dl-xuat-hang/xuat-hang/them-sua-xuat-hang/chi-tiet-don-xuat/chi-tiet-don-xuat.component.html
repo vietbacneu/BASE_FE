@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('id_san_pham')}">
+                         [ngClass]="{'has-error': isFieldValid('idSanPham')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Sản phẩm</label>
                         <ng-select [items]="listSanPham"
@@ -23,26 +23,26 @@
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
                                    [readonly]="type === 'detail'"
-                                   bindLabel="name" bindValue="id" formControlName="id_san_pham">
+                                   bindLabel="tenSanPham" bindValue="id" formControlName="idSanPham">
                         </ng-select>
-                        <jhi-error-messages *ngIf="formControl['id_san_pham'].hasError('required')"
-                                            [displayError]="isFieldValid('id_san_pham')"
+                        <jhi-error-messages *ngIf="formControl['idSanPham'].hasError('required')"
+                                            [displayError]="isFieldValid('idSanPham')"
                                             errorMsg="Sản phẩm không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('so_luong')}">
+                         [ngClass]="{'has-error': isFieldValid('soLuong')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Số lượng</label>
-                        <input type="text" class="form-control" formControlName="so_luong"
-                               (blur)="trimSpace('so_luong')"
+                        <input type="text" class="form-control" formControlName="soLuong"
+                               (blur)="trimSpace('soLuong')"
                                [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
                                (ngModelChange)="onChange()"
                                maxlength="5">
-                        <jhi-error-messages *ngIf="formControl['so_luong'].hasError('required')"
-                                            [displayError]="isFieldValid('so_luong')"
+                        <jhi-error-messages *ngIf="formControl['soLuong'].hasError('required')"
+                                            [displayError]="isFieldValid('soLuong')"
                                             errorMsg="Số lượng không được để trống">
                         </jhi-error-messages>
                     </div>
@@ -52,24 +52,24 @@
 
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('don_gia')}">
+                         [ngClass]="{'has-error': isFieldValid('gia')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Đơn giá</label>
-                        <input type="text" class="form-control" formControlName="don_gia"
-                               (blur)="trimSpace('don_gia')"
+                        <input type="text" class="form-control" formControlName="gia"
+                               (blur)="trimSpace('gia')"
                                (ngModelChange)="onChange()" (keypress)="numberOnly($event)"
                                [readOnly]="type == 'detail'"
                                maxlength="15">
-                        <jhi-error-messages *ngIf="formControl['don_gia'].hasError('required')"
-                                            [displayError]="isFieldValid('don_gia')"
+                        <jhi-error-messages *ngIf="formControl['gia'].hasError('required')"
+                                            [displayError]="isFieldValid('gia')"
                                             errorMsg="Đơn giá không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-control-label">Tổng tiền</label>
-                    <input type="text" class="form-control" formControlName="tong_tien"
-                           (blur)="trimSpace('tong_tien')"
+                    <input type="text" class="form-control" formControlName="tongTien"
+                           (blur)="trimSpace('tongTien')"
                            [readOnly]="true">
                 </div>
             </div>
@@ -77,42 +77,16 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-control-label">Ngày sản xuất</label>
-                        <jhi-date-picker formControlName="ngay_san_xuat"
-                                         [isDisabled]="type === 'detail'"
-                                         jhiAutoFocusField>
-                        </jhi-date-picker>
+                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngaySanXuat">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-control-label">Ngày hết hạn</label>
-                        <jhi-date-picker formControlName="ngay_het_han"
-                                         [isDisabled]="type === 'detail'"
-                                         jhiAutoFocusField>
-                        </jhi-date-picker>
+                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayHetHan">
                     </div>
                 </div>
             </div>
-            <!--            <div class="row">-->
-            <!--                <div class="col-md-6">-->
-            <!--                    <div class="form-group">-->
-            <!--                        <label class="form-control-label" >Ngày sản xuất</label>-->
-            <!--                        <jhi-date-picker formControlName="ngay_san_xuat"-->
-            <!--                                         [isDisabled]="type === 'detail'"-->
-            <!--                                         jhiAutoFocusField>-->
-            <!--                        </jhi-date-picker>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-md-6">-->
-            <!--                    <div class="form-group">-->
-            <!--                        <label class="form-control-label" >Ngày hết hạn</label>-->
-            <!--                        <jhi-date-picker formControlName="ngay_het_han"-->
-            <!--                                               [isDisabled]="type === 'detail'"-->
-            <!--                                               jhiAutoFocusField>-->
-            <!--                        </jhi-date-picker>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </div>
     </form>
     <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
@@ -120,10 +94,6 @@
                 (click)="onSubmit()">
             <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
                 jhiTranslate="{{'common.button.confirm.save'}}"></span>
-        </button>
-        <button *ngIf="type === 'add'" type="submit" class="btn btn-primary"
-                (click)="onSubmit('addAndClose')">
-            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span>Ghi lại và đóng</span>
         </button>
         <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
                 (click)="onCancel()">

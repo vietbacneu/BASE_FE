@@ -14,6 +14,7 @@ import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nh
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 import {ThemSuaXuatHangComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/them-sua-xuat-hang/them-sua-xuat-hang.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
+import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
 
 @Component({
   selector: 'jhi-xuat-hang',
@@ -53,7 +54,8 @@ export class XuatHangComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       private shareDataFromProjectService: ShareDataFromProjectService,
-      private ThongTinApi: ThongTinChungApiService,
+      private thongTinChungApiService: ThongTinChungApiService,
+      private nhapXuatApiService: NhapXuatApiService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -72,6 +74,7 @@ export class XuatHangComponent implements OnInit {
   ngOnInit(): void {
     this.onResize();
     this.buidForm();
+    this.loadCuaHang();
   }
 
   private buidForm() {
@@ -81,15 +84,14 @@ export class XuatHangComponent implements OnInit {
     });
   }
 
-  loadAllCuaHang() {
-    this.ThongTinApi
+  loadCuaHang() {
+    this.thongTinChungApiService
         .searchChiNhanh({})
         .subscribe(
             res => {
               this.listCuaHang = res.body.content
             },
             err => {
-              this.spinner.hide();
               this.toastService.openErrorToast(
                   this.translateService.instant("common.toastr.messages.error.load")
               );
@@ -161,7 +163,7 @@ export class XuatHangComponent implements OnInit {
 
   loadAll() {
     this.spinner.show();
-    this.ThongTinApi
+    this.thongTinChungApiService
         .searchXuatHang({
           tenSanPham: this.form.value.tenSanPham,
           idCuaHang: this.form.value.tenCuaHang ,
@@ -216,25 +218,25 @@ export class XuatHangComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    // this.departmentManagementService.deleteUserToDepartment({id: id}).subscribe(
-    //     res => {
-    //       this.shareDataFromProjectService.getDataFromList(null);
-    //       this.handleResponseSubmit(res);
-    //       this.loadAll();
-    //     },
-    //     err => {
-    //       this.spinner.hide()
-    //       if (err.status == STATUS_CODE.BAD_REQUEST) {
-    //         this.toastService.openErrorToast(
-    //             err.error,
-    //         );
-    //       } else {
-    //         this.toastService.openErrorToast(
-    //             this.translateService.instant("common.toastr.messages.error.load")
-    //         );
-    //       }
-    //     }
-    // );
+    this.nhapXuatApiService.deleteXuatHang({id: id}).subscribe(
+        res => {
+          this.shareDataFromProjectService.getDataFromList(null);
+          this.handleResponseSubmit(res);
+          this.loadAll();
+        },
+        err => {
+          this.spinner.hide()
+          if (err.error) {
+            this.toastService.openErrorToast(
+                err.error.message,
+            );
+          } else {
+            this.toastService.openErrorToast(
+                this.translateService.instant("common.toastr.messages.error.load")
+            );
+          }
+        }
+    );
   }
 
   handleResponseSubmit(res) {

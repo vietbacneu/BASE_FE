@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
@@ -8,6 +8,9 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {CommonService} from "app/shared/services/common.service";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
+import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
+import {ToastService} from "app/shared/services/toast.service";
+import {data} from "jquery";
 
 @Component({
   selector: 'jhi-chi-tiet-don-xuat',
@@ -18,7 +21,8 @@ export class ChiTietDonXuatComponent implements OnInit {
 
   @Input() public selectedData;
   @Input() type;
-
+  @Input() idCuaHang;
+  @Output() response = new EventEmitter<any>();
   form: FormGroup;
   height: number;
   itemsPerPage: any;
@@ -43,6 +47,8 @@ export class ChiTietDonXuatComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       public activeModal: NgbActiveModal,
+      public thongTinApi: ThongTinChungApiService,
+      public toastService: ToastService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -61,18 +67,18 @@ export class ChiTietDonXuatComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm()
+    this.loadSanPham(this.idCuaHang)
   }
 
 
   buildForm() {
     this.form = this.formBuilder.group({
-      id_san_pham: [null, Validators.required],
-      nha_cung_cap: [null, Validators.required],
-      so_luong: [null, Validators.required],
-      don_gia: [null, Validators.required],
-      ngay_san_xuat: [''],
-      ngay_het_han: [''],
-      tong_tien: [0],
+      idSanPham: [null, Validators.required],
+      soLuong: [null, Validators.required],
+      gia: [null, Validators.required],
+      ngaySanXuat: [''],
+      ngayHetHan: [''],
+      tongTien: [0],
     });
     if (this.selectedData) {
       this.form.patchValue(this.selectedData);
@@ -115,83 +121,29 @@ export class ChiTietDonXuatComponent implements OnInit {
       this.commonService.validateAllFormFields(this.form);
       return;
     }
-    // this.spinner.show();
-    // const data = {
-    //   id: null,
-    //   reportType: this.form.value.reportValue,
-    //   objId: this.form.value.depId,
-    //   userName: this.form.value.name,
-    //   roleType: this.form.value.roleCode,
-    // };
-    // if (this.type === "add") {
-    //   this.departmentManagementService
-    //       .saveOrUpdate(data).subscribe(
-    //       res => {
-    //         this.spinner.hide();
-    //         if (200 <= res.body.code && res.body.code < 300) {
-    //           this.toastService.openSuccessToast(
-    //               this.translateService.instant(
-    //                   "Thành công"
-    //               ),
-    //               this.translateService.instant(
-    //                   "Thêm mới thành công"
-    //               )
-    //           );
-    //           this.response.emit(true)
-    //           if (typeSubmit && typeSubmit === 'addAndClose') {
-    //             this.onCloseModal();
-    //           }
-    //         }
-    //       },
-    //       error => {
-    //         if (error.status == STATUS_CODE.BAD_REQUEST) {
-    //           this.toastService.openErrorToast(
-    //               error.error,
-    //           );
-    //         } else {
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //         this.response.emit(false)
-    //         this.spinner.hide();
-    //       }
-    //   );
-    // }
-    // if (this.type === "update") {
-    //   if (this.selectedData !== undefined) data.id = this.selectedData.id;
-    //   this.departmentManagementService
-    //       .saveOrUpdate(data).subscribe(
-    //       res => {
-    //         this.spinner.hide();
-    //         if (200 <= res.body.code && res.body.code < 300) {
-    //           this.toastService.openSuccessToast(
-    //               this.translateService.instant(
-    //                   "serviceManagement.update.success"
-    //               ),
-    //               this.translateService.instant(
-    //                   "Thêm mới thành công"
-    //               )
-    //           );
-    //           this.response.emit(true)
-    //           this.onCloseModal();
-    //         }
-    //       },
-    //       error => {
-    //         if (error.status == STATUS_CODE.BAD_REQUEST) {
-    //           this.toastService.openErrorToast(
-    //               error.error,
-    //           );
-    //         } else {
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //         this.response.emit(false)
-    //         this.spinner.hide();
-    //       }
-    //   );
-    // }
+    this.spinner.show();
+    const sanPham = this.listSanPham.find((x: any) => x.id === this.form.value.idSanPham)
+    const data = {
+      id: null,
+      tenSanPham: sanPham.tenSanPham,
+      idSanPham: this.form.value.idSanPham,
+      soLuong: this.form.value.soLuong,
+      gia: this.form.value.gia,
+      ngaySanXuat: this.form.value.ngaySanXuat,
+      ngayHetHan: this.form.value.ngayHetHan,
+      tongTien: this.form.value.tongTien,
+    };
+    if (this.type === "add") {
+      this.spinner.hide();
+      this.response.emit(data)
+      this.onCloseModal();
+    }
+    if (this.type === "update") {
+      if (this.selectedData !== undefined) data.id = this.selectedData.id;
+      this.spinner.hide();
+      this.response.emit(data)
+      this.onCloseModal();
+    }
   }
 
   onCloseModal() {
@@ -215,15 +167,33 @@ export class ChiTietDonXuatComponent implements OnInit {
     return this.form.controls;
   }
   onChange(){
-    if (!this.form.value.so_luong){
-      this.setValueToField('tong_tien',  this.form.value.don_gia)
-    }else if(this.form.value.so_luong && this.form.value.don_gia){
-      const total = this.form.value.don_gia * this.form.value.so_luong
-      this.setValueToField('tong_tien',  total)
+    if (!this.form.value.soLuong){
+      this.setValueToField('tongTien',  this.form.value.gia)
+    }else if(this.form.value.soLuong && this.form.value.gia){
+      const total = this.form.value.gia * this.form.value.soLuong
+      this.setValueToField('tongTien',  total)
     }
   }
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
+  }
+  loadSanPham(idCuaHang? : any) {
+    this.thongTinApi
+        .searchTonKho({
+          isTonKho: 1,
+          idCuaHang: idCuaHang,
+          ngayHetHan: new Date()
+        })
+        .subscribe(
+            res => {
+              this.listSanPham = res.body
+            },
+            err => {
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
 }
