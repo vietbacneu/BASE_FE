@@ -1,0 +1,129 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item">Báo cáo chi phí sản phẩm</li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div id="organizationCategories" class="page-content">
+        <div class="card mb-1">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+                        jhiTranslate="common.card.title.search"></span></a>
+            </div>
+            <div id="search" class="collapse show">
+                <div class="card-body">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Mã sản phẩm</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="text" class="form-control" formControlName="maSanPham"
+                                               maxlength="200" (blur)="trimSpace('maSanPham')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select">
+                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <ng-select [items]="listCuaHang"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.tenCuaHang)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-primary" (click)="onSearchData()">
+                                <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="onExport()">
+                                <i class="fa fa-file-export mr-2" aria-hidden="true"></i><span>Xuất Báo Cáo</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+                        jhiTranslate="projectManagement.result-search"></span></a>
+            </div>
+            <div id="dataTable" class="collapse show">
+                <div class="row">
+                    <perfect-scrollbar id="scrollbarTable" class="ps">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                </th>
+                                <th class="medium-width-table"><span>Mã sản phẩm</span>
+                                </th>
+                                <th class="medium-width-table"><span>Tên sản phẩm</span>
+                                </th>
+                                <th class="medium-width-table"><span>Danh mục</span>
+                                </th>
+                                <th class="medium-width-table"><span>Giá bán niêm yết</span>
+                                </th>
+                                <th class="medium-width-table"><span>Giá nhập niêm yết</span>
+                                </th>
+                                <th class="medium-width-table"><span>Số lượng xuất</span>
+                                </th>
+                                <th class="medium-width-table"><span>Giá xuất</span>
+                                </th>
+                                <th class="medium-width-table"><span>Thành tiền</span>
+                                </th>
+                                <th class="medium-width-table"><span>Cửa hàng</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of listData; index as i">
+                            <tr>
+                                <td class="text-center">{{i+1}}</td>
+                                <td>{{item.maSanPham}}</td>
+                                <td>{{item.maSanPham}}</td>
+                                <td>{{item.tenDanhMuc}}</td>
+                                <td>{{item.giaBanNiemYet}}</td>
+                                <td>{{item.giaNhapNiemYet}}</td>
+                                <td>{{item.soLuongBan}}</td>
+                                <td>{{item.giaBan}}</td>
+                                <td>{{item.totalDoanhThu}}</td>
+                                <td>{{item.tenCuaHang}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+<!--                <div class="row justify-content-start py-2 pl-1  table-footer no-data"-->
+<!--                     *ngIf="!totalItems">-->
+<!--                    <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>-->
+<!--                </div>-->
+
+                <!--                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">-->
+                <!--                    <div class="row justify-content-center">-->
+                <!--                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>-->
+                <!--                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"-->
+                <!--                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"-->
+                <!--                                        [boundaryLinks]="true"-->
+                <!--                                        (pageChange)="loadPage(page)">-->
+                <!--                        </ngb-pagination>-->
+                <!--                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>
