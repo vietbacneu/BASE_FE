@@ -89,7 +89,7 @@ export class ThongTinChungApiService {
 
     exportSpChiPhi(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThu', data, {
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportChiPhi', data, {
             params: option,
             observe: "response"
         });
@@ -97,7 +97,7 @@ export class ThongTinChungApiService {
 
     exportSpDoanhThu(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/sanPhams/exportChiPhi', data, {
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThu', data, {
             params: option,
             observe: "response"
         });
