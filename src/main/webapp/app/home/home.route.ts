@@ -6,6 +6,6 @@ export const HOME_ROUTE: Route = {
   path: "",
   component: HomeComponent,
   data: {
-    pageTitle: "common.appParam"
+    pageTitle: "common.appParamBH"
   }
 };

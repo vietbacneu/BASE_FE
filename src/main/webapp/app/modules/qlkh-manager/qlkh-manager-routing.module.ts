@@ -12,69 +12,75 @@ import {ChiNhanhCuaHangComponent} from "app/modules/qlkh-manager/danh-muc/chi-nh
 import {KhachHangComponent} from "app/modules/qlkh-manager/danh-muc/khach-hang/khach-hang.component";
 import {BcSanPhamChiPhiComponent} from "app/modules/qlkh-manager/bao-cao/bc-san-pham-chi-phi/bc-san-pham-chi-phi.component";
 import {BcSanPhamDanhThuComponent} from "app/modules/qlkh-manager/bao-cao/bc-san-pham-danh-thu/bc-san-pham-danh-thu.component";
+import {PhuongThucThanhToanComponent} from "app/modules/qlkh-manager/danh-muc/phuong-thuc-thanh-toan/phuong-thuc-thanh-toan.component";
 
 const routes: Routes = [
   {
     path: 'san-pham', component: SanPhamComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },
   {
     path: 'loai-hang', component: LoaiHangComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },
   {
     path: 'nha-cung-cap', component: NhaCungCapComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'nhap-hang', component: NhapHangComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'san-pham-da-nhap', component: SanPhamDaNhapComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'xuat-hang', component: XuatHangComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'san-pham-da-xuat', component: SanPhamDaXuatComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'du-lieu-kho-hang', component: DuLieuKhoHangComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'chi-nhanh-cua-hang', component: ChiNhanhCuaHangComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'khach-hang', component: KhachHangComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
     },{
     path: 'bc-san-pham-chi-phi', component: BcSanPhamChiPhiComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
     }
   },{
     path: 'bc-san-pham-doanh-thu', component: BcSanPhamDanhThuComponent,
     data: {
-      pageTitle: "common.appParam",
+      pageTitle: "common.appParamBH",
+    }
+  },{
+    path: 'phuong-thuc-thanh-toan', component: PhuongThucThanhToanComponent,
+    data: {
+      pageTitle: "common.appParamBH",
     }
   },
 ];

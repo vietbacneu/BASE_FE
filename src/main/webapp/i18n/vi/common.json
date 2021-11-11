@@ -1,5 +1,6 @@
 {
   "common": {
-    "appParam": "Quản lý kho hàng"
+    "appParam": "Quản lý kho hàng",
+    "appParamBH": "Quản lý bán hàng"
   }
 }
