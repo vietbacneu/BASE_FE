@@ -79,7 +79,7 @@ export class XuatHangComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      maDonHang: [null],
+      maXuatHang: [null],
       idCuaHang: [null],
     });
   }

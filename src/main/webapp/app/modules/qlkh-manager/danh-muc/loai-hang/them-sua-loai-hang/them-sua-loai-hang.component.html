@@ -45,18 +45,12 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('thongTin')}">
-                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Thông tin</label>
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Thông tin</label>
                         <input type="text" class="form-control" formControlName="thongTin"
                                (blur)="trimSpace('thongTin')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['donViTinh'].hasError('required')"
-                                            [displayError]="isFieldValid('thongTin')"
-                                            errorMsg="Đơn vị tính không được để trống">
-                        </jhi-error-messages>
                     </div>
                 </div>
             </div>
