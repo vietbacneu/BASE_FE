@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
@@ -12,6 +12,7 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/them-sua-nhap-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 
 @Component({
   selector: 'jhi-san-pham-da-xuat',
@@ -19,7 +20,6 @@ import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm
   styleUrls: ['./san-pham-da-xuat.component.scss']
 })
 export class SanPhamDaXuatComponent implements OnInit {
-
 
 
   form: FormGroup;
@@ -39,6 +39,7 @@ export class SanPhamDaXuatComponent implements OnInit {
   listNhaCungCap: any;
   listStatus: any;
   listSanPham: any;
+  listCuaHang: any;
 
   constructor(
       public translateService: TranslateService,
@@ -52,6 +53,7 @@ export class SanPhamDaXuatComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       private shareDataFromProjectService: ShareDataFromProjectService,
+      private ThongTinApi: ThongTinChungApiService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -61,7 +63,7 @@ export class SanPhamDaXuatComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
-      }else {
+      } else {
         this.page = 1;
       }
     });
@@ -70,13 +72,13 @@ export class SanPhamDaXuatComponent implements OnInit {
   ngOnInit(): void {
     this.onResize();
     this.buidForm();
+    this.loadAllCuaHang();
   }
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      san_pham: [null],
-      nha_cung_cap: [null],
-      status: [null],
+      tenSanPham: [null],
+      idCuaHang: [null],
     });
   }
 
@@ -130,6 +132,22 @@ export class SanPhamDaXuatComponent implements OnInit {
     });
   }
 
+  loadAllCuaHang() {
+    this.ThongTinApi
+        .searchChiNhanh({})
+        .subscribe(
+            res => {
+              this.listCuaHang = res.body.content
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
+
   onSearchData() {
     this.loadAll()
     // this.loadDepartment();
@@ -144,28 +162,22 @@ export class SanPhamDaXuatComponent implements OnInit {
   }
 
   loadAll() {
-    // this.spinner.show();
-    // this.departmentManagementService
-    //     .search({
-    //       isCount:  1,
-    //       ten_loai_hang: this.form.value.ten_loai_hang,
-    //       nha_cung_cap: this.form.value.nha_cung_cap ,
-    //       page: this.page - 1,
-    //       size: this.itemsPerPage,
-    //     })
-    //     .subscribe(
-    //         res => {
-    //           this.spinner.hide();
-    //           this.paginateListData(res.body);
-    //         },
-    //         err => {
-    //           this.spinner.hide();
-    //           this.userList = []
-    //           this.toastService.openErrorToast(
-    //               this.translateService.instant("common.toastr.messages.error.load")
-    //           );
-    //         }
-    //     );
+    this.ThongTinApi
+        .sanPhamXuat({
+          tenSanPham: this.form.value.tenSanPham,
+          idCuaHang: this.form.value.idCuaHang,
+        })
+        .subscribe(
+            res => {
+              this.listData = res.body
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
 
 
@@ -193,8 +205,10 @@ export class SanPhamDaXuatComponent implements OnInit {
       centered: true,
       backdrop: "static"
     });
-    modalRef.componentInstance.type = "delete";
-    modalRef.componentInstance.param = "bản ghi";
+    modalRef.componentInstance.type = "deactivate";
+    modalRef.componentInstance.param = this.translateService.instant(
+        "managementDepartmentUser.confirmLock"
+    );
     modalRef.componentInstance.onCloseModal.subscribe(value => {
       if (value === true) {
         this.onSubmitDelete(id);

@@ -21,21 +21,19 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right"
-                                           jhiTranslate="loaiHang.name"></label>
+                                    <label class="col-sm-3 custom-label-right"> Mã danh Mục</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="tenDanhMuc"
-                                               maxlength="200" (blur)="trimSpace('tenDanhMuc')">
+                                        <input type="text" class="form-control" formControlName="maDanhMuc"
+                                               maxlength="200" (blur)="trimSpace('maDanhMuc')">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right"
-                                           jhiTranslate="loaiHang.name"></label>
+                                    <label class="col-sm-3 custom-label-right"> Tên danh mục</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="maDanhMuc"
-                                               maxlength="200" (blur)="trimSpace('maDanhMuc')">
+                                        <input type="text" class="form-control" formControlName="tenDanhMuc"
+                                               maxlength="200" (blur)="trimSpace('tenDanhMuc')">
                                     </div>
                                 </div>
                             </div>
@@ -72,17 +70,7 @@
                                     <th class="medium-width-table"><span
                                             jhiTranslate="loaiHang.name"></span>
                                     </th>
-                                    <th class="medium-width-table"><span
-                                            jhiTranslate="loaiHang.unit"></span>
-                                    </th>
-                                    <th class="medium-width-table"><span
-                                            jhiTranslate="loaiHang.createdUser"></span>
-                                    </th>
-                                    <th class="medium-width-table"><span
-                                            jhiTranslate="loaiHang.createdDate"></span>
-                                    </th>
-                                    <th class="medium-width-table"><span
-                                            jhiTranslate="loaiHang.updateDate"></span>
+                                    <th class="medium-width-table"><span>Thông tin</span>
                                     </th>
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -94,10 +82,7 @@
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                     <td>{{item.maDanhMuc}}</td>
                                     <td>{{item.tenDanhMuc}}</td>
-                                    <td>{{item.donViTinh}}</td>
-                                    <td>{{item.nguoiTao}}</td>
-                                    <td>{{item.ngayTao}}</td>
-                                    <td>{{item.ngayThayDoi}}</td>
+                                    <td>{{item.thongTin}}</td>
                                     <td class="text-left four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"

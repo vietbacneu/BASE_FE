@@ -10,8 +10,6 @@ import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
-import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
-import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 import {ChiTietDonNhapComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/chi-tiet-don-nhap/chi-tiet-don-nhap.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
@@ -206,9 +204,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
                         "Thêm mới thành công",
                     );
                     this.response.emit(true)
-                    if (typeSubmit && typeSubmit === 'addAndClose') {
-                        this.onCancel();
-                    }
+                    this.onCancel();
                 },
                 error => {
 
