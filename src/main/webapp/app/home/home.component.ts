@@ -34,7 +34,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     private modalService: NgbModal
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.navigate(["/san-pham"]);
+  }
 
   ngAfterViewInit(): void {
     console.warn("SyPT", "home init");

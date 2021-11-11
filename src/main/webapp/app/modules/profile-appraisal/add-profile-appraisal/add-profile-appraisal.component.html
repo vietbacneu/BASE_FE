@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+    <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
       <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
     </button>
   </li>
@@ -305,7 +305,7 @@
                 <i class="fa fa-times mr-2" aria-hidden="true"></i><span
                 jhiTranslate="{{(type !== 'preview'? 'common.button.confirm.cancel' : 'common.button.close')}}">Hủy bỏ</span>
               </button>
-              <button *ngIf="type !== 'preview'" type="button" class="btn btn-primary ml-2"
+              <button *ngIf="type !== 'preview'" type="button" class="btn btn-danger ml-2"
                       (click)="onSubmit()">
                 <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
                 jhiTranslate="common.button.confirm.save">Ghi lại</span>

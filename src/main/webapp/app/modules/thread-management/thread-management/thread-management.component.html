@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <button routerLink="" class="btn btn-link btn-custom-bg"
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg"
                 ngbTooltip="{{'common.tooltip.thread-management' | translate}}">
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
@@ -39,7 +39,7 @@
                                 <td class="colSetting" align="center">
                                     <button class="btn btn-secondary" [routerLink]="['/thread-management/setting', item.threadId]"><i class="fa fa-cog"></i>Setting</button></td>
                                 <td class="colViewlogs" align="center">
-                                    <button class="btn btn-primary" [routerLink]="['/thread-management/viewLog', item.threadId]"><i class="fa fa-eye"></i>View logs</button>
+                                    <button class="btn btn-danger" [routerLink]="['/thread-management/viewLog', item.threadId]"><i class="fa fa-eye"></i>View logs</button>
                                 </td>
                             </tr>
                             </tbody>

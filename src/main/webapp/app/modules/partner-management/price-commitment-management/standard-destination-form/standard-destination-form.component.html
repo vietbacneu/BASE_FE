@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
@@ -196,7 +196,7 @@
                         <div hidden class="col-hidden"></div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary"
+                        <button class="btn btn-danger"
                                 (click)="addOutGoing()">{{'common.button.add' | translate}}</button>
                     </div>
                 </div>
@@ -337,7 +337,7 @@
                         <div hidden class="col-hidden"></div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary"
+                        <button class="btn btn-danger"
                                 (click)="addInComing()">{{'common.button.add' | translate}}</button>
                     </div>
                 </div>
@@ -423,9 +423,9 @@
     </div>
     <div class="form-footer text-center pb-5">
         <div>
-            <button class="btn btn-primary"
+            <button class="btn btn-danger"
                     routerLink="/partner-management/price-commitment-management">{{'entity.action.back' | translate}}</button>
-            <button class="btn btn-primary ml-1" (click)="onSave()">{{'entity.action.save' | translate}}</button>
+            <button class="btn btn-danger ml-1" (click)="onSave()">{{'entity.action.save' | translate}}</button>
         </div>
     </div>
 </perfect-scrollbar>

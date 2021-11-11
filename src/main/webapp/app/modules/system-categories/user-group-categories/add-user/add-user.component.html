@@ -122,7 +122,7 @@
     <i class="fa fa-times mr-2" aria-hidden="true"></i><span
     jhiTranslate="{{(type !== 'detail'? 'common.button.confirm.cancel' : 'common.button.close') }}">Hủy bỏ</span>
   </button>
-  <button *ngIf="type !== 'detail'" type="submit" class="btn btn-primary" [disabled]="hiddenSave"
+  <button *ngIf="type !== 'detail'" type="submit" class="btn btn-danger" [disabled]="hiddenSave"
           (click)="onSubmitData()">
     <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
     jhiTranslate="common.button.confirm.save">Ghi lại</span>

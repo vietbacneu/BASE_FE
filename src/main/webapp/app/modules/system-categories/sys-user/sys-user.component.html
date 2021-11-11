@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+    <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
       <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
     </button>
   </li>
@@ -80,7 +80,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-primary" (click)="onSearchData()">
+              <button type="button" class="btn btn-danger" (click)="onSearchData()">
                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span
                 jhiTranslate="common.button.search">Tìm kiếm</span>
               </button>
@@ -98,7 +98,7 @@
         <div class="card-body pt-2 pb-0 px-2">
 
           <div class="row d-flex justify-content-end pr-1">
-            <button type="button" class="btn btn-primary" *jhiHasPermission="['DMND_ADD']"
+            <button type="button" class="btn btn-danger" *jhiHasPermission="['DMND_ADD']"
                     (click)="openModalAddUser('add', null)">
               <i class="fa fa-plus mr-2" aria-hidden="true"></i><span jhiTranslate="common.button.add">Thêm mới</span>
             </button>

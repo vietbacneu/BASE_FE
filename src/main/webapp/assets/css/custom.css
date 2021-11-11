@@ -1,14 +1,18 @@
+.btn {
+    margin-left: 1% !important;
+}
+
 .card-header-toggle {
     background: #f3f5f7 !important;
     cursor: pointer;
 }
 
-/*.row [class*=col-]:not(:last-child) {*/
-/*    padding-right: 15px !important;*/
-/*}*/
+.row [class*=col-]:not(:last-child) {
+    /*padding-right: 15px !important;*/
+}
 
 .custom-title {
-    color: #0c69b5 !important;
+    color: #ee0033 !important;
     opacity: inherit;
     margin-left: 0.5rem;
     font-weight: 600;
@@ -19,45 +23,183 @@ perfect-scrollbar > .ps.ps--active-x.ps--active-y > .ps__rail-y {
     z-index: 9999;
 }
 
-perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
-    z-index: 9999;
+.sm-gutter .row {
+    margin-left: 0 !important;
 }
 
-.pinned-column {
-    position: sticky;
-    z-index: 999;
-    right: 0;
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    background: #c7c7c7bd !important;
 }
 
-.radio-message {
-    padding-left: 5px !important;
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon.left {
+    border-right: 1px solid #dbddde !important;
 }
 
-.modal-footer {
-    justify-content: center !important;
+.nav-tabs > li > a.active:hover, .nav-tabs > li > a.active:focus, .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover:focus {
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    color: #ee0033 !important;
+    background-color: #ffffff !important;
 }
 
-.icon-success {
-    color: #28a745;
+.nav-tabs .nav-link {
+    font-family: "Open+Sans", sans-serif !important;
+    background-color: #f5f5f5 !important;
+    color: #555 !important;
+    border-top-left-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
+    border: 1px solid #c0c6ce !important;
+    border-bottom: #f7f2f200 !important;
 }
 
-.error-mes {
-    font-size: 12px;
-    color: red;
+.nav-tabs {
+    border-bottom: 1px solid #c0c6ce !important;
 }
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    background-color: #fff !important;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid #c0c6ce !important
+}
+
+body.dashboard .page-container {
+    background: white !important;
+}
+
+.nav-tabs ~ .tab-content {
+    overflow: hidden;
+    padding: 0 !important;
+}
+
+.hideText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0;
+}
+
 .form-80-center {
     max-width: 80%;
     margin: 0 auto;
     display: block;
 }
-.form-90-center {
-    max-width: 90%;
-    margin: 0 auto;
-    display: block;
+
+.page-sidebar {
+    background-color: #ffffffe0 !important;
 }
-.breadcrumb a, .breadcrumb i, .breadcrumb span, .breadcrumb li {
+
+.header {
+    border-bottom: 1px solid #ee0033 !important;
+}
+
+.page-sidebar .sidebar-menu .menu-items > li ul.sub-menu {
+    background-color: #ffffffe0 !important;
+}
+
+.page-sidebar .sidebar-header {
+    background-color: #ffffffe0 !important;
+    border-bottom: 1px solid #ee0033 !important;
+}
+
+.page-sidebar a, .page-sidebar button {
     color: #000000 !important;
+}
+.menu-items a :hover {
+    color: #ee0033 !important;
+}
+.menu-items :hover > span {
+    color: #ee0033 !important;
+}
+.page-sidebar .sidebar-menu .menu-items {
+    border-right: 0.5px solid #c8c8c8 !important;
+}
+/*.menu-items li:hover {*/
+/*    color: red !important;*/
+/*}*/
+
+.table thead tr th, .table th label {
+    background-color: #e7e5e5 !important;
+}
+a:not([href]):not([tabindex]) {
+    color: #000000 !important;
+}
+
+.breadcrumb {
+    background-color: #ffffff !important;
+}
+.page-sidebar .sidebar-menu .menu-items > li > a > .title {
+    white-space: pre-wrap;
+    width: 80% !important;
+    font-size: 15px !important;
     font-weight: bold !important;
-    text-shadow: none;
-    text-transform: capitalize !important;
+    line-height: 25px !important;
+}
+.card .card-header a:not(.btn) {
+    color: #000000 !important;
+}
+.page-sidebar .sidebar-menu .menu-items > li ul.sub-menu > li > a {
+    line-height: 20px !important;
+}
+.page-sidebar .sidebar-menu .menu-items li:hover > .icon-thumbnail, .page-sidebar .sidebar-menu .menu-items li.open > .icon-thumbnail, .page-sidebar .sidebar-menu .menu-items li.active > .icon-thumbnail {
+    color: #788296 !important;
+}
+.modal .modal-header {
+    background: #ee0033 !important;
+}
+.page-link {
+    color: #ee0033 !important; ;
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff !important;
+    background-color: #ee0033  !important;
+    border-color: #ee0033  !important;
+}
+.table .group-action .fa.icon-config, .table .group-action .fa.icon-update, .table .group-action .fa.icon-menu, .table .group-action .fa.icon-info, .table .group-action .fa.icon-config {
+    color: #ee0033 !important;
+}
+.table .group-action .fa.fa-lock {
+    color: #ee0033;
+}
+.btn-link {
+    color: #ee0033 !important;
+    text-decoration: none !important;
+}
+.accordion > .card .card-header {
+    background-color: #b5b4b4 !important;
+    margin-bottom: -1px;
+}
+.accordion > .card .card-header > .btn-link {
+    color: #0f0f0f !important;
+    text-decoration: none !important;
+    font-size: 15px !important;
+    font-weight: bold !important
+}
+.accordion > .card {
+    overflow: inherit;
+    margin-bottom: 10px !important;
+}
+.accordion > .card-body {
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    padding-bottom: 1.25rem !important;
+    padding-top: 1.25rem !important;
+}
+.accordion > .btn-link {
+    color: black !important;
+    margin-left: 1% !important;
+    font-size: 15px !important;
+    font-weight: bold !important
+}
+.card-body {
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    padding: 0.5rem !important;
+}
+.page-sidebar .sidebar-menu .menu-items > li ul.sub-menu > li .icon-thumbnail {
+    background-color: #fefeff !important;
+}
+.card .card-header a:not(.btn) {
+    color: #161515 !important;
 }

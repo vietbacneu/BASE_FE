@@ -67,7 +67,7 @@
                     <div class="col-md-8"></div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button [disabled]="disable" style="width: 100px" type="button" class="btn btn-primary"
+                    <button [disabled]="disable" style="width: 100px" type="button" class="btn btn-danger"
                             (click)="save()">
                         <span> {{'entity.action.save' | translate}}</span>
                     </button>
@@ -81,7 +81,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" [formControl]="inputSearch">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" (click)="onSearch()">
+                        <button class="btn btn-danger" (click)="onSearch()">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </div>

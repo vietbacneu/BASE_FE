@@ -11,14 +11,14 @@
                     <div class="input-group">
                         <input type="text" class="form-control" [formControl]="keyword">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" (click)="findAllTrunkByPartner(currentPartner.id)"><i
+                            <button class="btn btn-danger" (click)="findAllTrunkByPartner(currentPartner.id)"><i
                                     class="fa fa-search" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-1" *ngIf="isSaving">
-                    <button type="submit" class="btn btn-primary" (click)="openTrunkForm(true)">
+                    <button type="submit" class="btn btn-danger" (click)="openTrunkForm(true)">
                         <span class="mr-2" jhiTranslate="{{'common.button.add'}}"></span>
                     </button>
                 </div>

@@ -24,6 +24,7 @@ import { ThemSuaChiNhanhComponent } from './danh-muc/chi-nhanh-cua-hang/them-sua
 import { ThemSuaKhachHangComponent } from './danh-muc/khach-hang/them-sua-khach-hang/them-sua-khach-hang.component';
 import { BcSanPhamDanhThuComponent } from './bao-cao/bc-san-pham-danh-thu/bc-san-pham-danh-thu.component';
 import { BcSanPhamChiPhiComponent } from './bao-cao/bc-san-pham-chi-phi/bc-san-pham-chi-phi.component';
+import { PhuongThucThanhToanComponent } from './danh-muc/phuong-thuc-thanh-toan/phuong-thuc-thanh-toan.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { BcSanPhamChiPhiComponent } from './bao-cao/bc-san-pham-chi-phi/bc-san-p
         ThemSuaKhachHangComponent,
         BcSanPhamDanhThuComponent,
         BcSanPhamChiPhiComponent,
+        PhuongThucThanhToanComponent,
     ],
     imports: [
         CommonModule,

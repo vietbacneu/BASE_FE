@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-primary" (click)="search()">
+                        <button type="button" class="btn btn-danger" (click)="search()">
                             <span> {{'common.button.search' | translate}}</span>
                         </button>
                     </div>
@@ -95,7 +95,7 @@
         <div id="dataTable" class="collapse show">
             <div class="card-body pt-2 pb-0 px-2">
                 <div class="row d-flex justify-content-end pr-1">
-                    <button type="button" class="btn btn-primary" (click)="navigateToInsert()">
+                    <button type="button" class="btn btn-danger" (click)="navigateToInsert()">
                         <i class="fa fa-plus mr-2" aria-hidden="true"></i>
                         <span>{{'common.button.add' | translate}}</span>
                     </button>

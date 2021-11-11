@@ -32,7 +32,7 @@
   <button type="button" class="btn btn-light" (click)="onCloseModal()">
     <i class="fa fa-times mr-2" aria-hidden="true"></i><span> Hủy bỏ </span>
   </button>
-  <button *ngIf="type === 'reject'" type="submit" class="btn btn-primary" (click)="onSubmit()">
+  <button *ngIf="type === 'reject'" type="submit" class="btn btn-danger" (click)="onSubmit()">
     <i class="fa fa-times mr-2" aria-hidden="true"></i><span
     jhiTranslate="{{'outsourcingPlan.button.reject'}}">Từ chối</span>
   </button>

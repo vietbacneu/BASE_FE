@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+    <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
       <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
     </button>
   </li>
@@ -218,7 +218,7 @@
             </div>
             <!-- change end -->
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-primary" (click)="onSearchContract()" [disabled]="buttonDisable">
+              <button type="button" class="btn btn-danger" (click)="onSearchContract()" [disabled]="buttonDisable">
                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span
               >Tìm kiếm</span>
               </button>
@@ -237,20 +237,20 @@
       <div id="dataTable" class="collapse show">
         <div class="card-body pt-2 pb-0 px-2">
           <div class="row d-flex justify-content-end pr-1">
-            <button type="button" class="btn btn-primary btn-view-column"
+            <button type="button" class="btn btn-danger btn-view-column"
                     *jhiHasPermission="['resource.qldt_qlhdtn_add']"
                     (click)="onViewOrUpdateData(null,'add')">
               <i class="fa fa-plus mr-2" aria-hidden="true"></i><span
             >Thêm mới</span>
             </button>
-            <button type="button" class="btn btn-primary ml-2" *jhiHasPermission="['resource.qldt_qlhdtn_import']"
+            <button type="button" class="btn btn-danger ml-2" *jhiHasPermission="['resource.qldt_qlhdtn_import']"
                     (click)="openModal('import')">
               <i class="fa fa-upload mr-2" aria-hidden="true"></i><span
             >Import excel</span>
             </button>
 
             <div ngbDropdown class="d-inline-block choose-column" ngbTooltip="">
-              <button type="button" id="dropdownBasic1" class="btn btn-primary btn-view-column ml-2"
+              <button type="button" id="dropdownBasic1" class="btn btn-danger btn-view-column ml-2"
                       placement="top" ngbDropdownToggle>
                 <i class="fa fa-list" aria-hidden="true"></i>
               </button>

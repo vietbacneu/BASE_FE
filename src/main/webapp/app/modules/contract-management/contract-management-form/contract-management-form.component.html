@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+    <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
       <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
     </button>
   </li>
@@ -494,7 +494,7 @@
       </div>
     </div>
     <!-- thêm mới đối tác tham gia-->
-    <button type="button" class="btn btn-primary btn-view-column ml-2 mb-3 mt-2" *ngIf="!hiddenView" title="Thêm mới"
+    <button type="button" class="btn btn-danger btn-view-column ml-2 mb-3 mt-2" *ngIf="!hiddenView" title="Thêm mới"
             (click)="onClickAddPartnerJoin()" style="width: 60px;" [disabled]="btnDisabled">
       <i class="fa fa-plus mr-2" aria-hidden="true"></i>
     </button>
@@ -951,7 +951,7 @@
       </div>
     </div>
     <!-- thêm mới -->
-    <button type="button" class="btn btn-primary btn-view-column ml-2 mb-3 mt-2" *ngIf="!hiddenView" title="Thêm mới"
+    <button type="button" class="btn btn-danger btn-view-column ml-2 mb-3 mt-2" *ngIf="!hiddenView" title="Thêm mới"
             (click)="onClickAddEffort()" style="width: 60px;" [disabled]="buttonDisabled">
       <i class="fa fa-plus mr-2" aria-hidden="true"></i>
     </button>
@@ -963,7 +963,7 @@
           <i class="fa fa-times mr-2" aria-hidden="true"></i><span
           jhiTranslate="{{'common.button.confirm.cancel'}}">Hủybỏ</span>
         </button>
-        <button type="button" class="btn btn-primary btn-view-column" (click)="onSave()" *ngIf="!hiddenView"
+        <button type="button" class="btn btn-danger btn-view-column" (click)="onSave()" *ngIf="!hiddenView"
                 [disabled]="buttonDisabled">
           <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
           jhiTranslate="{{'common.button.confirm.save'}}">Ghi lại</span>

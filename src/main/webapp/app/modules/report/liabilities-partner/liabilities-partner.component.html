@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
   <li class="breadcrumb-item">
-    <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+    <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
       <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
     </button>
   </li>
@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-primary mr-2" (click)="onSearch(false)">
+              <button type="button" class="btn btn-danger mr-2" (click)="onSearch(false)">
                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span
                 jhiTranslate="common.button.search">Tìm kiếm</span>
               </button>
@@ -83,12 +83,12 @@
       <div id="dataTable" class="collapse show">
         <div class="card-body pt-2 pb-0 px-2">
           <div class="row d-flex justify-content-end pr-1">
-            <button type="button" class="btn btn-primary  mr-2" (click)="onExport()">
+            <button type="button" class="btn btn-danger  mr-2" (click)="onExport()">
               <i class="fa fa-file-excel-o mr-2" aria-hidden="true"></i><span
               jhiTranslate="reportLiabilitiesPartner.export">Xuất Excel</span>
             </button>
             <div ngbDropdown class="d-inline-block choose-column" ngbTooltip="Cột hiển thị">
-              <button type="button" id="dropdownBasic1" class="btn btn-primary btn-view-column ml-2"
+              <button type="button" id="dropdownBasic1" class="btn btn-danger btn-view-column ml-2"
                       placement="top" ngbDropdownToggle>
                 <i class="fa fa-list" aria-hidden="true"></i>
               </button>

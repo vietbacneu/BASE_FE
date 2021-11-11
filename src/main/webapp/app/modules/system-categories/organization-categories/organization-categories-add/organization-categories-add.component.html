@@ -116,7 +116,7 @@
         jhiTranslate="{{(type !== 'detail'? 'common.button.confirm.cancel' :  'common.button.close') }}"> Hủy
       bỏ</span>
     </button>
-    <button *ngIf="type !== 'detail'" type="submit" class="btn btn-primary" (click)="onSubmitData()">
+    <button *ngIf="type !== 'detail'" type="submit" class="btn btn-danger" (click)="onSubmitData()">
         <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
         jhiTranslate="common.button.confirm.save">Ghi lại</span>
     </button>

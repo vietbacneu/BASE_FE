@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
@@ -58,11 +58,11 @@
                         </div>
 
                         <div class="d-flex justify-content-center">
-                            <button type="button" class="btn btn-primary" (click)="onSearchData()">
+                            <button type="button" class="btn btn-danger" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="onExport()">
-                                <i class="fa fa-file-export mr-2" aria-hidden="true"></i><span>Xuất Báo Cáo</span>
+                            <button type="button" class="btn btn-danger" (click)="onExport()">
+                                <i class="fa fa-file-excel-o mr-2" aria-hidden="true"></i><span>Xuất Báo Cáo</span>
                             </button>
                         </div>
                     </form>

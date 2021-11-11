@@ -58,7 +58,7 @@
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <button #buttonElement type="button" class="btn btn-primary" (click)="search(true)"><i class="fa fa-search mr-2"
+            <button #buttonElement type="button" class="btn btn-danger" (click)="search(true)"><i class="fa fa-search mr-2"
                                                                             aria-hidden="true"></i><span
                 jhiTranslate="common.button.search">Tìm kiếm</span>
             </button>
@@ -76,7 +76,7 @@
       <div class="card-body pt-2 pb-0 px-2">
         <div id="table" class="collapse show">
           <div class="row d-flex justify-content-end pr-1">
-            <button type="button" class="btn btn-primary mr-2" (click)="onExport()">
+            <button type="button" class="btn btn-danger mr-2" (click)="onExport()">
               <i class="fa fa-file-excel-o mr-2"
                  aria-hidden="true"></i>{{ 'common.button.export' | translate }}
             </button>

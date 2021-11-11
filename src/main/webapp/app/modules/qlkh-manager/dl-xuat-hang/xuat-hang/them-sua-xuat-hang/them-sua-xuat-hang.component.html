@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
-                <button type="button" class="btn btn-primary" (click)="openModal('add')">
+                <button type="button" class="btn btn-danger" (click)="openModal('add')">
                     <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Xuất thêm</span>
                 </button>
             </div>
@@ -147,7 +147,7 @@
             </perfect-scrollbar>
         </div>
         <div class="d-flex justify-content-center" style="margin-bottom: 2%;margin-top: 2%;">
-            <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-primary"
+            <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-danger"
                     (click)="onSubmit()">
                 <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
                     jhiTranslate="{{'common.button.confirm.save'}}"></span>

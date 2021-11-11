@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="button" class="btn btn-primary" (click)="onSearchData()">
+                            <button type="button" class="btn btn-danger" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
                             </button>
                         </div>
@@ -68,6 +68,9 @@
                             <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                 <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                 </th>
+<!--                                <th class="medium-width-table action-width-four-icon custom-width"-->
+<!--                                    jhiTranslate="userGroup.action" style="width: 7rem;">-->
+<!--                                </th>-->
                                 <th class="medium-width-table">Mã sản phẩm<span></span>
                                 </th>
                                 <th class="medium-width-table">Tên sản phẩm<span></span>
@@ -85,9 +88,6 @@
                                 <th class="medium-width-table">Tổng tiền<span></span>
                                 </th>
                                 <th class="medium-width-table">Ngày xuất<span></span>
-                                <th class="medium-width-table action-width-four-icon custom-width"
-                                    jhiTranslate="userGroup.action" style="width: 7rem;">
-                                </th>
                             </tr>
                             </thead>
                             <tbody *ngFor="let item of listData; index as i">

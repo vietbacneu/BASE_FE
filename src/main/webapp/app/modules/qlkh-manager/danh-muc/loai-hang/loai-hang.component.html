@@ -1,7 +1,7 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
@@ -41,10 +41,10 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="button" class="btn btn-primary" (click)="onSearchData()">
+                            <button type="button" class="btn btn-danger" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="openModal('add')">
+                            <button type="button" class="btn btn-danger" (click)="openModal('add')">
                                 <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Thêm mới</span>
                             </button>
                         </div>
@@ -66,6 +66,9 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
+                                    <th class="medium-width-table action-width-four-icon custom-width"
+                                        jhiTranslate="userGroup.action" style="width: 7rem;">
+                                    </th>
                                     <th class="medium-width-table"><span
                                             jhiTranslate="loaiHang.code"></span>
                                     </th>
@@ -84,27 +87,18 @@
                                     <th class="medium-width-table"><span
                                             jhiTranslate="loaiHang.updateDate"></span>
                                     </th>
-                                    <th class="medium-width-table action-width-four-icon custom-width"
-                                        jhiTranslate="userGroup.action" style="width: 7rem;">
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td>{{item.maDanhMuc}}</td>
-                                    <td>{{item.tenDanhMuc}}</td>
-                                    <td>{{item.donViTinh}}</td>
-                                    <td>{{item.nguoiTao}}</td>
-                                    <td>{{item.ngayTao}}</td>
-                                    <td>{{item.ngayThayDoi}}</td>
                                     <td class="text-left four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"
-                                                    (click)="openModal('add', item)"
-                                                    ngbTooltip="{{'common.tooltip.action.copy' | translate}}"
+                                                    (click)="openModal('detail', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.detail' | translate}}"
                                                     onclick="this.blur();">
-                                                <i class="fa fa-copy icon-update" aria-hidden="true"></i>
+                                                <i class="fa fa-info-circle icon-update" aria-hidden="true"></i>
                                             </button>
                                             <button class="btn btn-light" placement="top"
                                                     (click)="openModal('update', item)"
@@ -120,6 +114,12 @@
                                             </button>
                                         </div>
                                     </td>
+                                    <td>{{item.maDanhMuc}}</td>
+                                    <td>{{item.tenDanhMuc}}</td>
+                                    <td>{{item.donViTinh}}</td>
+                                    <td>{{item.nguoiTao}}</td>
+                                    <td>{{item.ngayTao}}</td>
+                                    <td>{{item.ngayThayDoi}}</td>
                                 </tr>
                                 </tbody>
                             </table>
