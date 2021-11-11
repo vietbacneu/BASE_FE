@@ -15,6 +15,7 @@ import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm
 import {ThemSuaXuatHangComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/them-sua-xuat-hang/them-sua-xuat-hang.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
+import {InDonXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/in-don-xuat/in-don-xuat.component";
 
 @Component({
   selector: 'jhi-xuat-hang',
@@ -131,6 +132,24 @@ export class XuatHangComponent implements OnInit {
 
   openModal(type?: string, selectedData?: any) {
     const modalRef = this.modalService.open(ThemSuaXuatHangComponent, {
+      size: "lg",
+      backdrop: "static",
+      keyboard: false,
+      windowClass: "custom-modal"
+    });
+    modalRef.componentInstance.type = type;
+    modalRef.componentInstance.selectedData = selectedData;
+    modalRef.componentInstance.response.subscribe(value => {
+      if (value === true) {
+        this.loadAll();
+      }
+    });
+    modalRef.result.then(result => {
+    }).catch(() => {
+    });
+  }
+  openModalPrint(type?: string, selectedData?: any) {
+    const modalRef = this.modalService.open(InDonXuatComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false,

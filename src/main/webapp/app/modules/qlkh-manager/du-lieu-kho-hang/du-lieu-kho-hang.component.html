@@ -1,7 +1,8 @@
 <jhi-spinner></jhi-spinner>
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg"
+                ngbTooltip="{{'common.tooltip.home' | translate}}">
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
@@ -59,7 +60,8 @@
                                 <div class="form-group row dropdown form-custom-select">
                                     <label class="col-sm-3 custom-label-right">Ngày hết hạn</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayHetHan">
+                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy"
+                                               formControlName="ngayHetHan">
                                     </div>
                                 </div>
                             </div>
@@ -82,66 +84,68 @@
                         jhiTranslate="projectManagement.result-search"></span></a>
             </div>
             <div id="dataTable" class="collapse show">
-                <div class="row">
-                    <perfect-scrollbar id="scrollbarTable" class="ps">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
-                                <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
-                                </th>
-                                <th class="medium-width-table"><span>Mã sản phẩm</span>
-                                </th>
-                                <th class="medium-width-table"><span>Tên sản phẩm</span>
-                                </th>
-                                <th class="medium-width-table"><span>Danh mục</span>
-                                </th>
-                                <th class="medium-width-table"><span>Giá bán niêm yết</span>
-                                </th>
-                                <th class="medium-width-table"><span>Giá nhập niêm yết</span>
-                                </th>
-                                <th class="medium-width-table"><span>Số lượng nhập</span>
-                                </th>
-                                <th class="medium-width-table"><span>Số lượng xuất</span>
-                                </th>
-                                <th class="medium-width-table"><span>Số lượng tồn</span>
-                                </th>
-                                <th class="medium-width-table"><span>Cửa hàng</span>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody *ngFor="let item of listData; index as i">
-                            <tr>
-                                <td class="text-center">{{i+1}}</td>
-                                <td>{{item.maSanPham}}</td>
-                                <td>{{item.tenSanPham}}</td>
-                                <td>{{item.tenDanhMuc}}</td>
-                                <td>{{item.giaBanNiemYet}}</td>
-                                <td>{{item.giaNhapNiemYet}}</td>
-                                <td>{{item.soLuongNhap}}</td>
-                                <td>{{item.soLuongBan}}</td>
-                                <td>{{item.soLuongTon}}</td>
-                                <td>{{item.tenCuaHang}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </perfect-scrollbar>
-                </div>
-<!--                <div class="row justify-content-start py-2 pl-1  table-footer no-data"-->
-<!--                     *ngIf="!totalItems">-->
-<!--                    <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>-->
-<!--                </div>-->
+                <div class="card-body pt-2 pb-0 px-2">
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                    <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                    </th>
+                                    <th class="medium-width-table"><span>Mã sản phẩm</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Tên sản phẩm</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Danh mục</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Giá bán niêm yết</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Giá nhập niêm yết</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Số lượng nhập</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Số lượng xuất</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Số lượng tồn</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Cửa hàng</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of listData; index as i">
+                                <tr>
+                                    <td class="text-center">{{i + 1}}</td>
+                                    <td>{{item.maSanPham}}</td>
+                                    <td>{{item.tenSanPham}}</td>
+                                    <td>{{item.tenDanhMuc}}</td>
+                                    <td>{{item.giaBanNiemYet}}</td>
+                                    <td>{{item.giaNhapNiemYet}}</td>
+                                    <td>{{item.soLuongNhap}}</td>
+                                    <td>{{item.soLuongBan}}</td>
+                                    <td>{{item.soLuongTon}}</td>
+                                    <td>{{item.tenCuaHang}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <!--                <div class="row justify-content-start py-2 pl-1  table-footer no-data"-->
+                    <!--                     *ngIf="!totalItems">-->
+                    <!--                    <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>-->
+                    <!--                </div>-->
 
-<!--                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">-->
-<!--                    <div class="row justify-content-center">-->
-<!--                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>-->
-<!--                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"-->
-<!--                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"-->
-<!--                                        [boundaryLinks]="true"-->
-<!--                                        (pageChange)="loadPage(page)">-->
-<!--                        </ngb-pagination>-->
-<!--                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>-->
-<!--                    </div>-->
-<!--                </div>-->
+                    <!--                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">-->
+                    <!--                    <div class="row justify-content-center">-->
+                    <!--                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>-->
+                    <!--                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"-->
+                    <!--                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"-->
+                    <!--                                        [boundaryLinks]="true"-->
+                    <!--                                        (pageChange)="loadPage(page)">-->
+                    <!--                        </ngb-pagination>-->
+                    <!--                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                </div>
             </div>
         </div>
     </div>

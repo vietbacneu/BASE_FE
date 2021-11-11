@@ -15,6 +15,8 @@ import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm
 import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/them-sua-nhap-hang.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
+import {InDonXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/in-don-xuat/in-don-xuat.component";
+import {InNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component";
 
 @Component({
     selector: 'jhi-nhap-hang',
@@ -254,5 +256,22 @@ export class NhapHangComponent implements OnInit {
             );
         }
     }
-
+    openModalPrint(type?: string, selectedData?: any) {
+        const modalRef = this.modalService.open(InNhapHangComponent, {
+            size: "lg",
+            backdrop: "static",
+            keyboard: false,
+            windowClass: "custom-modal"
+        });
+        modalRef.componentInstance.type = type;
+        modalRef.componentInstance.selectedData = selectedData;
+        modalRef.componentInstance.response.subscribe(value => {
+            if (value === true) {
+                this.loadAll();
+            }
+        });
+        modalRef.result.then(result => {
+        }).catch(() => {
+        });
+    }
 }

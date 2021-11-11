@@ -80,7 +80,6 @@ export class ThemSuaXuatHangComponent implements OnInit {
     this.buidForm();
     this.loadKhachHang();
     this.loadCuaHang();
-    console.log("diss",this.renderCbxCuaHang)
   }
 
   private buidForm() {

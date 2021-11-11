@@ -94,59 +94,63 @@
                 </button>
             </div>
         </form>
-        <div class="row">
-            <perfect-scrollbar id="scrollbarTable" class="ps">
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                    <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
-                        <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
-                        </th>
-                        <th class="medium-width-table"><span>Sản phẩm</span>
-                        </th>
-                        <th class="medium-width-table"><span>Số Lượng</span>
-                        </th>
-                        <th class="medium-width-table"><span>Đơn giá</span>
-                        </th>
-                        <th class="medium-width-table"><span>Ngày sản xuất</span>
-                        </th>
-                        <th class="medium-width-table"><span>Ngày hết hạn</span>
-                        </th>
-                        <th class="medium-width-table"><span>Tổng tiền</span>
-                        </th>
-                        <th class="medium-width-table action-width-four-icon custom-width"
-                            jhiTranslate="userGroup.action" style="width: 7rem;">
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody *ngFor="let item of listDonNhap; index as i">
-                    <tr>
-                        <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                        <td>{{item.tenSanPham}}</td>
-                        <td>{{item.soLuong}}</td>
-                        <td>{{item.gia}}</td>
-                        <td>{{item.ngaySanXuat}}</td>
-                        <td>{{item.ngayHetHan}}</td>
-                        <td>{{item.tongTien}}</td>
-                        <td class="text-left four-icon medium-width-table">
-                            <div class="group-action">
-                                <button class="btn btn-light" placement="top"
-                                        (click)="openModal('update', item)"
-                                        ngbTooltip="{{'common.tooltip.action.update' | translate}}"
-                                        onclick="this.blur();">
-                                    <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
-                                </button>
-                                <button class="btn btn-light" placement="top"
-                                        ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
-                                        (click)="onDelete(item)"
-                                        onclick="this.blur();">
-                                    <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </perfect-scrollbar>
+        <div id="dataTable" class="collapse show">
+            <div class="card-body pt-2 pb-0 px-2">
+                <div class="row">
+                    <perfect-scrollbar id="scrollbarTable" class="ps">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                </th>
+                                <th class="medium-width-table"><span>Sản phẩm</span>
+                                </th>
+                                <th class="medium-width-table"><span>Số Lượng</span>
+                                </th>
+                                <th class="medium-width-table"><span>Đơn giá</span>
+                                </th>
+                                <th class="medium-width-table"><span>Ngày sản xuất</span>
+                                </th>
+                                <th class="medium-width-table"><span>Ngày hết hạn</span>
+                                </th>
+                                <th class="medium-width-table"><span>Tổng tiền</span>
+                                </th>
+                                <th class="medium-width-table action-width-four-icon custom-width"
+                                    jhiTranslate="userGroup.action" style="width: 7rem;">
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of listDonNhap; index as i">
+                            <tr>
+                                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                <td>{{item.tenSanPham}}</td>
+                                <td>{{item.soLuong}}</td>
+                                <td>{{item.gia}}</td>
+                                <td>{{item.ngaySanXuat}}</td>
+                                <td>{{item.ngayHetHan}}</td>
+                                <td>{{item.tongTien}}</td>
+                                <td class="text-left four-icon medium-width-table">
+                                    <div class="group-action">
+                                        <button class="btn btn-light" placement="top"
+                                                (click)="openModal('update', item)"
+                                                ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                onclick="this.blur();">
+                                            <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-light" placement="top"
+                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                (click)="onDelete(item)"
+                                                onclick="this.blur();">
+                                            <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
         </div>
         <div class="d-flex justify-content-center" style="margin-bottom: 2%;margin-top: 2%;">
             <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-danger"

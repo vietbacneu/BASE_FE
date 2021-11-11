@@ -203,3 +203,7 @@ a:not([href]):not([tabindex]) {
 .card .card-header a:not(.btn) {
     color: #161515 !important;
 }
+.page-sidebar .sidebar-menu .menu-items > li > a {
+    font-size: 15px !important;
+    font-weight: bold !important;
+}

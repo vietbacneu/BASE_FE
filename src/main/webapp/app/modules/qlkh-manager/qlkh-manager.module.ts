@@ -26,6 +26,8 @@ import { BcSanPhamDanhThuComponent } from './bao-cao/bc-san-pham-danh-thu/bc-san
 import { BcSanPhamChiPhiComponent } from './bao-cao/bc-san-pham-chi-phi/bc-san-pham-chi-phi.component';
 import { PhuongThucThanhToanComponent } from './danh-muc/phuong-thuc-thanh-toan/phuong-thuc-thanh-toan.component';
 import { ThemSuaPhuongThucThanhToanComponent } from './danh-muc/phuong-thuc-thanh-toan/them-sua-phuong-thuc-thanh-toan/them-sua-phuong-thuc-thanh-toan.component';
+import { InDonXuatComponent } from './dl-xuat-hang/xuat-hang/in-don-xuat/in-don-xuat.component';
+import { InNhapHangComponent } from './dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { ThemSuaPhuongThucThanhToanComponent } from './danh-muc/phuong-thuc-than
         BcSanPhamChiPhiComponent,
         PhuongThucThanhToanComponent,
         ThemSuaPhuongThucThanhToanComponent,
+        InDonXuatComponent,
+        InNhapHangComponent,
     ],
     imports: [
         CommonModule,
@@ -69,6 +73,8 @@ import { ThemSuaPhuongThucThanhToanComponent } from './danh-muc/phuong-thuc-than
         ChiTietDonXuatComponent,
         ThemSuaChiNhanhComponent,
         ThemSuaKhachHangComponent,
+        InDonXuatComponent,
+        InNhapHangComponent,
     ]
 })
 export class QlkhManagerModule {
