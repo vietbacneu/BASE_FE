@@ -219,6 +219,7 @@ export class ChiTietDonXuatComponent implements OnInit {
     checkTon(event?: any) {
         if (event.soLuongTon) {
             this.slTon = event.soLuongTon;
+            console.log("tồn",this.slTon)
         }
     }
 }

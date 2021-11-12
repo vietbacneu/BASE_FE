@@ -26,7 +26,7 @@
                                    (change)="checkTon($event)"
                                    bindLabel="tenSanPham" bindValue="id" formControlName="idSanPham">
                             <ng-template ng-option-tmp let-item="item">
-                                {{formatPreShow(item.tenSanPham)}} - {{formatPreShow(item.soLuongTon)}} <br/>
+                                {{formatPreShow(item.tenSanPham)}} : {{formatPreShow(item.soLuongTon)}} <br/>
                             </ng-template>
                         </ng-select>
                         <jhi-error-messages *ngIf="formControl['idSanPham'].hasError('required')"

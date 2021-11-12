@@ -142,7 +142,7 @@ export class PhuongThucThanhToanComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.thongTinChungApiService
-        .searchNCC({
+        .searchPhuongThuc({
           isCount:  1,
           maPhuongThuc: this.form.value.maPhuongThuc,
           tenPhuongThuc: this.form.value.tenPhuongThuc ,

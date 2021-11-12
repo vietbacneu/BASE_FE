@@ -41,6 +41,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
     listNhaCungCap: any;
     listCuaHang: any;
     listDonNhap: any = [];
+    listPP: any = [];
 
     constructor(
         public translateService: TranslateService,
@@ -78,6 +79,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
         this.buidForm();
         this.loadCuaHang();
         this.loadNhaCungCap();
+        this.loadAllPP();
     }
 
     private buidForm() {
@@ -86,6 +88,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
             idCuaHang: [null, Validators.required],
             idNhaCungCap: [null, Validators.required],
             ngayNhap: [null, Validators.required],
+            idPhuongThuc: [null, Validators.required],
         });
         if (this.selectedData) {
             this.form.patchValue(this.selectedData)
@@ -180,6 +183,29 @@ export class ThemSuaNhapHangComponent implements OnInit {
         }
     }
 
+
+    loadAllPP() {
+        this.spinner.show();
+        this.thongTinChungApiService
+            .searchPhuongThuc({
+                maPhuongThuc: this.form.value.maPhuongThuc,
+                tenPhuongThuc: this.form.value.tenPhuongThuc ,
+            })
+            .subscribe(
+                res => {
+                    this.spinner.hide();
+                    this.listPP = res.body.content;
+                },
+                err => {
+                    this.spinner.hide();
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
+            );
+    }
+
+
     onSubmit(typeSubmit?: any) {
         if (this.form.invalid) {
             this.commonService.validateAllFormFields(this.form);
@@ -193,6 +219,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
             idCuaHang: this.form.value.idCuaHang,
             idNhaCungCap: this.form.value.idNhaCungCap,
             ngayNhap: this.form.value.ngayNhap,
+            idPhuongThuc: this.form.value.idPhuongThuc,
             nhapHangChiTietDTOList: this.listDonNhap,
         };
         if (this.type === "add") {

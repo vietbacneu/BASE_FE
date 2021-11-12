@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -43,6 +43,7 @@ export class InNhapHangComponent implements OnInit {
     listCuaHang: any;
     listDonNhap: any = [];
     renderCbxCuaHang = false;
+    sum = 0;
 
     constructor(
         public translateService: TranslateService,
@@ -91,6 +92,10 @@ export class InNhapHangComponent implements OnInit {
         if (this.selectedData) {
             this.form.patchValue(this.selectedData)
             this.listDonNhap = this.selectedData.nhapHangChiTietDTOList
+            this.listDonNhap.forEach(e => {
+                console.log(e.tongTien)
+                this.sum = this.sum + Number.parseInt(e.tongTien)
+            })
         }
     }
 
@@ -159,17 +164,18 @@ export class InNhapHangComponent implements OnInit {
     }
 
     onSubmit(cmpName?: any, reloadPage?: any) {
-        let printContents = document.getElementById(cmpName).innerHTML;
-        let originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
+        // let printContents = document.getElementById(cmpName).innerHTML;
+        // let originalContents = document.body.innerHTML;
+        // document.body.innerHTML = printContents;
 
         window.print();
-        document.body.innerHTML = originalContents;
-        setTimeout(() => {
-            document.body.innerHTML = ""
-            // document.body.innerHTML = document.getElementById(reloadPage).innerHTML
-            // this.onCancel('onPrint');
-        }, 500)
+        // document.body.innerHTML = originalContents;
+        // setTimeout(() => {
+        //     document.body.innerHTML = ""
+        //     // document.body.innerHTML = document.getElementById(reloadPage).innerHTML
+        //     // this.onCancel('onPrint');
+        // }, 10)
+        // document.body.innerHTML = originalContents;
     }
 
     loadCuaHang() {

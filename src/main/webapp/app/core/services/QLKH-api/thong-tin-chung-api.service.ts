@@ -30,6 +30,29 @@ export class ThongTinChungApiService {
         });
     }
 
+    searchPhuongThuc(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/phuongThucThanhToans/search', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    createPhuongThuc(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/phuongThucThanhToans', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
+    updatePhuongThuc(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.put(this.resourceUrl + '/api/phuongThucThanhToans/update', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
     searchTonKho(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.post(this.resourceUrl + '/api/sanPhams/searchTon', data, {
@@ -89,7 +112,7 @@ export class ThongTinChungApiService {
 
     exportSpChiPhi(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThu', data, {
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportChiPhi', data, {
             params: option,
             observe: "response"
         });
@@ -97,7 +120,7 @@ export class ThongTinChungApiService {
 
     exportSpDoanhThu(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/sanPhams/exportChiPhi', data, {
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThu', data, {
             params: option,
             observe: "response"
         });
