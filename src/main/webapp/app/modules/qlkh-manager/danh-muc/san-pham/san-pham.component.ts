@@ -211,9 +211,7 @@ export class SanPhamComponent implements OnInit {
             backdrop: "static"
         });
         modalRef.componentInstance.type = "delete";
-        modalRef.componentInstance.param = this.translateService.instant(
-            "managementDepartmentUser.confirmLock"
-        );
+        modalRef.componentInstance.param = "bản ghi";
         modalRef.componentInstance.onCloseModal.subscribe(value => {
             if (value === true) {
                 this.onSubmitDelete(id);
@@ -223,32 +221,26 @@ export class SanPhamComponent implements OnInit {
 
     onSubmitDelete(id: any = []) {
         this.spinner.show();
-        // this.departmentManagementService.deleteUserToDepartment({id: id}).subscribe(
-        //     res => {
-        //       this.shareDataFromProjectService.getDataFromList(null);
-        //       this.handleResponseSubmit(res);
-        //       this.loadAll();
-        //     },
-        //     err => {
-        //       this.spinner.hide()
-        //       if (err.status == STATUS_CODE.BAD_REQUEST) {
-        //         this.toastService.openErrorToast(
-        //             err.error,
-        //         );
-        //       } else {
-        //         this.toastService.openErrorToast(
-        //             this.translateService.instant("common.toastr.messages.error.load")
-        //         );
-        //       }
-        //     }
-        // );
+        this.thongTinChungApiService.deleteSanPham({id: id}).subscribe(
+            res => {
+                this.shareDataFromProjectService.getDataFromList(null);
+                this.handleResponseSubmit(res);
+                this.loadAll();
+            },
+            err => {
+                this.spinner.hide();
+                this.toastService.openErrorToast(
+                    this.translateService.instant("common.toastr.messages.error.load")
+                );
+            }
+        );
     }
 
     handleResponseSubmit(res) {
         this.spinner.hide();
         if (res) {
             this.toastService.openSuccessToast(
-                this.translateService.instant("managementDepartmentUser.button.lock.success")
+                "Xóa thành công"
             );
             this.eventManager.broadcast({
                 name: "outSourcingChange"

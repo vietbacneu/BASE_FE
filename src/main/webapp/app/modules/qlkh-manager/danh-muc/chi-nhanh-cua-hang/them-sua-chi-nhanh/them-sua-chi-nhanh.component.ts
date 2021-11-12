@@ -133,9 +133,7 @@ export class ThemSuaChiNhanhComponent implements OnInit {
                         "Thêm mới thành công"
                     );
                     this.response.emit(true)
-                    if (typeSubmit && typeSubmit === 'addAndClose') {
                         this.onCloseModal();
-                    }
                 },
                 error => {
                     this.toastService.openErrorToast(

@@ -95,12 +95,14 @@
                                 <td>{{item.maSanPham}}</td>
                                 <td>{{item.tenSanPham}}</td>
                                 <td>{{item.tenKhachHang}}</td>
-                                <td>{{item.soLuongBan}}</td>
-                                <td>{{item.giaBanNiemYet}}</td>
-                                <td>{{item.giaBan}}</td>
+                                <td style="text-align: right">{{item.soLuongBan | number}}</td>
+                                <td style="text-align: right">{{item.giaBanNiemYet | number}}</td>
+                                <td style="text-align: right">{{item.giaBan | number}}</td>
                                 <td>{{item.donVi}}</td>
-                                <td>{{item.totalDoanhThu}}</td>
-                                <td>{{item.ngayXuat}}</td>
+                                <td style="text-align: right">{{item.totalDoanhThu | number}}</td>
+                                <td  style="text-align: center">{{item.ngayXuat }}</td>
+
+
                             </tr>
                             </tbody>
                         </table>

@@ -1,9 +1,9 @@
 <div style="display: block;">
     <div class="custom-modal-big" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
-            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới dữ liệu nhập</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết dữ liệu nhập</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật dữ liệu nhập</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới hóa đơn nhập</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết hóa đơn nhập</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật hóa đơn nhập</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -88,12 +88,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group row"
+                    <div class="form-group"
                          [ngClass]="{'has-error': isFieldValid('idPhuongThuc')}">
-                        <label class="col-sm-3 custom-label-right required">Phương thức thanh toán</label>
+                        <label class="col-sm-3 custom-label-right required">Phương thức TT</label>
                         <div class="col-sm-8 form-custom-select">
                             <ng-select [items]="listPP"
                                        placeholder="{{this.translateService.instant('common.select.option.all')}}"
@@ -111,6 +110,8 @@
                             </jhi-error-messages>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-6">
                 </div>
             </div>
 
@@ -152,11 +153,11 @@
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                 <td>{{item.tenSanPham}}</td>
                                 <td>{{item.soLuong}}</td>
-                                <td>{{item.gia}}</td>
-                                <td>{{item.ngaySanXuat}}</td>
-                                <td>{{item.ngayHetHan}}</td>
-                                <td>{{item.tongTien}}</td>
-                                <td class="text-left four-icon medium-width-table">
+                                <td>{{item.gia | number}}</td>
+                                <td style="text-align: center">{{item.ngaySanXuat }}</td>
+                                <td style="text-align: center">{{item.ngayHetHan  }}</td>
+                                <td>{{item.tongTien | number}}</td>
+                                <td class="text-center four-icon medium-width-table">
                                     <div class="group-action">
                                         <button class="btn btn-light" placement="top"
                                                 (click)="openModal('update', item)"
@@ -184,10 +185,6 @@
                     (click)="onSubmit()">
                 <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
                     jhiTranslate="{{'common.button.confirm.save'}}"></span>
-            </button>
-            <button *ngIf="type === 'add'" type="submit" class="btn btn-danger"
-                    (click)="onSubmit('addAndClose')">
-                <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span>Ghi lại và đóng</span>
             </button>
             <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
                     (click)="onCancel()">

@@ -52,6 +52,13 @@ export class ThongTinChungApiService {
             observe: "response"
         });
     }
+    deletePhuongThuc(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.delete(this.resourceUrl + `/api/phuongThucThanhToans/${data.id}`, {
+            params: option,
+            observe: "response"
+        });
+    }
 
     searchTonKho(data?: any): Observable<any> {
         const option = createRequestOption(data);

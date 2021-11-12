@@ -2,7 +2,7 @@
     <div class="custom-modal-big" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
             <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới dữ liệu xuất</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết dữ liệu xuất</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Hóa đơn bán hàng</h5>
             <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật dữ liệu xuất</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
@@ -13,32 +13,50 @@
     <div class="card-body" id="print">
         <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
             <div class="row">
+                <h3 class="col-sm-12 text-center" style="font-weight: bold">HÓA ĐƠN BÁN HÀNG</h3>
+            </div>
+
+            <div class="row" style="margin-top: 2%">
                 <div class="col-md-6">
                     <div class="form-group row dropdown form-custom-select">
-                        <label class="col-sm-4 required">Mã đơn hàng</label>
-                        <div class="col-sm-7">
-                            <label>{{selectedData.maXuatHang}}</label>
+                        <label class="col-sm-4 required" style="font-weight: bold">Mã đơn hàng</label>
+                        <div class="col-sm-7" >
+                            <label style="font-weight: bold">{{selectedData.maXuatHang}}</label>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group" >
-                        <label class="col-sm-4">Tên cửa hàng</label>
-                        <label class="col-sm-7">{{selectedData.tenCuaHang}}</label>
+                    <div class="form-group">
+                        <label class="col-sm-4 " style="font-weight: bold">Tên cửa hàng</label>
+                        <label class="col-sm-7 " style="font-weight: bold">{{selectedData.tenCuaHang}}</label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group" >
-                        <label class="col-sm-4 ">Khách hàng</label>
-                        <label class="col-sm-7 ">{{selectedData.tenKhachHang}}</label>
+                    <div class="form-group">
+                        <label class="col-sm-4 "style="font-weight: bold">Khách hàng</label>
+                        <label class="col-sm-7 " style="font-weight: bold">{{selectedData.tenKhachHang}}</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-sm-4">Ngày xuất</label>
-                        <label class="col-sm-7">{{selectedData.ngayXuat}}</label>
+                        <label class="col-sm-4" style="font-weight: bold">Ngày xuất</label>
+                        <label class="col-sm-7" style="font-weight: bold">{{selectedData.ngayXuat}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 2%">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 " style="font-weight: bold">Phương thức thanh toán</label>
+                        <label class="col-sm-7 " style="font-weight: bold">{{selectedData.tenPhuongThuc}}</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4" style="font-weight: bold">Người tạo đơn</label>
+                        <label class="col-sm-7" style="font-weight: bold">{{selectedData.nguoiTao}}</label>
                     </div>
                 </div>
             </div>
@@ -71,10 +89,10 @@
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                 <td>{{item.tenSanPham}}</td>
                                 <td>{{item.soLuong}}</td>
-                                <td>{{item.gia}}</td>
-                                <td>{{item.tongTien}}</td>
-                                <td>{{item.ngaySanXuat}}</td>
-                                <td>{{item.ngayHetHan}}</td>
+                                <td style="text-align: right">{{item.gia | number}}</td>
+                                <td style="text-align: right">{{item.tongTien | number}}</td>
+                                <td style="text-align: center">{{item.ngaySanXuat }}</td>
+                                <td style="text-align: center">{{item.ngayHetHan }}</td>
                             </tr>
                             </tbody>
                         </table>

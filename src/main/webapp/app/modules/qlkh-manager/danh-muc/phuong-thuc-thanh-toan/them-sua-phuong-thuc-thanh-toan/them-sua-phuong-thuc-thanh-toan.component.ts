@@ -12,189 +12,187 @@ import {ToastService} from "app/shared/services/toast.service";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 
 @Component({
-  selector: 'jhi-them-sua-phuong-thuc-thanh-toan',
-  templateUrl: './them-sua-phuong-thuc-thanh-toan.component.html',
-  styleUrls: ['./them-sua-phuong-thuc-thanh-toan.component.scss']
+    selector: 'jhi-them-sua-phuong-thuc-thanh-toan',
+    templateUrl: './them-sua-phuong-thuc-thanh-toan.component.html',
+    styleUrls: ['./them-sua-phuong-thuc-thanh-toan.component.scss']
 })
 export class ThemSuaPhuongThucThanhToanComponent implements OnInit {
 
-  @Input() public selectedData;
-  @Input() type;
-  @Output() response = new EventEmitter<any>();
+    @Input() public selectedData;
+    @Input() type;
+    @Output() response = new EventEmitter<any>();
 
-  form: FormGroup;
-  height: number;
-  itemsPerPage: any;
-  maxSizePage: any;
-  routeData: any;
-  page: number;
-  totalItems: any;
-  previousPage: any;
-  predicate: any;
-  formValue;
-  reverse: any;
-  listNCC: any;
+    form: FormGroup;
+    height: number;
+    itemsPerPage: any;
+    maxSizePage: any;
+    routeData: any;
+    page: number;
+    totalItems: any;
+    previousPage: any;
+    predicate: any;
+    formValue;
+    reverse: any;
+    listNCC: any;
 
-  constructor(
-      public translateService: TranslateService,
-      private shareDataFromProjectService: ShareDataFromProjectService,
-      private heightService: HeightService,
-      private activatedRoute: ActivatedRoute,
-      private formBuilder: FormBuilder,
-      private spinner: NgxSpinnerService,
-      protected router: Router,
-      protected commonService: CommonService,
-      public activeModal: NgbActiveModal,
-      private ThongTinApi: ThongTinChungApiService,
-      private toastService: ToastService
-  ) {
-    this.itemsPerPage = ITEMS_PER_PAGE;
-    this.maxSizePage = MAX_SIZE_PAGE;
-    this.routeData = this.activatedRoute.data.subscribe(data => {
-      if (data && data.pagingParams) {
-        this.page = data.pagingParams.page;
-        this.previousPage = data.pagingParams.page;
-        this.reverse = data.pagingParams.ascending;
-        this.predicate = data.pagingParams.predicate;
-      } else {
-        this.page = 1;
-      }
-    });
-  }
-
-
-  ngOnInit(): void {
-    this.buildForm()
-  }
-
-
-  buildForm() {
-    this.form = this.formBuilder.group({
-      maCuaHang: [null, Validators.required],
-      tenCuaHang: [null, Validators.required],
-      diaChi: [null],
-    });
-    if (this.selectedData) {
-      this.form.patchValue(this.selectedData);
-    }
-  }
-
-  changePageSize(size) {
-    this.itemsPerPage = size;
-  }
-
-  trimSpace(element) {
-    const value = this.getValueOfField(element);
-    if (value) {
-      this.setValueToField(element, value.trim());
-    }
-  }
-
-  getValueOfField(item) {
-    return this.form.get(item).value;
-  }
-
-  setValueToField(item, data) {
-    this.form.get(item).setValue(data);
-  }
-
-  onCancel() {
-    this.form.reset();
-    this.activeModal.dismiss(true);
-  }
-
-  sort() {
-    const result = [this.predicate + "," + (this.reverse ? "asc" : "desc")];
-    if (this.predicate !== "sysUserId") {
-      result.push("sysUserId");
-    }
-    return result;
-  }
-
-  onSubmit(typeSubmit?: any) {
-    if (this.form.invalid) {
-      this.commonService.validateAllFormFields(this.form);
-      return;
-    }
-    this.spinner.show();
-    const data = {
-      id: null,
-      maPhuongThuc: this.form.value.maCuaHang,
-      tenPhuongThuc: this.form.value.tenCuaHang,
-      mieuTa: this.form.value.diaChi,
-    };
-    if (this.type === "add") {
-      this.ThongTinApi
-          .createPhuongThuc(data).subscribe(
-          res => {
-            this.spinner.hide();
-
-            this.toastService.openSuccessToast(
-                "Thêm mới thành công"
-            );
-            this.response.emit(true)
-            if (typeSubmit && typeSubmit === 'addAndClose') {
-              this.onCloseModal();
+    constructor(
+        public translateService: TranslateService,
+        private shareDataFromProjectService: ShareDataFromProjectService,
+        private heightService: HeightService,
+        private activatedRoute: ActivatedRoute,
+        private formBuilder: FormBuilder,
+        private spinner: NgxSpinnerService,
+        protected router: Router,
+        protected commonService: CommonService,
+        public activeModal: NgbActiveModal,
+        private ThongTinApi: ThongTinChungApiService,
+        private toastService: ToastService
+    ) {
+        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.maxSizePage = MAX_SIZE_PAGE;
+        this.routeData = this.activatedRoute.data.subscribe(data => {
+            if (data && data.pagingParams) {
+                this.page = data.pagingParams.page;
+                this.previousPage = data.pagingParams.page;
+                this.reverse = data.pagingParams.ascending;
+                this.predicate = data.pagingParams.predicate;
+            } else {
+                this.page = 1;
             }
-          },
-          error => {
-            this.toastService.openErrorToast(
-                this.translateService.instant("common.toastr.messages.error.load")
-            );
-            this.response.emit(false)
-            this.spinner.hide();
-          }
-      );
+        });
     }
-    if (this.type === "update") {
-      if (this.selectedData !== undefined) data.id = this.selectedData.id;
-      this.ThongTinApi
-          .updatePhuongThuc(data).subscribe(
-          res => {
-            this.spinner.hide();
-            this.toastService.openSuccessToast(
-                "Cập nhập thành công"
-            );
-            this.response.emit(true)
-            this.onCloseModal();
-          },
-          error => {
-            this.toastService.openErrorToast(
-                this.translateService.instant("common.toastr.messages.error.load")
-            );
-            this.response.emit(false)
-            this.spinner.hide();
-          }
-      );
+
+
+    ngOnInit(): void {
+        this.buildForm()
     }
-  }
 
-  onCloseModal() {
-    this.form.reset();
-    this.activeModal.dismiss(true);
-  }
 
-  onResize() {
-    this.height = this.heightService.onResizeWithoutFooter();
-  }
+    buildForm() {
+        this.form = this.formBuilder.group({
+            maPhuongThuc: [null, Validators.required],
+            tenPhuongThuc: [null, Validators.required],
+            mieuTa: [null],
 
-  formatPreShow(content
-                    :
-                    string
-  ) {
-    if (content.length > 60) return content.substring(0, 60) + "...";
-    else return content;
-  }
+        });
+        if (this.selectedData) {
+            this.form.patchValue(this.selectedData);
+        }
+    }
 
-  isFieldValid(field
-                   :
-                   string
-  ) {
-    return !this.form.get(field).valid && this.form.get(field).touched;
-  }
+    changePageSize(size) {
+        this.itemsPerPage = size;
+    }
 
-  get formControl() {
-    return this.form.controls;
-  }
+    trimSpace(element) {
+        const value = this.getValueOfField(element);
+        if (value) {
+            this.setValueToField(element, value.trim());
+        }
+    }
+
+    getValueOfField(item) {
+        return this.form.get(item).value;
+    }
+
+    setValueToField(item, data) {
+        this.form.get(item).setValue(data);
+    }
+
+    onCancel() {
+        this.form.reset();
+        this.activeModal.dismiss(true);
+    }
+
+    sort() {
+        const result = [this.predicate + "," + (this.reverse ? "asc" : "desc")];
+        if (this.predicate !== "sysUserId") {
+            result.push("sysUserId");
+        }
+        return result;
+    }
+
+    onSubmit() {
+        if (this.form.invalid) {
+            this.commonService.validateAllFormFields(this.form);
+            return;
+        }
+        this.spinner.show();
+        const data = {
+            id: null,
+            maPhuongThuc: this.form.value.maPhuongThuc,
+            tenPhuongThuc: this.form.value.tenPhuongThuc,
+            mieuTa: this.form.value.mieuTa,
+        };
+        if (this.type === "add") {
+            this.ThongTinApi
+                .createPhuongThuc(data).subscribe(
+                res => {
+                    this.spinner.hide();
+                    this.toastService.openSuccessToast(
+                        "Thêm mới thành công"
+                    );
+                    this.response.emit(true);
+                    this.onCloseModal();
+                },
+                error => {
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                    this.response.emit(false);
+                    this.spinner.hide();
+                }
+            );
+        }
+        if (this.type === "update") {
+            if (this.selectedData !== undefined) data.id = this.selectedData.id;
+            this.ThongTinApi
+                .updatePhuongThuc(data).subscribe(
+                res => {
+                    this.spinner.hide();
+                    this.toastService.openSuccessToast(
+                        "Cập nhập thành công"
+                    );
+                    this.response.emit(true);
+                    this.onCloseModal();
+                },
+                error => {
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                    this.response.emit(false);
+                    this.spinner.hide();
+                }
+            );
+        }
+    }
+
+    onCloseModal() {
+        this.form.reset();
+        this.activeModal.dismiss(true);
+    }
+
+    onResize() {
+        this.height = this.heightService.onResizeWithoutFooter();
+    }
+
+    formatPreShow(content
+                      :
+                      string
+    ) {
+        if (content.length > 60) return content.substring(0, 60) + "...";
+        else return content;
+    }
+
+    isFieldValid(field
+                     :
+                     string
+    ) {
+        return !this.form.get(field).valid && this.form.get(field).touched;
+    }
+
+    get formControl() {
+        return this.form.controls;
+    }
 
 }

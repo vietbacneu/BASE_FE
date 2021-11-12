@@ -82,6 +82,8 @@
                                     </th>
                                     <th class="medium-width-table"><span>Tên cửa hàng</span>
                                     </th>
+                                    <th class="medium-width-table"><span>Phương thức thanh toán</span>
+                                    </th>
                                     <th class="medium-width-table"><span>Ngày xuất</span>
                                     </th>
                                 </tr>
@@ -89,7 +91,7 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td class="text-left four-icon medium-width-table">
+                                    <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"
                                                     (click)="openModalPrint('detail', item)"
@@ -114,7 +116,8 @@
                                     <td>{{item.maXuatHang}}</td>
                                     <td>{{item.tenKhachHang}}</td>
                                     <td>{{item.tenCuaHang}}</td>
-                                    <td>{{item.ngayXuat}}</td>
+                                    <td>{{item.tenPhuongThuc}}</td>
+                                    <td style="text-align: center">{{item.ngayXuat }}</td>
                                 </tr>
                                 </tbody>
                             </table>

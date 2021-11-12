@@ -25,7 +25,7 @@
                                     <label class="col-sm-3 custom-label-right">Mã đơn hàng</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="maXuatHang"
-                                               maxlength="200" (blur)="trimSpace('ma_don_hang')">
+                                               maxlength="200" (blur)="trimSpace('maXuatHang')">
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td class="text-left four-icon medium-width-table">
+                                    <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"
                                                     (click)="openModalPrint('detail', item)"
@@ -114,7 +114,7 @@
                                     <td>{{item.maNhapHang}}</td>
                                     <td>{{item.tenNhaCungCap}}</td>
                                     <td>{{item.tenCuaHang}}</td>
-                                    <td>{{item.ngayNhap}}</td>
+                                    <td style="text-align: center">{{item.ngayNhap}}</td>
                                 </tr>
                                 </tbody>
                             </table>

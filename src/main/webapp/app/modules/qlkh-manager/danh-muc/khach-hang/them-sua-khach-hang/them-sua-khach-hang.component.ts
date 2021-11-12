@@ -137,16 +137,14 @@ export class ThemSuaKhachHangComponent implements OnInit {
             this.toastService.openSuccessToast(
                "Thêm mới thành công"
             );
-            this.response.emit(true)
-            if (typeSubmit && typeSubmit === 'addAndClose') {
+            this.response.emit(true);
               this.onCloseModal();
-            }
           },
           error => {
             this.toastService.openErrorToast(
                 this.translateService.instant("common.toastr.messages.error.load")
             );
-            this.response.emit(false)
+            this.response.emit(false);
             this.spinner.hide();
           }
       );
@@ -160,14 +158,14 @@ export class ThemSuaKhachHangComponent implements OnInit {
             this.toastService.openSuccessToast(
                 "Cập nhập thành công"
             );
-            this.response.emit(true)
+            this.response.emit(true);
             this.onCloseModal();
           },
           error => {
             this.toastService.openErrorToast(
                 this.translateService.instant("common.toastr.messages.error.load")
             );
-            this.response.emit(false)
+            this.response.emit(false);
             this.spinner.hide();
           }
       );

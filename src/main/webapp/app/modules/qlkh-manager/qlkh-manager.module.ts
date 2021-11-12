@@ -75,6 +75,7 @@ import { InNhapHangComponent } from './dl-nhap-hang/nhap-hang/in-nhap-hang/in-nh
         ThemSuaKhachHangComponent,
         InDonXuatComponent,
         InNhapHangComponent,
+        ThemSuaPhuongThucThanhToanComponent,
     ]
 })
 export class QlkhManagerModule {

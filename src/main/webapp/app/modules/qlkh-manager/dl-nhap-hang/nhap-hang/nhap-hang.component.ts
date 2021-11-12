@@ -10,12 +10,10 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
-import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/them-sua-nhap-hang.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
-import {InDonXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/in-don-xuat/in-don-xuat.component";
 import {InNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component";
 
 @Component({
@@ -245,7 +243,7 @@ export class NhapHangComponent implements OnInit {
         this.spinner.hide();
         if (res) {
             this.toastService.openSuccessToast(
-                this.translateService.instant("managementDepartmentUser.button.lock.success")
+                "Xóa thành công"
             );
             this.eventManager.broadcast({
                 name: "outSourcingChange"

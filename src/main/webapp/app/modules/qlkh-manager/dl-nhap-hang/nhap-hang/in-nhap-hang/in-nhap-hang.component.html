@@ -2,7 +2,7 @@
     <div class="custom-modal-big" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
             <label class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới dữ liệu nhập</label>
-            <label class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết dữ liệu nhập</label>
+            <label class="modal-title mt-0" *ngIf="type === 'detail'">Hóa đơn nhập hàng</label>
             <label class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật dữ liệu nhập</label>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
@@ -88,11 +88,11 @@
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                 <td>{{item.tenSanPham}}</td>
-                                <td>{{item.soLuong | number}}</td>
-                                <td>{{item.gia | number}}</td>
-                                <td>{{item.ngaySanXuat}}</td>
-                                <td>{{item.ngayHetHan}}</td>
-                                <td>{{item.tongTien | number}}</td>
+                                <td style="text-align: right">{{item.soLuong | number}}</td>
+                                <td style="text-align: right">{{item.gia | number}}</td>
+                                <td style="text-align: center">{{item.ngaySanXuat }}</td>
+                                <td style="text-align: center">{{item.ngayHetHan }}</td>
+                                <td style="text-align: right">{{item.tongTien | number}}</td>
                             </tr>
                             </tbody>
                         </table>

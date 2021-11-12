@@ -43,6 +43,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
   listKhachHang: any;
   listCuaHang: any;
   listDonXuat: any = [];
+  listPP: any = [];
   renderCbxCuaHang = false;
 
   constructor(
@@ -80,6 +81,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
     this.buidForm();
     this.loadKhachHang();
     this.loadCuaHang();
+    this.loadAllPP();
   }
 
   private buidForm() {
@@ -88,6 +90,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
       idCuaHang: [null, Validators.required],
       idKhachHang: [null, Validators.required],
       ngayXuat: [null, Validators.required],
+      idPhuongThuc: [null, Validators.required],
     });
     if(this.selectedData){
       this.form.patchValue(this.selectedData)
@@ -126,6 +129,26 @@ export class ThemSuaXuatHangComponent implements OnInit {
   changePageSize(size) {
     this.itemsPerPage = size;
     this.loadAll();
+  }
+  loadAllPP() {
+    this.spinner.show();
+    this.thongTinChungApiService
+        .searchPhuongThuc({
+          maPhuongThuc: this.form.value.maPhuongThuc,
+          tenPhuongThuc: this.form.value.tenPhuongThuc ,
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              this.listPP = res.body.content;
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
 
   openModal(type?: string, selectedData?: any, idCuaHang?: any) {
@@ -204,6 +227,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
       idCuaHang: this.form.value.idCuaHang,
       idKhachHang: this.form.value.idKhachHang,
       ngayXuat: this.form.value.ngayXuat,
+      idPhuongThuc: this.form.value.idPhuongThuc,
       xuatHangChiTietDTOList: this.listDonXuat,
     };
     if (this.type === "add") {

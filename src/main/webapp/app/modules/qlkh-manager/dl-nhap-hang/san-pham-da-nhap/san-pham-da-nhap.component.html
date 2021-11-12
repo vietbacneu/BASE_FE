@@ -89,7 +89,7 @@
                                     </th>
                                     <th class="medium-width-table">Tổng tiền<span></span>
                                     </th>
-                                    <th class="medium-width-table">Ngày xuất<span></span>
+                                    <th class="medium-width-table">Ngày nhập<span></span>
                                 </tr>
                                 </thead>
                                 <tbody *ngFor="let item of listData; index as i">
@@ -98,12 +98,12 @@
                                     <td>{{item.maSanPham}}</td>
                                     <td>{{item.tenSanPham}}</td>
                                     <td>{{item.tenNhaCungCap}}</td>
-                                    <td>{{item.soLuongNhap}}</td>
-                                    <td>{{item.giaNhapNiemYet}}</td>
-                                    <td>{{item.giaNhap}}</td>
+                                    <td style="text-align: right">{{item.soLuongNhap |number}}</td>
+                                    <td style="text-align: right">{{item.giaNhapNiemYet |number}}</td>
+                                    <td style="text-align: right">{{item.giaNhap |number}}</td>
                                     <td>{{item.donVi}}</td>
-                                    <td>{{item.totalChiPhi}}</td>
-                                    <td>{{item.ngayNhap}}</td>
+                                    <td style="text-align: right">{{item.totalChiPhi |number}}</td>
+                                    <td style="text-align: center">{{item.ngayNhap }}</td>
                                 </tr>
                                 </tbody>
                             </table>
