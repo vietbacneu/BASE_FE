@@ -240,7 +240,7 @@ export class SanPhamDaNhapComponent implements OnInit {
     this.spinner.hide();
     if (res) {
       this.toastService.openSuccessToast(
-          this.translateService.instant("managementDepartmentUser.button.lock.success")
+          "Xóa thành công"
       );
       this.eventManager.broadcast({
         name: "outSourcingChange"

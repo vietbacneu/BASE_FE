@@ -123,10 +123,10 @@
                         <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                         <td>{{item.tenSanPham}}</td>
                         <td>{{item.soLuong}}</td>
-                        <td>{{item.gia}}</td>
+                        <td style="text-align: right">{{item.gia | number}}</td>
                         <td>{{item.ngaySanXuat}}</td>
                         <td>{{item.ngayHetHan}}</td>
-                        <td>{{item.tongTien}}</td>
+                        <td style="text-align: right">{{item.tongTien | number}}</td>
                         <td class="text-left four-icon medium-width-table">
                             <div class="group-action">
                                 <button class="btn btn-light" placement="top"

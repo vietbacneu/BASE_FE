@@ -56,77 +56,79 @@
                         jhiTranslate="projectManagement.result-search"></span></a>
             </div>
             <div id="dataTable" class="collapse show">
-                <div class="row">
-                    <perfect-scrollbar id="scrollbarTable" class="ps">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
-                                <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
-                                </th>
-                                <th class="medium-width-table"><span>Mã nhà cung cấp</span>
-                                </th>
-                                <th class="medium-width-table"><span>Tên nhà cung cấp</span>
-                                </th>
-                                <th class="medium-width-table"><span>Mã số thuế</span>
-                                </th>
-                                <th class="medium-width-table"><span>Số điện thoại</span>
-                                </th>
-                                <th class="medium-width-table"><span>Địa chỉ</span>
-                                </th>
-                                <th class="medium-width-table action-width-four-icon custom-width"
-                                    jhiTranslate="userGroup.action" style="width: 7rem;">
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody *ngFor="let item of listData; index as i">
-                            <tr>
-                                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.maNhaCungCap}}</td>
-                                <td>{{item.tenNhaCungCap}}</td>
-                                <td>{{item.maSoThue}}</td>
-                                <td>{{item.sdt}}</td>
-                                <td>{{item.diaChi}}</td>
-                                <td class="text-left four-icon medium-width-table">
-                                    <div class="group-action">
-                                        <button class="btn btn-light" placement="top"
-                                                (click)="openModal('add', item)"
-                                                ngbTooltip="{{'common.tooltip.action.copy' | translate}}"
-                                                onclick="this.blur();">
-                                            <i class="fa fa-copy icon-update" aria-hidden="true"></i>
-                                        </button>
-                                        <button class="btn btn-light" placement="top"
-                                                (click)="openModal('update', item)"
-                                                ngbTooltip="{{'common.tooltip.action.update' | translate}}"
-                                                onclick="this.blur();">
-                                            <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
-                                        </button>
-                                        <button class="btn btn-light" placement="top"
-                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
-                                                (click)="onDelete(item.id)"
-                                                onclick="this.blur();">
-                                            <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </perfect-scrollbar>
-                </div>
-                <div class="row justify-content-start py-2 pl-1  table-footer no-data"
-                     *ngIf="!totalItems">
-                    <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
-                </div>
+                <div class="card-body pt-2 pb-0 px-2">
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                    <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                    </th>
+                                    <th class="medium-width-table"><span>Mã nhà cung cấp</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Tên nhà cung cấp</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Mã số thuế</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Số điện thoại</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Địa chỉ</span>
+                                    </th>
+                                    <th class="medium-width-table action-width-four-icon custom-width"
+                                        jhiTranslate="userGroup.action" style="width: 7rem;">
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of listData; index as i">
+                                <tr>
+                                    <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                    <td>{{item.maNhaCungCap}}</td>
+                                    <td>{{item.tenNhaCungCap}}</td>
+                                    <td>{{item.maSoThue}}</td>
+                                    <td>{{item.sdt}}</td>
+                                    <td>{{item.diaChi}}</td>
+                                    <td class="text-left four-icon medium-width-table">
+                                        <div class="group-action">
+                                            <button class="btn btn-light" placement="top"
+                                                    (click)="openModal('add', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.copy' | translate}}"
+                                                    onclick="this.blur();">
+                                                <i class="fa fa-copy icon-update" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-light" placement="top"
+                                                    (click)="openModal('update', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                    onclick="this.blur();">
+                                                <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-light" placement="top"
+                                                    ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                    (click)="onDelete(item.id)"
+                                                    onclick="this.blur();">
+                                                <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalItems">
+                        <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
 
-                <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
-                    <div class="row justify-content-center">
-                        <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
-                        <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
-                                        [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
-                                        [boundaryLinks]="true"
-                                        (pageChange)="loadPage(page)">
-                        </ngb-pagination>
-                        <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                    <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                            <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                            [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPage(page)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                        </div>
                     </div>
                 </div>
             </div>

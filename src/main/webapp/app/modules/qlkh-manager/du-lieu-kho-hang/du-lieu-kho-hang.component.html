@@ -82,6 +82,7 @@
                         jhiTranslate="projectManagement.result-search"></span></a>
             </div>
             <div id="dataTable" class="collapse show">
+                <div class="card-body pt-2 pb-0 px-2">
                 <div class="row">
                     <perfect-scrollbar id="scrollbarTable" class="ps">
                         <table class="table table-bordered table-hover table-striped">
@@ -115,16 +116,17 @@
                                 <td>{{item.maSanPham}}</td>
                                 <td>{{item.tenSanPham}}</td>
                                 <td>{{item.tenDanhMuc}}</td>
-                                <td>{{item.giaBanNiemYet}}</td>
-                                <td>{{item.giaNhapNiemYet}}</td>
-                                <td>{{item.soLuongNhap}}</td>
-                                <td>{{item.soLuongBan}}</td>
-                                <td>{{item.soLuongTon}}</td>
+                                <td style="text-align: right">{{item.giaBanNiemYet | number}}</td>
+                                <td style="text-align: right">{{item.giaNhapNiemYet | number}}</td>
+                                <td style="text-align: right">{{item.soLuongNhap | number}}</td>
+                                <td style="text-align: right">{{item.soLuongBan | number}}</td>
+                                <td style="text-align: right">{{item.soLuongTon | number}}</td>
                                 <td>{{item.tenCuaHang}}</td>
                             </tr>
                             </tbody>
                         </table>
                     </perfect-scrollbar>
+                </div>
                 </div>
                 <div class="row justify-content-start py-2 pl-1  table-footer no-data"
                      *ngIf="!totalItems">

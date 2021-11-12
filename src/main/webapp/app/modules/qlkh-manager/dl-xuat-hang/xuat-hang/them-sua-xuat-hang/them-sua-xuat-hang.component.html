@@ -122,8 +122,8 @@
                         <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                         <td>{{item.tenSanPham}}</td>
                         <td>{{item.soLuong}}</td>
-                        <td>{{item.gia}}</td>
-                        <td>{{item.tongTien}}</td>
+                        <td style="text-align: right">{{item.gia | number}}</td>
+                        <td style="text-align: right">{{item.tongTien | number}}</td>
                         <td>{{item.ngaySanXuat}}</td>
                         <td>{{item.ngayHetHan}}</td>
                         <td class="text-left four-icon medium-width-table">
