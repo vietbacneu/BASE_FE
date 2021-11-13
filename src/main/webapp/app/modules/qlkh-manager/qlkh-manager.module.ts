@@ -28,6 +28,8 @@ import { PhuongThucThanhToanComponent } from './danh-muc/phuong-thuc-thanh-toan/
 import { ThemSuaPhuongThucThanhToanComponent } from './danh-muc/phuong-thuc-thanh-toan/them-sua-phuong-thuc-thanh-toan/them-sua-phuong-thuc-thanh-toan.component';
 import { InDonXuatComponent } from './dl-xuat-hang/xuat-hang/in-don-xuat/in-don-xuat.component';
 import { InNhapHangComponent } from './dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component';
+import { BcHoaDonBanHangComponent } from './bao-cao/bc-hoa-don-ban-hang/bc-hoa-don-ban-hang.component';
+import { BcHoaDonNhapHangComponent } from './bao-cao/bc-hoa-don-nhap-hang/bc-hoa-don-nhap-hang.component';
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import { InNhapHangComponent } from './dl-nhap-hang/nhap-hang/in-nhap-hang/in-nh
         ThemSuaPhuongThucThanhToanComponent,
         InDonXuatComponent,
         InNhapHangComponent,
+        BcHoaDonBanHangComponent,
+        BcHoaDonNhapHangComponent,
     ],
     imports: [
         CommonModule,

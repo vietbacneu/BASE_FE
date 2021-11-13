@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
@@ -9,19 +9,18 @@ import {ToastService} from "app/shared/services/toast.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
-import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
-import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
-import {ThemSuaXuatHangComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/them-sua-xuat-hang/them-sua-xuat-hang.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
-import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
-import {InDonXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/in-don-xuat/in-don-xuat.component";
+import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
+import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
+import {SERVER_API} from "app/shared/constants/api-resource.constants";
+import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 
 @Component({
-  selector: 'jhi-xuat-hang',
-  templateUrl: './xuat-hang.component.html',
-  styleUrls: ['./xuat-hang.component.scss']
+  selector: 'jhi-bc-hoa-don-nhap-hang',
+  templateUrl: './bc-hoa-don-nhap-hang.component.html',
+  styleUrls: ['./bc-hoa-don-nhap-hang.component.scss']
 })
-export class XuatHangComponent implements OnInit {
+export class BcHoaDonNhapHangComponent implements OnInit {
 
 
   form: FormGroup;
@@ -39,8 +38,7 @@ export class XuatHangComponent implements OnInit {
   items = 12;
   listData: any;
   listNhaCungCap: any;
-  listCuaHang : any;
-
+  listCuaHang: any;
 
   constructor(
       public translateService: TranslateService,
@@ -54,8 +52,7 @@ export class XuatHangComponent implements OnInit {
       protected router: Router,
       protected commonService: CommonService,
       private shareDataFromProjectService: ShareDataFromProjectService,
-      private thongTinChungApiService: ThongTinChungApiService,
-      private nhapXuatApiService: NhapXuatApiService,
+      private ThongTinApi: ThongTinChungApiService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.maxSizePage = MAX_SIZE_PAGE;
@@ -65,8 +62,6 @@ export class XuatHangComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
-      }else {
-        this.page = 1;
       }
     });
   }
@@ -74,30 +69,17 @@ export class XuatHangComponent implements OnInit {
   ngOnInit(): void {
     this.onResize();
     this.buidForm();
-    this.loadCuaHang();
+    this.loadAllCuaHang();
   }
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      maXuatHang: [null],
+      maSanPham: [null],
+      tenSanPham: [null],
       idCuaHang: [null],
     });
   }
 
-  loadCuaHang() {
-    this.thongTinChungApiService
-        .searchChiNhanh({})
-        .subscribe(
-            res => {
-              this.listCuaHang = res.body.content
-            },
-            err => {
-              this.toastService.openErrorToast(
-                  this.translateService.instant("common.toastr.messages.error.load")
-              );
-            }
-        );
-  }
   onResize() {
     this.height = this.heightService.onResizeWithoutFooter();
   }
@@ -130,29 +112,10 @@ export class XuatHangComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaXuatHangComponent, {
+    const modalRef = this.modalService.open(ThemSuaLoaiHangComponent, {
       size: "lg",
       backdrop: "static",
-      keyboard: false,
-      windowClass: "custom-modal"
-    });
-    modalRef.componentInstance.type = type;
-    modalRef.componentInstance.selectedData = selectedData;
-    modalRef.componentInstance.response.subscribe(value => {
-      if (value === true) {
-        this.loadAll();
-      }
-    });
-    modalRef.result.then(result => {
-    }).catch(() => {
-    });
-  }
-  openModalPrint(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(InDonXuatComponent, {
-      size: "lg",
-      backdrop: "static",
-      keyboard: false,
-      windowClass: "custom-modal"
+      keyboard: false
     });
     modalRef.componentInstance.type = type;
     modalRef.componentInstance.selectedData = selectedData;
@@ -166,9 +129,48 @@ export class XuatHangComponent implements OnInit {
     });
   }
 
+  loadAllCuaHang() {
+    this.ThongTinApi
+        .searchNCC({})
+        .subscribe(
+            res => {
+              this.listCuaHang = res.body.content
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
+
+
   onSearchData() {
     this.loadAll()
     // this.loadDepartment();
+  }
+
+  onExport() {
+    this.spinner.show();
+    this.ThongTinApi
+        .exportNhapMax({
+          maNhapHang: this.form.value.maSanPham,
+          idNhaCungCap: this.form.value.idCuaHang,
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              // window.open(res.body.path, '_blank').focus();
+              window.open(SERVER_API + "/api" + "/sanPhams/download/?path=" + res.body.path);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
 
   isFieldValid(field: string) {
@@ -181,10 +183,10 @@ export class XuatHangComponent implements OnInit {
 
   loadAll() {
     this.spinner.show();
-    this.thongTinChungApiService
-        .searchXuatHang({
-          maXuatHang: this.form.value.maXuatHang,
-          idCuaHang: this.form.value.idCuaHang ,
+    this.ThongTinApi
+        .searchNhapMax({
+          maNhapHang: this.form.value.maSanPham,
+          idNhaCungCap: this.form.value.idCuaHang,
         })
         .subscribe(
             res => {
@@ -198,13 +200,12 @@ export class XuatHangComponent implements OnInit {
               );
             }
         );
+    this.spinner.hide();
   }
 
 
   private paginateListData(data) {
-    this.totalItems = data.totalElements;
-    this.listData = data.content;
-    this.maxSizePage = data.totalPages;
+    this.listData = data;
   }
 
   sort() {
@@ -236,25 +237,25 @@ export class XuatHangComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.nhapXuatApiService.deleteXuatHang({id: id}).subscribe(
-        res => {
-          this.shareDataFromProjectService.getDataFromList(null);
-          this.handleResponseSubmit(res);
-          this.loadAll();
-        },
-        err => {
-          this.spinner.hide()
-          if (err.error) {
-            this.toastService.openErrorToast(
-                err.error.message,
-            );
-          } else {
-            this.toastService.openErrorToast(
-                this.translateService.instant("common.toastr.messages.error.load")
-            );
-          }
-        }
-    );
+    // this.departmentManagementService.deleteUserToDepartment({id: id}).subscribe(
+    //     res => {
+    //       this.shareDataFromProjectService.getDataFromList(null);
+    //       this.handleResponseSubmit(res);
+    //       this.loadAll();
+    //     },
+    //     err => {
+    //       this.spinner.hide()
+    //       if (err.status == STATUS_CODE.BAD_REQUEST) {
+    //         this.toastService.openErrorToast(
+    //             err.error,
+    //         );
+    //       } else {
+    //         this.toastService.openErrorToast(
+    //             this.translateService.instant("common.toastr.messages.error.load")
+    //         );
+    //       }
+    //     }
+    // );
   }
 
   handleResponseSubmit(res) {
@@ -272,5 +273,6 @@ export class XuatHangComponent implements OnInit {
       );
     }
   }
+
 
 }

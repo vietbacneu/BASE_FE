@@ -14,6 +14,8 @@ import {BcSanPhamChiPhiComponent} from "app/modules/qlkh-manager/bao-cao/bc-san-
 import {BcSanPhamDanhThuComponent} from "app/modules/qlkh-manager/bao-cao/bc-san-pham-danh-thu/bc-san-pham-danh-thu.component";
 import {PhuongThucThanhToanComponent} from "app/modules/qlkh-manager/danh-muc/phuong-thuc-thanh-toan/phuong-thuc-thanh-toan.component";
 import {InDonXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/in-don-xuat/in-don-xuat.component";
+import {BcHoaDonBanHangComponent} from "app/modules/qlkh-manager/bao-cao/bc-hoa-don-ban-hang/bc-hoa-don-ban-hang.component";
+import {BcHoaDonNhapHangComponent} from "app/modules/qlkh-manager/bao-cao/bc-hoa-don-nhap-hang/bc-hoa-don-nhap-hang.component";
 
 const routes: Routes = [
   {
@@ -85,6 +87,17 @@ const routes: Routes = [
     }
   },{
     path: 'in-don-xuat', component: InDonXuatComponent,
+    data: {
+      pageTitle: "common.appParamBH",
+    }
+  },{
+    path: 'bc-hoa-don-ban', component: BcHoaDonBanHangComponent,
+    data: {
+      pageTitle: "common.appParamBH",
+    }
+  },
+  {
+    path: 'bc-hoa-don-nhap', component: BcHoaDonNhapHangComponent,
     data: {
       pageTitle: "common.appParamBH",
     }

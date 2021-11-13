@@ -76,6 +76,21 @@ export class ThongTinChungApiService {
         });
     }
 
+    searchXuatMax(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/xuatHangs/searchXuatMax', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    searchNhapMax(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/nhapHangs/searchNhapMax', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
     download(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.get(this.resourceUrl + '/api/sanPhams/download', {
@@ -128,6 +143,20 @@ export class ThongTinChungApiService {
     exportSpDoanhThu(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThu', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    exportHoaBanBanHang(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/xuatHangs/exportXuatMax', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    exportNhapMax(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/nhapHangs/exportNhapMax', data, {
             params: option,
             observe: "response"
         });
