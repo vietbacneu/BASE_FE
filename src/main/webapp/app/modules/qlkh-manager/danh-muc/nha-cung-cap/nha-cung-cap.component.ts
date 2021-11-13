@@ -145,8 +145,8 @@ export class NhaCungCapComponent implements OnInit {
         this.thongTinChungApiService
             .searchNCC({
                 isCount: 1,
-                maKhachHang: this.form.value.maNhaCungCap,
-                tenKhachHang: this.form.value.tenNhaCungCap,
+                maNhaCungCap: this.form.value.maNhaCungCap,
+                tenNhaCungCap: this.form.value.tenNhaCungCap,
                 page: this.page - 1,
                 size: this.itemsPerPage,
             })

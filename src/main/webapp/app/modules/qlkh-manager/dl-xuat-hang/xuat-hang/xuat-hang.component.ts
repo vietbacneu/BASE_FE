@@ -165,8 +165,8 @@ export class XuatHangComponent implements OnInit {
     this.spinner.show();
     this.thongTinChungApiService
         .searchXuatHang({
-          tenSanPham: this.form.value.tenSanPham,
-          idCuaHang: this.form.value.tenCuaHang ,
+          maXuatHang: this.form.value.maXuatHang,
+          idCuaHang: this.form.value.idCuaHang ,
         })
         .subscribe(
             res => {
