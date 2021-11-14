@@ -164,6 +164,13 @@ const routes: Routes = [
                         m => m.QlkhManagerModule
                     )
             },
+            {
+                path: "",
+                loadChildren: () =>
+                    import("../../modules/qlns-manager/qlns-manager.module").then(
+                        m => m.QlnsManagerModule
+                    )
+            },
         ]
     }
 ];
