@@ -1,16 +1,10 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from "@angular/core";
-import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
-import { JhiEventManager } from "ng-jhipster";
-import { FormStoringService } from "app/shared/services/form-storing.service";
-import { TranslateService } from "@ngx-translate/core";
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {JhiEventManager} from "ng-jhipster";
+import {FormStoringService} from "app/shared/services/form-storing.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: "jhi-home",
@@ -35,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.router.navigate(["/san-pham"]);
+    this.router.navigate(["/nhan-vien"]);
   }
 
   ngAfterViewInit(): void {
