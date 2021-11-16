@@ -6,7 +6,7 @@
         </button>
     </li>
     <li class="breadcrumb-item">Thông tin chung</li>
-    <li class="breadcrumb-item">Nhân viên</li>
+    <li class="breadcrumb-item">Danh mục khen thưởng</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tên nhân viên</label>
+                                    <label class="col-sm-3 custom-label-right">Tên khen thưởng</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="ten"
                                                maxlength="200" (blur)="trimSpace('ten')">
@@ -29,10 +29,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Email</label>
+                                    <label class="col-sm-3 custom-label-right">Mức khen thưởng</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="email"
-                                               maxlength="200" (blur)="trimSpace('email')">
+                                        <input type="text" class="form-control" formControlName="mucThuong"
+                                               maxlength="10" (keypress)="numberOnly($event)" (blur)="trimSpace('mucThuong')">
                                     </div>
                                 </div>
                             </div>
@@ -64,16 +64,10 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <th class="medium-width-table"><span>Họ</span></th>
-                                    <th class="medium-width-table"><span>Tên</span></th>
-                                    <th class="medium-width-table"><span>Email</span></th>
-                                    <th class="medium-width-table"><span>SĐT</span></th>
-                                    <th class="medium-width-table"><span>Địa chỉ</span></th>
-                                    <th class="medium-width-table"><span>Hệ số lương</span></th>
-                                    <th class="medium-width-table"><span>Chức vụ</span></th>
-                                    <th class="medium-width-table"><span>Phòng ban</span></th>
-                                    <th class="medium-width-table"><span>Ngày vào công ty</span></th>
-                                    <!--                                    <th class="medium-width-table"><span>Ngày rời công ty</span></th>-->
+<!--                                    <th class="medium-width-table"><span>Mã khen thưởng</span></th>-->
+                                    <th class="medium-width-table"><span>Tên khen thưởng</span></th>
+                                    <th class="medium-width-table"><span>Mức khen thưởng</span></th>
+                                    <th class="medium-width-table"><span>Miêu tả</span></th>
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
                                     </th>
@@ -82,15 +76,10 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td>{{item.ho}}</td>
+<!--                                    <td>{{item.maKhenThuong}}</td>-->
                                     <td>{{item.ten}}</td>
-                                    <td>{{item.email}}</td>
-                                    <td>{{item.sdt}}</td>
-                                    <td>{{item.diaChi}}</td>
-                                    <td>{{item.heSoLuong}}</td>
-                                    <td>{{item.chucVu}}</td>
-                                    <td>{{item.phongBan}}</td>
-                                    <td>{{item.ngayBatDau}}</td>
+                                    <td>{{item.mucKhenThuong}}</td>
+                                    <td>{{item.mieuTa}}</td>
                                     <!--                                    <td>{{item.ngayKetThuc}}</td>-->
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">

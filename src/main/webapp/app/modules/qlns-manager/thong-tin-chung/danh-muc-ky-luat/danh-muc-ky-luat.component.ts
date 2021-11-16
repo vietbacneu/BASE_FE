@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
@@ -8,11 +8,12 @@ import {JhiEventManager} from "ng-jhipster";
 import {ToastService} from "app/shared/services/toast.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
-import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaNhanVienComponent} from "app/modules/qlns-manager/thong-tin-chung/nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {ThongTinNhanSuApiService} from "app/core/services/QLNS-api/thong-tin-nhan-su-api.service";
+import {ThemSuaKyLuatComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-muc-ky-luat/them-sua-ky-luat/them-sua-ky-luat.component";
 
 @Component({
   selector: 'jhi-danh-muc-ky-luat',
@@ -48,7 +49,7 @@ export class DanhMucKyLuatComponent implements OnInit {
       private modalService: NgbModal,
       protected router: Router,
       protected commonService: CommonService,
-      protected thongTinChungApiService: ThongTinChungApiService,
+      protected thongTinNhanSuApiService: ThongTinNhanSuApiService,
       private shareDataFromProjectService: ShareDataFromProjectService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -73,7 +74,7 @@ export class DanhMucKyLuatComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       ten: [null],
-      email: [null],
+      mucPhat: [null],
     });
   }
 
@@ -109,7 +110,7 @@ export class DanhMucKyLuatComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaNhanVienComponent, {
+    const modalRef = this.modalService.open(ThemSuaKyLuatComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -141,11 +142,11 @@ export class DanhMucKyLuatComponent implements OnInit {
 
   loadAll() {
     this.spinner.show();
-    this.thongTinChungApiService
-        .searchDanhMuc({
+    this.thongTinNhanSuApiService
+        .searchDMKyLuat({
           isCount: 1,
-          tenDanhMuc: this.form.value.tenDanhMuc,
-          maDanhMuc: this.form.value.maDanhMuc,
+          ten: this.form.value.ten,
+          mucPhat: this.form.value.mucPhat,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
@@ -199,7 +200,7 @@ export class DanhMucKyLuatComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.thongTinChungApiService.deleteDanhMuc({id: id}).subscribe(
+    this.thongTinNhanSuApiService.deleteDMKyLuat({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);
@@ -229,5 +230,8 @@ export class DanhMucKyLuatComponent implements OnInit {
       );
     }
   }
-
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+  }
 }

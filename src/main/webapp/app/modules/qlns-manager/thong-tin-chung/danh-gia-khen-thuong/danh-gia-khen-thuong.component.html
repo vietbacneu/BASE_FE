@@ -5,8 +5,8 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Thông tin chung</li>
     <li class="breadcrumb-item">Nhân viên</li>
+    <li class="breadcrumb-item">Đánh giá khen thưởng</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -74,8 +74,8 @@
                                     </th>
                                     <th class="medium-width-table"><span>Tên nhân viên</span></th>
                                     <th class="medium-width-table"><span>Khen thưởng</span></th>
-                                    <th class="medium-width-table"><span>Miêu tả</span></th>
                                     <th class="medium-width-table"><span>Mức thưởng</span></th>
+                                    <th class="medium-width-table"><span>Miêu tả</span></th>
                                     <th class="medium-width-table"><span>Ngày thưởng</span></th>
                                     <!--                                    <th class="medium-width-table"><span>Ngày rời công ty</span></th>-->
                                     <th class="medium-width-table action-width-four-icon custom-width"
@@ -88,8 +88,8 @@
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                     <td>{{item.tenNhanVien}}</td>
                                     <td>{{item.khenThuong}}</td>
-                                    <td>{{item.mieuTa}}</td>
                                     <td>{{item.mucThuong}}</td>
+                                    <td>{{item.mieuTa}}</td>
                                     <td>{{item.ngayThuong}}</td>
 
                                     <td class="text-center four-icon medium-width-table">

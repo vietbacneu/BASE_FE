@@ -13,6 +13,8 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaNhanVienComponent} from "app/modules/qlns-manager/thong-tin-chung/nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {ThongTinNhanSuApiService} from "app/core/services/QLNS-api/thong-tin-nhan-su-api.service";
+import {ThemSuaBaoHiemNhanVienComponent} from "app/modules/qlns-manager/thong-tin-chung/bao-hiem-nhan-vien/them-sua-bao-hiem-nhan-vien/them-sua-bao-hiem-nhan-vien.component";
 
 @Component({
   selector: 'jhi-bao-hiem-nhan-vien',
@@ -35,7 +37,7 @@ export class BaoHiemNhanVienComponent implements OnInit {
   reverse: any;
   items = 12;
   listData: any;
-  listNhaCungCap: any;
+  listBaoHiem: any;
 
   constructor(
       public translateService: TranslateService,
@@ -48,7 +50,7 @@ export class BaoHiemNhanVienComponent implements OnInit {
       private modalService: NgbModal,
       protected router: Router,
       protected commonService: CommonService,
-      protected thongTinChungApiService: ThongTinChungApiService,
+      protected thongTinNhanSuApiService: ThongTinNhanSuApiService,
       private shareDataFromProjectService: ShareDataFromProjectService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -73,7 +75,7 @@ export class BaoHiemNhanVienComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       ten: [null],
-      email: [null],
+      idBaoHiem: [null],
     });
   }
 
@@ -109,7 +111,7 @@ export class BaoHiemNhanVienComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaNhanVienComponent, {
+    const modalRef = this.modalService.open(ThemSuaBaoHiemNhanVienComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -141,11 +143,11 @@ export class BaoHiemNhanVienComponent implements OnInit {
 
   loadAll() {
     this.spinner.show();
-    this.thongTinChungApiService
-        .searchDanhMuc({
+    this.thongTinNhanSuApiService
+        .searchBaoHiemNV({
           isCount: 1,
-          tenDanhMuc: this.form.value.tenDanhMuc,
-          maDanhMuc: this.form.value.maDanhMuc,
+          idBaoHiem: this.form.value.idBaoHiem,
+          ten: this.form.value.ten,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
@@ -199,7 +201,7 @@ export class BaoHiemNhanVienComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.thongTinChungApiService.deleteDanhMuc({id: id}).subscribe(
+    this.thongTinNhanSuApiService.deleteBaoHiemNV({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);

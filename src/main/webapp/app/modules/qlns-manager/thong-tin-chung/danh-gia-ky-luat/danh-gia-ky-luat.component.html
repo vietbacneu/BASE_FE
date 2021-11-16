@@ -5,8 +5,8 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Thông tin chung</li>
     <li class="breadcrumb-item">Nhân viên</li>
+    <li class="breadcrumb-item">Đánh giá kỷ luật</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -72,15 +72,11 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <th class="medium-width-table"><span>Họ</span></th>
-                                    <th class="medium-width-table"><span>Tên</span></th>
-                                    <th class="medium-width-table"><span>Email</span></th>
-                                    <th class="medium-width-table"><span>SĐT</span></th>
-                                    <th class="medium-width-table"><span>Địa chỉ</span></th>
-                                    <th class="medium-width-table"><span>Hệ số lương</span></th>
-                                    <th class="medium-width-table"><span>Chức vụ</span></th>
-                                    <th class="medium-width-table"><span>Phòng ban</span></th>
-                                    <th class="medium-width-table"><span>Ngày vào công ty</span></th>
+                                    <th class="medium-width-table"><span>Tên nhân viên</span></th>
+                                    <th class="medium-width-table"><span>Kỷ luật</span></th>
+                                    <th class="medium-width-table"><span>Mức phạt</span></th>
+                                    <th class="medium-width-table"><span>Miêu tả</span></th>
+                                    <th class="medium-width-table"><span>Ngày phạt</span></th>
                                     <!--                                    <th class="medium-width-table"><span>Ngày rời công ty</span></th>-->
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -90,16 +86,12 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td>{{item.ho}}</td>
-                                    <td>{{item.ten}}</td>
-                                    <td>{{item.email}}</td>
-                                    <td>{{item.sdt}}</td>
-                                    <td>{{item.diaChi}}</td>
-                                    <td>{{item.heSoLuong}}</td>
-                                    <td>{{item.chucVu}}</td>
-                                    <td>{{item.phongBan}}</td>
-                                    <td>{{item.ngayBatDau}}</td>
-                                    <!--                                    <td>{{item.ngayKetThuc}}</td>-->
+                                    <td>{{item.tenNhanVien}}</td>
+                                    <td>{{item.kyLuat}}</td>
+                                    <td>{{item.mucPhat}}</td>
+                                    <td>{{item.mieuTa}}</td>
+                                    <td>{{item.ngayThuong}}</td>
+
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"

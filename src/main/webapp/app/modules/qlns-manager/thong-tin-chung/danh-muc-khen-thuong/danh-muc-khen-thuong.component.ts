@@ -13,6 +13,8 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaNhanVienComponent} from "app/modules/qlns-manager/thong-tin-chung/nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {ThongTinNhanSuApiService} from "app/core/services/QLNS-api/thong-tin-nhan-su-api.service";
+import {ThemSuaKhenThuongComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-muc-khen-thuong/them-sua-khen-thuong/them-sua-khen-thuong.component";
 
 @Component({
   selector: 'jhi-danh-muc-khen-thuong',
@@ -48,7 +50,7 @@ export class DanhMucKhenThuongComponent implements OnInit {
       private modalService: NgbModal,
       protected router: Router,
       protected commonService: CommonService,
-      protected thongTinChungApiService: ThongTinChungApiService,
+      protected thongTinNhanSuApiService: ThongTinNhanSuApiService,
       private shareDataFromProjectService: ShareDataFromProjectService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -73,7 +75,7 @@ export class DanhMucKhenThuongComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       ten: [null],
-      email: [null],
+      mucThuong: [null],
     });
   }
 
@@ -109,7 +111,7 @@ export class DanhMucKhenThuongComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaNhanVienComponent, {
+    const modalRef = this.modalService.open(ThemSuaKhenThuongComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -141,11 +143,11 @@ export class DanhMucKhenThuongComponent implements OnInit {
 
   loadAll() {
     this.spinner.show();
-    this.thongTinChungApiService
-        .searchDanhMuc({
+    this.thongTinNhanSuApiService
+        .searchDMKhenThuong({
           isCount: 1,
-          tenDanhMuc: this.form.value.tenDanhMuc,
-          maDanhMuc: this.form.value.maDanhMuc,
+          ten: this.form.value.ten,
+          mucThuong: this.form.value.mucThuong,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
@@ -199,7 +201,7 @@ export class DanhMucKhenThuongComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.thongTinChungApiService.deleteDanhMuc({id: id}).subscribe(
+    this.thongTinNhanSuApiService.deleteDMKhenThuong({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);
@@ -229,5 +231,8 @@ export class DanhMucKhenThuongComponent implements OnInit {
       );
     }
   }
-
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+  }
 }

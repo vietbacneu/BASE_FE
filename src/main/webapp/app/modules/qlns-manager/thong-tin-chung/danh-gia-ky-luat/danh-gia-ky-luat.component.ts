@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
@@ -11,8 +11,9 @@ import {CommonService} from "app/shared/services/common.service";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
-import {ThemSuaNhanVienComponent} from "app/modules/qlns-manager/thong-tin-chung/nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {ThemSuaDanhKyLuatComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-gia-ky-luat/them-sua-danh-ky-luat/them-sua-danh-ky-luat.component";
+import {ThongTinNhanSuApiService} from "app/core/services/QLNS-api/thong-tin-nhan-su-api.service";
 
 @Component({
   selector: 'jhi-danh-gia-ky-luat',
@@ -48,7 +49,7 @@ export class DanhGiaKyLuatComponent implements OnInit {
       private modalService: NgbModal,
       protected router: Router,
       protected commonService: CommonService,
-      protected thongTinChungApiService: ThongTinChungApiService,
+      protected thongTinNhanSuApiService: ThongTinNhanSuApiService,
       private shareDataFromProjectService: ShareDataFromProjectService,
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -73,7 +74,7 @@ export class DanhGiaKyLuatComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       ten: [null],
-      email: [null],
+      idKyLuat: [null],
     });
   }
 
@@ -109,7 +110,7 @@ export class DanhGiaKyLuatComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaNhanVienComponent, {
+    const modalRef = this.modalService.open(ThemSuaDanhKyLuatComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -141,11 +142,11 @@ export class DanhGiaKyLuatComponent implements OnInit {
 
   loadAll() {
     this.spinner.show();
-    this.thongTinChungApiService
-        .searchDanhMuc({
+    this.thongTinNhanSuApiService
+        .searchDGKyLuat({
           isCount: 1,
-          tenDanhMuc: this.form.value.tenDanhMuc,
-          maDanhMuc: this.form.value.maDanhMuc,
+          ten: this.form.value.ten,
+          idKyLuat: this.form.value.idKyLuat,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
@@ -199,7 +200,7 @@ export class DanhGiaKyLuatComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.thongTinChungApiService.deleteDanhMuc({id: id}).subscribe(
+    this.thongTinNhanSuApiService.deleteDGKyLuat({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);
