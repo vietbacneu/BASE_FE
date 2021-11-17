@@ -5,8 +5,9 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Thông tin chung</li>
     <li class="breadcrumb-item">Nhân viên</li>
+    <li class="breadcrumb-item">Thông tin nhân viên</li>
+
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -16,9 +17,9 @@
             </div>
             <div id="search" class="collapse show">
                 <div class="card-body">
-                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Tên nhân viên</label>
                                     <div class="col-sm-8 form-custom-select">
@@ -27,12 +28,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Email</label>
+                                    <label class="col-sm-3 custom-label-right">Phòng ban</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="email"
-                                               maxlength="200" (blur)="trimSpace('email')">
+                                        <ng-select [items]="listPhongBan"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="ten" bindValue="id" formControlName="phongBanId">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.ten)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Chức vụ</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <ng-select [items]="listChucVu"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="tenChucVu" bindValue="id" formControlName="chucVuId">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.tenChucVu)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
                                     </div>
                                 </div>
                             </div>
@@ -66,6 +92,7 @@
                                     </th>
                                     <th class="medium-width-table"><span>Họ</span></th>
                                     <th class="medium-width-table"><span>Tên</span></th>
+                                    <th class="medium-width-table"><span>Giới tính</span></th>
                                     <th class="medium-width-table"><span>Email</span></th>
                                     <th class="medium-width-table"><span>SĐT</span></th>
                                     <th class="medium-width-table"><span>Địa chỉ</span></th>
@@ -73,9 +100,8 @@
                                     <th class="medium-width-table"><span>Chức vụ</span></th>
                                     <th class="medium-width-table"><span>Phòng ban</span></th>
                                     <th class="medium-width-table"><span>Ngày vào công ty</span></th>
-<!--                                    <th class="medium-width-table"><span>Ngày rời công ty</span></th>-->
                                     <th class="medium-width-table action-width-four-icon custom-width"
-                                        jhiTranslate="userGroup.action" style="width: 7rem;">
+                                        jhiTranslate="userGroup.action" style="width: 9rem;">
                                     </th>
                                 </tr>
                                 </thead>
@@ -84,14 +110,14 @@
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                     <td>{{item.ho}}</td>
                                     <td>{{item.ten}}</td>
+                                    <td>{{item.gioiTinh}}</td>
                                     <td>{{item.email}}</td>
                                     <td>{{item.sdt}}</td>
                                     <td>{{item.diaChi}}</td>
                                     <td>{{item.heSoLuong}}</td>
-                                    <td>{{item.chucVu}}</td>
-                                    <td>{{item.phongBan}}</td>
+                                    <td>{{item.tenChucVu}}</td>
+                                    <td>{{item.tenPhongBan}}</td>
                                     <td>{{item.ngayBatDau}}</td>
-<!--                                    <td>{{item.ngayKetThuc}}</td>-->
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"

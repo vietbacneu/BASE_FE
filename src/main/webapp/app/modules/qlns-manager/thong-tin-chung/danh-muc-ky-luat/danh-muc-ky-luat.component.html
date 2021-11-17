@@ -20,19 +20,21 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tên kỷ luật</label>
+                                    <label class="col-sm-3 custom-label-right">Mã kỷ luật</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="ten"
-                                               maxlength="200" (blur)="trimSpace('ten')">
+                                        <input type="text" class="form-control" formControlName="maKyLuat"
+                                               maxlength="45"
+                                               (blur)="trimSpace('maKyLuat')">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Mức kỷ luật</label>
+                                    <label class="col-sm-3 custom-label-right">Tên kỷ luật</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="mucPhat"
-                                               maxlength="10" (keypress)="numberOnly($event)" (blur)="trimSpace('mucPhat')">
+                                        <input type="text" class="form-control" formControlName="tenLoi"
+                                               maxlength="100"
+                                               (blur)="trimSpace('tenLoi')">
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +66,7 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <!--                                    <th class="medium-width-table"><span>Mã kỷ luật</span></th>-->
+                                    <th class="medium-width-table"><span>Mã kỷ luật</span></th>
                                     <th class="medium-width-table"><span>Tên kỷ luật</span></th>
                                     <th class="medium-width-table"><span>Mức kỷ luật</span></th>
                                     <th class="medium-width-table"><span>Miêu tả</span></th>
@@ -76,9 +78,9 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <!--                                    <td>{{item.maKyLuat}}</td>-->
-                                    <td>{{item.ten}}</td>
-                                    <td>{{item.mucKyLuat}}</td>
+                                    <td>{{item.maKyLuat}}</td>
+                                    <td>{{item.tenLoi}}</td>
+                                    <td>{{item.mucPhat}}</td>
                                     <td>{{item.mieuTa}}</td>
                                     <!--                                    <td>{{item.ngayKetThuc}}</td>-->
                                     <td class="text-center four-icon medium-width-table">

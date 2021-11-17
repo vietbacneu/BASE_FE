@@ -20,7 +20,7 @@
                         <input type="text" class="form-control" formControlName="ho"
                                (blur)="trimSpace('ho')"
                                [readOnly]="type == 'detail'"
-                               maxlength="200">
+                               maxlength="45">
                         <jhi-error-messages *ngIf="formControl['ho'].hasError('required')"
                                             [displayError]="isFieldValid('ho')"
                                             errorMsg="Họ không được để trống">
@@ -35,7 +35,7 @@
                         <input type="text" class="form-control" formControlName="ten"
                                (blur)="trimSpace('ten')"
                                [readOnly]="type == 'detail'"
-                               maxlength="200">
+                               maxlength="45">
                         <jhi-error-messages *ngIf="formControl['ten'].hasError('required')"
                                             [displayError]="isFieldValid('ten')"
                                             errorMsg="Tên không được để trống">
@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('idPhongBan')}">
+                         [ngClass]="{'has-error': isFieldValid('phongBanId')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Phòng ban</label>
                         <ng-select [items]="listPhongBan"
@@ -69,17 +69,17 @@
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
                                    [readonly]="type === 'detail'"
-                                   bindLabel="ten" bindValue="id" formControlName="idPhongBan">
+                                   bindLabel="ten" bindValue="id" formControlName="phongBanId">
                         </ng-select>
-                        <jhi-error-messages *ngIf="formControl['idPhongBan'].hasError('required')"
-                                            [displayError]="isFieldValid('idPhongBan')"
+                        <jhi-error-messages *ngIf="formControl['phongBanId'].hasError('required')"
+                                            [displayError]="isFieldValid('phongBanId')"
                                             errorMsg="Phòng ban không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('idChucVu')}">
+                         [ngClass]="{'has-error': isFieldValid('chucVuId')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Chức vụ</label>
                         <ng-select [items]="listChucVu"
@@ -88,10 +88,10 @@
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
                                    [readonly]="type === 'detail'"
-                                   bindLabel="tenChucVu" bindValue="id" formControlName="idChucVu">
+                                   bindLabel="tenChucVu" bindValue="id" formControlName="chucVuId">
                         </ng-select>
-                        <jhi-error-messages *ngIf="formControl['idChucVu'].hasError('required')"
-                                            [displayError]="isFieldValid('idChucVu')"
+                        <jhi-error-messages *ngIf="formControl['chucVuId'].hasError('required')"
+                                            [displayError]="isFieldValid('chucVuId')"
                                             errorMsg="Chức vụ không được để trống">
                         </jhi-error-messages>
                     </div>
@@ -102,6 +102,37 @@
                         <input type="text" class="form-control" formControlName="sdt"
                                (blur)="trimSpace('sdt')"
                                [readOnly]="type == 'detail'"
+                               maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Giới tính</label>
+                        <ng-select [items]="listGT"
+                                   placeholder="Chọn giới tính"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                   searchable="false"
+                                   [readonly]="type === 'detail'"
+                                   bindLabel="ten" bindValue="id" formControlName="gioiTinh">
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label">Ngày sinh</label>
+                        <input type="date" class="form-control" placeholder="dd-mm-yyyy"
+                               [readOnly]="type == 'detail'" formControlName="ngaySinh">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Quốc tịch</label>
+                        <input type="text" class="form-control" formControlName="quocTich"
+                               (blur)="trimSpace('quocTich')"
+                               [readOnly]="type == 'detail'"
                                maxlength="200">
                     </div>
                 </div>
@@ -109,11 +140,11 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select">
-                        <label class="form-control-label">Hệ số lương</label>
-                        <input type="text" class="form-control" formControlName="heSoLuong"
-                               (blur)="trimSpace('heSoLuong')"
+                        <label class="form-control-label">Trình độ</label>
+                        <input type="text" class="form-control" formControlName="trinhDo"
+                               (blur)="trimSpace('trinhDo')"
                                [readOnly]="type == 'detail'"
-                               maxlength="200">
+                               maxlength="100">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -128,7 +159,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Ngày vào công ty</label>
-                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayBatdau">
+                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" [readOnly]="type == 'detail'" formControlName="ngayBatDau">
                     </div>
                 </div>
             </div>

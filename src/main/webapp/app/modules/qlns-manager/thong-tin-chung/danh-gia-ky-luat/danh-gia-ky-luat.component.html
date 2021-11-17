@@ -86,8 +86,8 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td>{{item.tenNhanVien}}</td>
-                                    <td>{{item.kyLuat}}</td>
+                                    <td>{{item.hoNhanVien + " " + item.tenNhanVien}}</td>
+                                    <td>{{item.tenLoi}}</td>
                                     <td>{{item.mucPhat}}</td>
                                     <td>{{item.mieuTa}}</td>
                                     <td>{{item.ngayThuong}}</td>

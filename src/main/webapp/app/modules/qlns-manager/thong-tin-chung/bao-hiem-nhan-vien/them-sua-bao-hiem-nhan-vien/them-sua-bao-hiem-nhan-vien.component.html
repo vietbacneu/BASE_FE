@@ -53,7 +53,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Ngày đóng</label>
-                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayDong">
+                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" [readOnly]="type == 'detail'"  formControlName="ngayDong">
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <div class="col-md-12">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Miêu tả</label>
-                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
+                        <textarea [readOnly]="type == 'detail'" class="form-control" type="text" rows="3"
                                   formControlName="mieuTa" maxlength="250" (blur)="trimSpace('mieuTa')"></textarea>
                     </div>
                 </div>

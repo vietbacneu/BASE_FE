@@ -35,8 +35,8 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
     predicate: any;
     formValue;
     reverse: any;
-    listPhongBan: any;
-    listChucVu: any;
+    listNhanVien: any;
+    listDanhGia: any;
 
     constructor(
         public translateService: TranslateService,
@@ -130,7 +130,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
         };
         if (this.type === "add") {
             this.thongTinNhanSuApiService
-                .createNhanVien(data).subscribe(
+                .createDGKhenThuong(data).subscribe(
                 res => {
                     this.spinner.hide();
                     this.toastService.openSuccessToast(
@@ -151,7 +151,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
         if (this.type === "update") {
             if (this.selectedData !== undefined) data.id = this.selectedData.id;
             this.thongTinNhanSuApiService
-                .updateNhanVien(data).subscribe(
+                .updateDGKhenThuong(data).subscribe(
                 res => {
                     this.spinner.hide();
                     this.toastService.openSuccessToast(
@@ -193,5 +193,35 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
         return this.form.controls;
     }
 
+    loadNhanVien() {
+        this.thongTinNhanSuApiService
+            .searchNhanVien({})
+            .subscribe(
+                res => {
+                    this.listNhanVien = res.body.content
+                },
+                err => {
+                    this.spinner.hide();
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
+            );
+    }
 
+    loadDanhGia() {
+        this.thongTinNhanSuApiService
+            .searchDMKhenThuong({})
+            .subscribe(
+                res => {
+                    this.listDanhGia = res.body.content
+                },
+                err => {
+                    this.spinner.hide();
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
+            );
+    }
 }

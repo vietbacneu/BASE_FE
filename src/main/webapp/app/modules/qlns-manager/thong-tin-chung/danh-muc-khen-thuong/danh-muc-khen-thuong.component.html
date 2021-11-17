@@ -19,20 +19,21 @@
                     <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
                         <div class="row">
                             <div class="col-md-6">
+                            <div class="form-group row dropdown form-custom-select ">
+                                <label class="col-sm-3 custom-label-right">Mã khen thưởng</label>
+                                <div class="col-sm-8 form-custom-select">
+                                    <input type="text" class="form-control" formControlName="maKhenThuong"
+                                           maxlength="100"
+                                           (blur)="trimSpace('maKhenThuong')">
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Tên khen thưởng</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="ten"
                                                maxlength="200" (blur)="trimSpace('ten')">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Mức khen thưởng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="mucThuong"
-                                               maxlength="10" (keypress)="numberOnly($event)" (blur)="trimSpace('mucThuong')">
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +65,7 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-<!--                                    <th class="medium-width-table"><span>Mã khen thưởng</span></th>-->
+                                    <th class="medium-width-table"><span>Mã khen thưởng</span></th>
                                     <th class="medium-width-table"><span>Tên khen thưởng</span></th>
                                     <th class="medium-width-table"><span>Mức khen thưởng</span></th>
                                     <th class="medium-width-table"><span>Miêu tả</span></th>
@@ -76,9 +77,9 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-<!--                                    <td>{{item.maKhenThuong}}</td>-->
+                                    <td>{{item.maKhenThuong}}</td>
                                     <td>{{item.ten}}</td>
-                                    <td>{{item.mucKhenThuong}}</td>
+                                    <td>{{item.mucThuong}}</td>
                                     <td>{{item.mieuTa}}</td>
                                     <!--                                    <td>{{item.ngayKetThuc}}</td>-->
                                     <td class="text-center four-icon medium-width-table">

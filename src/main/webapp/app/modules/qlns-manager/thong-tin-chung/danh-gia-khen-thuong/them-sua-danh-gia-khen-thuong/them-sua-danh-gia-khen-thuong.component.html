@@ -17,13 +17,16 @@
                          [ngClass]="{'has-error': isFieldValid('idNhanVien')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Nhân viên</label>
-                        <ng-select [items]="listPhongBan"
+                        <ng-select [items]="listNhanVien"
                                    placeholder="Chọn nhân viên"
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
                                    [readonly]="type === 'detail'"
-                                   bindLabel="tenDanhMuc" bindValue="id" formControlName="idNhanVien">
+                                   bindLabel="ten" bindValue="id" formControlName="idNhanVien">
+                            <ng-template ng-option-tmp let-item="item">
+                                {{item.ho}} {{item.ten}} <br/>
+                            </ng-template>
                         </ng-select>
                         <jhi-error-messages *ngIf="formControl['idNhanVien'].hasError('required')"
                                             [displayError]="isFieldValid('idNhanVien')"
@@ -36,7 +39,7 @@
                          [ngClass]="{'has-error': isFieldValid('idKhenThuong')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="form-control-label">Khen thưởng</label>
-                        <ng-select [items]="listChucVu"
+                        <ng-select [items]="listDanhGia"
                                    placeholder="Chọn loại khen thưởng"
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
@@ -53,7 +56,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Ngày đánh giá</label>
-                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayDanhGia">
+                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" [readOnly]="type == 'detail'"  formControlName="ngayDanhGia">
                     </div>
                 </div>
             </div>
@@ -61,7 +64,7 @@
                 <div class="col-md-12">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Miêu tả</label>
-                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
+                        <textarea [readOnly]="type == 'detail'" class="form-control" type="text" rows="3"
                                   formControlName="mieuTa" maxlength="250" (blur)="trimSpace('mieuTa')"></textarea>
                     </div>
                 </div>

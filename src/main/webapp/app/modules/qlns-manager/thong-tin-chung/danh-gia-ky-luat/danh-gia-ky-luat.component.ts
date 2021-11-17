@@ -69,6 +69,7 @@ export class DanhGiaKyLuatComponent implements OnInit {
   ngOnInit(): void {
     this.onResize();
     this.buidForm();
+    this.loadDanhGia();
   }
 
   private buidForm() {
@@ -207,10 +208,16 @@ export class DanhGiaKyLuatComponent implements OnInit {
           this.loadAll();
         },
         err => {
-          this.spinner.hide()
-          this.toastService.openErrorToast(
-              this.translateService.instant("common.toastr.messages.error.load")
-          );
+          this.spinner.hide();
+          if (err.error) {
+            this.toastService.openErrorToast(
+                err.error.message,
+            );
+          } else {
+            this.toastService.openErrorToast(
+                this.translateService.instant("common.toastr.messages.error.load")
+            );
+          }
         }
     );
   }
@@ -230,5 +237,19 @@ export class DanhGiaKyLuatComponent implements OnInit {
       );
     }
   }
-
+  loadDanhGia() {
+    this.thongTinNhanSuApiService
+        .searchDMKyLuat({})
+        .subscribe(
+            res => {
+              this.listDanhGia = res.body.content
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
 }

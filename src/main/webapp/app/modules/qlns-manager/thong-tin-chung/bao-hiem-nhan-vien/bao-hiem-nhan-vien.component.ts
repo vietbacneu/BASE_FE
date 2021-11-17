@@ -208,10 +208,16 @@ export class BaoHiemNhanVienComponent implements OnInit {
           this.loadAll();
         },
         err => {
-          this.spinner.hide()
-          this.toastService.openErrorToast(
-              this.translateService.instant("common.toastr.messages.error.load")
-          );
+          this.spinner.hide();
+          if (err.error) {
+            this.toastService.openErrorToast(
+                err.error.message,
+            );
+          } else {
+            this.toastService.openErrorToast(
+                this.translateService.instant("common.toastr.messages.error.load")
+            );
+          }
         }
     );
   }
