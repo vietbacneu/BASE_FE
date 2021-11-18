@@ -55,6 +55,7 @@ export class ThongTinNhanSuApiService {
       observe: "response"
     });
   }
+
   searchDanhGia(data?: any): Observable<any> {
     const option = createRequestOption(data);
     return this.http.post(this.resourceUrl + '/api/nhanViens/danhGia',data, {
@@ -261,6 +262,13 @@ export class ThongTinNhanSuApiService {
   searchLuongNV(data?: any): Observable<any> {
     const option = createRequestOption(data);
     return this.http.post(this.resourceUrl + '/api/chamCongs/searchPhieuLuong',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  exportPhieuLuong(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/chamCongs/exportPhieuLuong',data, {
       params: option,
       observe: "response"
     });

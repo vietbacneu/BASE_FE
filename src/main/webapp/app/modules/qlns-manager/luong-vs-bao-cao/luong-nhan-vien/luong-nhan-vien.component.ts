@@ -152,9 +152,9 @@ export class LuongNhanVienComponent implements OnInit {
     this.thongTinNhanSuApiService
         .searchLuongNV({
           isCount: 1,
-          phongBanId: this.form.value.phongBanId,
-          chucVuId: this.form.value.chucVuId,
-          ten: this.form.value.ten,
+          idPhongBan: this.form.value.phongBanId,
+          idchucVu: this.form.value.chucVuId,
+          tenNhanVien: this.form.value.ten,
           month: this.form.value.month,
           page: this.page - 1,
           size: this.itemsPerPage,

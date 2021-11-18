@@ -17,7 +17,7 @@
             </div>
             <div id="search" class="collapse show">
                 <div class="card-body">
-                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
@@ -49,14 +49,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tháng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <input type="month" class="form-control" formControlName="month">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Chức vụ</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <ng-select [items]="listChucVu"
@@ -72,9 +64,15 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Tháng</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="month" class="form-control" formControlName="month">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                         <div class="d-flex justify-content-center">
                             <button type="button" class="btn btn-success" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
@@ -102,27 +100,44 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <th class="medium-width-table"><span>Họ</span></th>
-                                    <th class="medium-width-table"><span>Tên</span></th>
-                                    <th class="medium-width-table"><span>Tên chức vụ</span></th>
-                                    <th class="medium-width-table"><span>Tên phòng ban</span></th>
-                                    <th class="medium-width-table"><span>Tên lỗi</span></th>
-                                    <th class="medium-width-table"><span>Mức phạt</span></th>
-                                    <th class="medium-width-table"><span>Tên thưởng</span></th>
-                                    <th class="medium-width-table"><span>Mức thưởng</span></th>
+                                    <th class="medium-width-table"><span>Tên nhân viên</span></th>
+                                    <th class="medium-width-table"><span>Phòng ban</span></th>
+                                    <th class="medium-width-table"><span>Chức vụ</span></th>
+                                    <th class="medium-width-table"><span>Hệ số lương</span></th>
+                                    <th class="medium-width-table"><span>Số giờ làm</span></th>
+                                    <th class="medium-width-table"><span>Lương cơ bản</span></th>
+                                    <th class="medium-width-table"><span>Khen thưởng</span></th>
+                                    <th class="medium-width-table"><span>Kỷ luật</span></th>
+                                    <th class="medium-width-table"><span>Bảo hiểm</span></th>
+                                    <th class="medium-width-table"><span>Lương thực nhận</span></th>
+                                    <th class="medium-width-table action-width-four-icon custom-width"
+                                        jhiTranslate="userGroup.action">
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td>{{item.ho}}</td>
-                                    <td>{{item.ten}}</td>
-                                    <td>{{item.tenChucVu}}</td>
+                                    <td>{{item.hoNhanVien + " " + item.tenNhanVien}}</td>
                                     <td>{{item.tenPhongBan}}</td>
-                                    <td>{{item.tenLoi}}</td>
-                                    <td>{{item.mucPhat}}</td>
-                                    <td>{{item.tenThuong}}</td>
-                                    <td>{{item.mucThuong}}</td>
+                                    <td>{{item.tenChucVu}}</td>
+                                    <td>{{item.heSoLuong}}</td>
+                                    <td>{{item.soGioLam}}</td>
+                                    <td>{{item.totalLuongBefore}}</td>
+                                    <td>{{item.totalKhenThuong}}</td>
+                                    <td>{{item.totalKyLuat}}</td>
+                                    <td>{{item.totalBaoHiem}}</td>
+                                    <td>{{item.totalLuongAfter}}</td>
+                                    <td class="text-center four-icon medium-width-table">
+                                        <div class="group-action">
+                                            <button class="btn btn-light" placement="top"
+                                                    (click)="openModal('detail', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.detail' | translate}}"
+                                                    onclick="this.blur();">
+                                                <i class="fa fa-info-circle icon-update" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -131,6 +146,18 @@
                     <div class="row justify-content-start py-2 pl-1  table-footer no-data"
                          *ngIf="!totalItems">
                         <p style="color: red" class="item-count">Không có bản ghi</p>
+                    </div>
+
+                    <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                            <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                            [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPage(page)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                        </div>
                     </div>
                 </div>
             </div>

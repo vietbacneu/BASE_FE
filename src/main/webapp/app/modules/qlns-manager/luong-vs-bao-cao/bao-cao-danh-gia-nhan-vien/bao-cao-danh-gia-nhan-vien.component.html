@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Tên nhân viên</label>
                                     <div class="col-sm-8 form-custom-select">
@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Phòng ban</label>
                                     <div class="col-sm-8 form-custom-select">
@@ -45,7 +45,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Tháng</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="month" class="form-control" formControlName="month">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Chức vụ</label>
                                     <div class="col-sm-8 form-custom-select">
@@ -62,6 +72,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="button" class="btn btn-success" (click)="onSearchData()">
@@ -94,23 +105,19 @@
                                     <th class="medium-width-table"><span>Tên</span></th>
                                     <th class="medium-width-table"><span>Tên chức vụ</span></th>
                                     <th class="medium-width-table"><span>Tên phòng ban</span></th>
-                                    <th class="medium-width-table"><span>Tên lỗi</span></th>
-                                    <th class="medium-width-table"><span>Mức phạt</span></th>
-                                    <th class="medium-width-table"><span>Tên thưởng</span></th>
-                                    <th class="medium-width-table"><span>Mức thưởng</span></th>
+                                    <th class="medium-width-table"><span>Tên lỗi/thưởng</span></th>
+                                    <th class="medium-width-table"><span>Mức phạt/thưởng</span></th>
                                 </tr>
                                 </thead>
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
-                                    <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                    <td class="text-center"> {{ i + 1}}</td>
                                     <td>{{item.ho}}</td>
                                     <td>{{item.ten}}</td>
                                     <td>{{item.tenChucVu}}</td>
                                     <td>{{item.tenPhongBan}}</td>
-                                    <td>{{item.tenLoi}}</td>
-                                    <td>{{item.mucPhat}}</td>
-                                    <td>{{item.tenThuong}}</td>
-                                    <td>{{item.mucThuong}}</td>
+                                    <td>{{item.tenThuongPhat}}</td>
+                                    <td>{{item.valueThuongPhat}}</td>
                                 </tr>
                                 </tbody>
                             </table>

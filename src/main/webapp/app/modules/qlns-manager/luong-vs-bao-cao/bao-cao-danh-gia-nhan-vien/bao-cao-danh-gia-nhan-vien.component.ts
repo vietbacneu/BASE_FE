@@ -79,6 +79,7 @@ export class BaoCaoDanhGiaNhanVienComponent implements OnInit {
       chucVuId: [null],
       phongBanId: [null],
       ten: [null],
+      month:[null]
     });
   }
 
@@ -138,6 +139,7 @@ export class BaoCaoDanhGiaNhanVienComponent implements OnInit {
           phongBanId: this.form.value.phongBanId,
           chucVuId: this.form.value.chucVuId,
           ten: this.form.value.ten,
+          month: this.form.value.month,
         })
         .subscribe(
             res => {
@@ -176,6 +178,7 @@ export class BaoCaoDanhGiaNhanVienComponent implements OnInit {
           phongBanId: this.form.value.phongBanId,
           chucVuId: this.form.value.chucVuId,
           ten: this.form.value.ten,
+          month: this.form.value.month,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
