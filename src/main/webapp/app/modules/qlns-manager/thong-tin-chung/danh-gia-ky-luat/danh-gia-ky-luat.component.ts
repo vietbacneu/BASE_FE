@@ -147,8 +147,9 @@ export class DanhGiaKyLuatComponent implements OnInit {
     this.thongTinNhanSuApiService
         .searchDGKyLuat({
           isCount: 1,
-          ten: this.form.value.ten,
+          tenNhanVien: this.form.value.ten,
           idKyLuat: this.form.value.idKyLuat,
+          month: this.form.value.month,
           page: this.page - 1,
           size: this.itemsPerPage,
         })

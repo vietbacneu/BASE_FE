@@ -147,8 +147,9 @@ export class DanhGiaKhenThuongComponent implements OnInit {
     this.thongTinNhanSuApiService
         .searchDGKhenThuong({
           isCount: 1,
-          ten: this.form.value.ten,
+          tenNhanVien: this.form.value.ten,
           idKhenThuong: this.form.value.idKhenThuong,
+          month: this.form.value.month,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
