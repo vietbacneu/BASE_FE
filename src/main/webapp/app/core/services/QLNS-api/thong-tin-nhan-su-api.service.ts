@@ -41,6 +41,27 @@ export class ThongTinNhanSuApiService {
       observe: "response"
     });
   }
+  exportNhanVien(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/nhanViens/exportNhanVien',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  exportDanhGia(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/nhanViens/exportDanhGia',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  searchDanhGia(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/nhanViens/danhGia',data, {
+      params: option,
+      observe: "response"
+    });
+  }
   searchDGKhenThuong(data?: any): Observable<any> {
     const option = createRequestOption(data);
     return this.http.post(this.resourceUrl + '/api/nhanVienKhenThuongs/search',data, {

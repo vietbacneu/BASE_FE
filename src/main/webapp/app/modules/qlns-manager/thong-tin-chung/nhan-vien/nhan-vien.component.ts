@@ -77,8 +77,9 @@ export class NhanVienComponent implements OnInit {
 
     private buidForm() {
         this.form = this.formBuilder.group({
+            chucVuId: [null],
+            phongBanId: [null],
             ten: [null],
-            email: [null],
         });
     }
 
@@ -149,8 +150,9 @@ export class NhanVienComponent implements OnInit {
         this.thongTinNhanSuApiService
             .searchNhanVien({
                 isCount: 1,
+                phongBanId: this.form.value.phongBanId,
+                chucVuId: this.form.value.chucVuId,
                 ten: this.form.value.ten,
-                email: this.form.value.email,
                 page: this.page - 1,
                 size: this.itemsPerPage,
             })

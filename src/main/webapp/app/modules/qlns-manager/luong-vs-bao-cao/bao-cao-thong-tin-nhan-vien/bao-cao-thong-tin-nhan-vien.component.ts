@@ -13,6 +13,7 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaNhanVienComponent} from "app/modules/qlns-manager/thong-tin-chung/nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {SERVER_API} from "app/shared/constants/api-resource.constants";
 
 @Component({
   selector: 'jhi-bao-cao-thong-tin-nhan-vien',
@@ -75,8 +76,9 @@ export class BaoCaoThongTinNhanVienComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
+      chucVuId: [null],
+      phongBanId: [null],
       ten: [null],
-      email: [null],
     });
   }
 
@@ -129,9 +131,29 @@ export class BaoCaoThongTinNhanVienComponent implements OnInit {
     });
   }
 
-  onExport(){
-
+  onExport() {
+    this.spinner.show();
+    this.thongTinNhanSuApiService
+        .exportNhanVien({
+          phongBanId: this.form.value.phongBanId,
+          chucVuId: this.form.value.chucVuId,
+          ten: this.form.value.ten,
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              // window.open(res.body.path, '_blank').focus();
+              window.open(SERVER_API + "/api" + "/nhanViens/download/?path=" + res.body.path);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
   }
+
 
   onSearchData() {
     this.loadAll()
@@ -151,8 +173,9 @@ export class BaoCaoThongTinNhanVienComponent implements OnInit {
     this.thongTinNhanSuApiService
         .searchNhanVien({
           isCount: 1,
+          phongBanId: this.form.value.phongBanId,
+          chucVuId: this.form.value.chucVuId,
           ten: this.form.value.ten,
-          email: this.form.value.email,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
