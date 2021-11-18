@@ -26,6 +26,8 @@ import { DanhGiaKhenThuongComponent } from './thong-tin-chung/danh-gia-khen-thuo
 import { ThemSuaDanhGiaKhenThuongComponent } from './thong-tin-chung/danh-gia-khen-thuong/them-sua-danh-gia-khen-thuong/them-sua-danh-gia-khen-thuong.component';
 import { DanhGiaKyLuatComponent } from './thong-tin-chung/danh-gia-ky-luat/danh-gia-ky-luat.component';
 import { ThemSuaDanhKyLuatComponent } from './thong-tin-chung/danh-gia-ky-luat/them-sua-danh-ky-luat/them-sua-danh-ky-luat.component';
+import { DanhMucBaoHiemComponent } from './thong-tin-chung/danh-muc-bao-hiem/danh-muc-bao-hiem.component';
+import { ThemSuaDanhMucBaoHiemComponent } from './thong-tin-chung/danh-muc-bao-hiem/them-sua-danh-muc-bao-hiem/them-sua-danh-muc-bao-hiem.component';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { ThemSuaDanhKyLuatComponent } from './thong-tin-chung/danh-gia-ky-luat/t
       ThemSuaDanhGiaKhenThuongComponent,
       DanhGiaKyLuatComponent,
       ThemSuaDanhKyLuatComponent,
+      DanhMucBaoHiemComponent,
+      ThemSuaDanhMucBaoHiemComponent,
   ],
     imports: [
         CommonModule,
@@ -70,6 +74,7 @@ import { ThemSuaDanhKyLuatComponent } from './thong-tin-chung/danh-gia-ky-luat/t
         ThemSuaKyLuatComponent,
         ThemSuaDanhGiaKhenThuongComponent,
         ThemSuaDanhKyLuatComponent,
+        ThemSuaDanhMucBaoHiemComponent,
     ]
 })
 export class QlnsManagerModule { }

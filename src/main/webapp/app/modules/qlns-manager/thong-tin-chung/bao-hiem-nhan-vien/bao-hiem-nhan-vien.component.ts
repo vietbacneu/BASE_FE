@@ -76,6 +76,7 @@ export class BaoHiemNhanVienComponent implements OnInit {
     this.form = this.formBuilder.group({
       ten: [null],
       idBaoHiem: [null],
+      month: [null],
     });
   }
 
@@ -148,6 +149,7 @@ export class BaoHiemNhanVienComponent implements OnInit {
           isCount: 1,
           idBaoHiem: this.form.value.idBaoHiem,
           ten: this.form.value.ten,
+          month: this.form.value.month,
           page: this.page - 1,
           size: this.itemsPerPage,
         })

@@ -5,8 +5,8 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Nhân viên</li>
-    <li class="breadcrumb-item">Đánh giá kỷ luật</li>
+    <li class="breadcrumb-item">Thông tin chung</li>
+    <li class="breadcrumb-item">Phòng ban</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -16,39 +16,23 @@
             </div>
             <div id="search" class="collapse show">
                 <div class="card-body">
-                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tên nhân viên</label>
+                                    <label class="col-sm-3 custom-label-right">Mã bảo hiểm</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="text" class="form-control" formControlName="maBaoHiem"
+                                               maxlength="200" (blur)="trimSpace('maPhongBan')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Tên bảo hiểm</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="ten"
                                                maxlength="200" (blur)="trimSpace('ten')">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Lý do kỷ luật</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listDanhGia"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="tenLoi" bindValue="id" formControlName="idKyLuat">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenLoi)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tháng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <input type="month" class="form-control" formControlName="month">
                                     </div>
                                 </div>
                             </div>
@@ -80,12 +64,10 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <th class="medium-width-table"><span>Tên nhân viên</span></th>
-                                    <th class="medium-width-table"><span>Kỷ luật</span></th>
-                                    <th class="medium-width-table"><span>Mức phạt</span></th>
+                                    <th class="medium-width-table"><span>Mã bảo hiểm</span></th>
+                                    <th class="medium-width-table"><span>Tên bảo hiểm</span></th>
+                                    <th class="medium-width-table"><span>Mã số</span></th>
                                     <th class="medium-width-table"><span>Miêu tả</span></th>
-                                    <th class="medium-width-table"><span>Ngày phạt</span></th>
-                                    <!--                                    <th class="medium-width-table"><span>Ngày rời công ty</span></th>-->
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
                                     </th>
@@ -94,12 +76,10 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td>{{item.hoNhanVien + " " + item.tenNhanVien}}</td>
-                                    <td>{{item.tenLoi}}</td>
-                                    <td>{{item.mucPhat}}</td>
-                                    <td>{{item.mieuTa}}</td>
-                                    <td>{{item.ngayThuong}}</td>
-
+                                    <td>{{item.maBaoHiem}}</td>
+                                    <td>{{item.ten}}</td>
+                                    <td>{{item.maSo}}</td>
+                                    <td>{{item.thongTin}}</td>
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"

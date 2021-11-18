@@ -293,4 +293,32 @@ export class ThongTinNhanSuApiService {
       observe: "response"
     });
   }
+  searchDMBaoHiem(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/baoHiems/search',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  createDMBaoHiem(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/baoHiems',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  updateDMBaoHiem(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.put(this.resourceUrl + '/api/baoHiems/update',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  deleteDMBaoHiem(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.delete(this.resourceUrl + `/api/baoHiems/${data.id}`, {
+      params: option,
+      observe: "response"
+    });
+  }
 }

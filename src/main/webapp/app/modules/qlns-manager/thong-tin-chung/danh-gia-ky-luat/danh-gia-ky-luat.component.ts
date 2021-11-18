@@ -76,6 +76,7 @@ export class DanhGiaKyLuatComponent implements OnInit {
     this.form = this.formBuilder.group({
       ten: [null],
       idKyLuat: [null],
+      month: [null],
     });
   }
 

@@ -17,9 +17,9 @@
             </div>
             <div id="search" class="collapse show">
                 <div class="card-body">
-                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Tên nhân viên</label>
                                     <div class="col-sm-8 form-custom-select">
@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group row dropdown form-custom-select ">
                                     <label class="col-sm-3 custom-label-right">Loại bảo hiểm</label>
                                     <div class="col-sm-8 form-custom-select">
@@ -42,6 +42,14 @@
                                                 {{formatPreShow(item.tenCuaHang)}} <br/>
                                             </ng-template>
                                         </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Tháng</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="month" class="form-control" formControlName="month">
                                     </div>
                                 </div>
                             </div>
