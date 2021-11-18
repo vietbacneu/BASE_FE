@@ -68,6 +68,8 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm()
+        this.loadDanhGia()
+        this.loadNhanVien()
     }
 
 
@@ -75,7 +77,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
         this.form = this.formBuilder.group({
             idNhanVien: [null, Validators.required],
             idKhenThuong: [null, Validators.required],
-            ngayDanhGia: [null],
+            ngay: [null],
             mieuTa: [null],
         });
         if (this.selectedData) {
@@ -125,7 +127,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
             id: null,
             idNhanVien: this.form.value.idNhanVien,
             idKhenThuong: this.form.value.idKhenThuong,
-            ngayDanhGia: this.form.value.ngayDanhGia,
+            ngay: this.form.value.ngay,
             mieuTa: this.form.value.mieuTa,
         };
         if (this.type === "add") {

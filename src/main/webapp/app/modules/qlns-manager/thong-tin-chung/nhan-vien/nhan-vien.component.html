@@ -96,7 +96,7 @@
                                     <th class="medium-width-table"><span>Email</span></th>
                                     <th class="medium-width-table"><span>SĐT</span></th>
                                     <th class="medium-width-table"><span>Địa chỉ</span></th>
-                                    <th class="medium-width-table"><span>Hệ số lương</span></th>
+                                    <th class="medium-width-table"><span>Lương theo giờ</span></th>
                                     <th class="medium-width-table"><span>Chức vụ</span></th>
                                     <th class="medium-width-table"><span>Phòng ban</span></th>
                                     <th class="medium-width-table"><span>Ngày vào công ty</span></th>
@@ -114,10 +114,10 @@
                                     <td>{{item.email}}</td>
                                     <td>{{item.sdt}}</td>
                                     <td>{{item.diaChi}}</td>
-                                    <td>{{item.heSoLuong}}</td>
+                                    <td style="text-align: right">{{item.heSoLuong | number}}</td>
                                     <td>{{item.tenChucVu}}</td>
                                     <td>{{item.tenPhongBan}}</td>
-                                    <td>{{item.ngayBatDau}}</td>
+                                    <td style="text-align: center">{{item.ngayBatDau}}</td>
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"

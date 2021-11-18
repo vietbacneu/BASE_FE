@@ -77,7 +77,7 @@ export class ThemSuaDanhKyLuatComponent implements OnInit {
         this.form = this.formBuilder.group({
             idNhanVien: [null, Validators.required],
             idKyLuat: [null, Validators.required],
-            ngayDanhGia: [null],
+            ngay: [null],
             mieuTa: [null],
         });
         if (this.selectedData) {
@@ -128,7 +128,7 @@ export class ThemSuaDanhKyLuatComponent implements OnInit {
             ho: this.form.value.ho,
             idNhanVien: this.form.value.idNhanVien,
             idKyLuat: this.form.value.idKyLuat,
-            ngayDanhGia: this.form.value.ngayDanhGia,
+            ngay: this.form.value.ngay,
             mieuTa: this.form.value.mieuTa,
         };
         if (this.type === "add") {

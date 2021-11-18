@@ -96,9 +96,9 @@
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                     <td>{{item.hoNhanVien + " " + item.tenNhanVien}}</td>
                                     <td>{{item.tenKhenThuong}}</td>
-                                    <td>{{item.khenThuongMucThuong}}</td>
+                                    <td style="text-align: right">{{item.khenThuongMucThuong | number}}</td>
                                     <td>{{item.mieuTa}}</td>
-                                    <td>{{item.ngay}}</td>
+                                    <td style="text-align: center">{{item.ngay}}</td>
 
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">

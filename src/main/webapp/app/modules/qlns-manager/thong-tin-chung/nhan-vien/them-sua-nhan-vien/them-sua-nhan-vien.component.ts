@@ -138,11 +138,12 @@ export class ThemSuaNhanVienComponent implements OnInit {
             ho: this.form.value.ho,
             ten: this.form.value.ten,
             email: this.form.value.email,
+            sdt: this.form.value.sdt,
             chucVuId: this.form.value.chucVuId,
             phongBanId: this.form.value.phongBanId,
             trinhDo: this.form.value.trinhDo,
             diaChi: this.form.value.diaChi,
-            ngayBatdau: this.form.value.ngayBatdau,
+            ngayBatDau: this.form.value.ngayBatDau,
             gioiTinh: this.form.value.gioiTinh,
             ngaySinh: this.form.value.ngaySinh,
             quocTich: this.form.value.quocTich,
@@ -168,6 +169,7 @@ export class ThemSuaNhanVienComponent implements OnInit {
             );
         }
         if (this.type === "update") {
+            console.log('formValue', data)
             if (this.selectedData !== undefined) data.id = this.selectedData.id;
             this.thongTinNhanSuApiService
                 .updateNhanVien(data).subscribe(

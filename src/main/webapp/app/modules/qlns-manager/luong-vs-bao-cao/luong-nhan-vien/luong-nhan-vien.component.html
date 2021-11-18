@@ -98,7 +98,7 @@
                                     <th class="medium-width-table"><span>Tên nhân viên</span></th>
                                     <th class="medium-width-table"><span>Phòng ban</span></th>
                                     <th class="medium-width-table"><span>Chức vụ</span></th>
-                                    <th class="medium-width-table"><span>Hệ số lương</span></th>
+                                    <th class="medium-width-table"><span>Lương theo giờ</span></th>
                                     <th class="medium-width-table"><span>Số giờ làm</span></th>
                                     <th class="medium-width-table"><span>Lương cơ bản</span></th>
                                     <th class="medium-width-table"><span>Khen thưởng</span></th>
@@ -116,13 +116,13 @@
                                     <td>{{item.hoNhanVien + " " + item.tenNhanVien}}</td>
                                     <td>{{item.tenPhongBan}}</td>
                                     <td>{{item.tenChucVu}}</td>
-                                    <td>{{item.heSoLuong}}</td>
+                                    <td style="text-align: right">{{item.heSoLuong | number}}</td>
                                     <td>{{item.soGioLam}}</td>
-                                    <td>{{item.totalLuongBefore}}</td>
-                                    <td>{{item.totalKhenThuong}}</td>
-                                    <td>{{item.totalKyLuat}}</td>
-                                    <td>{{item.totalBaoHiem}}</td>
-                                    <td>{{item.totalLuongAfter}}</td>
+                                    <td style="text-align: right">{{item.totalLuongBefore | number}}</td>
+                                    <td style="text-align: right">{{item.totalKhenThuong | number}}</td>
+                                    <td style="text-align: right">{{item.totalKyLuat | number}}</td>
+                                    <td style="text-align: right">{{item.totalBaoHiem | number}}</td>
+                                    <td style="text-align: right">{{item.totalLuongAfter | number}}</td>
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"
