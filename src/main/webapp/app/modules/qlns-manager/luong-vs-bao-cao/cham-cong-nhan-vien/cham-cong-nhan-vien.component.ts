@@ -13,6 +13,7 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaBaoHiemNhanVienComponent} from "app/modules/qlns-manager/thong-tin-chung/bao-hiem-nhan-vien/them-sua-bao-hiem-nhan-vien/them-sua-bao-hiem-nhan-vien.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
+import {ThemSuaChamCongNhanVienComponent} from "app/modules/qlns-manager/luong-vs-bao-cao/cham-cong-nhan-vien/them-sua-cham-cong-nhan-vien/them-sua-cham-cong-nhan-vien.component";
 
 @Component({
   selector: 'jhi-cham-cong-nhan-vien',
@@ -73,8 +74,8 @@ export class ChamCongNhanVienComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      ten: [null],
-      idBaoHiem: [null],
+      tenNhanVien: [null],
+      ngayLam: [null],
     });
   }
 
@@ -110,7 +111,7 @@ export class ChamCongNhanVienComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaBaoHiemNhanVienComponent, {
+    const modalRef = this.modalService.open(ThemSuaChamCongNhanVienComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -143,10 +144,10 @@ export class ChamCongNhanVienComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.thongTinNhanSuApiService
-        .searchBaoHiemNV({
+        .searchChamCong({
           isCount: 1,
-          idBaoHiem: this.form.value.idBaoHiem,
-          ten: this.form.value.ten,
+          ngayLam: this.form.value.ngayLam,
+          tenNhanVien: this.form.value.tenNhanVien,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
@@ -200,7 +201,7 @@ export class ChamCongNhanVienComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.thongTinNhanSuApiService.deleteBaoHiemNV({id: id}).subscribe(
+    this.thongTinNhanSuApiService.deleteChamCong({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);

@@ -1,1 +1,126 @@
-<p>chi-tiet-luong-nhan-vien works!</p>
+<div style="display: block;">
+    <div class="custom-modal-large" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới nhân viên</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết lương nhân viên</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật nhân viên</h5>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-90-center">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Tên nhân viên</label>
+                        <input type="text" class="form-control" formControlName="nhanVien"
+                               (blur)="trimSpace('nhanVien')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Phòng ban</label>
+                        <input type="text" class="form-control" formControlName="tenPhongBan"
+                               (blur)="trimSpace('tenPhongBan')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Chức vụ</label>
+                        <input type="text" class="form-control" formControlName="tenChucVu"
+                               (blur)="trimSpace('tenChucVu')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Hệ số lương</label>
+                        <input type="text" class="form-control" formControlName="heSoLuong"
+                               (blur)="trimSpace('heSoLuong')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Số giờ làm</label>
+                        <input type="text" class="form-control" formControlName="soGioLam"
+                               (blur)="trimSpace('soGioLam')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Lương cơ bản</label>
+                        <input type="text" class="form-control" formControlName="totalLuongAfter"
+                               (blur)="trimSpace('totalLuongAfter')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Khen thưởng</label>
+                        <input type="text" class="form-control" formControlName="totalKhenThuong"
+                               (blur)="trimSpace('totalKhenThuong')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Kỷ luật</label>
+                        <input type="text" class="form-control" formControlName="totalKyLuat"
+                               (blur)="trimSpace('totalKyLuat')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Bảo hiểm</label>
+                        <input type="text" class="form-control" formControlName="totalBaoHiem"
+                               (blur)="trimSpace('totalBaoHiem')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Lương thực nhận</label>
+                        <input type="text" class="form-control" formControlName="totalLuongAfter"
+                               (blur)="trimSpace('totalLuongAfter')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-end" style="margin-bottom: 2%; margin-right: 1%">
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
+                (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.cancel'}}"></span>
+        </button>
+        <button *ngIf="type === 'detail'" type="button" class="btn btn-light" (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.close'}}"></span>
+        </button>
+    </div>
+</div>
