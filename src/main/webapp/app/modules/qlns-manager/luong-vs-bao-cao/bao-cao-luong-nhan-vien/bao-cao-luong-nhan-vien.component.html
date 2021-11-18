@@ -1,1 +1,139 @@
-<p>bao-cao-luong-nhan-vien works!</p>
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="" class="btn btn-link btn-custom-bg" ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item">Báo cáo</li>
+    <li class="breadcrumb-item">Báo cáo lương nhân viên</li>
+
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div id="organizationCategories" class="page-content">
+        <div class="card mb-1">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#search" aria-expanded="true"><span>Điều kiện tìm kiếm</span></a>
+            </div>
+            <div id="search" class="collapse show">
+                <div class="card-body">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Tên nhân viên</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="text" class="form-control" formControlName="ten"
+                                               maxlength="200" (blur)="trimSpace('ten')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Phòng ban</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <ng-select [items]="listPhongBan"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="ten" bindValue="id" formControlName="phongBanId">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.ten)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Tháng</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="month" class="form-control" formControlName="month">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select ">
+                                    <label class="col-sm-3 custom-label-right">Chức vụ</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <ng-select [items]="listChucVu"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="tenChucVu" bindValue="id" formControlName="chucVuId">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.tenChucVu)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-success" (click)="onSearchData()">
+                                <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span>Kết quả</span></a>
+            </div>
+            <div id="dataTable" class="collapse show">
+                <div class="card-body pt-2 pb-0 px-2">
+                    <div class="row d-flex justify-content-end pr-1">
+                        <button type="button" class="btn btn-success" (click)="onExport()">
+                            <span>Xuất Báo cáo</span>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                    <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                    </th>
+                                    <th class="medium-width-table"><span>Họ</span></th>
+                                    <th class="medium-width-table"><span>Tên</span></th>
+                                    <th class="medium-width-table"><span>Tên chức vụ</span></th>
+                                    <th class="medium-width-table"><span>Tên phòng ban</span></th>
+                                    <th class="medium-width-table"><span>Tên lỗi</span></th>
+                                    <th class="medium-width-table"><span>Mức phạt</span></th>
+                                    <th class="medium-width-table"><span>Tên thưởng</span></th>
+                                    <th class="medium-width-table"><span>Mức thưởng</span></th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of listData; index as i">
+                                <tr>
+                                    <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                    <td>{{item.ho}}</td>
+                                    <td>{{item.ten}}</td>
+                                    <td>{{item.tenChucVu}}</td>
+                                    <td>{{item.tenPhongBan}}</td>
+                                    <td>{{item.tenLoi}}</td>
+                                    <td>{{item.mucPhat}}</td>
+                                    <td>{{item.tenThuong}}</td>
+                                    <td>{{item.mucThuong}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalItems">
+                        <p style="color: red" class="item-count">Không có bản ghi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>
