@@ -258,4 +258,11 @@ export class ThongTinNhanSuApiService {
       observe: "response"
     });
   }
+  searchLuongNV(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/chamCongs/searchPhieuLuong',data, {
+      params: option,
+      observe: "response"
+    });
+  }
 }
