@@ -13,6 +13,7 @@ import {ChamCongNhanVienComponent} from "app/modules/qlns-manager/luong-vs-bao-c
 import {LuongNhanVienComponent} from "app/modules/qlns-manager/luong-vs-bao-cao/luong-nhan-vien/luong-nhan-vien.component";
 import {DanhGiaKhenThuongComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-gia-khen-thuong/danh-gia-khen-thuong.component";
 import {DanhGiaKyLuatComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-gia-ky-luat/danh-gia-ky-luat.component";
+import {DanhMucBaoHiemComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-muc-bao-hiem/danh-muc-bao-hiem.component";
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
     }
   },{
     path: 'phong-ban', component: PhongBanComponent,
+    data: {
+      pageTitle: "common.appParamNS",
+    }
+  },{
+    path: 'bao-hiem', component: DanhMucBaoHiemComponent,
     data: {
       pageTitle: "common.appParamNS",
     }

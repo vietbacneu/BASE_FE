@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
@@ -8,19 +8,20 @@ import {JhiEventManager} from "ng-jhipster";
 import {ToastService} from "app/shared/services/toast.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CommonService} from "app/shared/services/common.service";
-import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
+import {ThongTinNhanSuApiService} from "app/core/services/QLNS-api/thong-tin-nhan-su-api.service";
 import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/share-data-from-project";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
+import {ThemSuaPhongBanComponent} from "app/modules/qlns-manager/thong-tin-chung/phong-ban/them-sua-phong-ban/them-sua-phong-ban.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
-import {ThemSuaDanhGiaKhenThuongComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-gia-khen-thuong/them-sua-danh-gia-khen-thuong/them-sua-danh-gia-khen-thuong.component";
-import {ThongTinNhanSuApiService} from "app/core/services/QLNS-api/thong-tin-nhan-su-api.service";
+import {ThemSuaDanhMucBaoHiemComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-muc-bao-hiem/them-sua-danh-muc-bao-hiem/them-sua-danh-muc-bao-hiem.component";
 
 @Component({
-  selector: 'jhi-danh-gia-khen-thuong',
-  templateUrl: './danh-gia-khen-thuong.component.html',
-  styleUrls: ['./danh-gia-khen-thuong.component.scss']
+  selector: 'jhi-danh-muc-bao-hiem',
+  templateUrl: './danh-muc-bao-hiem.component.html',
+  styleUrls: ['./danh-muc-bao-hiem.component.scss']
 })
-export class DanhGiaKhenThuongComponent implements OnInit {
+export class DanhMucBaoHiemComponent implements OnInit {
+
 
   form: FormGroup;
   height: number;
@@ -36,7 +37,7 @@ export class DanhGiaKhenThuongComponent implements OnInit {
   reverse: any;
   items = 12;
   listData: any;
-  listDanhGia: any;
+  listNhaCungCap: any;
 
   constructor(
       public translateService: TranslateService,
@@ -69,14 +70,12 @@ export class DanhGiaKhenThuongComponent implements OnInit {
   ngOnInit(): void {
     this.onResize();
     this.buidForm();
-    this.loadDanhGia();
   }
 
   private buidForm() {
     this.form = this.formBuilder.group({
       ten: [null],
-      idKhenThuong: [null],
-      month: [null],
+      maBaoHiem: [null],
     });
   }
 
@@ -112,7 +111,7 @@ export class DanhGiaKhenThuongComponent implements OnInit {
   }
 
   openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaDanhGiaKhenThuongComponent, {
+    const modalRef = this.modalService.open(ThemSuaDanhMucBaoHiemComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false
@@ -145,10 +144,10 @@ export class DanhGiaKhenThuongComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.thongTinNhanSuApiService
-        .searchDGKhenThuong({
+        .searchDMBaoHiem({
           isCount: 1,
+          maBaoHiem: this.form.value.maBaoHiem,
           ten: this.form.value.ten,
-          idKhenThuong: this.form.value.idKhenThuong,
           page: this.page - 1,
           size: this.itemsPerPage,
         })
@@ -202,7 +201,7 @@ export class DanhGiaKhenThuongComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.thongTinNhanSuApiService.deleteDGKhenThuong({id: id}).subscribe(
+    this.thongTinNhanSuApiService.deleteDMBaoHiem({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);
@@ -238,19 +237,5 @@ export class DanhGiaKhenThuongComponent implements OnInit {
       );
     }
   }
-  loadDanhGia() {
-    this.thongTinNhanSuApiService
-        .searchDMKhenThuong({})
-        .subscribe(
-            res => {
-              this.listDanhGia = res.body.content
-            },
-            err => {
-              this.spinner.hide();
-              this.toastService.openErrorToast(
-                  this.translateService.instant("common.toastr.messages.error.load")
-              );
-            }
-        );
-  }
+
 }
