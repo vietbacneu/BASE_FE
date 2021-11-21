@@ -206,6 +206,29 @@ export class BcSanPhamChiPhiComponent implements OnInit {
             );
     }
 
+    onExportPDF() {
+        this.spinner.show();
+        this.ThongTinApi
+            .exportChiPhiPDF({
+                tenSanPham: this.form.value.tenSanPham,
+                maSanPham: this.form.value.maSanPham,
+                idCuaHang: this.form.value.idCuaHang,
+                ngayHetHan: this.form.value.ngayHetHan
+            })
+            .subscribe(
+                res => {
+                    this.spinner.hide();
+                    // window.open(res.body.path, '_blank').focus();
+                    window.open(SERVER_API + "/api" + "/sanPhams/download/?path=" + res.body.path);
+                },
+                err => {
+                    this.spinner.hide();
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
+            );
+    }
 
     private paginateListData(data) {
         this.listData = data;

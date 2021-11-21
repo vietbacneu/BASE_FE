@@ -86,6 +86,27 @@ export class ThongTinChungApiService {
             observe: "response"
         });
     }
+    exportTonKhoPDF(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportTonKhoPDF', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    exportDoanhThuPDF(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThuPDF', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    exportChiPhiPDF(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/sanPhams/exportChiPhiPDF', data, {
+            params: option,
+            observe: "response"
+        });
+    }
 
     exportSpChiPhi(data?: any): Observable<any> {
         const option = createRequestOption(data);

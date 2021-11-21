@@ -138,6 +138,30 @@ export class DuLieuKhoHangComponent implements OnInit {
         );
   }
 
+  onExportPDF() {
+    this.spinner.show();
+    this.ThongTinApi
+        .exportTonKhoPDF({
+          tenSanPham: this.form.value.tenSanPham,
+          maSanPham: this.form.value.maSanPham,
+          idCuaHang: this.form.value.idCuaHang,
+          ngayHetHan: this.form.value.ngayHetHan
+        })
+        .subscribe(
+            res => {
+              this.spinner.hide();
+              // window.open(res.body.path, '_blank').focus();
+              window.open(SERVER_API + "/api" + "/sanPhams/download/?path=" + res.body.path);
+            },
+            err => {
+              this.spinner.hide();
+              this.toastService.openErrorToast(
+                  this.translateService.instant("common.toastr.messages.error.load")
+              );
+            }
+        );
+  }
+
   openModal(type?: string, selectedData?: any) {
     const modalRef = this.modalService.open(ThemSuaLoaiHangComponent, {
       size: "lg",
