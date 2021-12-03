@@ -44,6 +44,7 @@ export class InDonXuatComponent implements OnInit {
     listCuaHang: any;
     listDonXuat: any = [];
     renderCbxCuaHang = false;
+    sum = 0;
 
     constructor(
         public translateService: TranslateService,
@@ -93,6 +94,10 @@ export class InDonXuatComponent implements OnInit {
             this.form.patchValue(this.selectedData)
             this.listDonXuat = this.selectedData.xuatHangChiTietDTOList
             this.renderCuaHang = true;
+            this.listDonXuat.forEach(e => {
+                console.log(e.tongTien)
+                this.sum = this.sum + Number.parseInt(e.tongTien)
+            })
         }
 
     }
