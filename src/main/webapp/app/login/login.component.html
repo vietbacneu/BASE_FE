@@ -1,0 +1,60 @@
+<div class="body">
+    <div class="container h-100">
+        <div class="screen">
+            <div class="screen__content">
+                <div class="tilte">
+                    <div class="text-center bold" style="  margin-top: 10px !important;">
+                        HỆ THỐNG
+                    </div>
+                    <div class="text-center bold">
+                        QUẢN LÝ NHÂN SỰ
+                    </div>
+                </div>
+                <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="login">
+                    <div class="login__field">
+                        <div [ngClass]="{'has-error': isFieldValid('user')}"
+                             class="form-group row dropdown form-custom-select">
+                            <div class="col-sm-8 form-custom-select">
+                                <input type="text" class="form-control login__input" formControlName="user"
+                                       placeholder="Tên tài khoản"
+                                       maxlength="200" (blur)="trimSpace('user')">
+                                <jhi-error-messages *ngIf="formControl['user'].hasError('required')"
+                                                    [displayError]="isFieldValid('user')"
+                                                    errorMsg="Tên tài khoản không được để trống">
+                                </jhi-error-messages>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login__field">
+                        <div [ngClass]="{'has-error': isFieldValid('pass')}"
+                             class="form-group row dropdown form-custom-select">
+                            <div class="col-sm-8 form-custom-select">
+                                <input type="password" class="form-control login__input" formControlName="pass" placeholder="Mật khẩu"
+                                       maxlength="200" (blur)="trimSpace('pass')">
+                                <jhi-error-messages *ngIf="formControl['pass'].hasError('required')"
+                                                    [displayError]="isFieldValid('pass')"
+                                                    errorMsg="Mật khẩu không được để trống">
+                                </jhi-error-messages>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="login__field">
+                        <jhi-error-messages *ngIf="loginCheck"
+                                            [displayError]="true"
+                                            errorMsg="Sai tên tài khoản hoặt mật khẩu">
+                        </jhi-error-messages>
+                    </div>
+                    <button class="button login__submit" (click)="login()">
+                        <span class="button__text">Đăng nhập</span>
+                    </button>
+                </form>
+            </div>
+            <div class="screen__background">
+                <span class="screen__background__shape screen__background__shape4"></span>
+                <span class="screen__background__shape screen__background__shape3"></span>
+                <span class="screen__background__shape screen__background__shape2"></span>
+                <span class="screen__background__shape screen__background__shape1"></span>
+            </div>
+        </div>
+    </div>
+</div>

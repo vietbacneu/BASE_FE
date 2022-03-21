@@ -20,6 +20,7 @@ import {CustomerManagementModule} from "app/modules/customer-management/customer
 import {ChartsModule} from "ng2-charts";
 // import { CanvasJS  } from 'canvasjs';
 import {IConfig, NgxMaskModule} from "ngx-mask";
+import {LoginComponent} from "app/login/login.component";
 
 export const options: Partial<IConfig> = {
     thousandSeparator: "."
@@ -44,11 +45,12 @@ export const options: Partial<IConfig> = {
         AppComponent,
         JhiMainComponent,
         NavbarComponent,
+        LoginComponent,
         SidebarComponent,
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent
+        FooterComponent,
     ],
     exports: [
         ActiveMenuDirective

@@ -29,7 +29,21 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.router.navigate(["/nhan-vien"]);
+    let tmp = this.get("loginOk")
+    if (tmp.length>0){
+      this.router.navigate(["/nhan-vien"]);
+    }else {
+      this.router.navigate(["/login"]);
+    }
+  }
+
+  set(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  get(key) {
+    const val = localStorage.getItem(key);
+    return val ? JSON.parse(val) : "";
   }
 
   ngAfterViewInit(): void {
@@ -50,7 +64,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     //   this.errorMsg = this.translateService.instant('home.validate.tenantDeactivate');
     //   setTimeout(() => {
     //     localStorage.clear();
-    //     this.router.navigate(['/account/login']);
     //   }, TIME_OUT.NAVIGATE_LOGIN);
     //   this.cdref.detectChanges();
     //   return;

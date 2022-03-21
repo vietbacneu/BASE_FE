@@ -105,12 +105,14 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut() {
-    this.http
-      .get(this.resourceUrl + "/user/logout")
-      .subscribe(res => {}, error => {});
+    // this.http
+    //   .get(this.resourceUrl + "/user/logout")
+    //   .subscribe(res => {}, error => {});
     localStorage.clear();
     sessionStorage.clear();
     this.cookieService.removeAll();
+    this.router.navigate(["/login"]);
+
   }
 
   closeNotification() {
