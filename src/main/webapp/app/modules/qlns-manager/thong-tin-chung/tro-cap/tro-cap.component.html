@@ -6,7 +6,7 @@
         </button>
     </li>
     <li class="breadcrumb-item">Thông tin chung</li>
-    <li class="breadcrumb-item">Chức vụ</li>
+    <li class="breadcrumb-item">Danh mục trợ cấp</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -20,19 +20,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Mã chức vụ</label>
+                                    <label class="col-sm-3 custom-label-right">Mã trợ cấp</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="maChucVu"
-                                               maxlength="200" (blur)="trimSpace('maChucVu')">
+                                        <input type="text" class="form-control" formControlName="maTroCap"
+                                               maxlength="100"
+                                               (blur)="trimSpace('maTroCap')">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tên chức vụ</label>
+                                    <label class="col-sm-3 custom-label-right">Tên trợ cấp</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="tenChucVu"
-                                               maxlength="200" (blur)="trimSpace('tenChucVu')">
+                                        <input type="text" class="form-control" formControlName="ten"
+                                               maxlength="200" (blur)="trimSpace('ten')">
                                     </div>
                                 </div>
                             </div>
@@ -64,9 +65,9 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <th class="medium-width-table"><span>Mã chức vụ</span></th>
-                                    <th class="medium-width-table"><span>Tên chức vụ</span></th>
-                                    <th class="medium-width-table"><span>Hệ số lương/giờ</span></th>
+                                    <th class="medium-width-table"><span>Mã trợ cấp</span></th>
+                                    <th class="medium-width-table"><span>Tên trợ cấp</span></th>
+                                    <th class="medium-width-table"><span>Mức trợ cấp</span></th>
                                     <th class="medium-width-table"><span>Miêu tả</span></th>
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -76,10 +77,11 @@
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                    <td>{{item.maChucVu}}</td>
-                                    <td>{{item.tenChucVu}}</td>
-                                    <td>{{item.heSoLuong}}</td>
+                                    <td>{{item.maTroCap}}</td>
+                                    <td>{{item.ten}}</td>
+                                    <td style="text-align: right">{{item.mucTroCap | number}}</td>
                                     <td>{{item.mieuTa}}</td>
+                                    <!--                                    <td>{{item.ngayKetThuc}}</td>-->
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"

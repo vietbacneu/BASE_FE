@@ -14,6 +14,8 @@ import {LuongNhanVienComponent} from "app/modules/qlns-manager/luong-vs-bao-cao/
 import {DanhGiaKhenThuongComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-gia-khen-thuong/danh-gia-khen-thuong.component";
 import {DanhGiaKyLuatComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-gia-ky-luat/danh-gia-ky-luat.component";
 import {DanhMucBaoHiemComponent} from "app/modules/qlns-manager/thong-tin-chung/danh-muc-bao-hiem/danh-muc-bao-hiem.component";
+import {TroCapComponent} from "app/modules/qlns-manager/thong-tin-chung/tro-cap/tro-cap.component";
+import {NhanVienTroCapComponent} from "app/modules/qlns-manager/thong-tin-chung/nhan-vien-tro-cap/nhan-vien-tro-cap.component";
 
 const routes: Routes = [
   {
@@ -26,7 +28,22 @@ const routes: Routes = [
     data: {
       pageTitle: "common.appParamNS",
     }
-  },{
+  },
+  {
+    path: 'tro-cap', component: TroCapComponent,
+    data: {
+      pageTitle: "common.appParamNS",
+    }
+  }
+  ,
+  {
+    path: 'tro-cap-nhan-vien', component: NhanVienTroCapComponent,
+    data: {
+      pageTitle: "common.appParamNS",
+    }
+  }
+  ,
+  {
     path: 'danh-gia-ky-luat', component: DanhGiaKyLuatComponent,
     data: {
       pageTitle: "common.appParamNS",

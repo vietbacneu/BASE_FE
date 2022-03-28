@@ -91,6 +91,38 @@ export class ThongTinNhanSuApiService {
       observe: "response"
     });
   }
+  searchNVTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/nhanVienTroCaps/search',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  createNVTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/nhanVienTroCaps',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  updateNVTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.put(this.resourceUrl + '/api/nhanVienTroCaps/update', data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  deleteNVTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.delete(this.resourceUrl + `/api/nhanVienTroCaps/${data.id}`, {
+      params: option,
+      observe: "response"
+    });
+  }
+
+
+
+
   searchDGKyLuat(data?: any): Observable<any> {
     const option = createRequestOption(data);
     return this.http.post(this.resourceUrl + '/api/nhanVienKyLuats/search',data, {
@@ -259,6 +291,36 @@ export class ThongTinNhanSuApiService {
       observe: "response"
     });
   }
+  searchDMTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/troCaps/search',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  createDMTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/troCaps',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  updateDMTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.put(this.resourceUrl + '/api/troCaps/update',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  deleteDMTroCap(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.delete(this.resourceUrl + `/api/troCaps/${data.id}`, {
+      params: option,
+      observe: "response"
+    });
+  }
+
+
   searchLuongNV(data?: any): Observable<any> {
     const option = createRequestOption(data);
     return this.http.post(this.resourceUrl + '/api/chamCongs/searchPhieuLuong',data, {

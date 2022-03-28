@@ -1,9 +1,9 @@
 <div style="display: block;">
     <div class="custom-modal-large" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
-            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới chức vụ</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết chức vụ</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật chức vụ</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới danh mục trợ cấp</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết danh mục trợ cấp</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật danh mục trợ cấp</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -14,46 +14,46 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('maChucVu')}">
+                         [ngClass]="{'has-error': isFieldValid('maTroCap')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Mã chức vụ</label>
-                        <input type="text" class="form-control" formControlName="maChucVu"
-                               (blur)="trimSpace('maChucVu')"
+                               class="form-control-label">Mã trợ cấp</label>
+                        <input type="text" class="form-control" formControlName="maTroCap"
+                               (blur)="trimSpace('maTroCap')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['maChucVu'].hasError('required')"
-                                            [displayError]="isFieldValid('maChucVu')"
-                                            errorMsg="Mã chức vụ không được để trống">
+                        <jhi-error-messages *ngIf="formControl['maTroCap'].hasError('required')"
+                                            [displayError]="isFieldValid('maTroCap')"
+                                            errorMsg="Mã trợ cấp không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('tenChucVu')}">
+                         [ngClass]="{'has-error': isFieldValid('ten')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Tên chức vụ</label>
-                        <input type="text" class="form-control" formControlName="tenChucVu"
-                               (blur)="trimSpace('tenChucVu')"
+                               class="form-control-label">Tên trợ cấp</label>
+                        <input type="text" class="form-control" formControlName="ten"
+                               (blur)="trimSpace('ten')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['tenChucVu'].hasError('required')"
-                                            [displayError]="isFieldValid('tenChucVu')"
-                                            errorMsg="Tên chức vụ không được để trống">
+                        <jhi-error-messages *ngIf="formControl['ten'].hasError('required')"
+                                            [displayError]="isFieldValid('ten')"
+                                            errorMsg="Tên trợ cấp không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('heSoLuong')}">
-                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Hệ số lương/giờ</label>
-                        <input type="text" class="form-control" formControlName="heSoLuong"
-                               (blur)="trimSpace('heSoLuong')"
-                               [readOnly]="type == 'detail'"
-                               maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['heSoLuong'].hasError('required')"
-                                            [displayError]="isFieldValid('heSoLuong')"
-                                            errorMsg="Hệ số lương không được để trống">
+                         [ngClass]="{'has-error': isFieldValid('mucTroCap')}">
+                    <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                                class="form-control-label">Mức Trợ cấp</label>
+                        <input type="text" class="form-control" formControlName="mucTroCap"
+                               (blur)="trimSpace('mucTroCap')"
+                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
+                               maxlength="40">
+                        <jhi-error-messages *ngIf="formControl['mucTroCap'].hasError('required')"
+                                            [displayError]="isFieldValid('mucTroCap')"
+                                            errorMsg="Mức trợ cấp không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
