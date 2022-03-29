@@ -44,6 +44,7 @@
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
+                                   (change)="changeBH($event)"
                                    [readonly]="type === 'detail'"
                                    bindLabel="ten" bindValue="id" formControlName="idBaoHiem">
                         </ng-select>
@@ -56,30 +57,37 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div [ngClass]="{'has-error': isFieldValid('mucDong')}"
+                    <div [ngClass]="{'has-error': isFieldValid('heSo')}"
                          class="form-group dropdown form-custom-select">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Mức đóng</label>
-                        <input type="text" class="form-control" formControlName="mucDong"
-                               (blur)="trimSpace('mucDong')"
-                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
+                               class="form-control-label">Hệ Số</label>
+                        <input type="text" class="form-control" formControlName="heSo" 
+                               (blur)="trimSpace('heSo')"
+                               [readOnly]="true" (keypress)="numberOnly($event)"
                                maxlength="20">
-                        <jhi-error-messages *ngIf="formControl['mucDong'].hasError('required')"
-                                            [displayError]="isFieldValid('mucDong')"
-                                            errorMsg="Mức đóng không được để trống">
+                        <jhi-error-messages *ngIf="formControl['heSo'].hasError('required')"
+                                            [displayError]="isFieldValid('heSo')"
+                                            errorMsg="Hệ Số không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="form-control-label">Ngày đóng</label>
+                        <label class="form-control-label">Từ ngày</label>
                         <input type="date" class="form-control" placeholder="dd-mm-yyyy" [readOnly]="type == 'detail'"
-                               formControlName="ngayDong">
+                               formControlName="tuNgay">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Dến ngày</label>
+                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" [readOnly]="type == 'detail'"
+                               formControlName="denNgay">
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Miêu tả</label>
                         <textarea [readOnly]="type == 'detail'" class="form-control" type="text" rows="3"

@@ -79,6 +79,7 @@ export class ThemSuaChamCongNhanVienComponent implements OnInit {
       idNhanVien: [null, Validators.required],
       ngayLam: [null, Validators.required],
       soGioLam: [null, Validators.required],
+      luong: [null],
       mieuTa: [null],
     });
     if (this.selectedData) {
@@ -95,6 +96,9 @@ export class ThemSuaChamCongNhanVienComponent implements OnInit {
     if (value) {
       this.setValueToField(element, value.trim());
     }
+  }
+  changeNv(item){
+    this.form.get("luong").setValue(item.heSoLuong)
   }
 
   getValueOfField(item) {
@@ -129,6 +133,7 @@ export class ThemSuaChamCongNhanVienComponent implements OnInit {
       idNhanVien: this.form.value.idNhanVien,
       ngayLam: this.form.value.ngayLam,
       soGioLam: this.form.value.soGioLam,
+      luong: this.form.value.luong,
       mieuTa: this.form.value.mieuTa,
     };
     if (this.type === "add") {

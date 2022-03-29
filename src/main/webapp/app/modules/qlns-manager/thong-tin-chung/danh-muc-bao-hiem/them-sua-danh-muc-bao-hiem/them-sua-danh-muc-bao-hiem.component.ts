@@ -75,6 +75,7 @@ export class ThemSuaDanhMucBaoHiemComponent implements OnInit {
       maBaoHiem: [null, Validators.required],
       ten: [null, Validators.required],
       maSo: [null],
+      heSo: [null, Validators.required],
       thongTin: [null],
     });
     if (this.selectedData) {
@@ -125,6 +126,7 @@ export class ThemSuaDanhMucBaoHiemComponent implements OnInit {
       ten: this.form.value.ten,
       thongTin: this.form.value.thongTin,
       maSo: this.form.value.maSo,
+      heSo: this.form.value.heSo,
     };
     if (this.type === "add") {
       this.thongTinNhanSuApiService

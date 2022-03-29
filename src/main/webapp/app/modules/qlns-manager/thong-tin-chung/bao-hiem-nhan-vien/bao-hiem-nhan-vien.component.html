@@ -45,14 +45,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tháng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <input type="month" class="form-control" formControlName="month">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="button" class="btn btn-success" (click)="onSearchData()">
@@ -85,9 +77,10 @@
                                     <th class="medium-width-table"><span>Phòng ban</span></th>
                                     <th class="medium-width-table"><span>Chức vụ</span></th>
                                     <th class="medium-width-table"><span>Loại bảo hiểm</span></th>
-                                    <th class="medium-width-table"><span>Mức đóng</span></th>
+                                    <th class="medium-width-table"><span>Hệ số</span></th>
                                     <th class="medium-width-table"><span>Miêu tả</span></th>
-                                    <th class="medium-width-table"><span>Ngày đóng</span></th>
+                                    <th class="medium-width-table"><span>Từ ngày</span></th>
+                                    <th class="medium-width-table"><span>Đến ngày</span></th>
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
                                     </th>
@@ -100,9 +93,10 @@
                                     <td>{{item.tenPhongBan}}</td>
                                     <td>{{item.tenChucVu}}</td>
                                     <td>{{item.tenBaoHiem}}</td>
-                                    <td style="text-align: right">{{item.mucDong | number}}</td>
+                                    <td style="text-align: right">{{item.heSo | number}}</td>
                                     <td>{{item.mieuTa}}</td>
-                                    <td style="text-align: center">{{item.ngayDong}}</td>
+                                    <td style="text-align: center">{{item.tuNgay}}</td>
+                                    <td style="text-align: center">{{item.denNgay}}</td>
                                     <td class="text-center four-icon medium-width-table">
                                         <div class="group-action">
                                             <button class="btn btn-light" placement="top"

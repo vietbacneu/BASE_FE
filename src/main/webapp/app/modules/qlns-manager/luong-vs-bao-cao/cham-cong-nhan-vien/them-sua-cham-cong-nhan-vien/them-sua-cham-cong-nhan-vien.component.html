@@ -22,6 +22,7 @@
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
+                                   (change)="changeNv($event)"
                                    [readonly]="type === 'detail'"
                                    bindLabel="ten" bindValue="id" formControlName="idNhanVien">
                             <ng-template ng-option-tmp let-item="item">
@@ -63,7 +64,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select"
+                         [ngClass]="{'has-error': isFieldValid('luong')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Hệ số lương</label>
+                        <input type="text" class="form-control" formControlName="luong"
+                               (blur)="trimSpace('luong')"
+                               [readOnly]="true"  (keypress)="numberOnly($event)"
+                               maxlength="2">
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Miêu tả</label>
                         <textarea [readOnly]="type == 'detail'" class="form-control" type="text" rows="3"

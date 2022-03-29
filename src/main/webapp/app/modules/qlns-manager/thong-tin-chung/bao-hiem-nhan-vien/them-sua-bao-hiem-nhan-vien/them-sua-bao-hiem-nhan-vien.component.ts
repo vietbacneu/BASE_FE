@@ -77,8 +77,10 @@ export class ThemSuaBaoHiemNhanVienComponent implements OnInit {
         this.form = this.formBuilder.group({
             idNhanVien: [null, Validators.required],
             idBaoHiem: [null, Validators.required],
-            mucDong: [null, Validators.required],
+            heSo: [null, Validators.required],
             ngayDong: [null],
+            tuNgay: [null],
+            denNgay: [null],
             mieuTa: [null],
         });
         if (this.selectedData) {
@@ -88,6 +90,10 @@ export class ThemSuaBaoHiemNhanVienComponent implements OnInit {
 
     changePageSize(size) {
         this.itemsPerPage = size;
+    }
+
+    changeBH(item){
+        this.form.get("heSo").setValue(item.heSo)
     }
 
     trimSpace(element) {
@@ -129,8 +135,10 @@ export class ThemSuaBaoHiemNhanVienComponent implements OnInit {
             idNhanVien: this.form.value.idNhanVien,
             idBaoHiem: this.form.value.idBaoHiem,
             ngayDong: this.form.value.ngayDong,
+            tuNgay: this.form.value.tuNgay,
+            denNgay: this.form.value.denNgay,
             mieuTa: this.form.value.mieuTa,
-            mucDong: this.form.value.mucDong,
+            heSo: this.form.value.heSo,
         };
         if (this.type === "add") {
             this.thongTinNhanSuApiService
