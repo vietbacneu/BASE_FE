@@ -85,6 +85,7 @@ export class ChiTietLuongNhanVienComponent implements OnInit {
       tenChucVu: [null],
       tenPhongBan: [null],
       nhanVien: [null],
+      totalTc: [null],
     });
     if (this.selectedData) {
       this.setValueToField('nhanVien', this.selectedData.hoNhanVien + " " + this.selectedData.tenNhanVien);

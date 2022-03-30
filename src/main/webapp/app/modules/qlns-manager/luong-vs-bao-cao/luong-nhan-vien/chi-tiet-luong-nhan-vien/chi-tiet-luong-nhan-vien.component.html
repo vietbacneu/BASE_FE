@@ -100,6 +100,15 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Trợ cấp</label>
+                        <input type="text" class="form-control" formControlName="totalTc"
+                               (blur)="trimSpace('totalTc')"
+                               [readOnly]="type == 'detail'"
+                               maxlength="200">
+                    </div>
+                </div>
                 <div class="col-md-8">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Lương thực nhận</label>

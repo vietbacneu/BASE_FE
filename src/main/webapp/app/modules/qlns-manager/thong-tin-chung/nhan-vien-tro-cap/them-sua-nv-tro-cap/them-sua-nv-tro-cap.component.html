@@ -44,6 +44,7 @@
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
+                                   (change)="changeTC($event)"
                                    [readonly]="type === 'detail'"
                                    bindLabel="ten" bindValue="id" formControlName="troCap">
                         </ng-select>
@@ -82,7 +83,22 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
+                    <div [ngClass]="{'has-error': isFieldValid('mucTroCap')}"
+                         class="form-group dropdown form-custom-select">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Mức trợ cấp</label>
+                        <input type="text" class="form-control" formControlName="mucTroCap"
+                               (blur)="trimSpace('mucTroCap')"
+                               [readOnly]="true"
+                               maxlength="20">
+                        <jhi-error-messages *ngIf="formControl['mucTroCap'].hasError('required')"
+                                            [displayError]="isFieldValid('mucTroCap')"
+                                            errorMsg="Hệ Số không được để trống">
+                        </jhi-error-messages>
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Miêu tả</label>
                         <textarea [readOnly]="type == 'detail'" class="form-control" type="text" rows="3"

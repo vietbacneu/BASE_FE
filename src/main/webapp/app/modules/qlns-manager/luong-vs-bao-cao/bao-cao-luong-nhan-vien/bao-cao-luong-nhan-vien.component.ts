@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -79,7 +79,7 @@ export class BaoCaoLuongNhanVienComponent implements OnInit {
             chucVuId: [null],
             phongBanId: [null],
             ten: [null],
-            month: [null],
+            month: [null, Validators.required],
         });
     }
 
@@ -115,6 +115,10 @@ export class BaoCaoLuongNhanVienComponent implements OnInit {
     }
 
     onExport() {
+        if (this.form.invalid) {
+            this.commonService.validateAllFormFields(this.form);
+            return;
+        }
         this.spinner.show();
         this.thongTinNhanSuApiService
             .exportPhieuLuong({
@@ -171,6 +175,10 @@ export class BaoCaoLuongNhanVienComponent implements OnInit {
     }
 
     loadAll() {
+        if (this.form.invalid) {
+            this.commonService.validateAllFormFields(this.form);
+            return;
+        }
         this.spinner.show();
         this.thongTinNhanSuApiService
             .searchLuongNV({

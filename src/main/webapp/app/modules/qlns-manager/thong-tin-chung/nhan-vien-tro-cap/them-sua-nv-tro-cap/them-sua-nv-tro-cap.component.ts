@@ -82,6 +82,7 @@ export class ThemSuaNvTroCapComponent implements OnInit {
             denNgay: [null, Validators.required],
             tuNgay: [null, Validators.required],
             mieuTa: [null],
+            mucTroCap: [null],
         });
         if (this.selectedData) {
             let temp = JSON.parse(JSON.stringify(this.selectedData));
@@ -93,6 +94,10 @@ export class ThemSuaNvTroCapComponent implements OnInit {
 
     changePageSize(size) {
         this.itemsPerPage = size;
+    }
+
+    changeTC(item){
+        this.form.get("mucTroCap").setValue(item.mucTroCap)
     }
 
     trimSpace(element) {
@@ -136,6 +141,7 @@ export class ThemSuaNvTroCapComponent implements OnInit {
             tuNgay: this.form.value.tuNgay ? this.getDdMMyyy(new Date(this.form.value.tuNgay)) : '',
             denNgay: this.form.value.denNgay ? this.getDdMMyyy(new Date(this.form.value.denNgay)) : '',
             mieuTa: this.form.value.mieuTa || '',
+            mucTroCap: this.form.value.mucTroCap || '',
         };
         if (this.type === "add") {
             this.thongTinNhanSuApiService

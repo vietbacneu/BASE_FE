@@ -79,6 +79,7 @@ export class ThemSuaDanhKyLuatComponent implements OnInit {
             idKyLuat: [null, Validators.required],
             ngay: [null],
             mieuTa: [null],
+            mucPhat: [null],
         });
         if (this.selectedData) {
             this.form.patchValue(this.selectedData);
@@ -116,7 +117,9 @@ export class ThemSuaDanhKyLuatComponent implements OnInit {
         }
         return result;
     }
-
+    changeP(item){
+        this.form.get("mucPhat").setValue(item.mucPhat)
+    }
     onSubmit() {
         if (this.form.invalid) {
             this.commonService.validateAllFormFields(this.form);
@@ -130,6 +133,7 @@ export class ThemSuaDanhKyLuatComponent implements OnInit {
             idKyLuat: this.form.value.idKyLuat,
             ngay: this.form.value.ngay,
             mieuTa: this.form.value.mieuTa,
+            mucPhat: this.form.value.mucPhat,
         };
         if (this.type === "add") {
             this.thongTinNhanSuApiService

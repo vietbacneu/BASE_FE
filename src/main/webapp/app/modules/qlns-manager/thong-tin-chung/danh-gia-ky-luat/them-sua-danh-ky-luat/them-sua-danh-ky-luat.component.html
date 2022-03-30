@@ -44,6 +44,7 @@
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
+                                   (change)="changeP($event)"
                                    [readonly]="type === 'detail'"
                                    bindLabel="tenLoi" bindValue="id" formControlName="idKyLuat">
                         </ng-select>
@@ -62,6 +63,21 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-4">
+                    <div [ngClass]="{'has-error': isFieldValid('mucPhat')}"
+                         class="form-group dropdown form-custom-select">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Mức Phạt</label>
+                        <input type="text" class="form-control" formControlName="mucPhat"
+                               (blur)="trimSpace('mucPhat')"
+                               [readOnly]="true"
+                               maxlength="20">
+                        <jhi-error-messages *ngIf="formControl['mucPhat'].hasError('required')"
+                                            [displayError]="isFieldValid('mucPhat')"
+                                            errorMsg="Mức Phạt không được để trống">
+                        </jhi-error-messages>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Miêu tả</label>
