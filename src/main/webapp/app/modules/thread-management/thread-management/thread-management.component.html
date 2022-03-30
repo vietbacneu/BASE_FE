@@ -29,11 +29,11 @@
                                 <td class="colStop"  align="center">
                                     <button *ngIf="!item.status" class="btn btn-warning" disabled><i
                                             class="fa fa-ban"></i>{{item.status?'Running':'Stopped'}}</button>
-                                    <button *ngIf="item.status" class="btn btn-success"><i
+                                    <button *ngIf="item.status" class="btn btn-danger"><i
                                             class="fa fa-plug" disabled></i>{{item.status?'Running':'Stopped'}}</button>
                                 </td>
                                 <td class="colStart" align="center">
-                                    <button *ngIf="!item.status" class="btn btn-success" (click)="turnOnThread(item.threadId)"><i class="fa fa-power-off"></i>Start</button>
+                                    <button *ngIf="!item.status" class="btn btn-danger" (click)="turnOnThread(item.threadId)"><i class="fa fa-power-off"></i>Start</button>
                                     <button *ngIf="item.status" class="btn btn-danger" (click)="turnOffThread(item.threadId)"><i class="fa fa-ban"></i>Stop</button>
                                 </td>
                                 <td class="colSetting" align="center">

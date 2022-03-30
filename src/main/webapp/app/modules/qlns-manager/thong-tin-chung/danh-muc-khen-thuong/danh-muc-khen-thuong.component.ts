@@ -38,6 +38,7 @@ export class DanhMucKhenThuongComponent implements OnInit {
     items = 12;
     listData: any;
     listNhaCungCap: any;
+    listType: any;
 
     constructor(
         public translateService: TranslateService,
@@ -70,12 +71,14 @@ export class DanhMucKhenThuongComponent implements OnInit {
     ngOnInit(): void {
         this.onResize();
         this.buidForm();
+        this.listType = [{"name": "đánh giá", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
     }
 
     private buidForm() {
         this.form = this.formBuilder.group({
             ten: [null],
-            maKhenThuong: [null],
+            maDanhGia: [null],
+            loai: [null],
         });
     }
 
@@ -147,7 +150,8 @@ export class DanhMucKhenThuongComponent implements OnInit {
             .searchDMKhenThuong({
                 isCount: 1,
                 ten: this.form.value.ten,
-                maKhenThuong: this.form.value.maKhenThuong,
+                maDanhGia: this.form.value.maDanhGia,
+                loai: this.form.value.loai,
                 page: this.page - 1,
                 size: this.itemsPerPage,
             })

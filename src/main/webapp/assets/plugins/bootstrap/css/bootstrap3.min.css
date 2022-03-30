@@ -2828,29 +2828,29 @@ fieldset[disabled] a.btn {
   background-image: none;
   border-color: #2aabd2;
 }
-.btn-success {
+.btn-danger {
   color: #fff;
   background-color: #5cb85c;
   border-color: #5cb85c;
 }
-.btn-success:hover {
+.btn-danger:hover {
   color: #fff;
   background-color: #449d44;
   border-color: #419641;
 }
-.btn-success.focus,
-.btn-success:focus {
+.btn-danger.focus,
+.btn-danger:focus {
   -webkit-box-shadow: 0 0 0 2px rgba(92, 184, 92, 0.5);
   box-shadow: 0 0 0 2px rgba(92, 184, 92, 0.5);
 }
-.btn-success.disabled,
-.btn-success:disabled {
+.btn-danger.disabled,
+.btn-danger:disabled {
   background-color: #5cb85c;
   border-color: #5cb85c;
 }
-.btn-success.active,
-.btn-success:active,
-.show > .btn-success.dropdown-toggle {
+.btn-danger.active,
+.btn-danger:active,
+.show > .btn-danger.dropdown-toggle {
   color: #fff;
   background-color: #449d44;
   background-image: none;

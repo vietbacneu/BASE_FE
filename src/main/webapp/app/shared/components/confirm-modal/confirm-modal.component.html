@@ -84,10 +84,10 @@
     </button>
     <button #submitBtn type="button"
             *ngIf="type !== 'loginRequest' && type!== 'confirmWithMsg'"
-            class="btn btn-success" (click)="onSubmitClose(true)">
+            class="btn btn-danger" (click)="onSubmitClose(true)">
       <i class="fa fa-check mr-2" aria-hidden="true"></i>{{'common.button.confirm.ok' | translate}}
     </button>
-    <button #submitBtn type="button" class="btn btn-success" *ngIf="type === 'loginRequest'" (click)="onLogin()">
+    <button #submitBtn type="button" class="btn btn-danger" *ngIf="type === 'loginRequest'" (click)="onLogin()">
       <i class="fa fa fa-sign-in mr-2" aria-hidden="true"></i>{{'common.button.confirm.loginRequest' | translate}}
     </button>
   </div>

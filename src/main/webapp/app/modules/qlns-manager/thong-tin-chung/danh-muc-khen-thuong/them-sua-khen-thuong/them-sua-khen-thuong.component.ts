@@ -37,7 +37,7 @@ export class ThemSuaKhenThuongComponent implements OnInit {
   reverse: any;
   listPhongBan:any;
   listChucVu:any;
-
+  listType: any;
   constructor(
       public translateService: TranslateService,
       private shareDataFromProjectService: ShareDataFromProjectService,
@@ -68,15 +68,17 @@ export class ThemSuaKhenThuongComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm()
+    this.listType = [{"name": "đánh giá", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
   }
 
 
   buildForm() {
     this.form = this.formBuilder.group({
-      maKhenThuong: [null, Validators.required],
+      maDanhGia: [null, Validators.required],
       ten: [null, Validators.required],
-      mucThuong: [null],
+      soTien: [null],
       mieuTa: [null],
+      loai: [null],
     });
     if (this.selectedData) {
       this.form.patchValue(this.selectedData);
@@ -122,9 +124,9 @@ export class ThemSuaKhenThuongComponent implements OnInit {
     this.spinner.show();
     const data = {
       id: null,
-      maKhenThuong: this.form.value.maKhenThuong,
+      maDanhGia: this.form.value.maDanhGia,
       ten: this.form.value.ten,
-      mucThuong: this.form.value.mucThuong,
+      soTien: this.form.value.soTien,
       mieuTa: this.form.value.mieuTa,
     };
     if (this.type === "add") {

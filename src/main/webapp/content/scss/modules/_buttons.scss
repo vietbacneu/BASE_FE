@@ -137,7 +137,7 @@ Alternate buttons
 .btn-primary {
   @include button($color-white, $color-primary, $color-primary);
 }
-.btn-success {
+.btn-danger {
   @include button($color-white, $color-success, $color-success);
 }
 .btn-complete {
@@ -293,7 +293,7 @@ Rounded buttons
     }
     &.dropup {
       & > .btn-primary + .dropdown-menu:after,
-      & > .btn-success + .dropdown-menu:after,
+      & > .btn-danger + .dropdown-menu:after,
       & > .btn-complete + .dropdown-menu:after,
       & > .btn-warning + .dropdown-menu:after,
       & > .btn-danger + .dropdown-menu:after,
@@ -303,7 +303,7 @@ Rounded buttons
       }
     }
     & > .btn-primary + .dropdown-menu:after,
-    & > .btn-success + .dropdown-menu:after,
+    & > .btn-danger + .dropdown-menu:after,
     & > .btn-complete + .dropdown-menu:after,
     & > .btn-warning + .dropdown-menu:after,
     & > .btn-danger + .dropdown-menu:after,
@@ -314,7 +314,7 @@ Rounded buttons
     & > .btn-primary + .dropdown-menu:after {
       background-color: $color-primary;
     }
-    & > .btn-success + .dropdown-menu:after {
+    & > .btn-danger + .dropdown-menu:after {
       background-color: $color-success;
     }
     & > .btn-complete + .dropdown-menu:after {

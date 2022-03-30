@@ -12,7 +12,7 @@
 }
 
 .custom-title {
-    color: #59c085 !important;
+    color: red !important;
     opacity: inherit;
     margin-left: 0.5rem;
     font-weight: 600;
@@ -37,7 +37,7 @@ perfect-scrollbar > .ps.ps--active-x.ps--active-y > .ps__rail-y {
 
 .nav-tabs > li > a.active:hover, .nav-tabs > li > a.active:focus, .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover:focus {
     border-color: #dee2e6 #dee2e6 #fff !important;
-    color: #59c085 !important;
+    color: red !important;
     background-color: #ffffff !important;
 }
 
@@ -90,7 +90,7 @@ body.dashboard .page-container {
 }
 
 .header {
-    border-bottom: 1px solid #59c085 !important;
+    border-bottom: 1px solid red !important;
 }
 
 .page-sidebar .sidebar-menu .menu-items > li ul.sub-menu {
@@ -99,17 +99,17 @@ body.dashboard .page-container {
 
 .page-sidebar .sidebar-header {
     background-color: #ffffffe0 !important;
-    border-bottom: 1px solid #59c085 !important;
+    border-bottom: 1px solid red !important;
 }
 
 .page-sidebar a, .page-sidebar button {
     color: #000000 !important;
 }
 .menu-items a :hover {
-    color: #59c085 !important;
+    color: red !important;
 }
 .menu-items :hover > span {
-    color: #59c085 !important;
+    color: red !important;
 }
 .page-sidebar .sidebar-menu .menu-items {
     border-right: 0.5px solid #c8c8c8 !important;
@@ -145,25 +145,25 @@ a:not([href]):not([tabindex]) {
     color: #788296 !important;
 }
 .modal .modal-header {
-    background: #59c085 !important;
+    background: red !important;
 }
 .page-link {
-    color: #59c085 !important; ;
+    color: red !important; ;
 }
 .page-item.active .page-link {
     z-index: 1;
     color: #fff !important;
-    background-color: #59c085  !important;
-    border-color: #59c085  !important;
+    background-color: red  !important;
+    border-color: red  !important;
 }
 .table .group-action .fa.icon-config, .table .group-action .fa.icon-update, .table .group-action .fa.icon-menu, .table .group-action .fa.icon-info, .table .group-action .fa.icon-config {
-    color: #59c085 !important;
+    color: red !important;
 }
 .table .group-action .fa.fa-lock {
-    color: #59c085;
+    color: red;
 }
 .btn-link {
-    color: #59c085 !important;
+    color: red !important;
     text-decoration: none !important;
 }
 .accordion > .card .card-header {

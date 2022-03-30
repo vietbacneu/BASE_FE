@@ -1,9 +1,9 @@
 <div style="display: block;">
     <div class="custom-modal-large" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
-            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới danh mục khen thưởng</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết danh mục khen thưởng</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật danh mục khen thưởng</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới danh mục đánh giá</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết danh mục đánh giá</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật danh mục đánh giá</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -14,16 +14,35 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('maKhenThuong')}">
+                         [ngClass]="{'has-error': isFieldValid('maDanhGia')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Mã khen thưởng</label>
-                        <input type="text" class="form-control" formControlName="maKhenThuong"
-                               (blur)="trimSpace('maKhenThuong')"
+                               class="form-control-label">Mã đánh giá</label>
+                        <input type="text" class="form-control" formControlName="maDanhGia"
+                               (blur)="trimSpace('maDanhGia')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['maKhenThuong'].hasError('required')"
-                                            [displayError]="isFieldValid('maKhenThuong')"
-                                            errorMsg="Mã khen thưởng không được để trống">
+                        <jhi-error-messages *ngIf="formControl['maDanhGia'].hasError('required')"
+                                            [displayError]="isFieldValid('maDanhGia')"
+                                            errorMsg="Mã đánh giá không được để trống">
+                        </jhi-error-messages>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select"
+                         [ngClass]="{'has-error': isFieldValid('loai')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="form-control-label">Loại</label>
+                        <ng-select [items]="listType"
+                                   placeholder="Chọn loại đánh giá"
+                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                   searchable="false"
+                                   [readonly]="type === 'detail'"
+                                   bindLabel="name" bindValue="value" formControlName="loai">
+                        </ng-select>
+                        <jhi-error-messages *ngIf="formControl['loai'].hasError('required')"
+                                            [displayError]="isFieldValid('loai')"
+                                            errorMsg="Loại đánh giá không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
@@ -31,29 +50,29 @@
                     <div class="form-group dropdown form-custom-select"
                          [ngClass]="{'has-error': isFieldValid('ten')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Tên khen thưởng</label>
+                               class="form-control-label">Tên đánh giá</label>
                         <input type="text" class="form-control" formControlName="ten"
                                (blur)="trimSpace('ten')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
                         <jhi-error-messages *ngIf="formControl['ten'].hasError('required')"
                                             [displayError]="isFieldValid('ten')"
-                                            errorMsg="Tên khen thưởng không được để trống">
+                                            errorMsg="Tên đánh giá không được để trống">
                         </jhi-error-messages>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group dropdown form-custom-select">
-                        <label class="form-control-label">Mức thưởng</label>
-                        <input type="text" class="form-control" formControlName="mucThuong"
-                               (blur)="trimSpace('mucThuong')"
-                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
-                               maxlength="40">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group dropdown form-custom-select">
+                        <label class="form-control-label">Mức thưởng</label>
+                        <input type="text" class="form-control" formControlName="soTien"
+                               (blur)="trimSpace('soTien')"
+                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
+                               maxlength="40">
+                    </div>
+                </div>
+                <div class="col-md-8">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Miêu tả</label>
                         <textarea [readOnly]="type == 'detail'" class="form-control" type="text" rows="3"
@@ -64,7 +83,7 @@
         </div>
     </form>
     <div class="d-flex justify-content-end" style="margin-bottom: 2%; margin-right: 1%">
-        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-success"
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-danger"
                 (click)="onSubmit()">
             <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
                 jhiTranslate="{{'common.button.save'}}"></span>

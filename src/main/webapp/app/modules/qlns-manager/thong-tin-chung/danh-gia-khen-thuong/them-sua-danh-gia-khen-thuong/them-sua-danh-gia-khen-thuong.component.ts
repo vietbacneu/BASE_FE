@@ -37,6 +37,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
     reverse: any;
     listNhanVien: any;
     listDanhGia: any;
+    listType: any;
 
     constructor(
         public translateService: TranslateService,
@@ -70,6 +71,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
         this.buildForm()
         this.loadDanhGia()
         this.loadNhanVien()
+        this.listType = [{"name": "đánh giá", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
     }
 
 
@@ -79,7 +81,8 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
             idKhenThuong: [null, Validators.required],
             ngay: [null],
             mieuTa: [null],
-            mucThuong: [null],
+            soTien: [null],
+            loai: [null, Validators.required],
         });
         if (this.selectedData) {
             this.form.patchValue(this.selectedData);
@@ -118,7 +121,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
         return result;
     }
     changeT(item){
-        this.form.get("mucThuong").setValue(item.mucThuong)
+        this.form.get("soTien").setValue(item.soTien)
     }
 
     onSubmit() {
@@ -133,7 +136,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
             idKhenThuong: this.form.value.idKhenThuong,
             ngay: this.form.value.ngay,
             mieuTa: this.form.value.mieuTa,
-            mucThuong: this.form.value.mucThuong,
+            soTien: this.form.value.soTien,
         };
         if (this.type === "add") {
             this.thongTinNhanSuApiService
