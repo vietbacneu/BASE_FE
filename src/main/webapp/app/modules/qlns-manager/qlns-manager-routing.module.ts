@@ -24,7 +24,7 @@ const routes: Routes = [
       pageTitle: "common.appParamNS",
     }
   },{
-    path: 'danh-gia-khen-thuong', component: DanhGiaKhenThuongComponent,
+    path: 'danh-gia-nhan-vien', component: DanhGiaKhenThuongComponent,
     data: {
       pageTitle: "common.appParamNS",
     }
@@ -74,7 +74,7 @@ const routes: Routes = [
       pageTitle: "common.appParamNS",
     }
   },{
-    path: 'danh-muc-khen-thuong', component: DanhMucKhenThuongComponent,
+    path: 'danh-muc-danh-gia', component: DanhMucKhenThuongComponent,
     data: {
       pageTitle: "common.appParamNS",
     }

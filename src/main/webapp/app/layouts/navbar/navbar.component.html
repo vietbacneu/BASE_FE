@@ -24,17 +24,9 @@
       </button>
       <div class="dropdown-menu dropdown-menu-right profile-dropdown" ngbDropdownMenu aria-labelledby="profileDropdown">
 
-        <span class="pull-left custom-info" >Acc mail: </span>
-        <span class="pull-right custom-info" ngbTooltip="{{userInfo.email}}">{{userInfo.email}}</span> <br>
 
         <span class="pull-left custom-info">Họ tên: </span>
-        <span class="pull-right custom-info" ngbTooltip="{{userInfo.name}}">{{userInfo.name}}</span> <br>
-
-        <span class="pull-left custom-info">Đơn vị: </span>
-        <span class="pull-right custom-info" ngbTooltip="{{userInfo.orgName}}">{{userInfo.orgName}}</span> <br>
-
-        <span class="pull-left custom-info">Chức danh: </span>
-        <span class="pull-right custom-info" ngbTooltip="{{userInfo.posName}}">{{userInfo.posName}}</span> <br>
+        <span class="pull-right custom-info" ngbTooltip="Admin">Admin</span> <br>
 
         <a class="clearfix dropdown-item pt-1" (click)="logOut()">
           <span class="pull-left">Đăng xuất</span>

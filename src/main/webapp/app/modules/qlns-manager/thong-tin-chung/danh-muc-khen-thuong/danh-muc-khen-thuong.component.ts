@@ -71,7 +71,7 @@ export class DanhMucKhenThuongComponent implements OnInit {
     ngOnInit(): void {
         this.onResize();
         this.buidForm();
-        this.listType = [{"name": "đánh giá", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
+        this.listType = [{"name": "Khen thưởng", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
     }
 
     private buidForm() {

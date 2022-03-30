@@ -69,9 +69,9 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm()
-        this.loadDanhGia()
+        // this.loadDanhGia()
         this.loadNhanVien()
-        this.listType = [{"name": "đánh giá", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
+        this.listType = [{"name": "Khen thưởng", "value": "khenthuong"}, {"name": "Kỷ luật", "value": "kyluat"}]
     }
 
 
@@ -85,6 +85,7 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
             loai: [null, Validators.required],
         });
         if (this.selectedData) {
+            this.loadDanhGia({"value": this.selectedData.loai})
             this.form.patchValue(this.selectedData);
         }
     }
@@ -120,7 +121,8 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
         }
         return result;
     }
-    changeT(item){
+
+    changeT(item) {
         this.form.get("soTien").setValue(item.soTien)
     }
 
@@ -219,9 +221,11 @@ export class ThemSuaDanhGiaKhenThuongComponent implements OnInit {
             );
     }
 
-    loadDanhGia() {
+    loadDanhGia(item) {
+        this.form.get("idKhenThuong").setValue("")
+        this.listDanhGia = []
         this.thongTinNhanSuApiService
-            .searchDMKhenThuong({})
+            .searchDMKhenThuong({"loai": item.value})
             .subscribe(
                 res => {
                     this.listDanhGia = res.body.content

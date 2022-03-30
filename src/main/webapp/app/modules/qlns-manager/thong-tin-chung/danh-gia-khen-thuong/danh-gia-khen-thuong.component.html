@@ -6,7 +6,7 @@
         </button>
     </li>
     <li class="breadcrumb-item">Nhân viên</li>
-    <li class="breadcrumb-item">Đánh giá đánh giá</li>
+    <li class="breadcrumb-item">Đánh giá nhân viên</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -53,9 +53,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center mt-3">
                             <button type="button" class="btn btn-danger" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
+                            </button>
+                            <button type="button" class="btn btn-danger" (click)="openModal('add')">
+                                <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Thêm mới</span>
                             </button>
                         </div>
                     </form>
@@ -68,11 +71,6 @@
             </div>
             <div id="dataTable" class="collapse show">
                 <div class="card-body pt-2 pb-0 px-2">
-                    <div class="row d-flex justify-content-end pr-1">
-                        <button type="button" class="btn btn-danger" (click)="openModal('add')">
-                            <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Thêm mới</span>
-                        </button>
-                    </div>
                     <div class="row">
                         <perfect-scrollbar id="scrollbarTable" class="ps">
                             <table class="table table-bordered table-hover table-striped">
@@ -81,10 +79,11 @@
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
                                     <th class="medium-width-table"><span>Tên nhân viên</span></th>
-                                    <th class="medium-width-table"><span>đánh giá</span></th>
-                                    <th class="medium-width-table"><span>Mức thưởng</span></th>
+                                    <th class="medium-width-table"><span>Tên đánh giá</span></th>
+                                    <th class="medium-width-table"><span>Loại đánh giá</span></th>
+                                    <th class="medium-width-table"><span>Số tiền</span></th>
                                     <th class="medium-width-table"><span>Miêu tả</span></th>
-                                    <th class="medium-width-table"><span>Ngày thưởng</span></th>
+                                    <th class="medium-width-table"><span>Ngày đánh giá</span></th>
                                     <!--                                    <th class="medium-width-table"><span>Ngày rời công ty</span></th>-->
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
@@ -96,6 +95,7 @@
                                     <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
                                     <td>{{item.hoNhanVien + " " + item.tenNhanVien}}</td>
                                     <td>{{item.tenKhenThuong}}</td>
+                                    <td>{{item.tenLoai}}</td>
                                     <td style="text-align: right">{{item.soTien | number}}</td>
                                     <td>{{item.mieuTa}}</td>
                                     <td style="text-align: center">{{item.ngay}}</td>

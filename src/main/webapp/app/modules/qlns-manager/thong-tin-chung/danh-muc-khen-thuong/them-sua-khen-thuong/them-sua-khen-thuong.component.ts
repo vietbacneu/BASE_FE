@@ -68,7 +68,7 @@ export class ThemSuaKhenThuongComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm()
-    this.listType = [{"name": "đánh giá", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
+    this.listType = [{"name": "Khen thưởng", "value":"khenthuong"}, {"name": "Kỷ luật", "value":"kyluat"}]
   }
 
 
@@ -128,6 +128,7 @@ export class ThemSuaKhenThuongComponent implements OnInit {
       ten: this.form.value.ten,
       soTien: this.form.value.soTien,
       mieuTa: this.form.value.mieuTa,
+      loai: this.form.value.loai,
     };
     if (this.type === "add") {
       this.thongTinNhanSuApiService

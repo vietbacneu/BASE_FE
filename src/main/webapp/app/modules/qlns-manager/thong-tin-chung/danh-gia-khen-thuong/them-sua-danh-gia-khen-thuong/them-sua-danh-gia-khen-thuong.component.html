@@ -38,12 +38,13 @@
                     <div class="form-group dropdown form-custom-select"
                          [ngClass]="{'has-error': isFieldValid('loai')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Loại</label>
+                               class="form-control-label">Loại đánh giá</label>
                         <ng-select [items]="listType"
                                    placeholder="Chọn loại đánh giá"
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
+                                   (change)="loadDanhGia($event)"
                                    [readonly]="type === 'detail'"
                                    bindLabel="name" bindValue="value" formControlName="loai">
                         </ng-select>
@@ -59,9 +60,9 @@
                     <div class="form-group dropdown form-custom-select"
                          [ngClass]="{'has-error': isFieldValid('idKhenThuong')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">đánh giá</label>
+                               class="form-control-label">Loại khen thưởng/Kỷ luật</label>
                         <ng-select [items]="listDanhGia"
-                                   placeholder="Chọn loại đánh giá"
+                                   placeholder="Chọn loại khen thưởng/Kỷ luật"
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
@@ -71,7 +72,7 @@
                         </ng-select>
                         <jhi-error-messages *ngIf="formControl['idKhenThuong'].hasError('required')"
                                             [displayError]="isFieldValid('idKhenThuong')"
-                                            errorMsg="đánh giá không được để trống">
+                                            errorMsg="Loại khen thưởng/Kỷ luật không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
@@ -88,7 +89,7 @@
                     <div [ngClass]="{'has-error': isFieldValid('soTien')}"
                          class="form-group dropdown form-custom-select">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Mức thưởng</label>
+                               class="form-control-label">Số tiền</label>
                         <input type="text" class="form-control" formControlName="soTien"
                                (blur)="trimSpace('soTien')"
                                [readOnly]="true"
