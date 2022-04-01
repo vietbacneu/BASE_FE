@@ -49,7 +49,7 @@
                                class="form-control-label">Hệ số lương/giờ</label>
                         <input type="text" class="form-control" formControlName="heSoLuong"
                                (blur)="trimSpace('heSoLuong')"
-                               [readOnly]="type == 'detail'"
+                               [readOnly]="type == 'detail'" (keypress)="numberOnly($event)"
                                maxlength="200">
                         <jhi-error-messages *ngIf="formControl['heSoLuong'].hasError('required')"
                                             [displayError]="isFieldValid('heSoLuong')"

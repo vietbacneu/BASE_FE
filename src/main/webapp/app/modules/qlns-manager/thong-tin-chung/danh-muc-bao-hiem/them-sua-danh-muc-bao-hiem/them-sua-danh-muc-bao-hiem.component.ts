@@ -194,7 +194,7 @@ export class ThemSuaDanhMucBaoHiemComponent implements OnInit {
 
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
-    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+    return charCode == 46 || !(charCode > 31 && (charCode < 48 || charCode > 57));
   }
 
 }
