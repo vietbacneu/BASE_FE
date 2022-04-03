@@ -13,6 +13,8 @@ import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.con
 import {ChiTietDonNhapComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/chi-tiet-don-nhap/chi-tiet-don-nhap.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
+import {CommonUtils} from "app/shared/util/common-utils.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'jhi-them-sua-nhap-hang',
@@ -42,8 +44,18 @@ export class ThemSuaNhapHangComponent implements OnInit {
     listCuaHang: any;
     listDonNhap: any = [];
     listPP: any = [];
+    file: any;
+    validMaxSize = 5;
+    errImport = false;
+    successImport = false;
+    successMessage;
+    errMessage;
+    hopDongDinhKem: any;
+    duongDan: any;
+    checkFile = false;
 
     constructor(
+        private http: HttpClient,
         public translateService: TranslateService,
         private heightService: HeightService,
         private activatedRoute: ActivatedRoute,
@@ -77,22 +89,25 @@ export class ThemSuaNhapHangComponent implements OnInit {
         console.log('type', this.type)
         this.onResize();
         this.buidForm();
-        this.loadCuaHang();
         this.loadNhaCungCap();
         this.loadAllPP();
+        this.loadCuaHang()
     }
 
     private buidForm() {
         this.form = this.formBuilder.group({
             maNhapHang: [null, Validators.required],
-            idCuaHang: [null, Validators.required],
             idNhaCungCap: [null, Validators.required],
             ngayNhap: [null, Validators.required],
             idPhuongThuc: [null, Validators.required],
+            idNhanVien: [null, Validators.required],
         });
         if (this.selectedData) {
             this.form.patchValue(this.selectedData)
             this.listDonNhap = this.selectedData.nhapHangChiTietDTOList
+            this.duongDan = this.selectedData.duongDan
+            this.hopDongDinhKem = this.selectedData.hopDongDinhKem
+            this.checkFile = true;
         }
     }
 
@@ -183,13 +198,64 @@ export class ThemSuaNhapHangComponent implements OnInit {
         }
     }
 
+    onError(event) {
+        if (event === "") {
+            this.errImport = false;
+            this.successImport = true;
+            this.successMessage = this.translateService.instant(
+                "common.import.success.upload"
+            );
+        } else {
+            this.errImport = true;
+            this.successImport = false;
+            this.errMessage = event;
+        }
+    }
+
+    onChangeFile(event) {
+        this.file = event;
+        if (CommonUtils.tctGetFileSize(this.file) > this.validMaxSize) {
+            this.errImport = true;
+            this.successImport = false;
+            this.errMessage = this.translateService.instant(
+                "common.import.error.exceedMaxSize"
+            );
+            return false;
+        }
+        console.log(this.file)
+        const formData: FormData = new FormData();
+        if (this.file != null && this.file.length > 0) {
+            for (let i = 0; i < this.file.length; i++) {
+                formData.append("file", this.file[i], this.file[i]['name']);
+            }
+            this.thongTinChungApiService
+                .upload(formData)
+                .subscribe(
+                    res => {
+                        this.checkFile = false
+                        this.duongDan = res.body.duongDan
+                        this.hopDongDinhKem = res.body.hopDongDinhKem
+                        this.spinner.hide();
+                    },
+                    err => {
+                        this.spinner.hide();
+                        this.toastService.openErrorToast(
+                            this.translateService.instant("common.toastr.messages.error.load")
+                        );
+                    }
+                );
+        } else {
+            this.duongDan = ''
+            this.hopDongDinhKem = ''
+        }
+    }
 
     loadAllPP() {
         this.spinner.show();
         this.thongTinChungApiService
             .searchPhuongThuc({
                 maPhuongThuc: this.form.value.maPhuongThuc,
-                tenPhuongThuc: this.form.value.tenPhuongThuc ,
+                tenPhuongThuc: this.form.value.tenPhuongThuc,
             })
             .subscribe(
                 res => {
@@ -207,6 +273,17 @@ export class ThemSuaNhapHangComponent implements OnInit {
 
 
     onSubmit(typeSubmit?: any) {
+        if (!this.file && this.type == 'add') {
+            this.errImport = true;
+            this.toastService.openErrorToast(
+                "Hợp đồng đính kém không được để trống"
+            );
+            this.successImport = false;
+            this.errMessage = this.translateService.instant(
+                "common.import.error.notChooseFile"
+            );
+            return;
+        }
         if (this.form.invalid) {
             this.commonService.validateAllFormFields(this.form);
             return;
@@ -216,13 +293,16 @@ export class ThemSuaNhapHangComponent implements OnInit {
             id: null,
             maNhapHang: this.form.value.maNhapHang,
             mieuTa: this.form.value.mieuTa,
-            idCuaHang: this.form.value.idCuaHang,
             idNhaCungCap: this.form.value.idNhaCungCap,
             ngayNhap: this.form.value.ngayNhap,
             idPhuongThuc: this.form.value.idPhuongThuc,
+            duongDan: this.duongDan,
+            idNhanVien: this.form.value.idNhanVien,
+            hopDongDinhKem: this.hopDongDinhKem,
             nhapHangChiTietDTOList: this.listDonNhap,
         };
         if (this.type === "add") {
+            console.log(data)
             this.nhapXuatApiService
                 .createNhapHang(data).subscribe(
                 res => {
@@ -246,7 +326,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
         if (this.type === "update") {
             if (this.selectedData !== undefined) data.id = this.selectedData.id;
             this.nhapXuatApiService
-                .createNhapHang(data).subscribe(
+                .updateNhapHang(data).subscribe(
                 res => {
                     this.spinner.hide();
                     this.toastService.openSuccessToast(

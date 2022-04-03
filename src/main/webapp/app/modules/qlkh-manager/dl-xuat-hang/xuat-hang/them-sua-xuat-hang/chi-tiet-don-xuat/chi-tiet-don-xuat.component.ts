@@ -76,8 +76,6 @@ export class ChiTietDonXuatComponent implements OnInit {
             idSanPham: [null, Validators.required],
             soLuong: [null, Validators.required],
             gia: [null, Validators.required],
-            ngaySanXuat: [''],
-            ngayHetHan: [''],
             tongTien: [0],
         });
         if (this.selectedData) {
@@ -130,8 +128,6 @@ export class ChiTietDonXuatComponent implements OnInit {
             idSanPham: this.form.value.idSanPham,
             soLuong: this.form.value.soLuong,
             gia: this.form.value.gia,
-            ngaySanXuat: this.form.value.ngaySanXuat,
-            ngayHetHan: this.form.value.ngayHetHan,
             tongTien: this.form.value.tongTien,
         };
         if (this.type === "add") {
@@ -199,14 +195,10 @@ export class ChiTietDonXuatComponent implements OnInit {
 
     loadSanPham(idCuaHang?: any) {
         this.thongTinApi
-            .searchTonKho({
-                isTonKho: 1,
-                idCuaHang: idCuaHang,
-                ngayHetHan: new Date()
-            })
+            .searchSanPham({})
             .subscribe(
                 res => {
-                    this.listSanPham = res.body
+                    this.listSanPham = res.body.content
                 },
                 err => {
                     this.toastService.openErrorToast(

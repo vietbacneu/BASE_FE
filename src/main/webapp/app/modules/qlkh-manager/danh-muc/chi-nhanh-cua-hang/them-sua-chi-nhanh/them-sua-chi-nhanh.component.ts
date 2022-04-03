@@ -70,8 +70,8 @@ export class ThemSuaChiNhanhComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            maCuaHang: [null, Validators.required],
-            tenCuaHang: [null, Validators.required],
+            maNhanVien: [null, Validators.required],
+            tenNhanVien: [null, Validators.required],
             diaChi: [null],
         });
         if (this.selectedData) {
@@ -119,8 +119,8 @@ export class ThemSuaChiNhanhComponent implements OnInit {
         this.spinner.show();
         const data = {
             id: null,
-            maCuaHang: this.form.value.maCuaHang,
-            tenCuaHang: this.form.value.tenCuaHang,
+            maNhanVien: this.form.value.maNhanVien,
+            tenNhanVien: this.form.value.tenNhanVien,
             diaChi: this.form.value.diaChi,
         };
         if (this.type === "add") {

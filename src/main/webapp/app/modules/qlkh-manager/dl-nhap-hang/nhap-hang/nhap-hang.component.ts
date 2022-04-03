@@ -15,6 +15,7 @@ import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nh
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
 import {InNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component";
+import {SERVER_API} from "app/shared/constants/api-resource.constants";
 
 @Component({
     selector: 'jhi-nhap-hang',
@@ -39,7 +40,7 @@ export class NhapHangComponent implements OnInit {
     items = 12;
     listData: any;
     listNhaCungCap: any;
-    listCuaHang: any;
+    listNcc: any;
 
     constructor(
         public translateService: TranslateService,
@@ -73,13 +74,13 @@ export class NhapHangComponent implements OnInit {
     ngOnInit(): void {
         this.onResize();
         this.buidForm();
-        this.loadAllCuaHang();
+        this.loadNhaCungCap();
     }
 
     private buidForm() {
         this.form = this.formBuilder.group({
             maXuatHang: [null],
-            idCuaHang: [null],
+            idNhaCungCap: [null],
         });
     }
 
@@ -95,12 +96,12 @@ export class NhapHangComponent implements OnInit {
         return this.form.get(item).value;
     }
 
-    loadAllCuaHang() {
+    loadNhaCungCap() {
         this.thongTinChungApiService
-            .searchChiNhanh({})
+            .searchNCC({})
             .subscribe(
                 res => {
-                    this.listCuaHang = res.body.content
+                    this.listNcc = res.body.content
                 },
                 err => {
                     this.spinner.hide();
@@ -167,7 +168,7 @@ export class NhapHangComponent implements OnInit {
         this.thongTinChungApiService
             .searchNhapHang({
                 maNhapHang: this.form.value.maXuatHang,
-                idCuaHang: this.form.value.idCuaHang,
+                idNhaCungCap: this.form.value.idNhaCungCap,
             })
             .subscribe(
                 res => {
@@ -217,6 +218,11 @@ export class NhapHangComponent implements OnInit {
         });
     }
 
+    downloadFile(item) {
+        var path = btoa(item.duongDan);
+        window.open(SERVER_API + "/api" + "/sanPhams/downloadFileAttach/?path=" + path);
+    }
+
     onSubmitDelete(id: any = []) {
         this.spinner.show();
         this.nhapXuatApiService.deleteNhapHang({id: id}).subscribe(
@@ -255,6 +261,7 @@ export class NhapHangComponent implements OnInit {
             );
         }
     }
+
     openModalPrint(type?: string, selectedData?: any) {
         const modalRef = this.modalService.open(InNhapHangComponent, {
             size: "lg",
@@ -273,4 +280,6 @@ export class NhapHangComponent implements OnInit {
         }).catch(() => {
         });
     }
+
+
 }

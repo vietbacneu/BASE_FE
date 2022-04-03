@@ -16,7 +16,7 @@
            id="{{strType}}">
     <label for="{{strType}}" [ngClass]="isError ? 'border-red' : ''">
         <ng-container
-                *ngIf="fileType==='pdf' || fileType==='excel' || fileType ==='png' || fileType ==='BBTT' || fileType ==='BK'">
+                *ngIf="fileType==='pdf' || fileType==='word' || fileType==='excel' || fileType ==='png' || fileType ==='BBTT' || fileType ==='BK'">
             <i *ngIf="showCheck" class="fa fa-check icon-color-blue" aria-hidden="true" ngbTooltip="{{msgTooltip}}"></i>
             <span class="upload-btn">Chọn file</span>
         </ng-container>
@@ -56,6 +56,9 @@
     </ng-container>
     <ng-container *ngIf="fileType==='pdf'&& suggest === ''">
         <p class="my-1"><i>(Loại file .pdf, dung lượng tối đa: 5Mb)</i></p>
+    </ng-container>
+    <ng-container *ngIf="fileType==='word'&& suggest === ''">
+        <p class="my-1"><i>(Loại file .word, dung lượng tối đa: 5Mb)</i></p>
     </ng-container>
     <ng-container *ngIf="fileType==='fileOutsourcePlan' && suggest === ''">
         <p class="my-1"><i>(Loại file: .pdf, .rar, .zip, .xlsx, tổng dung lượng tối đa: 150MB)</i></p>

@@ -31,16 +31,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
+                                    <label class="col-sm-3 custom-label-right">Tên khách hàng</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listCuaHang"
+                                        <ng-select [items]="listKhachHang"
                                                    placeholder="{{this.translateService.instant('common.select.option.all')}}"
                                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                                    searchable="false"
-                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
+                                                   bindLabel="tenKhachHang" bindValue="id" formControlName="idKhachHang">
                                             <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenCuaHang)}} <br/>
+                                                {{formatPreShow(item.tenKhachHang)}} <br/>
                                             </ng-template>
                                         </ng-select>
                                     </div>
@@ -80,11 +80,13 @@
                                     </th>
                                     <th class="medium-width-table"><span>Tên khách hàng</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên cửa hàng</span>
+                                    <th class="medium-width-table"><span>Tên nhân viên</span>
                                     </th>
                                     <th class="medium-width-table"><span>Phương thức thanh toán</span>
                                     </th>
                                     <th class="medium-width-table"><span>Ngày xuất</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Hợp đồng đính kèm</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -115,9 +117,12 @@
                                     </td>
                                     <td>{{item.maXuatHang}}</td>
                                     <td>{{item.tenKhachHang}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
+                                    <td>{{item.tenNhanVien}}</td>
                                     <td>{{item.tenPhuongThuc}}</td>
                                     <td style="text-align: center">{{item.ngayXuat }}</td>
+                                    <td style="text-align: center" (click)="downloadFile(item)"><i class="fa fa-download"
+                                                                                                   aria-hidden="true"></i> {{item.hopDongDinhKem}}
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

@@ -77,8 +77,6 @@ export class ChiTietDonNhapComponent implements OnInit {
             idSanPham: [null, Validators.required],
             soLuong: [null, Validators.required],
             gia: [null, Validators.required],
-            ngaySanXuat: [''],
-            ngayHetHan: [''],
             tongTien: [0],
         });
         if (this.selectedData) {
@@ -131,8 +129,6 @@ export class ChiTietDonNhapComponent implements OnInit {
             idSanPham: this.form.value.idSanPham,
             soLuong: this.form.value.soLuong,
             gia: this.form.value.gia,
-            ngaySanXuat: this.form.value.ngaySanXuat,
-            ngayHetHan: this.form.value.ngayHetHan,
             tongTien: this.form.value.tongTien,
         };
         if (this.type === "add") {

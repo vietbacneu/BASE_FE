@@ -28,30 +28,6 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group" [ngClass]="{'has-error': isFieldValid('idCuaHang')}">
-                        <label class="col-sm-3 custom-label-right required">Tên cửa hàng</label>
-                        <div class="col-sm-8 form-custom-select">
-                            <ng-select [items]="listCuaHang"
-                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                       notFoundText="{{'common.select.notFoundText' | translate}}"
-                                       searchable="false" [readonly]="renderCbxCuaHang || type === 'update'"
-                                       (change)="onChangeCuaHang($event)"
-                                       bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                                <ng-template ng-option-tmp let-item="item">
-                                    {{formatPreShow(item.tenCuaHang)}} <br/>
-                                </ng-template>
-                            </ng-select>
-                            <jhi-error-messages *ngIf="formControl['idCuaHang'].hasError('required')"
-                                                [displayError]="isFieldValid('idCuaHang')"
-                                                errorMsg="Cửa hàng không được để trống">
-                            </jhi-error-messages>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
                     <div class="form-group row" [ngClass]="{'has-error': isFieldValid('idKhachHang')}">
                         <label class="col-sm-3 custom-label-right required">Khách hàng</label>
                         <div class="col-sm-8 form-custom-select">
@@ -71,6 +47,23 @@
                             </jhi-error-messages>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 custom-label-right" [ngClass]="type === 'detail' ? '' : 'required'"
+                                   jhiTranslate="profileAppraisal.file">File đính kèm</label>
+                            <div class="col-sm-8 form-custom-select">
+                                <jhi-upload-file [fileType]="'word'" #fileImport
+                                                 [accept]="'.doc,.docs'" (onFileChange)="onChangeFile($event)"
+                                                 (onError)="onError($event)" [isError]="errImport">
+                                </jhi-upload-file>
+                                <div class="row form-group">
+                                    <div class="upload-input" *ngIf="checkFile">{{hopDongDinhKem}}</div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group row" [ngClass]="{'has-error': isFieldValid('ngayXuat')}">
@@ -110,6 +103,26 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="form-group"
+                         [ngClass]="{'has-error': isFieldValid('idNhanVien')}">
+                        <label class="col-sm-3 custom-label-right required">Nhân viên</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <ng-select [items]="listCuaHang"
+                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                       notFoundText="{{'common.select.notFoundText' | translate}}"
+                                       searchable="false"
+                                       bindLabel="tenNhanVien" bindValue="id" formControlName="idNhanVien">
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{formatPreShow(item.tenNhanVien)}} <br/>
+                                </ng-template>
+                            </ng-select>
+                            <jhi-error-messages *ngIf="formControl['idNhanVien'].hasError('required')"
+                                                [displayError]="isFieldValid('idNhanVien')"
+                                                errorMsg="Nhân viên không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
@@ -135,10 +148,6 @@
                                 </th>
                                 <th class="medium-width-table"><span>Tổng tiền</span>
                                 </th>
-                                <th class="medium-width-table"><span>Ngày sản xuất</span>
-                                </th>
-                                <th class="medium-width-table"><span>Ngày hết hạn</span>
-                                </th>
                                 <th class="medium-width-table action-width-four-icon custom-width"
                                     jhiTranslate="userGroup.action" style="width: 7rem;">
                                 </th>
@@ -151,8 +160,6 @@
                                 <td>{{item.soLuong}}</td>
                                 <td style="text-align: right">{{item.gia | number}}</td>
                                 <td style="text-align: right">{{item.tongTien | number}}</td>
-                                <td style="text-align: center">{{item.ngaySanXuat }}</td>
-                                <td style="text-align: center">{{item.ngayHetHan }}</td>
                                 <td class="text-center four-icon medium-width-table">
                                     <div class="group-action">
                                         <button class="btn btn-light" placement="top"

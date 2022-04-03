@@ -13,6 +13,7 @@ import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.con
 import {ChiTietDonXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-hang/them-sua-xuat-hang/chi-tiet-don-xuat/chi-tiet-don-xuat.component";
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
+import {CommonUtils} from "app/shared/util/common-utils.service";
 
 @Component({
   selector: 'jhi-them-sua-xuat-hang',
@@ -45,6 +46,15 @@ export class ThemSuaXuatHangComponent implements OnInit {
   listDonXuat: any = [];
   listPP: any = [];
   renderCbxCuaHang = false;
+  file: any;
+  validMaxSize = 5;
+  errImport = false;
+  successImport = false;
+  successMessage;
+  errMessage;
+  hopDongDinhKem: any;
+  duongDan: any;
+  checkFile = false;
 
   constructor(
       public translateService: TranslateService,
@@ -87,21 +97,75 @@ export class ThemSuaXuatHangComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       maXuatHang: [null, Validators.required],
-      idCuaHang: [null, Validators.required],
       idKhachHang: [null, Validators.required],
       ngayXuat: [null, Validators.required],
       idPhuongThuc: [null, Validators.required],
+      idNhanVien: [null, Validators.required],
     });
-    if(this.selectedData){
+    if (this.selectedData) {
       this.form.patchValue(this.selectedData)
       this.listDonXuat = this.selectedData.xuatHangChiTietDTOList
-      this.renderCuaHang = true;
+      this.duongDan = this.selectedData.duongDan
+      this.hopDongDinhKem = this.selectedData.hopDongDinhKem
+      this.checkFile = true;
     }
 
   }
 
   onResize() {
     this.height = this.heightService.onResizeWithoutFooter();
+  }
+
+  onError(event) {
+    if (event === "") {
+      this.errImport = false;
+      this.successImport = true;
+      this.successMessage = this.translateService.instant(
+          "common.import.success.upload"
+      );
+    } else {
+      this.errImport = true;
+      this.successImport = false;
+      this.errMessage = event;
+    }
+  }
+
+  onChangeFile(event) {
+    this.file = event;
+    if (CommonUtils.tctGetFileSize(this.file) > this.validMaxSize) {
+      this.errImport = true;
+      this.successImport = false;
+      this.errMessage = this.translateService.instant(
+          "common.import.error.exceedMaxSize"
+      );
+      return false;
+    }
+    console.log(this.file)
+    const formData: FormData = new FormData();
+    if (this.file != null && this.file.length > 0) {
+      for (let i = 0; i < this.file.length; i++) {
+        formData.append("file", this.file[i], this.file[i]['name']);
+      }
+      this.thongTinChungApiService
+          .upload(formData)
+          .subscribe(
+              res => {
+                this.checkFile = false
+                this.duongDan = res.body.duongDan
+                this.hopDongDinhKem = res.body.hopDongDinhKem
+                this.spinner.hide();
+              },
+              err => {
+                this.spinner.hide();
+                this.toastService.openErrorToast(
+                    this.translateService.instant("common.toastr.messages.error.load")
+                );
+              }
+          );
+    } else {
+      this.duongDan = ''
+      this.hopDongDinhKem = ''
+    }
   }
 
   setValueToField(item, data) {
@@ -130,12 +194,13 @@ export class ThemSuaXuatHangComponent implements OnInit {
     this.itemsPerPage = size;
     this.loadAll();
   }
+
   loadAllPP() {
     this.spinner.show();
     this.thongTinChungApiService
         .searchPhuongThuc({
           maPhuongThuc: this.form.value.maPhuongThuc,
-          tenPhuongThuc: this.form.value.tenPhuongThuc ,
+          tenPhuongThuc: this.form.value.tenPhuongThuc,
         })
         .subscribe(
             res => {
@@ -168,7 +233,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
       } else {
         this.listDonXuat.push(value)
       }
-      if(this.listDonXuat.length > 0){
+      if (this.listDonXuat.length > 0) {
         this.renderCbxCuaHang = true
       }
     });
@@ -215,6 +280,17 @@ export class ThemSuaXuatHangComponent implements OnInit {
   }
 
   onSubmit(typeSubmit?: any) {
+    if (!this.file && this.type == 'add') {
+      this.errImport = true;
+      this.toastService.openErrorToast(
+          "Hợp đồng đính kém không được để trống"
+      );
+      this.successImport = false;
+      this.errMessage = this.translateService.instant(
+          "common.import.error.notChooseFile"
+      );
+      return;
+    }
     if (this.form.invalid) {
       this.commonService.validateAllFormFields(this.form);
       return;
@@ -224,10 +300,12 @@ export class ThemSuaXuatHangComponent implements OnInit {
     const data = {
       id: null,
       maXuatHang: this.form.value.maXuatHang,
-      idCuaHang: this.form.value.idCuaHang,
       idKhachHang: this.form.value.idKhachHang,
       ngayXuat: this.form.value.ngayXuat,
       idPhuongThuc: this.form.value.idPhuongThuc,
+      idNhanVien: this.form.value.idNhanVien,
+      duongDan: this.duongDan,
+      hopDongDinhKem: this.hopDongDinhKem,
       xuatHangChiTietDTOList: this.listDonXuat,
     };
     if (this.type === "add") {

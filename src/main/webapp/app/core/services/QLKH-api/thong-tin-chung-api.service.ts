@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {SERVER_API} from "app/shared/constants/api-resource.constants";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpRequest, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {createRequestOption} from "app/shared/util/request-util";
 
@@ -220,7 +220,7 @@ export class ThongTinChungApiService {
 
     searchChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/cuaHangs/search', data, {
+        return this.http.post(this.resourceUrl + '/api/nhanViens/search', data, {
             params: option,
             observe: "response"
         });
@@ -244,7 +244,7 @@ export class ThongTinChungApiService {
 
     createChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/cuaHangs', data, {
+        return this.http.post(this.resourceUrl + '/api/nhanViens', data, {
             params: option,
             observe: "response"
         });
@@ -252,7 +252,7 @@ export class ThongTinChungApiService {
 
     updateChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.put(this.resourceUrl + '/api/cuaHangs/update', data, {
+        return this.http.put(this.resourceUrl + '/api/nhanViens/update', data, {
             params: option,
             observe: "response"
         });
@@ -260,7 +260,7 @@ export class ThongTinChungApiService {
 
     deleteChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.delete(this.resourceUrl + `/api/cuaHangs/${data.id}`, {
+        return this.http.delete(this.resourceUrl + `/api/nhanViens/${data.id}`, {
             params: option,
             observe: "response"
         });
@@ -318,6 +318,13 @@ export class ThongTinChungApiService {
         const option = createRequestOption(data);
         return this.http.delete(this.resourceUrl + `/api/nhaCungCaps/${data.id}`, {
             params: option,
+            observe: "response"
+        });
+    }
+
+    upload(data): Observable<HttpResponse<any>> {
+        //const options = createRequestOption();
+        return this.http.post(SERVER_API + "/api/nhapHangs/upload", data, {
             observe: "response"
         });
     }
