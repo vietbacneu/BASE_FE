@@ -16,6 +16,7 @@ import {InDonXuatComponent} from "app/modules/qlkh-manager/dl-xuat-hang/xuat-han
 import {BcHoaDonBanHangComponent} from "app/modules/qlkh-manager/bao-cao/bc-hoa-don-ban-hang/bc-hoa-don-ban-hang.component";
 import {BcHoaDonNhapHangComponent} from "app/modules/qlkh-manager/bao-cao/bc-hoa-don-nhap-hang/bc-hoa-don-nhap-hang.component";
 import {ChiNhanhCuaHangComponent,} from "app/modules/qlkh-manager/danh-muc/chi-nhanh-cua-hang/chi-nhanh-cua-hang.component";
+import {CongNoComponent} from "app/modules/qlkh-manager/cong-no/cong-no.component";
 
 const routes: Routes = [
     {
@@ -50,7 +51,14 @@ const routes: Routes = [
         data: {
             pageTitle: "common.appParamBH",
         }
-    }, {
+    },
+    {
+        path: 'cong-no', component: CongNoComponent,
+        data: {
+            pageTitle: "common.appParamBH",
+        }
+    },
+    {
         path: 'san-pham-da-xuat', component: SanPhamDaXuatComponent,
         data: {
             pageTitle: "common.appParamBH",

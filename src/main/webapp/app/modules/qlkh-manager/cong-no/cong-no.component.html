@@ -1,0 +1,152 @@
+<jhi-spinner></jhi-spinner>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <button routerLink="/san-pham" class="btn btn-link btn-custom-bg"
+                ngbTooltip="{{'common.tooltip.home' | translate}}">
+            <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
+        </button>
+    </li>
+    <li class="breadcrumb-item">Quản lý công nợ</li>
+    <li class="breadcrumb-item">Công nợ </li>
+</ol>
+<perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
+    <div id="organizationCategories" class="page-content">
+        <div class="card mb-1">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#search" aria-expanded="true"><span
+                        jhiTranslate="common.card.title.search"></span></a>
+            </div>
+            <div id="search" class="collapse show">
+                <div class="card-body">
+                    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select">
+                                    <label class="col-sm-3 custom-label-right">Mã công nợ</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="text" class="form-control" formControlName="maXuatHang"
+                                               maxlength="200" (blur)="trimSpace('maXuatHang')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row dropdown form-custom-select">
+                                    <label class="col-sm-3 custom-label-right">Nhà cung cấp</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <ng-select [items]="listNcc"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="tenNhaCungCap" bindValue="id"
+                                                   formControlName="idNhaCungCap">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.tenNhaCungCap)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-danger" (click)="onSearchData()">
+                                <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
+                            </button>
+                            <button type="button" class="btn btn-danger" (click)="openModal('add')">
+                                <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Thêm mới</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#dataTable" aria-expanded="true"><span
+                        jhiTranslate="projectManagement.result-search"></span></a>
+            </div>
+            <div id="dataTable" class="collapse show">
+                <div class="card-body pt-2 pb-0 px-2">
+                    <div class="row">
+                        <perfect-scrollbar id="scrollbarTable" class="ps">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                    <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                    </th>
+                                    <th class="medium-width-table action-width-four-icon custom-width"
+                                        jhiTranslate="userGroup.action" style="width: 7rem;">
+                                    </th>
+                                    <th class="medium-width-table"><span>Mã nhập hàng</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Tên nhà cung cấp</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Phương thức thanh toán</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Ngày nhập</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Nhân viên</span>
+                                    </th>
+                                    <th class="medium-width-table"><span>Hợp đồng đính kèm</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody *ngFor="let item of listData; index as i">
+                                <tr>
+                                    <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                    <td class="text-center four-icon medium-width-table">
+                                        <div class="group-action">
+                                            <button class="btn btn-light" placement="top"
+                                                    (click)="openModalPrint('detail', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.detail' | translate}}"
+                                                    onclick="this.blur();">
+                                                <i class="fa fa-info-circle icon-update" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-light" placement="top"
+                                                    (click)="openModal('update', item)"
+                                                    ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                    onclick="this.blur();">
+                                                <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-light" placement="top"
+                                                    ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                    (click)="onDelete(item.id)"
+                                                    onclick="this.blur();">
+                                                <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>{{item.maNhapHang}}</td>
+                                    <td>{{item.tenNhaCungCap}}</td>
+                                    <td>{{item.tenPhuongThuc}}</td>
+                                    <td style="text-align: center">{{item.ngayNhap}}</td>
+                                    <td style="text-align: center">{{item.tenNhanVien}}</td>
+                                    <td style="text-align: center" (click)="downloadFile(item)"><i class="fa fa-download"
+                                                                                                   aria-hidden="true"></i> {{item.hopDongDinhKem}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                    <div class="row justify-content-start py-2 pl-1  table-footer no-data"
+                         *ngIf="!totalItems">
+                        <p style="color: red" class="item-count" jhiTranslate="common.table.noData"></p>
+                    </div>
+
+                    <div class="d-flex justify-content-end table-footer" [hidden]="!totalItems">
+                        <div class="row justify-content-center">
+                            <p class="item-count">{{'common.table.totalItems'| translate}} {{totalItems}}</p>
+                            <ngb-pagination *ngIf="totalItems" [collectionSize]="totalItems" [(page)]="page"
+                                            [pageSize]="itemsPerPage" [maxSize]="10" [rotate]="true"
+                                            [boundaryLinks]="true"
+                                            (pageChange)="loadPage(page)">
+                            </ngb-pagination>
+                            <jhi-page-size (onChangePageSize)="changePageSize($event)"></jhi-page-size>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</perfect-scrollbar>

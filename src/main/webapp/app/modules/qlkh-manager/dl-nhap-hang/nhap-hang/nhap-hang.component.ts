@@ -169,6 +169,7 @@ export class NhapHangComponent implements OnInit {
             .searchNhapHang({
                 maNhapHang: this.form.value.maXuatHang,
                 idNhaCungCap: this.form.value.idNhaCungCap,
+                isCount: 1
             })
             .subscribe(
                 res => {

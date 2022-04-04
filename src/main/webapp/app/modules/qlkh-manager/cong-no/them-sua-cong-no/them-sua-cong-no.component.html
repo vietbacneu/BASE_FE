@@ -1,0 +1,207 @@
+<div style="display: block;">
+    <div class="custom-modal-big" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới công nợ</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết công nợ</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật công nợ</h5>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row"
+                         [ngClass]="{'has-error': isFieldValid('maCongNo')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="col-sm-3 custom-label-right required">Mã công nợ</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <input type="text" class="form-control" formControlName="maCongNo"
+                                   maxlength="200" (blur)="trimSpace('maCongNo')">
+                            <jhi-error-messages *ngIf="formControl['maCongNo'].hasError('required')"
+                                                [displayError]="isFieldValid('maCongNo')"
+                                                errorMsg="Mã công nợ không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"
+                         [ngClass]="{'has-error': isFieldValid('loaiHopDong')}">
+                        <label class="col-sm-3 custom-label-right required">Loại hợp đồng</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <ng-select [items]="listType"
+                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                       notFoundText="{{'common.select.notFoundText' | translate}}"
+                                       searchable="false"
+                                       (change)="loadHopDong($event)"
+                                       bindLabel="name" bindValue="value" formControlName="loaiHopDong">
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{formatPreShow(item.name)}} <br/>
+                                </ng-template>
+                            </ng-select>
+                            <jhi-error-messages *ngIf="formControl['loaiHopDong'].hasError('required')"
+                                                [displayError]="isFieldValid('loaiHopDong')"
+                                                errorMsg="Loại hợp đồng không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row"
+                         [ngClass]="{'has-error': isFieldValid('idHopDong')}">
+                        <label class="col-sm-3 custom-label-right required">Hợp đồng</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <ng-select [items]="listHopDong"
+                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                       notFoundText="{{'common.select.notFoundText' | translate}}"
+                                       searchable="false"
+                                       (change)="loadSoTien($event)"
+                                       bindLabel="maHopDong" bindValue="id" formControlName="idHopDong">
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{formatPreShow(item.maHopDong)}} <br/>
+                                </ng-template>
+                            </ng-select>
+                            <jhi-error-messages *ngIf="formControl['idHopDong'].hasError('required')"
+                                                [displayError]="isFieldValid('idHopDong')"
+                                                errorMsg="Hợp đồng không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"
+                         [ngClass]="{'has-error': isFieldValid('trangThaiThanhToan')}">
+                        <label class="col-sm-3 custom-label-right required">Trạng thái thanh toán</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <ng-select [items]="listStatus"
+                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                       notFoundText="{{'common.select.notFoundText' | translate}}"
+                                       searchable="false"
+                                       bindLabel="name" bindValue="value" formControlName="trangThaiThanhToan">
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{formatPreShow(item.name)}} <br/>
+                                </ng-template>
+                            </ng-select>
+                            <jhi-error-messages *ngIf="formControl['trangThaiThanhToan'].hasError('required')"
+                                                [displayError]="isFieldValid('trangThaiThanhToan')"
+                                                errorMsg="Phương thức thanh toán không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"
+                         [ngClass]="{'has-error': isFieldValid('idNhanVien')}">
+                        <label class="col-sm-3 custom-label-right required">Nhân viên</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <ng-select [items]="listCuaHang"
+                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                       notFoundText="{{'common.select.notFoundText' | translate}}"
+                                       searchable="false"
+                                       bindLabel="tenNhanVien" bindValue="id" formControlName="idNhanVien">
+                                <ng-template ng-option-tmp let-item="item">
+                                    {{formatPreShow(item.tenNhanVien)}} <br/>
+                                </ng-template>
+                            </ng-select>
+                            <jhi-error-messages *ngIf="formControl['idNhanVien'].hasError('required')"
+                                                [displayError]="isFieldValid('idNhanVien')"
+                                                errorMsg="Nhân viên không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldValid('soTien')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="col-sm-3 custom-label-right required">Số tiền</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <input type="text" class="form-control" [readOnly]="true" formControlName="soTien">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="d-flex justify-content-center" style="margin-bottom: 2%; margin-top: 1% !important;">
+                <button type="button" class="btn btn-danger" (click)="openModal('add')">
+                    <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Nhập thêm</span>
+                </button>
+            </div>
+        </form>
+        <div id="dataTable" class="collapse show">
+            <div class="card-body pt-2 pb-0 px-2">
+                <div class="row">
+                    <perfect-scrollbar id="scrollbarTable" class="ps">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                </th>
+                                <th class="medium-width-table"><span>Ngày thanh toán</span>
+                                </th>
+                                <th class="medium-width-table"><span>Số tiền thanh toán</span>
+                                </th>
+                                <th class="medium-width-table action-width-four-icon custom-width"
+                                    jhiTranslate="userGroup.action" style="width: 7rem;">
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of listCongNo; index as i">
+                            <tr>
+                                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                <td>{{item.ngayThanhToan}}</td>
+                                <td>{{item.soTienThanhToan | number}}</td>
+                                <td class="text-center four-icon medium-width-table">
+                                    <div class="group-action">
+                                        <button class="btn btn-light" placement="top"
+                                                (click)="openModal('update', item)"
+                                                ngbTooltip="{{'common.tooltip.action.update' | translate}}"
+                                                onclick="this.blur();">
+                                            <i class="fa fa-pencil-square-o icon-update" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-light" placement="top"
+                                                ngbTooltip="{{'common.tooltip.action.delete' | translate}}"
+                                                (click)="onDelete(item)"
+                                                onclick="this.blur();">
+                                            <i class="fa fa-trash icon-delete" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center" style="margin-bottom: 2%;margin-top: 2%;">
+            <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-danger"
+                    (click)="onSubmit()">
+                <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                    jhiTranslate="{{'common.button.confirm.save'}}"></span>
+            </button>
+            <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
+                    (click)="onCancel()">
+                <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                    jhiTranslate="{{'common.button.confirm.cancel'}}"></span>
+            </button>
+            <button *ngIf="type === 'detail'" type="button" class="btn btn-light" (click)="onCancel()">
+                <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                    jhiTranslate="{{'common.button.confirm.close'}}"></span>
+            </button>
+        </div>
+    </div>
+</div>

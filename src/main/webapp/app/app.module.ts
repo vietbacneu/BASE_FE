@@ -21,6 +21,7 @@ import { AutocompleteLibModule } from "angular-ng-autocomplete";
 import { ChartsModule } from "ng2-charts";
 // import { CanvasJS  } from 'canvasjs';
 import { NgxMaskModule, IConfig } from "ngx-mask";
+import { CongNoComponent } from './cong-no/cong-no.component';
 export const options: Partial<IConfig> = {
   thousandSeparator: "."
 };
@@ -48,7 +49,8 @@ export const options: Partial<IConfig> = {
     ErrorComponent,
     PageRibbonComponent,
     ActiveMenuDirective,
-    FooterComponent
+    FooterComponent,
+    CongNoComponent
   ],
     exports: [
         ActiveMenuDirective

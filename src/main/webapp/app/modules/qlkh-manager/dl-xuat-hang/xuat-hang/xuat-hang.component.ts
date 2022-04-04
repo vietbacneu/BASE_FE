@@ -209,6 +209,7 @@ export class XuatHangComponent implements OnInit {
             .searchXuatHang({
                 maXuatHang: this.form.value.maXuatHang,
                 idKhachHang: this.form.value.idKhachHang,
+                isCount: 1
             })
             .subscribe(
                 res => {

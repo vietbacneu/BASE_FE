@@ -1,0 +1,65 @@
+<div style="display: block;">
+    <div class="custom-modal-large" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới chi tiết công nợ</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">chi tiết công nợ</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật chi tiết công nợ</h5>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-90-center">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldValid('ngayThanhToan')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="col-sm-3 form-control-label required">Ngày thanh toán</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <input type="date" class="form-control" placeholder="dd-mm-yyyy"
+                                   formControlName="ngayThanhToan">
+                            <jhi-error-messages *ngIf="formControl['ngayThanhToan'].hasError('required')"
+                                                [displayError]="isFieldValid('ngayThanhToan')"
+                                                errorMsg="Ngày thanh toán không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldValid('ngayThanhToan')}">
+                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
+                               class="col-sm-3 form-control-label required">Số tiền</label>
+                        <div class="col-sm-8 form-custom-select">
+                            <input type="text" class="form-control" formControlName="soTienThanhToan"
+                                   (blur)="trimSpace('soTienThanhToan')"
+                                   (keypress)="numberOnly($event)"
+                                   [readOnly]="type == 'detail'"
+                                   maxlength="15">
+                            <jhi-error-messages *ngIf="formControl['soTienThanhToan'].hasError('required')"
+                                                [displayError]="isFieldValid('soTienThanhToan')"
+                                                errorMsg="Số tiền không được để trống">
+                            </jhi-error-messages>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-danger"
+                (click)="onSubmit()">
+            <i class="fa fa-floppy-o mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.save'}}"></span>
+        </button>
+        <button *ngIf="type === 'add' || type === 'update'" type="submit" class="btn btn-light"
+                (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.cancel'}}"></span>
+        </button>
+        <button *ngIf="type === 'detail'" type="button" class="btn btn-light" (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.close'}}"></span>
+        </button>
+    </div>
+</div>
