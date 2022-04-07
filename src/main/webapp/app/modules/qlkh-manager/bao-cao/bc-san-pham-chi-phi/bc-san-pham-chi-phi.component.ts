@@ -13,7 +13,6 @@ import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chun
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
 import {ThemSuaLoaiHangComponent} from "app/modules/qlkh-manager/danh-muc/loai-hang/them-sua-loai-hang/them-sua-loai-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
-import * as path from "path";
 import {SERVER_API} from "app/shared/constants/api-resource.constants";
 
 @Component({
@@ -76,9 +75,7 @@ export class BcSanPhamChiPhiComponent implements OnInit {
 
     private buidForm() {
         this.form = this.formBuilder.group({
-            maSanPham: [null],
-            tenSanPham: [null],
-            idCuaHang: [null],
+            maCongNo: [null],
         });
     }
 
@@ -156,10 +153,9 @@ export class BcSanPhamChiPhiComponent implements OnInit {
     onExport() {
         this.spinner.show();
         this.ThongTinApi
-            .exportSpChiPhi({
-                maSanPham: this.form.value.maSanPham,
-                tenSanPham: this.form.value.tenSanPham,
-                idCuaHang: this.form.value.idCuaHang,
+            .exportCongNo({
+                maCongNo: this.form.value.maCongNo,
+                loaiHopDong: "nhaphang"
             })
             .subscribe(
                 res => {
@@ -187,10 +183,9 @@ export class BcSanPhamChiPhiComponent implements OnInit {
     loadAll() {
         this.spinner.show();
         this.ThongTinApi
-            .searchSpChiPhi({
-                maSanPham: this.form.value.maSanPham,
-                tenSanPham: this.form.value.tenSanPham,
-                idCuaHang: this.form.value.idCuaHang,
+            .searchCongNoPhaiTra({
+                maCongNo: this.form.value.maCongNo,
+                loaiHopDong: "nhaphang"
             })
             .subscribe(
                 res => {

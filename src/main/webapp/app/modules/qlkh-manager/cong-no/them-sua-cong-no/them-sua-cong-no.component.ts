@@ -42,7 +42,7 @@ export class ThemSuaCongNoComponent implements OnInit {
     listData: any;
     listNhaCungCap: any;
     listCuaHang: any;
-    listCongNo: any = [];
+    congNoChiTietDTOS: any = [];
     listPP: any = [];
     file: any;
     validMaxSize = 5;
@@ -111,10 +111,9 @@ export class ThemSuaCongNoComponent implements OnInit {
             loaiHopDong: [null, Validators.required],
         });
         if (this.selectedData) {
+            this.loadHopDong({"value": this.selectedData.loaiHopDong})
             this.form.patchValue(this.selectedData)
-            this.listCongNo = this.selectedData.nhapHangChiTietDTOList
-            this.duongDan = this.selectedData.duongDan
-            this.hopDongDinhKem = this.selectedData.hopDongDinhKem
+            this.congNoChiTietDTOS = this.selectedData.congNoChiTietDTOS
             this.checkFile = true;
         }
     }
@@ -160,10 +159,10 @@ export class ThemSuaCongNoComponent implements OnInit {
         modalRef.componentInstance.selectedData = selectedData;
         modalRef.componentInstance.response.subscribe(value => {
             if (type === 'update') {
-                this.listCongNo = this.listCongNo.filter(data => data.id !== value.id)
-                this.listCongNo.push(value)
+                this.congNoChiTietDTOS = this.congNoChiTietDTOS.filter(data => data.id !== value.id)
+                this.congNoChiTietDTOS.push(value)
             } else {
-                this.listCongNo.push(value)
+                this.congNoChiTietDTOS.push(value)
             }
         });
         modalRef.result.then(result => {
@@ -201,8 +200,8 @@ export class ThemSuaCongNoComponent implements OnInit {
     }
 
     onDelete(item: any) {
-        if (this.listCongNo) {
-            this.listCongNo = this.listCongNo.filter(data => data !== item)
+        if (this.congNoChiTietDTOS) {
+            this.congNoChiTietDTOS = this.congNoChiTietDTOS.filter(data => data !== item)
         }
     }
 
@@ -293,12 +292,27 @@ export class ThemSuaCongNoComponent implements OnInit {
             soTien: this.form.value.soTien,
             trangThaiThanhToan: this.form.value.trangThaiThanhToan,
             loaiHopDong: this.form.value.loaiHopDong,
-            listCongNo: this.listCongNo,
+            congNoChiTietDTOS: this.congNoChiTietDTOS,
+            idNhanVien: this.form.value.idNhanVien,
+
         };
+        var tmp = 0;
+        data.congNoChiTietDTOS.forEach(e => {
+                tmp += Number.parseInt(e.soTienThanhToan)
+            }
+        )
+        console.log("temp", tmp)
+        if (tmp < Number.parseInt(data.soTien)) {
+            this.toastService.openErrorToast(
+                "Số tiền công nợ chi tiết không được nhỏ hơn số tiền trong hợp đồng"
+            );
+            this.spinner.hide();
+            return;
+        }
         if (this.type === "add") {
             console.log(data)
             this.nhapXuatApiService
-                .createNhapHang(data).subscribe(
+                .createCongNo(data).subscribe(
                 res => {
                     this.spinner.hide();
                     this.toastService.openSuccessToast(
@@ -320,7 +334,7 @@ export class ThemSuaCongNoComponent implements OnInit {
         if (this.type === "update") {
             if (this.selectedData !== undefined) data.id = this.selectedData.id;
             this.nhapXuatApiService
-                .updateNhapHang(data).subscribe(
+                .updateCongNo(data).subscribe(
                 res => {
                     this.spinner.hide();
                     this.toastService.openSuccessToast(

@@ -59,7 +59,7 @@ const routes: Routes = [
         }
     },
     {
-        path: 'san-pham-da-xuat', component: SanPhamDaXuatComponent,
+        path: 'thanh-toan-cong-no', component: SanPhamDaXuatComponent,
         data: {
             pageTitle: "common.appParamBH",
         }

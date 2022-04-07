@@ -63,8 +63,6 @@ export class BcSanPhamDanhThuComponent implements OnInit {
         this.previousPage = data.pagingParams.page;
         this.reverse = data.pagingParams.ascending;
         this.predicate = data.pagingParams.predicate;
-      }else {
-        this.page = 1;
       }
     });
   }
@@ -77,9 +75,7 @@ export class BcSanPhamDanhThuComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      maSanPham: [null],
-      tenSanPham: [null],
-      idCuaHang: [null],
+      maCongNo: [null],
     });
   }
 
@@ -134,8 +130,7 @@ export class BcSanPhamDanhThuComponent implements OnInit {
 
   loadAllCuaHang() {
     this.ThongTinApi
-        .searchChiNhanh({
-        })
+        .searchChiNhanh({})
         .subscribe(
             res => {
               this.listCuaHang = res.body.content
@@ -157,12 +152,10 @@ export class BcSanPhamDanhThuComponent implements OnInit {
 
   onExport() {
     this.spinner.show();
-    console.log(this.form.value)
     this.ThongTinApi
-        .exportSpDoanhThu({
-          maSanPham: this.form.value.maSanPham,
-          tenSanPham: this.form.value.tenSanPham,
-          idCuaHang: this.form.value.idCuaHang,
+        .searchCongNoPhaiTra({
+          maCongNo: this.form.value.maCongNo,
+          loaiHopDong: "xuathang"
         })
         .subscribe(
             res => {
@@ -190,10 +183,9 @@ export class BcSanPhamDanhThuComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.ThongTinApi
-        .searchSpDoanhThu({
-          maSanPham: this.form.value.maSanPham,
-          tenSanPham: this.form.value.tenSanPham,
-          idCuaHang: this.form.value.idCuaHang,
+        .exportCongNo({
+          maCongNo: this.form.value.maCongNo,
+          loaiHopDong: "xuathang"
         })
         .subscribe(
             res => {

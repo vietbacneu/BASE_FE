@@ -140,6 +140,22 @@ export class ThongTinChungApiService {
         });
     }
 
+    searchCongNoPhaiTra(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/congNos/searchForExport', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+    exportCongNo(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/congNos/export', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
+
     exportSpDoanhThu(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.post(this.resourceUrl + '/api/sanPhams/exportDoanhThu', data, {
@@ -294,6 +310,22 @@ export class ThongTinChungApiService {
         const option = createRequestOption(data);
         return this.http.delete(this.resourceUrl + `/api/khachHangs/${data.id}`, {
             params: option,
+            observe: "response"
+        });
+    }
+
+    searchCongNoChiTiet(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/congNoChiTiets/search', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
+    updateCongNoChiTiet(data?: any): Observable<any> {
+        // const option = createRequestOption(data);
+        return this.http.get(this.resourceUrl + `/api/congNoChiTiets/${data.id}`, {
+            // params: option,
             observe: "response"
         });
     }

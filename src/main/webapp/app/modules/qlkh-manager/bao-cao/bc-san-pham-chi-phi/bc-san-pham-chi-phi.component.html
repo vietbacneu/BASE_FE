@@ -5,7 +5,7 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Báo cáo hàng nhập</li>
+    <li class="breadcrumb-item">Báo cáo công nợ phải trả</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -20,43 +20,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Mã sản phẩm</label>
+                                    <label class="col-sm-3 custom-label-right">Mã công nợ</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="maSanPham"
-                                               maxlength="200" (blur)="trimSpace('maSanPham')">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listCuaHang"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenCuaHang)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
+                                        <input type="text" class="form-control" formControlName="maCongNo"
+                                               maxlength="200" (blur)="trimSpace('maCongNo')">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tên sản phẩm</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="tenSanPham"
-                                               maxlength="200" (blur)="trimSpace('tenSanPham')">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="d-flex justify-content-center">
                             <button type="button" class="btn btn-danger" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
@@ -83,38 +54,32 @@
                             <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                 <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                 </th>
-                                <th class="medium-width-table"><span>Mã sản phẩm</span>
+                                <th class="medium-width-table"><span>Mã công nợ</span>
                                 </th>
-                                <th class="medium-width-table"><span>Tên sản phẩm</span>
+                                <th class="medium-width-table"><span>Mã hợp đồng</span>
                                 </th>
-                                <th class="medium-width-table"><span>Danh mục</span>
+                                <th class="medium-width-table"><span>Trạng thái hợp đồng</span>
                                 </th>
-                                <th class="medium-width-table"><span>Giá bán niêm yết</span>
+                                <th class="medium-width-table"><span>Số tiền thanh toán</span>
                                 </th>
-                                <th class="medium-width-table"><span>Giá nhập niêm yết</span>
+                                <th class="medium-width-table"><span>Số tiền đã thanh toán</span>
                                 </th>
-                                <th class="medium-width-table"><span>Số lượng nhập</span>
+                                <th class="medium-width-table"><span>Số tiền còn lại</span>
                                 </th>
-                                <th class="medium-width-table"><span>Giá nhập</span>
-                                </th>
-                                <th class="medium-width-table"><span>Thành tiền</span>
-                                </th>
-                                <th class="medium-width-table"><span>Cửa hàng</span>
+                                <th class="medium-width-table"><span>Tên nhân viên</span>
                                 </th>
                             </tr>
                             </thead>
                             <tbody *ngFor="let item of listData; index as i">
                             <tr>
                                 <td class="text-center">{{i+1}}</td>
-                                <td>{{item.maSanPham}}</td>
-                                <td>{{item.tenSanPham}}</td>
-                                <td>{{item.tenDanhMuc}}</td>
-                                <td style="text-align: right">{{item.giaBanNiemYet | number}}</td>
-                                <td style="text-align: right">{{item.giaNhapNiemYet | number}}</td>
-                                <td style="text-align: right">{{item.soLuongNhap| number}}</td>
-                                <td style="text-align: right">{{item.giaNhap | number}}</td>
-                                <td style="text-align: right">{{item.totalChiPhi | number}}</td>
-                                <td>{{item.tenCuaHang}}</td>
+                                <td>{{item.maCongNo}}</td>
+                                <td>{{item.maHopDong}}</td>
+                                <td>{{item.trangThaiName}}</td>
+                                <td style="text-align: right">{{item.SoTien | number}}</td>
+                                <td style="text-align: right">{{item.soTienDaThanhToan | number}}</td>
+                                <td style="text-align: right">{{item.soTienConLai| number}}</td>
+                                <td>{{item.tenNhanVien}}</td>
                             </tr>
                             </tbody>
                         </table>

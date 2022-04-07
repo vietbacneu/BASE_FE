@@ -7,7 +7,7 @@
         </button>
     </li>
     <li class="breadcrumb-item">Quản lý công nợ</li>
-    <li class="breadcrumb-item">Công nợ </li>
+    <li class="breadcrumb-item">Công nợ</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -24,26 +24,8 @@
                                 <div class="form-group row dropdown form-custom-select">
                                     <label class="col-sm-3 custom-label-right">Mã công nợ</label>
                                     <div class="col-sm-8 form-custom-select">
-                                        <input type="text" class="form-control" formControlName="maXuatHang"
-                                               maxlength="200" (blur)="trimSpace('maXuatHang')">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Nhà cung cấp</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listNcc"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="tenNhaCungCap" bindValue="id"
-                                                   formControlName="idNhaCungCap">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenNhaCungCap)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
+                                        <input type="text" class="form-control" formControlName="maCongNo"
+                                               maxlength="200" (blur)="trimSpace('maCongNo')">
                                     </div>
                                 </div>
                             </div>
@@ -77,17 +59,15 @@
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
                                     </th>
-                                    <th class="medium-width-table"><span>Mã nhập hàng</span>
+                                    <th class="medium-width-table"><span>Mã công nợ</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên nhà cung cấp</span>
+                                    <th class="medium-width-table"><span>Loại hợp đồng</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Phương thức thanh toán</span>
+                                    <th class="medium-width-table"><span>Mã hợp đồng</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Ngày nhập</span>
+                                    <th class="medium-width-table"><span>Trạng thái thanh toán</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Nhân viên</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Hợp đồng đính kèm</span>
+                                    <th class="medium-width-table"><span>Số tiền</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -116,14 +96,11 @@
                                             </button>
                                         </div>
                                     </td>
-                                    <td>{{item.maNhapHang}}</td>
-                                    <td>{{item.tenNhaCungCap}}</td>
-                                    <td>{{item.tenPhuongThuc}}</td>
-                                    <td style="text-align: center">{{item.ngayNhap}}</td>
-                                    <td style="text-align: center">{{item.tenNhanVien}}</td>
-                                    <td style="text-align: center" (click)="downloadFile(item)"><i class="fa fa-download"
-                                                                                                   aria-hidden="true"></i> {{item.hopDongDinhKem}}
-                                    </td>
+                                    <td>{{item.maCongNo}}</td>
+                                    <td>{{item.loaiHopDongName}}</td>
+                                    <td>{{item.maHopDong}}</td>
+                                    <td style="text-align: center">{{item.trangThaiName}}</td>
+                                    <td style="text-align: center">{{item.soTien}}</td>
                                 </tr>
                                 </tbody>
                             </table>

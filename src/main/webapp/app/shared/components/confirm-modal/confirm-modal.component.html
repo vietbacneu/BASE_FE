@@ -28,6 +28,9 @@
     <p *ngIf="type === 'approve'"><i class="fa fa-exclamation-triangle icon-confirm" aria-hidden="true"></i>
       {{'common.modal.confirm.messages.approve' | translate:{'param': param} }}
     </p>
+    <p *ngIf="type === 'thanhToan'"><i class="fa fa-exclamation-triangle icon-confirm" aria-hidden="true"></i>
+      Thanh toán công nợ
+    </p>
     <p *ngIf="type === 'deleteMultiple'"><i class="fa fa-exclamation-triangle icon-warning" aria-hidden="true"></i>
       {{message}}
     </p>

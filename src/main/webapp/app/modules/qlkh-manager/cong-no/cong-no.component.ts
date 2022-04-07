@@ -80,8 +80,7 @@ export class CongNoComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      maXuatHang: [null],
-      idNhaCungCap: [null],
+      maCongNo: [null]
     });
   }
 
@@ -166,10 +165,9 @@ export class CongNoComponent implements OnInit {
 
   loadAll() {
     this.spinner.show();
-    this.thongTinChungApiService
-        .searchNhapHang({
-          maNhapHang: this.form.value.maXuatHang,
-          idNhaCungCap: this.form.value.idNhaCungCap,
+    this.nhapXuatApiService
+        .searchCongNo({
+          maCongNo: this.form.value.maCongNo,
         })
         .subscribe(
             res => {

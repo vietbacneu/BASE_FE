@@ -13,6 +13,7 @@ import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.con
 import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/them-sua-nhap-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
+import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
 
 @Component({
   selector: 'jhi-san-pham-da-xuat',
@@ -49,6 +50,7 @@ export class SanPhamDaXuatComponent implements OnInit {
       private formBuilder: FormBuilder,
       private spinner: NgxSpinnerService,
       private eventManager: JhiEventManager,
+      private nhapXuatApiService: NhapXuatApiService,
       private toastService: ToastService,
       private modalService: NgbModal,
       protected router: Router,
@@ -78,8 +80,7 @@ export class SanPhamDaXuatComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      tenSanPham: [null],
-      idCuaHang: [null],
+      maCongNo: [null]
     });
   }
 
@@ -164,13 +165,12 @@ export class SanPhamDaXuatComponent implements OnInit {
 
   loadAll() {
     this.ThongTinApi
-        .sanPhamXuat({
-          tenSanPham: this.form.value.tenSanPham,
-          idCuaHang: this.form.value.idCuaHang,
+        .searchCongNoChiTiet({
+          maCongNo: this.form.value.maCongNo,
         })
         .subscribe(
             res => {
-              this.listData = res.body
+              this.paginateListData(res.body);
             },
             err => {
               this.spinner.hide();
@@ -206,7 +206,7 @@ export class SanPhamDaXuatComponent implements OnInit {
       centered: true,
       backdrop: "static"
     });
-    modalRef.componentInstance.type = "delete";
+    modalRef.componentInstance.type = "thanhToan";
     modalRef.componentInstance.param = "bản ghi";
     modalRef.componentInstance.onCloseModal.subscribe(value => {
       if (value === true) {
@@ -217,25 +217,24 @@ export class SanPhamDaXuatComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    // this.departmentManagementService.deleteUserToDepartment({id: id}).subscribe(
-    //     res => {
-    //       this.shareDataFromProjectService.getDataFromList(null);
-    //       this.handleResponseSubmit(res);
-    //       this.loadAll();
-    //     },
-    //     err => {
-    //       this.spinner.hide()
-    //       if (err.status == STATUS_CODE.BAD_REQUEST) {
-    //         this.toastService.openErrorToast(
-    //             err.error,
-    //         );
-    //       } else {
-    //         this.toastService.openErrorToast(
-    //             this.translateService.instant("common.toastr.messages.error.load")
-    //         );
-    //       }
-    //     }
-    // );
+    this.ThongTinApi.updateCongNoChiTiet({id: id}).subscribe(
+        res => {
+          this.shareDataFromProjectService.getDataFromList(null);
+          this.handleResponseSubmit(res);
+          this.loadAll();
+        },
+        err => {
+          this.spinner.hide()
+          if (err.error) {
+            this.toastService.openErrorToast(
+                err.error.message,
+            );
+          } else {
+            this.toastService.openErrorToast("Thanh toán thành công"
+            );
+          }
+        }
+    );
   }
 
   handleResponseSubmit(res) {
