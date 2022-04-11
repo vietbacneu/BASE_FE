@@ -153,7 +153,7 @@ export class BcSanPhamDanhThuComponent implements OnInit {
   onExport() {
     this.spinner.show();
     this.ThongTinApi
-        .searchCongNoPhaiTra({
+        .exportCongNo({
           maCongNo: this.form.value.maCongNo,
           loaiHopDong: "xuathang"
         })
@@ -183,7 +183,7 @@ export class BcSanPhamDanhThuComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.ThongTinApi
-        .exportCongNo({
+        .searchCongNoPhaiTra({
           maCongNo: this.form.value.maCongNo,
           loaiHopDong: "xuathang"
         })
@@ -203,7 +203,7 @@ export class BcSanPhamDanhThuComponent implements OnInit {
 
 
   private paginateListData(data) {
-    this.listData = data;
+    this.listData = data.content;
   }
 
   sort() {

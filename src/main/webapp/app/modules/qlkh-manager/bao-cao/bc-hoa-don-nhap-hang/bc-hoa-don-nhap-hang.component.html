@@ -6,7 +6,7 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Báo cáo hóa đơn nhập hàng</li>
+    <li class="breadcrumb-item">Báo cáo hợp đồng nhập hàng</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -76,15 +76,13 @@
                                     </th>
                                     <th class="medium-width-table"><span>Tên Khách Hàng</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên Cửa Hàng</span>
-                                    </th>
                                     <th class="medium-width-table"><span>Phương Thức Thanh Toán</span>
                                     </th>
                                     <th class="medium-width-table"><span>Tổng Tiền</span>
                                     </th>
                                     <th class="medium-width-table"><span>Ngày Nhập</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Người Nhập</span>
+                                    <th class="medium-width-table"><span>Nhân viên</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -93,11 +91,10 @@
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{item.maNhapHang}}</td>
                                     <td>{{item.tenNhaCungCap}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
                                     <td style="text-align: right">{{item.tenPhuongThuc }}</td>
-                                    <td style="text-align: right">{{item.totalDT | number}}</td>
+                                    <td style="text-align: right">{{item.soTien | number}}</td>
                                     <td style="text-align: right">{{item.ngayNhap}}</td>
-                                    <td style="text-align: right">{{item.nguoiTao}}</td>
+                                    <td style="text-align: right">{{item.tenNhanVien}}</td>
                                 </tr>
                                 </tbody>
                             </table>

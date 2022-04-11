@@ -203,7 +203,7 @@ export class BcSanPhamChiPhiComponent implements OnInit {
 
 
     private paginateListData(data) {
-        this.listData = data;
+        this.listData = data.content;
     }
 
     sort() {

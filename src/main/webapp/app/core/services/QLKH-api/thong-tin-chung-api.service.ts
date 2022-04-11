@@ -90,7 +90,6 @@ export class ThongTinChungApiService {
             observe: "response"
         });
     }
-
     download(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.get(this.resourceUrl + '/api/sanPhams/download', {

@@ -184,7 +184,7 @@ export class BcHoaDonBanHangComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.ThongTinApi
-        .searchXuatMax({
+        .searchXuatHang({
           maXuatHang: this.form.value.maSanPham,
           idKhachHang: this.form.value.idCuaHang,
         })
@@ -205,7 +205,7 @@ export class BcHoaDonBanHangComponent implements OnInit {
 
 
   private paginateListData(data) {
-    this.listData = data;
+    this.listData = data.content;
   }
 
   sort() {

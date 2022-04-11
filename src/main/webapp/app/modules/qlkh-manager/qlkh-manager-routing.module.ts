@@ -79,12 +79,12 @@ const routes: Routes = [
             pageTitle: "common.appParamBH",
         }
     }, {
-        path: 'bc-san-pham-chi-phi', component: BcSanPhamChiPhiComponent,
+        path: 'bc-cong-no-phai-tra', component: BcSanPhamChiPhiComponent,
         data: {
             pageTitle: "common.appParamBH",
         }
     }, {
-        path: 'bc-san-pham-doanh-thu', component: BcSanPhamDanhThuComponent,
+        path: 'bc-cong-no-phai-thu', component: BcSanPhamDanhThuComponent,
         data: {
             pageTitle: "common.appParamBH",
         }
@@ -99,13 +99,13 @@ const routes: Routes = [
             pageTitle: "common.appParamBH",
         }
     }, {
-        path: 'bc-hoa-don-ban', component: BcHoaDonBanHangComponent,
+        path: 'bc-hop-dong-ban', component: BcHoaDonBanHangComponent,
         data: {
             pageTitle: "common.appParamBH",
         }
     },
     {
-        path: 'bc-hoa-don-nhap', component: BcHoaDonNhapHangComponent,
+        path: 'bc-hop-dong-nhap', component: BcHoaDonNhapHangComponent,
         data: {
             pageTitle: "common.appParamBH",
         }

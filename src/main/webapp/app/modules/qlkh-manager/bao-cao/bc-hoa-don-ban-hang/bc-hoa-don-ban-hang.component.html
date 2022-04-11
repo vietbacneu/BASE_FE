@@ -6,7 +6,7 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Báo cáo hóa đơn bán hàng</li>
+    <li class="breadcrumb-item">Báo cáo hợp đồng xuất hàng</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Mã Bán Hàng</label>
+                                    <label class="col-sm-3 custom-label-right">Mã xuất hàng</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="maSanPham"
                                                maxlength="200" (blur)="trimSpace('maSanPham')">
@@ -72,11 +72,9 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <th class="medium-width-table"><span>Mã Bán Hàng</span>
+                                    <th class="medium-width-table"><span>Mã xuất hàng</span>
                                     </th>
                                     <th class="medium-width-table"><span>Tên Khách Hàng</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Tên Cửa Hàng</span>
                                     </th>
                                     <th class="medium-width-table"><span>Phương Thức Thanh Toán</span>
                                     </th>
@@ -93,11 +91,10 @@
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{item.maXuatHang}}</td>
                                     <td>{{item.tenKhachHang}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
                                     <td style="text-align: right">{{item.tenPhuongThuc }}</td>
-                                    <td style="text-align: right">{{item.totalDT | number}}</td>
+                                    <td style="text-align: right">{{item.soTien | number}}</td>
                                     <td style="text-align: right">{{item.ngayXuat}}</td>
-                                    <td style="text-align: right">{{item.nguoiTao}}</td>
+                                    <td style="text-align: right">{{item.tenNhanVien}}</td>
                                 </tr>
                                 </tbody>
                             </table>
