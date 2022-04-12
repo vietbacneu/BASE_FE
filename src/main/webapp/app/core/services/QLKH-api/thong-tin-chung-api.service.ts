@@ -115,6 +115,14 @@ export class ThongTinChungApiService {
         });
     }
 
+    searchBanHang(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/banHangs/search', data, {
+            params: option,
+            observe: "response"
+        });
+    }
+
     searchXuatHang(data?: any): Observable<any> {
         const option = createRequestOption(data);
         return this.http.post(this.resourceUrl + '/api/xuatHangs/search', data, {

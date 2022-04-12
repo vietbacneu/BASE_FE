@@ -30,6 +30,9 @@ import { InDonXuatComponent } from './dl-xuat-hang/xuat-hang/in-don-xuat/in-don-
 import { InNhapHangComponent } from './dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component';
 import { BcHoaDonBanHangComponent } from './bao-cao/bc-hoa-don-ban-hang/bc-hoa-don-ban-hang.component';
 import { BcHoaDonNhapHangComponent } from './bao-cao/bc-hoa-don-nhap-hang/bc-hoa-don-nhap-hang.component';
+import { BanHangComponent } from './ban-hang/ban-hang.component';
+import { ThemSuaBanHangComponent } from './ban-hang/them-sua-ban-hang/them-sua-ban-hang.component';
+import { ChiTietBanHangComponent } from './ban-hang/them-sua-ban-hang/chi-tiet-ban-hang/chi-tiet-ban-hang.component';
 
 
 @NgModule({
@@ -61,6 +64,9 @@ import { BcHoaDonNhapHangComponent } from './bao-cao/bc-hoa-don-nhap-hang/bc-hoa
         InNhapHangComponent,
         BcHoaDonBanHangComponent,
         BcHoaDonNhapHangComponent,
+        BanHangComponent,
+        ThemSuaBanHangComponent,
+        ChiTietBanHangComponent,
     ],
     imports: [
         CommonModule,
@@ -68,6 +74,8 @@ import { BcHoaDonNhapHangComponent } from './bao-cao/bc-hoa-don-nhap-hang/bc-hoa
         QlkhManagerRoutingModule
     ],
     entryComponents: [
+        ThemSuaBanHangComponent,
+        ChiTietBanHangComponent,
         ThemSuaLoaiHangComponent,
         ThemSuaSanPhamComponent,
         ThemSuaNhaCungCapComponent,

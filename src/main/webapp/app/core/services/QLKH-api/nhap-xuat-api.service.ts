@@ -41,6 +41,29 @@ export class NhapXuatApiService {
       observe: "response"
     });
   }
+  createBanHang(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.post(this.resourceUrl + '/api/banHangs',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  updateBanHang(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.put(this.resourceUrl + '/api/banHangs/update',data, {
+      params: option,
+      observe: "response"
+    });
+  }
+  deleteBanHang(data?: any): Observable<any> {
+    const option = createRequestOption(data);
+    return this.http.delete(this.resourceUrl + `/api/banHangs/${data.id}`, {
+      params: option,
+      observe: "response"
+    });
+  }
+
+
   searchXuatHang(data?: any): Observable<any> {
     const option = createRequestOption(data);
     return this.http.post(this.resourceUrl + '/api/xuatHangs/search',data, {
