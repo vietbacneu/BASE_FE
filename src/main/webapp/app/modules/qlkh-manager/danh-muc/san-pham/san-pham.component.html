@@ -7,7 +7,7 @@
         </button>
     </li>
     <li class="breadcrumb-item">Thông tin chung</li>
-    <li class="breadcrumb-item">Sản phẩm</li>
+    <li class="breadcrumb-item">nguyên vật liệu</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -31,29 +31,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tên sản phẩm</label>
+                                    <label class="col-sm-3 custom-label-right">Tên nguyên vật liệu</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="tenSanPham"
                                                maxlength="200" (blur)="trimSpace('tenSanPham')">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Loại sản phẩm</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listTypeProduct"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="tenDanhMuc" bindValue="id" formControlName="idDanhMuc">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenDanhMuc)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
                                     </div>
                                 </div>
                             </div>
@@ -87,11 +68,9 @@
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
                                     </th>
-                                    <th class="medium-width-table"><span>Mã sản phẩm</span>
+                                    <th class="medium-width-table"><span>Mã nguyên vật liệu</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên sản phẩm</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Loại sản phẩm</span>
+                                    <th class="medium-width-table"><span>Tên nguyên vật liệu</span>
                                     </th>
                                     <th class="medium-width-table"><span>Đơn vị tính</span>
                                     </th>
@@ -129,7 +108,6 @@
                                     </td>
                                     <td>{{item.maSanPham}}</td>
                                     <td>{{item.tenSanPham}}</td>
-                                    <td>{{item.tenDanhMuc}}</td>
                                     <td>{{item.donVi}}</td>
                                     <td style="text-align: right">{{item.giaNhapNiemYet |number}}</td>
                                     <td style="text-align: right">{{item.giaBanNiemYet | number}}</td>

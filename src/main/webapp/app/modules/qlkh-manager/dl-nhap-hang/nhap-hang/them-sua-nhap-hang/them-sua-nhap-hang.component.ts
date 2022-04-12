@@ -77,7 +77,6 @@ export class ThemSuaNhapHangComponent implements OnInit {
         console.log('type', this.type)
         this.onResize();
         this.buidForm();
-        this.loadCuaHang();
         this.loadNhaCungCap();
         this.loadAllPP();
     }
@@ -85,7 +84,6 @@ export class ThemSuaNhapHangComponent implements OnInit {
     private buidForm() {
         this.form = this.formBuilder.group({
             maNhapHang: [null, Validators.required],
-            idCuaHang: [null, Validators.required],
             idNhaCungCap: [null, Validators.required],
             ngayNhap: [null, Validators.required],
             idPhuongThuc: [null, Validators.required],

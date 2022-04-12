@@ -1,9 +1,9 @@
 <div style="display: block;">
     <div class="custom-modal-big" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
-            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới hóa đơn nhập</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết hóa đơn nhập</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật hóa đơn nhập</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới nhập nguyên vật liệu</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết nhập nguyên vật liệu</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật nhập nguyên vật liệu</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -30,30 +30,6 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group row"
-                         [ngClass]="{'has-error': isFieldValid('idCuaHang')}">
-                        <label class="col-sm-3 custom-label-right required">Tên cửa hàng</label>
-                        <div class="col-sm-8 form-custom-select">
-                            <ng-select [items]="listCuaHang"
-                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                       notFoundText="{{'common.select.notFoundText' | translate}}"
-                                       searchable="false"
-                                       bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                                <ng-template ng-option-tmp let-item="item">
-                                    {{formatPreShow(item.tenCuaHang)}} <br/>
-                                </ng-template>
-                            </ng-select>
-                            <jhi-error-messages *ngIf="formControl['idCuaHang'].hasError('required')"
-                                                [displayError]="isFieldValid('idCuaHang')"
-                                                errorMsg="Tên cửa hàng không được để trống">
-                            </jhi-error-messages>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group row"
                          [ngClass]="{'has-error': isFieldValid('idNhaCungCap')}">
                         <label class="col-sm-3 custom-label-right required">Nhà cung cấp</label>
                         <div class="col-sm-8 form-custom-select">
@@ -74,6 +50,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group" [ngClass]="{'has-error': isFieldValid('ngayNhap')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
@@ -87,12 +65,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group"
                          [ngClass]="{'has-error': isFieldValid('idPhuongThuc')}">
-                        <label class="col-sm-3 custom-label-right required">Phương thức TT</label>
+                        <label class="col-sm-3 custom-label-right required">Phương thức thanh toán</label>
                         <div class="col-sm-8 form-custom-select">
                             <ng-select [items]="listPP"
                                        placeholder="{{this.translateService.instant('common.select.option.all')}}"
@@ -111,11 +87,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                </div>
             </div>
-
-
             <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
                 <button type="button" class="btn btn-danger" (click)="openModal('add')">
                     <i class="fa fa-plus mr-2" aria-hidden="true"></i><span>Nhập thêm</span>
@@ -137,10 +109,6 @@
                                 </th>
                                 <th class="medium-width-table"><span>Đơn giá</span>
                                 </th>
-                                <th class="medium-width-table"><span>Ngày sản xuất</span>
-                                </th>
-                                <th class="medium-width-table"><span>Ngày hết hạn</span>
-                                </th>
                                 <th class="medium-width-table"><span>Tổng tiền</span>
                                 </th>
                                 <th class="medium-width-table action-width-four-icon custom-width"
@@ -154,8 +122,6 @@
                                 <td>{{item.tenSanPham}}</td>
                                 <td>{{item.soLuong}}</td>
                                 <td>{{item.gia | number}}</td>
-                                <td style="text-align: center">{{item.ngaySanXuat }}</td>
-                                <td style="text-align: center">{{item.ngayHetHan  }}</td>
                                 <td>{{item.tongTien | number}}</td>
                                 <td class="text-center four-icon medium-width-table">
                                     <div class="group-action">

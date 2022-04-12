@@ -73,13 +73,11 @@ export class NhapHangComponent implements OnInit {
     ngOnInit(): void {
         this.onResize();
         this.buidForm();
-        this.loadAllCuaHang();
     }
 
     private buidForm() {
         this.form = this.formBuilder.group({
             maXuatHang: [null],
-            idCuaHang: [null],
         });
     }
 
@@ -166,8 +164,7 @@ export class NhapHangComponent implements OnInit {
         this.spinner.show();
         this.thongTinChungApiService
             .searchNhapHang({
-                maNhapHang: this.form.value.maXuatHang,
-                idCuaHang: this.form.value.idCuaHang,
+                maNhapHang: this.form.value.maXuatHang
             })
             .subscribe(
                 res => {

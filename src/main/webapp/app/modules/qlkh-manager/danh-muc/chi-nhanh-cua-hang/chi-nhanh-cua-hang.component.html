@@ -6,7 +6,7 @@
         </button>
     </li>
     <li class="breadcrumb-item">Thông tin chung</li>
-    <li class="breadcrumb-item">Chi nhanh cửa hàng</li>
+    <li class="breadcrumb-item">Thực đơn</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Mã cửa hàng</label>
+                                    <label class="col-sm-3 custom-label-right">Mã thực đơn</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="maCuaHang"
                                                maxlength="200" (blur)="trimSpace('maCuaHang')">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
+                                    <label class="col-sm-3 custom-label-right">Tên thực đơn</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="tenCuaHang"
                                                maxlength="200" (blur)="trimSpace('tenCuaHang')">
@@ -67,11 +67,11 @@
                                     <th class="medium-width-table action-width-four-icon custom-width"
                                         jhiTranslate="userGroup.action" style="width: 7rem;">
                                     </th>
-                                    <th class="medium-width-table"><span>Mã cửa hàng</span>
+                                    <th class="medium-width-table"><span>Mã thực đơn</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên cửa hàng</span>
+                                    <th class="medium-width-table"><span>Tên thực đơn</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Địa chỉ</span>
+                                    <th class="medium-width-table"><span>Giá</span>
                                     </th>
 
                                 </tr>
@@ -101,9 +101,9 @@
                                             </button>
                                         </div>
                                     </td>
-                                    <td>{{item.maCuaHang}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
-                                    <td>{{item.diaChi}}</td>
+                                    <td>{{item.maThucDon}}</td>
+                                    <td>{{item.tenThucDon}}</td>
+                                    <td>{{item.gia}}</td>
                                 </tr>
                                 </tbody>
                             </table>

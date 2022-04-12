@@ -65,8 +65,6 @@ export class ThemSuaSanPhamComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm()
-    this.getLoaiSanPham();
-    this.loadAllDanhMuc();
   }
 
 
@@ -74,7 +72,6 @@ export class ThemSuaSanPhamComponent implements OnInit {
     this.form = this.formBuilder.group({
       tenSanPham: ['', Validators.required],
       maSanPham: ['', Validators.required],
-      idDanhMuc: [null, Validators.required],
       giaNhapNiemYet: [''],
       giaBanNiemYet: [''],
       donVi: [''],
@@ -145,7 +142,6 @@ export class ThemSuaSanPhamComponent implements OnInit {
       id: null,
       maSanPham: this.form.value.maSanPham,
       tenSanPham: this.form.value.tenSanPham,
-      idDanhMuc: this.form.value.idDanhMuc,
       giaNhapNiemYet: this.form.value.giaNhapNiemYet,
       giaBanNiemYet: this.form.value.giaBanNiemYet,
       donVi: this.form.value.donVi,

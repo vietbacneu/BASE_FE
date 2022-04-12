@@ -72,8 +72,8 @@ export class ChiNhanhCuaHangComponent implements OnInit {
 
     private buidForm() {
         this.form = this.formBuilder.group({
-            maCuaHang: [null],
-            tenCuaHang: [null],
+            maThucDon: [null],
+            tenThucDon: [null],
         });
     }
 
@@ -144,8 +144,8 @@ export class ChiNhanhCuaHangComponent implements OnInit {
         this.thongTinChungApiService
             .searchChiNhanh({
                 isCount: 1,
-                tenCuaHang: this.form.value.tenCuaHang,
-                maCuaHang: this.form.value.maCuaHang,
+                tenThucDon: this.form.value.tenThucDon,
+                maThucDon: this.form.value.maThucDon,
                 page: this.page - 1,
                 size: this.itemsPerPage,
             })

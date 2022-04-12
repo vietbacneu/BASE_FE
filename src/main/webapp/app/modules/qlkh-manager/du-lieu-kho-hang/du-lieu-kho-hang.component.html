@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select ">
-                                    <label class="col-sm-3 custom-label-right">Mã sản phẩm</label>
+                                    <label class="col-sm-3 custom-label-right">Mã nguyên vật liệu</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="maSanPham"
                                                maxlength="200" (blur)="trimSpace('maSanPham')">
@@ -30,38 +30,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listCuaHang"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenCuaHang)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Sản phẩm</label>
+                                    <label class="col-sm-3 custom-label-right">Nguyên vật liệu</label>
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="tenSanPham"
                                                maxlength="200" (blur)="trimSpace('tenSanPham')">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Ngày hết hạn</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy"
-                                               formControlName="ngayHetHan">
                                     </div>
                                 </div>
                             </div>
@@ -92,11 +64,9 @@
                                 <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
                                     <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
                                     </th>
-                                    <th class="medium-width-table"><span>Mã sản phẩm</span>
+                                    <th class="medium-width-table"><span>Mã nguyên vật liệu</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên sản phẩm</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Danh mục</span>
+                                    <th class="medium-width-table"><span>Tên nguyên vật liệu</span>
                                     </th>
                                     <th class="medium-width-table"><span>Giá bán niêm yết</span>
                                     </th>
@@ -108,8 +78,6 @@
                                     </th>
                                     <th class="medium-width-table"><span>Số lượng tồn</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Cửa hàng</span>
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody *ngFor="let item of listData; index as i">
@@ -117,13 +85,11 @@
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{item.maSanPham}}</td>
                                     <td>{{item.tenSanPham}}</td>
-                                    <td>{{item.tenDanhMuc}}</td>
                                     <td style="text-align: right">{{item.giaBanNiemYet | number}}</td>
                                     <td style="text-align: right">{{item.giaNhapNiemYet | number}}</td>
                                     <td style="text-align: right">{{item.soLuongNhap | number}}</td>
                                     <td style="text-align: right">{{item.soLuongBan | number}}</td>
                                     <td style="text-align: right">{{item.soLuongTon | number}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
                                 </tr>
                                 </tbody>
                             </table>

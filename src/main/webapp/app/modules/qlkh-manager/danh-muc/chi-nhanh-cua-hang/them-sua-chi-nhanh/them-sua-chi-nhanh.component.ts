@@ -70,9 +70,9 @@ export class ThemSuaChiNhanhComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
-            maCuaHang: [null, Validators.required],
-            tenCuaHang: [null, Validators.required],
-            diaChi: [null],
+            maThucDon: [null, Validators.required],
+            tenThucDon: [null, Validators.required],
+            gia: [null],
         });
         if (this.selectedData) {
             this.form.patchValue(this.selectedData);
@@ -119,9 +119,9 @@ export class ThemSuaChiNhanhComponent implements OnInit {
         this.spinner.show();
         const data = {
             id: null,
-            maCuaHang: this.form.value.maCuaHang,
-            tenCuaHang: this.form.value.tenCuaHang,
-            diaChi: this.form.value.diaChi,
+            maThucDon: this.form.value.maThucDon,
+            tenThucDon: this.form.value.tenThucDon,
+            gia: this.form.value.gia,
         };
         if (this.type === "add") {
             this.ThongTinApi

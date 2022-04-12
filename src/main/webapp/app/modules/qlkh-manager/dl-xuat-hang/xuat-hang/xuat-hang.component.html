@@ -7,7 +7,7 @@
         </button>
     </li>
     <li class="breadcrumb-item">Dữ liệu xuất hàng</li>
-    <li class="breadcrumb-item">Xuất hàng</li>
+    <li class="breadcrumb-item">xuất hàng</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -26,23 +26,6 @@
                                     <div class="col-sm-8 form-custom-select">
                                         <input type="text" class="form-control" formControlName="maXuatHang"
                                                maxlength="200" (blur)="trimSpace('maXuatHang')">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listCuaHang"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenCuaHang)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
                                     </div>
                                 </div>
                             </div>
@@ -78,12 +61,6 @@
                                     </th>
                                     <th class="medium-width-table"><span>Mã xuất hàng</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên khách hàng</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Tên cửa hàng</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Phương thức thanh toán</span>
-                                    </th>
                                     <th class="medium-width-table"><span>Ngày xuất</span>
                                     </th>
                                 </tr>
@@ -114,9 +91,6 @@
                                         </div>
                                     </td>
                                     <td>{{item.maXuatHang}}</td>
-                                    <td>{{item.tenKhachHang}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
-                                    <td>{{item.tenPhuongThuc}}</td>
                                     <td style="text-align: center">{{item.ngayXuat }}</td>
                                 </tr>
                                 </tbody>

@@ -1,9 +1,9 @@
 <div style="display: block;">
     <div class="custom-modal-large" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
-            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới cửa hàng</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết cửa hàng</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật cửa hàng</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới thực đơn</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết thực đơn</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật thực đơn</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -14,31 +14,31 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('maCuaHang')}">
+                         [ngClass]="{'has-error': isFieldValid('maThucDon')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Mã cửa hàng</label>
-                        <input type="text" class="form-control" formControlName="maCuaHang"
-                               (blur)="trimSpace('maCuaHang')"
+                               class="form-control-label">Mã thực đơn</label>
+                        <input type="text" class="form-control" formControlName="maThucDon"
+                               (blur)="trimSpace('maThucDon')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['maCuaHang'].hasError('required')"
-                                            [displayError]="isFieldValid('maCuaHang')"
-                                            errorMsg="Mã cửa hàng không được để trống">
+                        <jhi-error-messages *ngIf="formControl['maThucDon'].hasError('required')"
+                                            [displayError]="isFieldValid('maThucDon')"
+                                            errorMsg="Mã thực đơn không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('tenCuaHang')}">
+                         [ngClass]="{'has-error': isFieldValid('tenThucDon')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Tên cửa hàng</label>
-                        <input type="text" class="form-control" formControlName="tenCuaHang"
-                               (blur)="trimSpace('tenCuaHang')"
+                               class="form-control-label">Tên thực đơn</label>
+                        <input type="text" class="form-control" formControlName="tenThucDon"
+                               (blur)="trimSpace('tenThucDon')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
-                        <jhi-error-messages *ngIf="formControl['tenCuaHang'].hasError('required')"
-                                            [displayError]="isFieldValid('tenCuaHang')"
-                                            errorMsg="Tên cửa hàng không được để trống">
+                        <jhi-error-messages *ngIf="formControl['tenThucDon'].hasError('required')"
+                                            [displayError]="isFieldValid('tenThucDon')"
+                                            errorMsg="Tên thực đơn không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
@@ -46,9 +46,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group dropdown form-custom-select">
-                        <label class="form-control-label">Địa chỉ</label>
-                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
-                                  formControlName="diaChi" maxlength="1000" (blur)="trimSpace('diaChi')"></textarea>
+                        <label class="form-control-label">Giá</label>
+                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3" onlyNumber
+                                  formControlName="gia" maxlength="1000" (blur)="trimSpace('gia')"></textarea>
                     </div>
                 </div>
             </div>

@@ -87,10 +87,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
   private buidForm() {
     this.form = this.formBuilder.group({
       maXuatHang: [null, Validators.required],
-      idCuaHang: [null, Validators.required],
-      idKhachHang: [null, Validators.required],
       ngayXuat: [null, Validators.required],
-      idPhuongThuc: [null, Validators.required],
     });
     if(this.selectedData){
       this.form.patchValue(this.selectedData)
@@ -224,10 +221,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
     const data = {
       id: null,
       maXuatHang: this.form.value.maXuatHang,
-      idCuaHang: this.form.value.idCuaHang,
-      idKhachHang: this.form.value.idKhachHang,
       ngayXuat: this.form.value.ngayXuat,
-      idPhuongThuc: this.form.value.idPhuongThuc,
       xuatHangChiTietDTOList: this.listDonXuat,
     };
     if (this.type === "add") {

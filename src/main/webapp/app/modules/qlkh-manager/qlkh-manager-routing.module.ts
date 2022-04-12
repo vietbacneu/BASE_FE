@@ -61,7 +61,7 @@ const routes: Routes = [
       pageTitle: "common.appParamBH",
     }
   },{
-    path: 'chi-nhanh-cua-hang', component: ChiNhanhCuaHangComponent,
+    path: 'thuc-don', component: ChiNhanhCuaHangComponent,
     data: {
       pageTitle: "common.appParamBH",
     }

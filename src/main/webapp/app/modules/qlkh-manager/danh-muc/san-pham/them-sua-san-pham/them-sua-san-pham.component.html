@@ -1,9 +1,9 @@
 <div style="display: block;">
     <div class="custom-modal-large" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
-            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới sản phẩm</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết sản phẩm</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật sản phẩm</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới nguyên vật liệu</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết nguyên vật liệu</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật nguyên vật liệu</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -16,14 +16,14 @@
                     <div class="form-group row"
                          [ngClass]="{'has-error': isFieldValid('maSanPham')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Mã sản phẩm</label>
+                               class="form-control-label">Mã nguyên vật liệu</label>
                         <input type="text" class="form-control" formControlName="maSanPham"
                                (blur)="trimSpace('maSanPham')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
                         <jhi-error-messages *ngIf="formControl['maSanPham'].hasError('required')"
                                             [displayError]="isFieldValid('maSanPham')"
-                                            errorMsg="Mã sản phẩm không được để trống">
+                                            errorMsg="Mã nguyên vật liệu không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
@@ -31,38 +31,19 @@
                     <div class="form-group row"
                          [ngClass]="{'has-error': isFieldValid('tenSanPham')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Tên sản phẩm</label>
+                               class="form-control-label">Tên nguyên vật liệu</label>
                         <input type="text" class="form-control" formControlName="tenSanPham"
                                (blur)="trimSpace('tenSanPham')"
                                [readOnly]="type == 'detail'"
                                maxlength="200">
                         <jhi-error-messages *ngIf="formControl['tenSanPham'].hasError('required')"
                                             [displayError]="isFieldValid('tenSanPham')"
-                                            errorMsg="Tên sản phẩm không được để trống">
+                                            errorMsg="Tên nguyên vật liệu không được để trống">
                         </jhi-error-messages>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group dropdown form-custom-select"
-                         [ngClass]="{'has-error': isFieldValid('idDanhMuc')}">
-                        <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
-                               class="form-control-label">Loại sản phẩm</label>
-                        <ng-select [items]="listTypeProduct"
-                                   placeholder="Chọn loại sản phẩm"
-                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                   searchable="false"
-                                   [readonly]="type === 'detail'"
-                                   bindLabel="tenDanhMuc" bindValue="id" formControlName="idDanhMuc">
-                        </ng-select>
-                        <jhi-error-messages *ngIf="formControl['idDanhMuc'].hasError('required')"
-                                            [displayError]="isFieldValid('idDanhMuc')"
-                                            errorMsg="Loại sản phẩm không được để trống">
-                        </jhi-error-messages>
-                    </div>
-                </div>
                 <div class="col-md-6">
                     <div class="form-group row">
                         <label class="form-control-label">Giá nhập</label>
@@ -72,8 +53,6 @@
                                maxlength="15">
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
                         <label class="form-control-label">Giá bán</label>
@@ -83,6 +62,8 @@
                                maxlength="15">
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
                         <label class="form-control-label">Đơn vị</label>
@@ -92,9 +73,7 @@
                                maxlength="15">
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group row">
                         <label class="form-control-label">Mô tả</label>
                         <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"

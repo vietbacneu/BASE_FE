@@ -78,8 +78,6 @@ export class DuLieuKhoHangComponent implements OnInit {
     this.form = this.formBuilder.group({
       maSanPham: [null],
       tenSanPham: [null],
-      idCuaHang: [null],
-      ngayHetHan: [null],
     });
   }
 
@@ -120,8 +118,6 @@ export class DuLieuKhoHangComponent implements OnInit {
         .exportTonKho({
           tenSanPham: this.form.value.tenSanPham,
           maSanPham: this.form.value.maSanPham,
-          idCuaHang: this.form.value.idCuaHang,
-          ngayHetHan: this.form.value.ngayHetHan
         })
         .subscribe(
             res => {
@@ -192,9 +188,7 @@ export class DuLieuKhoHangComponent implements OnInit {
     this.ThongTinApi
         .searchTonKho({
           tenSanPham: this.form.value.tenSanPham,
-          maSanPham: this.form.value.maSanPham,
-          idCuaHang: this.form.value.idCuaHang,
-          ngayHetHan: this.form.value.ngayHetHan
+          maSanPham: this.form.value.maSanPham
         })
         .subscribe(
             res => {

@@ -220,7 +220,7 @@ export class ThongTinChungApiService {
 
     searchChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/cuaHangs/search', data, {
+        return this.http.post(this.resourceUrl + '/api/thucDons/search', data, {
             params: option,
             observe: "response"
         });
@@ -244,7 +244,7 @@ export class ThongTinChungApiService {
 
     createChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.post(this.resourceUrl + '/api/cuaHangs', data, {
+        return this.http.post(this.resourceUrl + '/api/thucDons', data, {
             params: option,
             observe: "response"
         });
@@ -252,7 +252,7 @@ export class ThongTinChungApiService {
 
     updateChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.put(this.resourceUrl + '/api/cuaHangs/update', data, {
+        return this.http.put(this.resourceUrl + '/api/thucDons/update', data, {
             params: option,
             observe: "response"
         });
@@ -260,7 +260,7 @@ export class ThongTinChungApiService {
 
     deleteChiNhanh(data?: any): Observable<any> {
         const option = createRequestOption(data);
-        return this.http.delete(this.resourceUrl + `/api/cuaHangs/${data.id}`, {
+        return this.http.delete(this.resourceUrl + `/api/thucDons/${data.id}`, {
             params: option,
             observe: "response"
         });

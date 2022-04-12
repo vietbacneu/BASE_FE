@@ -29,23 +29,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group row dropdown form-custom-select">
-                                    <label class="col-sm-3 custom-label-right">Tên cửa hàng</label>
-                                    <div class="col-sm-8 form-custom-select">
-                                        <ng-select [items]="listCuaHang"
-                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
-                                                   searchable="false"
-                                                   bindLabel="tenCuaHang" bindValue="id" formControlName="idCuaHang">
-                                            <ng-template ng-option-tmp let-item="item">
-                                                {{formatPreShow(item.tenCuaHang)}} <br/>
-                                            </ng-template>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="button" class="btn btn-danger" (click)="onSearchData()">
@@ -80,8 +63,6 @@
                                     </th>
                                     <th class="medium-width-table"><span>Tên nhà cung cấp</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên cửa hàng</span>
-                                    </th>
                                     <th class="medium-width-table"><span>Phương thức thanh toán</span>
                                     </th>
                                     <th class="medium-width-table"><span>Ngày nhập</span>
@@ -115,7 +96,6 @@
                                     </td>
                                     <td>{{item.maNhapHang}}</td>
                                     <td>{{item.tenNhaCungCap}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
                                     <td>{{item.tenPhuongThuc}}</td>
                                     <td style="text-align: center">{{item.ngayNhap}}</td>
                                 </tr>

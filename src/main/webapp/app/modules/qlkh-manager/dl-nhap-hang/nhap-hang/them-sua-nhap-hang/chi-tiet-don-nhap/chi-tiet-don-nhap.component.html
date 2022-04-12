@@ -1,9 +1,9 @@
 <div style="display: block;">
     <div class="custom-modal-large" jhiModalDrag [handle]="handle">
         <div class="modal-header" #handle>
-            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới chi tiết hóa đơn nhập</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">chi tiết hóa đơn nhập</h5>
-            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật chi tiết hóa đơn nhập</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'add'">Thêm mới chi tiết nhập nguyên vật liệu</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'detail'">Chi tiết nhập nguyên vật liệu</h5>
+            <h5 class="modal-title mt-0" *ngIf="type === 'update'">Cập nhật chi tiết nhập nguyên vật liệu</h5>
             <button type="button" class="close" aria-label="Close" (click)="onCancel()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -70,20 +70,6 @@
                     <input type="text" class="form-control" formControlName="tongTien"
                            (blur)="trimSpace('tongTien')"
                            [readOnly]="true">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">Ngày hết hạn</label>
-                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngayHetHan">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">Ngày sản xuất</label>
-                        <input type="date" class="form-control" placeholder="dd-mm-yyyy" formControlName="ngaySanXuat">
-                    </div>
                 </div>
             </div>
         </div>

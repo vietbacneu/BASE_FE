@@ -67,7 +67,7 @@ export class ChiTietDonXuatComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm()
-        this.loadSanPham(this.idCuaHang)
+        this.loadSanPham()
     }
 
 
@@ -76,8 +76,6 @@ export class ChiTietDonXuatComponent implements OnInit {
             idSanPham: [null, Validators.required],
             soLuong: [null, Validators.required],
             gia: [null, Validators.required],
-            ngaySanXuat: [''],
-            ngayHetHan: [''],
             tongTien: [0],
         });
         if (this.selectedData) {
