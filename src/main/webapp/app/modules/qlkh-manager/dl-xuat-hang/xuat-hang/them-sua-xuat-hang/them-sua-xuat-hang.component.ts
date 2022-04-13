@@ -248,7 +248,7 @@ export class ThemSuaXuatHangComponent implements OnInit {
     if (this.type === "update") {
       if (this.selectedData !== undefined) data.id = this.selectedData.id;
       this.nhapXuatApiService
-          .createXuatHang(data).subscribe(
+          .updateXuatHang(data).subscribe(
           res => {
             this.spinner.hide();
             this.toastService.openSuccessToast(

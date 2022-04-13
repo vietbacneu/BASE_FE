@@ -46,7 +46,47 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 custom-label-right ">Từ ngày </label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy"
+                                               formControlName="tuNgay">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 custom-label-right ">Đến ngày</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy"
+                                               formControlName="denNgay">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 custom-label-right ">Trạng thái</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <ng-select [items]="listTrangThai"
+                                                   placeholder="{{this.translateService.instant('common.select.option.all')}}"
+                                                   clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
+                                                   notFoundText="{{'common.select.notFoundText' | translate}}"
+                                                   searchable="false"
+                                                   bindLabel="name" bindValue="value" formControlName="trangThai">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                {{formatPreShow(item.name)}} <br/>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
                             <button type="button" class="btn btn-danger" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
                             </button>
@@ -76,28 +116,22 @@
                                     </th>
                                     <th class="medium-width-table"><span>Tên Khách Hàng</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên Cửa Hàng</span>
-                                    </th>
                                     <th class="medium-width-table"><span>Phương Thức Thanh Toán</span>
                                     </th>
                                     <th class="medium-width-table"><span>Tổng Tiền</span>
                                     </th>
                                     <th class="medium-width-table"><span>Ngày Bán</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Người Bán</span>
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody *ngFor="let item of listData; index as i">
                                 <tr>
                                     <td class="text-center">{{i + 1}}</td>
-                                    <td>{{item.maXuatHang}}</td>
-                                    <td>{{item.tenKhachHang}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
+                                    <td>{{item.maBanHang}}</td>
+                                    <td>{{item.khachHangTen}}</td>
                                     <td style="text-align: right">{{item.tenPhuongThuc }}</td>
-                                    <td style="text-align: right">{{item.totalDT | number}}</td>
-                                    <td style="text-align: right">{{item.ngayXuat}}</td>
-                                    <td style="text-align: right">{{item.nguoiTao}}</td>
+                                    <td style="text-align: right">{{item.soTien | number}}</td>
+                                    <td style="text-align: right">{{item.ngayBan}}</td>
                                 </tr>
                                 </tbody>
                             </table>

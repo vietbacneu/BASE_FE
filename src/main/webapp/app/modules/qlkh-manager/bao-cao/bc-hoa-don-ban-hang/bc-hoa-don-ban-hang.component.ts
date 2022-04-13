@@ -39,6 +39,7 @@ export class BcHoaDonBanHangComponent implements OnInit {
   listData: any;
   listNhaCungCap: any;
   listCuaHang: any;
+  listTrangThai: any = [];
 
   constructor(
       public translateService: TranslateService,
@@ -70,13 +71,16 @@ export class BcHoaDonBanHangComponent implements OnInit {
     this.onResize();
     this.buidForm();
     this.loadAllCuaHang();
+    this.listTrangThai = [{"value":"chuathanhtoan", "name": "Chưa thanh toán"},{"value":"dathanhtoan", "name": "Đã thanh toán"}]
   }
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      maSanPham: [null],
-      tenSanPham: [null],
+      maBanHang: [null],
       idCuaHang: [null],
+      trangThai: [null],
+      denNgay: [null],
+      tuNgay: [null],
     });
   }
 
@@ -154,9 +158,12 @@ export class BcHoaDonBanHangComponent implements OnInit {
   onExport() {
     this.spinner.show();
     this.ThongTinApi
-        .exportHoaBanBanHang({
+        .exportBanHang({
           maXuatHang: this.form.value.maSanPham,
           idKhachHang: this.form.value.idCuaHang,
+          trangThai: this.form.value.trangThai,
+          startDate: this.form.value.tuNgay,
+          endDate: this.form.value.denNgay,
         })
         .subscribe(
             res => {
@@ -184,14 +191,17 @@ export class BcHoaDonBanHangComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.ThongTinApi
-        .searchXuatMax({
+        .searchBanHang({
           maXuatHang: this.form.value.maSanPham,
           idKhachHang: this.form.value.idCuaHang,
+          trangThai: this.form.value.trangThai,
+          startDate: this.form.value.tuNgay,
+          endDate: this.form.value.denNgay,
         })
         .subscribe(
             res => {
               this.spinner.hide();
-              this.paginateListData(res.body);
+              this.paginateListData(res.body.content);
             },
             err => {
               this.spinner.hide();

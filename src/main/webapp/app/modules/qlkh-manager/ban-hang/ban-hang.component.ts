@@ -41,6 +41,7 @@ export class BanHangComponent implements OnInit {
   listData: any;
   listNhaCungCap: any;
   listCuaHang: any;
+  listTrangThai: any = [];
 
   constructor(
       public translateService: TranslateService,
@@ -74,12 +75,16 @@ export class BanHangComponent implements OnInit {
   ngOnInit(): void {
     this.onResize();
     this.buidForm();
+    this.listTrangThai = [{"value":"chuathanhtoan", "name": "Chưa thanh toán"},{"value":"dathanhtoan", "name": "Đã thanh toán"}]
   }
 
   private buidForm() {
     this.form = this.formBuilder.group({
       maXuatHang: [null],
-      tenKhachHang: [null],
+      khachHangTen: [null],
+      trangThai: [null],
+      denNgay: [null],
+      tuNgay: [null],
     });
   }
 
@@ -167,7 +172,10 @@ export class BanHangComponent implements OnInit {
     this.thongTinChungApiService
         .searchBanHang({
           maNhapHang: this.form.value.maXuatHang,
-          tenKhachHang: this.form.value.tenKhachHang
+          khachHangTen: this.form.value.khachHangTen,
+          trangThai: this.form.value.trangThai,
+          startDate: this.form.value.tuNgay,
+          endDate: this.form.value.denNgay,
         })
         .subscribe(
             res => {
@@ -219,7 +227,7 @@ export class BanHangComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.nhapXuatApiService.deleteNhapHang({id: id}).subscribe(
+    this.nhapXuatApiService.deleteBanHang({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);

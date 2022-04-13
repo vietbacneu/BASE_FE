@@ -87,7 +87,7 @@ export class ThemSuaBanHangComponent implements OnInit {
 
   private buidForm() {
     this.form = this.formBuilder.group({
-      maNhapHang: [null, Validators.required],
+      maBanHang: [null, Validators.required],
       idKhachHang: [null, Validators.required],
       ngayBan: [null, Validators.required],
       idPhuongThuc: [null, Validators.required],
@@ -218,7 +218,7 @@ export class ThemSuaBanHangComponent implements OnInit {
     this.spinner.show();
     const data = {
       id: null,
-      maNhapHang: this.form.value.maNhapHang,
+      maBanHang: this.form.value.maBanHang,
       ghiChu: this.form.value.ghiChu,
       idKhachHang: this.form.value.idKhachHang,
       ngayBan: this.form.value.ngayBan,
@@ -250,7 +250,7 @@ export class ThemSuaBanHangComponent implements OnInit {
     if (this.type === "update") {
       if (this.selectedData !== undefined) data.id = this.selectedData.id;
       this.nhapXuatApiService
-          .createNhapHang(data).subscribe(
+          .updateBanHang(data).subscribe(
           res => {
             this.spinner.hide();
             this.toastService.openSuccessToast(

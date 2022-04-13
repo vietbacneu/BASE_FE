@@ -122,6 +122,13 @@ export class ThongTinChungApiService {
             observe: "response"
         });
     }
+    exportBanHang(data?: any): Observable<any> {
+        const option = createRequestOption(data);
+        return this.http.post(this.resourceUrl + '/api/banHangs/export', data, {
+            params: option,
+            observe: "response"
+        });
+    }
 
     searchXuatHang(data?: any): Observable<any> {
         const option = createRequestOption(data);

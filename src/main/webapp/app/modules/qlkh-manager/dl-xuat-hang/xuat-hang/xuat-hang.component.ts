@@ -183,6 +183,7 @@ export class XuatHangComponent implements OnInit {
     this.spinner.show();
     this.thongTinChungApiService
         .searchXuatHang({
+          isCount: 1,
           maXuatHang: this.form.value.maXuatHang,
           idCuaHang: this.form.value.idCuaHang ,
         })

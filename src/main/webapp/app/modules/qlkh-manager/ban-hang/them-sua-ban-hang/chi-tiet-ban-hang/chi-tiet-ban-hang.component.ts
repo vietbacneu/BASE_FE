@@ -125,7 +125,7 @@ export class ChiTietBanHangComponent implements OnInit {
     const sanPham = this.listSanPham.find((x: any) => x.id === this.form.value.idThucDon)
     const data = {
       id: null,
-      tenSanPham: sanPham.tenSanPham,
+      tenThucDon: sanPham.tenThucDon,
       idThucDon: this.form.value.idThucDon,
       soLuong: this.form.value.soLuong,
       gia: this.form.value.gia,

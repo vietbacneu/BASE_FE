@@ -164,6 +164,7 @@ export class NhapHangComponent implements OnInit {
         this.spinner.show();
         this.thongTinChungApiService
             .searchNhapHang({
+                isCount: 1,
                 maNhapHang: this.form.value.maXuatHang
             })
             .subscribe(
@@ -252,6 +253,7 @@ export class NhapHangComponent implements OnInit {
             );
         }
     }
+
     openModalPrint(type?: string, selectedData?: any) {
         const modalRef = this.modalService.open(InNhapHangComponent, {
             size: "lg",

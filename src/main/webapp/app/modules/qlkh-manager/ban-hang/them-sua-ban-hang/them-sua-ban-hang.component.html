@@ -15,14 +15,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row"
-                         [ngClass]="{'has-error': isFieldValid('maNhapHang')}">
+                         [ngClass]="{'has-error': isFieldValid('maBanHang')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"
                                class="col-sm-3 custom-label-right required">Mã đơn hàng</label>
                         <div class="col-sm-8 form-custom-select">
-                            <input type="text" class="form-control" formControlName="maNhapHang"
-                                   maxlength="200" (blur)="trimSpace('maNhapHang')">
-                            <jhi-error-messages *ngIf="formControl['maNhapHang'].hasError('required')"
-                                                [displayError]="isFieldValid('maNhapHang')"
+                            <input type="text" class="form-control" formControlName="maBanHang"
+                                   maxlength="200" (blur)="trimSpace('maBanHang')">
+                            <jhi-error-messages *ngIf="formControl['maBanHang'].hasError('required')"
+                                                [displayError]="isFieldValid('maBanHang')"
                                                 errorMsg="Mã đơn hàng không được để trống">
                             </jhi-error-messages>
                         </div>
@@ -40,7 +40,7 @@
                                        searchable="false"
                                        bindLabel="tenKhachHang" bindValue="id" formControlName="idKhachHang">
                                 <ng-template ng-option-tmp let-item="item">
-                                    {{formatPreShow(item.tenNhaCungCap)}} <br/>
+                                    {{formatPreShow(item.tenKhachHang)}} <br/>
                                 </ng-template>
                             </ng-select>
                             <jhi-error-messages *ngIf="formControl['idKhachHang'].hasError('required')"
@@ -153,7 +153,7 @@
                             <tbody *ngFor="let item of listDonNhap; index as i">
                             <tr>
                                 <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
-                                <td>{{item.tenSanPham}}</td>
+                                <td>{{item.tenThucDon}}</td>
                                 <td>{{item.soLuong}}</td>
                                 <td>{{item.gia | number}}</td>
                                 <td>{{item.tongTien | number}}</td>

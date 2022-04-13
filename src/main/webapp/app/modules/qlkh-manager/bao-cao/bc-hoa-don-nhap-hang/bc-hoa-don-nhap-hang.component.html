@@ -6,7 +6,7 @@
             <i class="fa fa-home icon-breadcrumb" aria-hidden="true"></i>
         </button>
     </li>
-    <li class="breadcrumb-item">Báo cáo hóa đơn nhập hàng</li>
+    <li class="breadcrumb-item">Báo cáo chi phí nhập hàng</li>
 </ol>
 <perfect-scrollbar class="ps" [style.max-height.px]="height" (window:resize)="onResize()">
     <div id="organizationCategories" class="page-content">
@@ -46,7 +46,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 custom-label-right ">Từ ngày </label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy"
+                                               formControlName="tuNgay">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-3 custom-label-right ">Đến ngày</label>
+                                    <div class="col-sm-8 form-custom-select">
+                                        <input type="date" class="form-control" placeholder="dd-mm-yyyy"
+                                               formControlName="denNgay">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
                             <button type="button" class="btn btn-danger" (click)="onSearchData()">
                                 <i class="fa fa-search mr-2" aria-hidden="true"></i><span>Tìm kiếm</span>
                             </button>
@@ -74,17 +94,13 @@
                                     </th>
                                     <th class="medium-width-table"><span>Mã Bán Hàng</span>
                                     </th>
-                                    <th class="medium-width-table"><span>Tên Khách Hàng</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Tên Cửa Hàng</span>
+                                    <th class="medium-width-table"><span>Tên nhà cung cấp</span>
                                     </th>
                                     <th class="medium-width-table"><span>Phương Thức Thanh Toán</span>
                                     </th>
                                     <th class="medium-width-table"><span>Tổng Tiền</span>
                                     </th>
                                     <th class="medium-width-table"><span>Ngày Nhập</span>
-                                    </th>
-                                    <th class="medium-width-table"><span>Người Nhập</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -93,11 +109,9 @@
                                     <td class="text-center">{{i + 1}}</td>
                                     <td>{{item.maNhapHang}}</td>
                                     <td>{{item.tenNhaCungCap}}</td>
-                                    <td>{{item.tenCuaHang}}</td>
                                     <td style="text-align: right">{{item.tenPhuongThuc }}</td>
                                     <td style="text-align: right">{{item.totalDT | number}}</td>
                                     <td style="text-align: right">{{item.ngayNhap}}</td>
-                                    <td style="text-align: right">{{item.nguoiTao}}</td>
                                 </tr>
                                 </tbody>
                             </table>

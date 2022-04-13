@@ -77,6 +77,8 @@ export class BcHoaDonNhapHangComponent implements OnInit {
       maSanPham: [null],
       tenSanPham: [null],
       idCuaHang: [null],
+      denNgay: [null],
+      tuNgay: [null],
     });
   }
 
@@ -157,6 +159,8 @@ export class BcHoaDonNhapHangComponent implements OnInit {
         .exportNhapMax({
           maNhapHang: this.form.value.maSanPham,
           idNhaCungCap: this.form.value.idCuaHang,
+          startDate: this.form.value.tuNgay,
+          endDate: this.form.value.denNgay,
         })
         .subscribe(
             res => {
@@ -184,9 +188,11 @@ export class BcHoaDonNhapHangComponent implements OnInit {
   loadAll() {
     this.spinner.show();
     this.ThongTinApi
-        .searchNhapMax({
+        .searchNhapHang({
           maNhapHang: this.form.value.maSanPham,
           idNhaCungCap: this.form.value.idCuaHang,
+          startDate: this.form.value.tuNgay,
+          endDate: this.form.value.denNgay,
         })
         .subscribe(
             res => {
@@ -205,7 +211,7 @@ export class BcHoaDonNhapHangComponent implements OnInit {
 
 
   private paginateListData(data) {
-    this.listData = data;
+    this.listData = data.content;
   }
 
   sort() {

@@ -244,7 +244,7 @@ export class ThemSuaNhapHangComponent implements OnInit {
         if (this.type === "update") {
             if (this.selectedData !== undefined) data.id = this.selectedData.id;
             this.nhapXuatApiService
-                .createNhapHang(data).subscribe(
+                .updateNhapHang(data).subscribe(
                 res => {
                     this.spinner.hide();
                     this.toastService.openSuccessToast(
