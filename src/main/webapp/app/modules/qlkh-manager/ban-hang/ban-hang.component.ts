@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {HeightService} from "app/shared/services/height.service";
@@ -12,273 +12,276 @@ import {ShareDataFromProjectService} from "app/core/services/outsourcing-plan/sh
 import {NhapXuatApiService} from "app/core/services/QLKH-api/nhap-xuat-api.service";
 import {ThongTinChungApiService} from "app/core/services/QLKH-api/thong-tin-chung-api.service";
 import {ITEMS_PER_PAGE, MAX_SIZE_PAGE} from "app/shared/constants/pagination.constants";
-import {ThemSuaNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/them-sua-nhap-hang/them-sua-nhap-hang.component";
 import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm-modal.component";
-import {InNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component";
 import {ThemSuaBanHangComponent} from "app/modules/qlkh-manager/ban-hang/them-sua-ban-hang/them-sua-ban-hang.component";
+import {InBanHangComponent} from "app/modules/qlkh-manager/ban-hang/in-ban-hang/in-ban-hang.component";
 
 @Component({
-  selector: 'jhi-ban-hang',
-  templateUrl: './ban-hang.component.html',
-  styleUrls: ['./ban-hang.component.scss']
+    selector: 'jhi-ban-hang',
+    templateUrl: './ban-hang.component.html',
+    styleUrls: ['./ban-hang.component.scss']
 })
 export class BanHangComponent implements OnInit {
 
 
-  form: FormGroup;
-  height: number;
-  itemsPerPage: any;
-  maxSizePage: any;
-  routeData: any;
-  page: number;
-  totalItems: any;
-  previousPage: any;
-  predicate: any;
-  pageSize = 10;
-  total: number;
-  reverse: any;
-  items = 12;
-  listData: any;
-  listNhaCungCap: any;
-  listCuaHang: any;
-  listTrangThai: any = [];
+    form: FormGroup;
+    height: number;
+    itemsPerPage: any;
+    maxSizePage: any;
+    routeData: any;
+    page: number;
+    totalItems: any;
+    previousPage: any;
+    predicate: any;
+    pageSize = 10;
+    total: number;
+    reverse: any;
+    items = 12;
+    listData: any;
+    listNhaCungCap: any;
+    listCuaHang: any;
+    listTrangThai: any = [];
 
-  constructor(
-      public translateService: TranslateService,
-      private heightService: HeightService,
-      private activatedRoute: ActivatedRoute,
-      private formBuilder: FormBuilder,
-      private spinner: NgxSpinnerService,
-      private eventManager: JhiEventManager,
-      private toastService: ToastService,
-      private modalService: NgbModal,
-      protected router: Router,
-      protected commonService: CommonService,
-      private shareDataFromProjectService: ShareDataFromProjectService,
-      private nhapXuatApiService: NhapXuatApiService,
-      private thongTinChungApiService: ThongTinChungApiService,
-  ) {
-    this.itemsPerPage = ITEMS_PER_PAGE;
-    this.maxSizePage = MAX_SIZE_PAGE;
-    this.routeData = this.activatedRoute.data.subscribe(data => {
-      if (data && data.pagingParams) {
-        this.page = data.pagingParams.page;
-        this.previousPage = data.pagingParams.page;
-        this.reverse = data.pagingParams.ascending;
-        this.predicate = data.pagingParams.predicate;
-      } else {
-        this.page = 1;
-      }
-    });
-  }
-
-  ngOnInit(): void {
-    this.onResize();
-    this.buidForm();
-    this.listTrangThai = [{"value":"chuathanhtoan", "name": "Chưa thanh toán"},{"value":"dathanhtoan", "name": "Đã thanh toán"}]
-  }
-
-  private buidForm() {
-    this.form = this.formBuilder.group({
-      maXuatHang: [null],
-      khachHangTen: [null],
-      trangThai: [null],
-      denNgay: [null],
-      tuNgay: [null],
-    });
-  }
-
-  onResize() {
-    this.height = this.heightService.onResizeWithoutFooter();
-  }
-
-  setValueToField(item, data) {
-    this.form.get(item).setValue(data);
-  }
-
-  getValueOfField(item) {
-    return this.form.get(item).value;
-  }
-
-  loadAllCuaHang() {
-    this.thongTinChungApiService
-        .searchChiNhanh({})
-        .subscribe(
-            res => {
-              this.listCuaHang = res.body.content
-            },
-            err => {
-              this.spinner.hide();
-              this.toastService.openErrorToast(
-                  this.translateService.instant("common.toastr.messages.error.load")
-              );
+    constructor(
+        public translateService: TranslateService,
+        private heightService: HeightService,
+        private activatedRoute: ActivatedRoute,
+        private formBuilder: FormBuilder,
+        private spinner: NgxSpinnerService,
+        private eventManager: JhiEventManager,
+        private toastService: ToastService,
+        private modalService: NgbModal,
+        protected router: Router,
+        protected commonService: CommonService,
+        private shareDataFromProjectService: ShareDataFromProjectService,
+        private nhapXuatApiService: NhapXuatApiService,
+        private thongTinChungApiService: ThongTinChungApiService,
+    ) {
+        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.maxSizePage = MAX_SIZE_PAGE;
+        this.routeData = this.activatedRoute.data.subscribe(data => {
+            if (data && data.pagingParams) {
+                this.page = data.pagingParams.page;
+                this.previousPage = data.pagingParams.page;
+                this.reverse = data.pagingParams.ascending;
+                this.predicate = data.pagingParams.predicate;
+            } else {
+                this.page = 1;
             }
-        );
-  }
-
-  trimSpace(element) {
-    const value = this.getValueOfField(element);
-    if (value) {
-      this.setValueToField(element, value.trim());
+        });
     }
-  }
 
-  loadPage(page: number) {
-    if (page !== this.previousPage) {
-      this.previousPage = page;
-      this.loadAll()
+    ngOnInit(): void {
+        this.onResize();
+        this.buidForm();
+        this.listTrangThai = [{"value": "chuathanhtoan", "name": "Chưa thanh toán"}, {
+            "value": "dathanhtoan",
+            "name": "Đã thanh toán"
+        }]
     }
-  }
 
-  changePageSize(size) {
-    this.itemsPerPage = size;
-    this.loadAll();
-  }
-
-  openModal(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(ThemSuaBanHangComponent, {
-      size: "lg",
-      backdrop: "static",
-      keyboard: false,
-      windowClass: "custom-modal"
-    });
-    modalRef.componentInstance.type = type;
-    modalRef.componentInstance.selectedData = selectedData;
-    modalRef.componentInstance.response.subscribe(value => {
-      if (value === true) {
-        this.loadAll();
-      }
-    });
-    modalRef.result.then(result => {
-    }).catch(() => {
-    });
-  }
-
-  onSearchData() {
-    this.loadAll()
-    // this.loadDepartment();
-  }
-
-  isFieldValid(field: string) {
-    return !this.form.get(field).valid && this.form.get(field).touched;
-  }
-
-  get formControl() {
-    return this.form.controls;
-  }
-
-  loadAll() {
-    this.spinner.show();
-    this.thongTinChungApiService
-        .searchBanHang({
-          maNhapHang: this.form.value.maXuatHang,
-          khachHangTen: this.form.value.khachHangTen,
-          trangThai: this.form.value.trangThai,
-          startDate: this.form.value.tuNgay,
-          endDate: this.form.value.denNgay,
-        })
-        .subscribe(
-            res => {
-              this.spinner.hide();
-              this.paginateListData(res.body);
-            },
-            err => {
-              this.spinner.hide();
-              this.toastService.openErrorToast(
-                  this.translateService.instant("common.toastr.messages.error.load")
-              );
-            }
-        );
-  }
-
-
-  private paginateListData(data) {
-    this.totalItems = data.totalElements;
-    this.listData = data.content;
-    this.maxSizePage = data.totalPages;
-  }
-
-  sort() {
-    const result = [this.predicate + "," + (this.reverse ? "desc" : "asc")];
-    if (this.predicate !== "modifiedDate") {
-      result.push("modifiedDate");
+    private buidForm() {
+        this.form = this.formBuilder.group({
+            maXuatHang: [null],
+            khachHangTen: [null],
+            trangThai: [null],
+            denNgay: [null],
+            tuNgay: [null],
+        });
     }
-    return result;
-  }
 
-  formatPreShow(content: string) {
-    if (content.length > 60) return content.substring(0, 60) + "...";
-    else return content;
-  }
+    onResize() {
+        this.height = this.heightService.onResizeWithoutFooter();
+    }
 
-  onDelete(id: any) {
-    const modalRef = this.modalService.open(ConfirmModalComponent, {
-      centered: true,
-      backdrop: "static"
-    });
-    modalRef.componentInstance.type = "delete";
-    modalRef.componentInstance.param = "bản ghi";
-    modalRef.componentInstance.onCloseModal.subscribe(value => {
-      if (value === true) {
-        this.onSubmitDelete(id);
-      }
-    });
-  }
+    setValueToField(item, data) {
+        this.form.get(item).setValue(data);
+    }
 
-  onSubmitDelete(id: any = []) {
-    this.spinner.show();
-    this.nhapXuatApiService.deleteBanHang({id: id}).subscribe(
-        res => {
-          this.shareDataFromProjectService.getDataFromList(null);
-          this.handleResponseSubmit(res);
-          this.loadAll();
-        },
-        err => {
-          this.spinner.hide()
-          if (err.error) {
-            this.toastService.openErrorToast(
-                err.error.message,
+    getValueOfField(item) {
+        return this.form.get(item).value;
+    }
+
+    loadAllCuaHang() {
+        this.thongTinChungApiService
+            .searchChiNhanh({})
+            .subscribe(
+                res => {
+                    this.listCuaHang = res.body.content
+                },
+                err => {
+                    this.spinner.hide();
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
             );
-          } else {
-            this.toastService.openErrorToast(
-                this.translateService.instant("common.toastr.messages.error.load")
-            );
-          }
+    }
+
+    trimSpace(element) {
+        const value = this.getValueOfField(element);
+        if (value) {
+            this.setValueToField(element, value.trim());
         }
-    );
-  }
-
-  handleResponseSubmit(res) {
-    this.spinner.hide();
-    if (res) {
-      this.toastService.openSuccessToast(
-          "Xóa thành công"
-      );
-      this.eventManager.broadcast({
-        name: "outSourcingChange"
-      });
-    } else {
-      this.toastService.openErrorToast(
-          this.translateService.instant("managementDepartmentUser.error.delete")
-      );
     }
-  }
-  openModalPrint(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(InNhapHangComponent, {
-      size: "lg",
-      backdrop: "static",
-      keyboard: false,
-      windowClass: "custom-modal"
-    });
-    modalRef.componentInstance.type = type;
-    modalRef.componentInstance.selectedData = selectedData;
-    modalRef.componentInstance.response.subscribe(value => {
-      if (value === true) {
+
+    loadPage(page: number) {
+        if (page !== this.previousPage) {
+            this.previousPage = page;
+            this.loadAll()
+        }
+    }
+
+    changePageSize(size) {
+        this.itemsPerPage = size;
         this.loadAll();
-      }
-    });
-    modalRef.result.then(result => {
-    }).catch(() => {
-    });
-  }
+    }
+
+    openModal(type?: string, selectedData?: any) {
+        const modalRef = this.modalService.open(ThemSuaBanHangComponent, {
+            size: "lg",
+            backdrop: "static",
+            keyboard: false,
+            windowClass: "custom-modal"
+        });
+        modalRef.componentInstance.type = type;
+        modalRef.componentInstance.selectedData = selectedData;
+        modalRef.componentInstance.response.subscribe(value => {
+            if (value === true) {
+                this.loadAll();
+            }
+        });
+        modalRef.result.then(result => {
+        }).catch(() => {
+        });
+    }
+
+    onSearchData() {
+        this.loadAll()
+        // this.loadDepartment();
+    }
+
+    isFieldValid(field: string) {
+        return !this.form.get(field).valid && this.form.get(field).touched;
+    }
+
+    get formControl() {
+        return this.form.controls;
+    }
+
+    loadAll() {
+        this.spinner.show();
+        this.thongTinChungApiService
+            .searchBanHang({
+                maNhapHang: this.form.value.maXuatHang,
+                khachHangTen: this.form.value.khachHangTen,
+                trangThai: this.form.value.trangThai,
+                startDate: this.form.value.tuNgay,
+                endDate: this.form.value.denNgay,
+            })
+            .subscribe(
+                res => {
+                    this.spinner.hide();
+                    this.paginateListData(res.body);
+                },
+                err => {
+                    this.spinner.hide();
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
+            );
+    }
+
+
+    private paginateListData(data) {
+        this.totalItems = data.totalElements;
+        this.listData = data.content;
+        this.maxSizePage = data.totalPages;
+    }
+
+    sort() {
+        const result = [this.predicate + "," + (this.reverse ? "desc" : "asc")];
+        if (this.predicate !== "modifiedDate") {
+            result.push("modifiedDate");
+        }
+        return result;
+    }
+
+    formatPreShow(content: string) {
+        if (content.length > 60) return content.substring(0, 60) + "...";
+        else return content;
+    }
+
+    onDelete(id: any) {
+        const modalRef = this.modalService.open(ConfirmModalComponent, {
+            centered: true,
+            backdrop: "static"
+        });
+        modalRef.componentInstance.type = "delete";
+        modalRef.componentInstance.param = "bản ghi";
+        modalRef.componentInstance.onCloseModal.subscribe(value => {
+            if (value === true) {
+                this.onSubmitDelete(id);
+            }
+        });
+    }
+
+    onSubmitDelete(id: any = []) {
+        this.spinner.show();
+        this.nhapXuatApiService.deleteBanHang({id: id}).subscribe(
+            res => {
+                this.shareDataFromProjectService.getDataFromList(null);
+                this.handleResponseSubmit(res);
+                this.loadAll();
+            },
+            err => {
+                this.spinner.hide()
+                if (err.error) {
+                    this.toastService.openErrorToast(
+                        err.error.message,
+                    );
+                } else {
+                    this.toastService.openErrorToast(
+                        this.translateService.instant("common.toastr.messages.error.load")
+                    );
+                }
+            }
+        );
+    }
+
+    handleResponseSubmit(res) {
+        this.spinner.hide();
+        if (res) {
+            this.toastService.openSuccessToast(
+                "Xóa thành công"
+            );
+            this.eventManager.broadcast({
+                name: "outSourcingChange"
+            });
+        } else {
+            this.toastService.openErrorToast(
+                this.translateService.instant("managementDepartmentUser.error.delete")
+            );
+        }
+    }
+
+    openModalPrint(type?: string, selectedData?: any) {
+        const modalRef = this.modalService.open(InBanHangComponent, {
+            size: "lg",
+            backdrop: "static",
+            keyboard: false,
+            windowClass: "custom-modal"
+        });
+        modalRef.componentInstance.type = type;
+        modalRef.componentInstance.selectedData = selectedData;
+        modalRef.componentInstance.response.subscribe(value => {
+            if (value === true) {
+                this.loadAll();
+            }
+        });
+        modalRef.result.then(result => {
+        }).catch(() => {
+        });
+    }
 }

@@ -195,7 +195,7 @@ export class InNhapHangComponent implements OnInit {
 
     loadKhachHang() {
         this.thongTinChungApiService
-            .searchKhachHang({})
+            .searchNCC({})
             .subscribe(
                 res => {
                     this.listKhachHang = res.body.content
