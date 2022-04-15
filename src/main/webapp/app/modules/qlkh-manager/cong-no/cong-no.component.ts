@@ -17,6 +17,7 @@ import {ConfirmModalComponent} from "app/shared/components/confirm-modal/confirm
 import {SERVER_API} from "app/shared/constants/api-resource.constants";
 import {InNhapHangComponent} from "app/modules/qlkh-manager/dl-nhap-hang/nhap-hang/in-nhap-hang/in-nhap-hang.component";
 import {ThemSuaCongNoComponent} from "app/modules/qlkh-manager/cong-no/them-sua-cong-no/them-sua-cong-no.component";
+import {InCongNoComponent} from "app/modules/qlkh-manager/cong-no/in-cong-no/in-cong-no.component";
 
 @Component({
   selector: 'jhi-cong-no',
@@ -262,7 +263,7 @@ export class CongNoComponent implements OnInit {
   }
 
   openModalPrint(type?: string, selectedData?: any) {
-    const modalRef = this.modalService.open(InNhapHangComponent, {
+    const modalRef = this.modalService.open(InCongNoComponent, {
       size: "lg",
       backdrop: "static",
       keyboard: false,

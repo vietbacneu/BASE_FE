@@ -33,6 +33,7 @@ import { BcHoaDonNhapHangComponent } from './bao-cao/bc-hoa-don-nhap-hang/bc-hoa
 import { CongNoComponent } from './cong-no/cong-no.component';
 import { ThemSuaCongNoComponent } from './cong-no/them-sua-cong-no/them-sua-cong-no.component';
 import { ChiTietCongNoComponent } from './cong-no/chi-tiet-cong-no/chi-tiet-cong-no.component';
+import { InCongNoComponent } from './cong-no/in-cong-no/in-cong-no.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { ChiTietCongNoComponent } from './cong-no/chi-tiet-cong-no/chi-tiet-cong
         CongNoComponent,
         ThemSuaCongNoComponent,
         ChiTietCongNoComponent,
+        InCongNoComponent,
     ],
     imports: [
         CommonModule,
@@ -74,6 +76,7 @@ import { ChiTietCongNoComponent } from './cong-no/chi-tiet-cong-no/chi-tiet-cong
         QlkhManagerRoutingModule
     ],
     entryComponents: [
+        InCongNoComponent,
         ThemSuaLoaiHangComponent,
         ThemSuaSanPhamComponent,
         ThemSuaNhaCungCapComponent,

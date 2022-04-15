@@ -1,0 +1,99 @@
+<div style="display: block;" id="all">
+    <div class="custom-modal-big" jhiModalDrag [handle]="handle">
+        <div class="modal-header" #handle>
+            <label class="modal-title mt-0" *ngIf="type === 'add'">Thông tin công nợ</label>
+            <label class="modal-title mt-0" *ngIf="type === 'detail'">Thông tin công nợ</label>
+            <label class="modal-title mt-0" *ngIf="type === 'update'">Thông tin công nợ</label>
+            <button type="button" class="close" aria-label="Close" (click)="onCancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body" id="print">
+        <form [formGroup]="form" *ngIf="form" novalidate autocomplete="off" class="form-80-center">
+            <div class="row">
+                <h3 class="col-sm-12 text-center" style="font-weight: bold">THÔNG TIN CÔNG NỢ</h3>
+            </div>
+
+            <div class="row" style="margin-top: 2%">
+                <div class="col-md-6">
+                    <div class="form-group row dropdown form-custom-select">
+                        <label class="col-sm-4 required" style="font-weight: bold">Mã công nợ</label>
+                        <div class="col-sm-7">
+                            <label style="font-weight: bold">{{selectedData.maCongNo}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4" style="font-weight: bold">Hợp đồng</label>
+                        <label class="col-sm-7" style="font-weight: bold">{{selectedData.maHopDong}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 " style="font-weight: bold">Loại hợp đồng</label>
+                        <label class="col-sm-7 " style="font-weight: bold">{{selectedData.loaiHopDongName}}</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-4" style="font-weight: bold">Trạng thái</label>
+                        <label class="col-sm-7" style="font-weight: bold">{{selectedData.trangThaiName}}</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="dataTable" class="collapse show">
+            <div class="card-body pt-2 pb-0 px-2">
+                <div class="row" style="margin-top: 3%">
+                    <perfect-scrollbar id="scrollbarTable" class="ps">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="text-center" jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                <th class="small-width-table" jhiTranslate="userGroup.orderNumber">STT
+                                </th>
+                                <th class="medium-width-table"><span>Ngày thanh toán</span>
+                                </th>
+                                <th class="medium-width-table"><span>Số tiền</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let item of listDonNhap; index as i">
+                            <tr>
+                                <td class="text-center">{{itemsPerPage * (page - 1) + i + 1}}</td>
+                                <td class="text-center">{{item.ngayThanhToan}}</td>
+                                <td class="text-center">{{item.soTienThanhToan | number}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="col-sm-12" style="font-weight: bold !important;">Tổng tiền: {{sum | number}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="margin-bottom: 2%;margin-top: 2%;">
+        <button type="submit" class="btn btn-danger"
+                (click)="onSubmit('print', 'all')">
+            <i class="fa fa-print mr-2" aria-hidden="true"></i><span>In Hóa đơn</span>
+        </button>
+        <button type="submit" class="btn btn-light"
+                (click)="onCancel()">
+            <i class="fa fa-times mr-2" aria-hidden="true"></i><span
+                jhiTranslate="{{'common.button.confirm.cancel'}}"></span>
+        </button>
+
+    </div>
+</div>

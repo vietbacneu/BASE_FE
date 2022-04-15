@@ -47,7 +47,7 @@
                 <div class="col-md-12">
                     <div class="form-group dropdown form-custom-select">
                         <label class="form-control-label">Địa chỉ</label>
-                        <textarea *ngIf="type !== 'detail'" class="form-control" type="text" rows="3"
+                        <textarea class="form-control" type="text" rows="3"     [readOnly]="type == 'detail'"
                                   formControlName="diaChi" maxlength="1000" (blur)="trimSpace('diaChi')"></textarea>
                     </div>
                 </div>

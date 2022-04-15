@@ -302,13 +302,13 @@ export class ThemSuaCongNoComponent implements OnInit {
             }
         )
         console.log("temp", tmp)
-        if (tmp < Number.parseInt(data.soTien)) {
-            this.toastService.openErrorToast(
-                "Số tiền công nợ chi tiết không được nhỏ hơn số tiền trong hợp đồng"
-            );
-            this.spinner.hide();
-            return;
-        }
+        // if (tmp < Number.parseInt(data.soTien)) {
+        //     this.toastService.openErrorToast(
+        //         "Số tiền công nợ chi tiết không được nhỏ hơn số tiền trong hợp đồng"
+        //     );
+        //     this.spinner.hide();
+        //     return;
+        // }
         if (this.type === "add") {
             console.log(data)
             this.nhapXuatApiService
