@@ -106,7 +106,7 @@ export class ThemSuaCongNoComponent implements OnInit {
             maCongNo: [null, Validators.required],
             idHopDong: [null, Validators.required],
             soTien: [null, Validators.required],
-            trangThaiThanhToan: [null, Validators.required],
+            trangThaiThanhToan: [null],
             idNhanVien: [null, Validators.required],
             loaiHopDong: [null, Validators.required],
         });
@@ -290,7 +290,6 @@ export class ThemSuaCongNoComponent implements OnInit {
             maCongNo: this.form.value.maCongNo,
             idHopDong: this.form.value.idHopDong,
             soTien: this.form.value.soTien,
-            trangThaiThanhToan: this.form.value.trangThaiThanhToan,
             loaiHopDong: this.form.value.loaiHopDong,
             congNoChiTietDTOS: this.congNoChiTietDTOS,
             idNhanVien: this.form.value.idNhanVien,

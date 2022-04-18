@@ -76,30 +76,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group"
-                         [ngClass]="{'has-error': isFieldValid('trangThaiThanhToan')}">
-                        <label class="col-sm-3 custom-label-right required">Trạng thái thanh toán</label>
-                        <div class="col-sm-8 form-custom-select">
-                            <ng-select [items]="listStatus"
-                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"
-                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
-                                       notFoundText="{{'common.select.notFoundText' | translate}}"
-                                       searchable="false"
-                                       bindLabel="name" bindValue="value" formControlName="trangThaiThanhToan">
-                                <ng-template ng-option-tmp let-item="item">
-                                    {{formatPreShow(item.name)}} <br/>
-                                </ng-template>
-                            </ng-select>
-                            <jhi-error-messages *ngIf="formControl['trangThaiThanhToan'].hasError('required')"
-                                                [displayError]="isFieldValid('trangThaiThanhToan')"
-                                                errorMsg="Phương thức thanh toán không được để trống">
-                            </jhi-error-messages>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+<!--                <div class="col-md-6">-->
+<!--                    <div class="form-group"-->
+<!--                         [ngClass]="{'has-error': isFieldValid('trangThaiThanhToan')}">-->
+<!--                        <label class="col-sm-3 custom-label-right required">Trạng thái thanh toán</label>-->
+<!--                        <div class="col-sm-8 form-custom-select">-->
+<!--                            <ng-select [items]="listStatus"-->
+<!--                                       placeholder="{{this.translateService.instant('common.select.option.all')}}"-->
+<!--                                       clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"-->
+<!--                                       notFoundText="{{'common.select.notFoundText' | translate}}"-->
+<!--                                       searchable="false"-->
+<!--                                       bindLabel="name" bindValue="value" formControlName="trangThaiThanhToan">-->
+<!--                                <ng-template ng-option-tmp let-item="item">-->
+<!--                                    {{formatPreShow(item.name)}} <br/>-->
+<!--                                </ng-template>-->
+<!--                            </ng-select>-->
+<!--                            <jhi-error-messages *ngIf="formControl['trangThaiThanhToan'].hasError('required')"-->
+<!--                                                [displayError]="isFieldValid('trangThaiThanhToan')"-->
+<!--                                                errorMsg="Phương thức thanh toán không được để trống">-->
+<!--                            </jhi-error-messages>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="col-md-6">
                     <div class="form-group"
                          [ngClass]="{'has-error': isFieldValid('idNhanVien')}">
@@ -122,6 +120,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group" [ngClass]="{'has-error': isFieldValid('soTien')}">
                         <label [ngClass]="type === 'update' ? 'required' : '' || type === 'add' ? 'required' : ''"

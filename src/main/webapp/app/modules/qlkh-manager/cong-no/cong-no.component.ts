@@ -225,7 +225,7 @@ export class CongNoComponent implements OnInit {
 
   onSubmitDelete(id: any = []) {
     this.spinner.show();
-    this.nhapXuatApiService.deleteNhapHang({id: id}).subscribe(
+    this.nhapXuatApiService.deleteCongNo({id: id}).subscribe(
         res => {
           this.shareDataFromProjectService.getDataFromList(null);
           this.handleResponseSubmit(res);
