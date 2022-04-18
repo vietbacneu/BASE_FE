@@ -22,6 +22,7 @@
                                    clearAllText="{{ 'common.tooltip.action.clearNgSelect' | translate }}"
                                    notFoundText="{{'common.select.notFoundText' | translate}}"
                                    searchable="false"
+                                   (change)="changeThucDon($event)"
                                    [readonly]="type === 'detail'"
                                    bindLabel="tenThucDon" bindValue="id" formControlName="idThucDon">
                         </ng-select>
@@ -57,7 +58,7 @@
                         <input type="text" class="form-control" formControlName="gia"
                                (blur)="trimSpace('gia')"
                                (ngModelChange)="onChange()" (keypress)="numberOnly($event)"
-                               [readOnly]="type == 'detail'"
+                               [readOnly]="true"
                                maxlength="15">
                         <jhi-error-messages *ngIf="formControl['gia'].hasError('required')"
                                             [displayError]="isFieldValid('gia')"

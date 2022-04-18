@@ -78,6 +78,10 @@ export class ThemSuaChiNhanhComponent implements OnInit {
             this.form.patchValue(this.selectedData);
         }
     }
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        return !(charCode > 31 && (charCode < 48 || charCode > 57));
+    }
 
     changePageSize(size) {
         this.itemsPerPage = size;
